@@ -3,10 +3,11 @@ package com.hypergryph.arknights.general;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import java.time.LocalDate;
 
+@RestController
 @RequestMapping("/general/v1")
 public class v1 {
 

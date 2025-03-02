@@ -6,6 +6,7 @@
     <artifactId>hypergryph</artifactId>
     <version>1.9.3</version>
     <name>hypergryph</name>
+    <packaging>jar</packaging>
     <description>Arknights LocalServer</description>
 
     <properties>

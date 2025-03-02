@@ -2,7 +2,8 @@ package com.hypergryph.arknights;
 
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
-
+import com.hypergryph.arknights.core.dao.userDao;
+import com.hypergryph.arknights.core.dao.mailDao;
 import com.hypergryph.arknights.command.CommandManager;
 import com.hypergryph.arknights.command.ICommandSender;
 import com.hypergryph.arknights.core.file.IOTools;
@@ -56,8 +57,8 @@ public class ArKnightsApplication {
     public static JSONObject buildingData;
     public static CommandManager ConsoleCommandManager;
     public static ICommandSender Sender;
-    
-    public ArKnightsApplication(){
+
+    public ArKnightsApplication() {
     }
 
     public static void main(String[] args) throws Exception {
@@ -68,7 +69,7 @@ public class ArKnightsApplication {
         String password = serverConfig.getJSONObject("database").getString("password");
         String extra = serverConfig.getJSONObject("database").getString("extra");
         DriverManagerDataSource DataSource = new DriverManagerDataSource();
-        DataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        DataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         DataSource.setUrl("jdbc:mysql://" + host + ":" + port + "/" + dbname + "?" + extra);
         DataSource.setUsername(username);
         DataSource.setPassword(password);
@@ -171,5 +172,41 @@ public class ArKnightsApplication {
     public static void reloadServerConfig() {
         long startTime = System.currentTimeMillis();
         LOGGER.info("载入服务器配置...");
+        serverConfig = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/config.json");
+        LOGGER.info("载入游戏数据...");
+        long endTime = System.currentTimeMillis();
+        LOGGER.info("载入完成，耗时：" + (endTime - startTime) + "ms");
+    }
+
+    static {
+        DefaultSyncData = new JSONObject();
+        characterJson = new JSONObject();
+        roguelikeTable = new JSONObject();
+        stageTable = new JSONObject();
+        itemTable = new JSONObject();
+        mainStage = new JSONObject();
+        normalGachaData = new JSONObject();
+        uniequipTable = new JSONObject();
+        skinGoodList = new JSONObject();
+        skinTable = new JSONObject();
+        charwordTable = new JSONObject();
+        CrisisData = new JSONObject();
+        CashGoodList = new JSONObject();
+        GPGoodList = new JSONObject();
+        LowGoodList = new JSONObject();
+        HighGoodList = new JSONObject();
+        ExtraGoodList = new JSONObject();
+        LMTGSGoodList = new JSONObject();
+        EPGSGoodList = new JSONObject();
+        RepGoodList = new JSONObject();
+        FurniGoodList = new JSONObject();
+        SocialGoodList = new JSONObject();
+        AllProductList = new JSONObject();
+        unlockActivity = new JSONObject();
+        buildingData = new JSONObject();
+        ConsoleCommandManager = new CommandManager();
+        Sender = () -> {
+            return "Console";
+        };
     }
 }
