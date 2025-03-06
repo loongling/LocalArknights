@@ -30,6 +30,7 @@ public class ArKnightsApplication {
     public static final Logger LOGGER = LogManager.getLogger();
     public static JdbcTemplate jdbcTemplate = null;
     public static JSONObject serverConfig = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/config.json");
+    public static boolean enableServer;
     public static JSONObject DefaultSyncData;
     public static JSONObject characterJson;
     public static JSONObject roguelikeTable;
@@ -179,6 +180,7 @@ public class ArKnightsApplication {
     }
 
     static {
+        enableServer = serverConfig.getJSONObject("server").getBooleanValue("enableServer");
         DefaultSyncData = new JSONObject();
         characterJson = new JSONObject();
         roguelikeTable = new JSONObject();
