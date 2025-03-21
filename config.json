@@ -36,8 +36,8 @@
 	},
 	"version":{
 		"android":{
-			"resVersion":"22-02-11-13-53-13-c21f1b",
-			"clientVersion":"1.7.21"
+			"resVersion":"25-03-06-16-27-08-c23c8c",
+			"clientVersion":"2.4.61"
 		},
 		"ios":{
 			"resVersion":"21-12-20-11-24-40-d7328a",
@@ -46,7 +46,7 @@
 	},
 	"assets":{
 		"enableRedirect":true,
-		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/22-02-11-13-53-13-c21f1b",
+		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/25-03-06-16-27-08-c23c8c",
 		"localFiles":[]
 	},
 	"remote":{
