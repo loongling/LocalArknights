@@ -1,0 +1,126 @@
+{
+    "rlv2": {
+        "initRelic": {
+            "rogue_1_relic_r01": 1,
+            "rogue_1_relic_r02": 1,
+            "rogue_1_relic_r03": 0
+        },
+        "customBuff": {
+            "test": [{
+                    "key": "char_attribute_mul",
+                    "blackboard": [{
+                            "key": "selector.profession",
+                            "valueStr": "warrior"
+                        },
+                        {
+                            "key": "atk",
+                            "value": 0.4
+                        },
+                        {
+                            "key": "def",
+                            "value": -0.4
+                        }
+                    ]
+                },
+                {
+                    "key": "char_attribute_add",
+                    "blackboard": [{
+                            "key": "selector.profession",
+                            "valueStr": "warrior"
+                        },
+                        {
+                            "key": "attack_speed",
+                            "value": 30.0
+                        }
+                    ]
+                }
+            ]
+        },
+        "scene": {
+            "choice_leave": {
+                "id": "choice_leave",
+                "title": "离开",
+                "description": null,
+                "lockedCoverDesc": null,
+                "type": "LEAVE",
+                "nextSceneId": null,
+                "icon": null,
+                "param": {
+                    "consumes": [],
+                    "rewards": []
+                }
+            },
+            "scene_recruit1_enter": {
+                "choices": [
+                    "choice_recruit1_1",
+                    "choice_recruit1_2",
+                    "choice_recruit1_3"
+                ],
+                "choice_recruit1_1": {
+                    "id": "choice_recruit1_1",
+                    "title": "意思意思",
+                    "description": "消耗<@ro.lose>2</>源石锭，招募一名干员（从随机2个职业中选择）",
+                    "lockedCoverDesc": null,
+                    "type": "TRADE_PROB",
+                    "nextSceneId": "scene_recruit1_1",
+                    "icon": "recruit",
+                    "param": {
+                        "consumes": [{
+                            "id": "rogue_1_gold",
+                            "count": 2
+                        }],
+                        "rewards": [{
+                                "id": "rogue_1_recruit_ticket_double_1",
+                                "count": 1
+                            },
+                            {
+                                "id": "rogue_1_recruit_ticket_double_2",
+                                "count": 1
+                            },
+                            {
+                                "id": "rogue_1_recruit_ticket_double_3",
+                                "count": 1
+                            },
+                            {
+                                "id": "rogue_1_recruit_ticket_double_4",
+                                "count": 1
+                            }
+                        ]
+                    }
+                },
+                "choice_recruit1_2": {
+                    "id": "choice_recruit1_2",
+                    "title": "重金酬谢",
+                    "description": "消耗<@ro.lose>5</>源石锭，获得招募券",
+                    "lockedCoverDesc": null,
+                    "type": "TRADE",
+                    "nextSceneId": "scene_recruit1_2",
+                    "icon": null,
+                    "param": {
+                        "consumes": [{
+                            "id": "rogue_1_gold",
+                            "count": 5
+                        }],
+                        "rewards": [{
+                            "id": "rogue_1_recruit_ticket_all",
+                            "count": 1
+                        }]
+                    }
+                },
+                "choice_recruit1_3": {
+                    "id": "choice_recruit1_3",
+                    "title": "真诚拜托",
+                    "description": "相信诚意能打动他",
+                    "lockedCoverDesc": null,
+                    "type": "NEXT",
+                    "nextSceneId": "scene_recruit1_3",
+                    "icon": null,
+                    "param": {
+                        "consumes": [],
+                        "rewards": []
+                    }
+                }
+            }
+        }
+    }
+}

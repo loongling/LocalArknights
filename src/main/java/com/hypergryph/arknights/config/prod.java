@@ -55,5 +55,57 @@ public class prod {
         network.put("content", content.toJSONString());
         return network;
     }
+    @RequestMapping({"/official/Android/version"})
+    public JSONObject AndroidVersion(HttpServletRequest request) {
+        return ArKnightsApplication.serverConfig.getJSONObject("version").getJSONObject("android");
+    }
+
+    @RequestMapping({"/official/IOS/version"})
+    public JSONObject IosVersion(HttpServletRequest request) {
+        String clientIp = ArKnightsApplication.getIpAddr(request);
+        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/official/IOS/version");
+        return ArKnightsApplication.serverConfig.getJSONObject("version").getJSONObject("ios");
+    }
+
+    @RequestMapping({"/b/remote_config"})
+    public JSONObject BRemoteConfig(HttpServletRequest request) {
+        String clientIp = ArKnightsApplication.getIpAddr(request);
+        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/b/remote_config");
+        return ArKnightsApplication.serverConfig.getJSONObject("remote");
+    }
+
+    @RequestMapping({"/b/network_config"})
+    public JSONObject BNetworkConfig(HttpServletRequest request) {
+        String clientIp = ArKnightsApplication.getIpAddr(request);
+        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/b/network_config");
+        return ArKnightsApplication.serverConfig.getJSONObject("network");
+    }
+
+    @RequestMapping({"/b/Android/version"})
+    public JSONObject BAndroidVersion(HttpServletRequest request) {
+        String clientIp = ArKnightsApplication.getIpAddr(request);
+        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/b/Android/version");
+        return ArKnightsApplication.serverConfig.getJSONObject("version").getJSONObject("android");
+    }
+
+    @RequestMapping({"/announce_meta/Android/preannouncement.meta.json"})
+    public JSONObject PreAnnouncement(HttpServletRequest request) {
+        return ArKnightsApplication.serverConfig.getJSONObject("announce").getJSONObject("preannouncement");
+    }
+
+    @RequestMapping({"/announce_meta/Android/announcement.meta.json"})
+    public JSONObject announcement(HttpServletRequest request) {
+        return ArKnightsApplication.serverConfig.getJSONObject("announce").getJSONObject("announcement");
+    }
+
+    @RequestMapping({"/announce_meta/IOS/preannouncement.meta.json"})
+    public JSONObject IOSPreAnnouncement(HttpServletRequest request) {
+        return ArKnightsApplication.serverConfig.getJSONObject("announce").getJSONObject("preannouncement");
+    }
+
+    @RequestMapping({"/announce_meta/IOS/announcement.meta.json"})
+    public JSONObject IOSannouncement(HttpServletRequest request) {
+        return ArKnightsApplication.serverConfig.getJSONObject("announce").getJSONObject("announcement");
+    }
 
 }

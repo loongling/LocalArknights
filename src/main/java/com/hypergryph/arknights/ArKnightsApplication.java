@@ -174,7 +174,24 @@ public class ArKnightsApplication {
         long startTime = System.currentTimeMillis();
         LOGGER.info("载入服务器配置...");
         serverConfig = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/config.json");
+        enableServer = serverConfig.getJSONObject("server").getBooleanValue("enableServer");
         LOGGER.info("载入游戏数据...");
+        DefaultSyncData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/defaultSyncData.json");
+        roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
+        stageTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/stage_table.json").getJSONObject("stages");
+        CrisisData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/crisis/cc12.json");
+        CashGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/CashGoodList.json");
+        GPGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/GPGoodList.json");
+        LowGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/LowGoodList.json");
+        HighGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/HighGoodList.json");
+        ExtraGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/ExtraGoodList.json");
+        LMTGSGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/LMTGSGoodList.json");
+        EPGSGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/EPGSGoodList.json");
+        RepGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/RepGoodList.json");
+        FurniGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/FurniGoodList.json");
+        SocialGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SocialGoodList.json");
+        AllProductList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/AllProductList.json");
+        skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
         long endTime = System.currentTimeMillis();
         LOGGER.info("载入完成，耗时：" + (endTime - startTime) + "ms");
     }

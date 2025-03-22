@@ -1,0 +1,152 @@
+{
+    "goodList": [
+        {
+            "goodId": "LIMITED_58_0_1_1",
+            "goodType": "NORMAL",
+            "startTime": 1737518400,
+            "endTime": 1738958399,
+            "availCount": -1,
+            "item": {
+                "id": "char_2026_yu",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "price": {
+                "id": "LMTGS_COIN_5801",
+                "count": 300,
+                "type": "LMTGS_COIN"
+            },
+            "sortId": 1
+        },
+        {
+            "goodId": "LIMITED_58_0_1_2",
+            "goodType": "NORMAL",
+            "startTime": 1737518400,
+            "endTime": 1738958399,
+            "availCount": -1,
+            "item": {
+                "id": "char_1040_blaze2",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "price": {
+                "id": "LMTGS_COIN_5801",
+                "count": 300,
+                "type": "LMTGS_COIN"
+            },
+            "sortId": 2
+        },
+        {
+            "goodId": "LIMITED_58_0_1_3",
+            "goodType": "NORMAL",
+            "startTime": 1737518400,
+            "endTime": 1738958399,
+            "availCount": -1,
+            "item": {
+                "id": "char_4052_surfer",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "price": {
+                "id": "LMTGS_COIN_5801",
+                "count": 75,
+                "type": "LMTGS_COIN"
+            },
+            "sortId": 3
+        },
+        {
+            "goodId": "LIMITED_58_0_1_4",
+            "goodType": "NORMAL",
+            "startTime": 1737518400,
+            "endTime": 1738958399,
+            "availCount": -1,
+            "item": {
+                "id": "char_2025_shu",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "price": {
+                "id": "LMTGS_COIN_5801",
+                "count": 300,
+                "type": "LMTGS_COIN"
+            },
+            "sortId": 4
+        },
+        {
+            "goodId": "LIMITED_58_0_1_5",
+            "goodType": "NORMAL",
+            "startTime": 1737518400,
+            "endTime": 1738958399,
+            "availCount": -1,
+            "item": {
+                "id": "char_2024_chyue",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "price": {
+                "id": "LMTGS_COIN_5801",
+                "count": 300,
+                "type": "LMTGS_COIN"
+            },
+            "sortId": 5
+        },
+        {
+            "goodId": "LIMITED_58_0_1_6",
+            "goodType": "NORMAL",
+            "startTime": 1737518400,
+            "endTime": 1738958399,
+            "availCount": -1,
+            "item": {
+                "id": "char_2023_ling",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "price": {
+                "id": "LMTGS_COIN_5801",
+                "count": 300,
+                "type": "LMTGS_COIN"
+            },
+            "sortId": 6
+        },
+        {
+            "goodId": "LIMITED_58_0_1_7",
+            "goodType": "NORMAL",
+            "startTime": 1737518400,
+            "endTime": 1738958399,
+            "availCount": -1,
+            "item": {
+                "id": "char_2015_dusk",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "price": {
+                "id": "LMTGS_COIN_5801",
+                "count": 300,
+                "type": "LMTGS_COIN"
+            },
+            "sortId": 7
+        },
+        {
+            "goodId": "LIMITED_58_0_1_8",
+            "goodType": "NORMAL",
+            "startTime": 1737518400,
+            "endTime": 1738958399,
+            "availCount": -1,
+            "item": {
+                "id": "char_2014_nian",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "price": {
+                "id": "LMTGS_COIN_5801",
+                "count": 200,
+                "type": "LMTGS_COIN"
+            },
+            "sortId": 8
+        }
+    ],
+    "playerDataDelta": {
+        "modified": {},
+        "deleted": {}
+    }
+}

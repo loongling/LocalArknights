@@ -1,0 +1,1186 @@
+{
+    "goodListEx": [
+        {
+            "goodId": "ES_xShdShopnumber2_1",
+            "displayName": "伊桑",
+            "originPrice": 150,
+            "price": 150,
+            "discount": 0,
+            "slotId": 19,
+            "availCount": 6,
+            "item": {
+                "id": "char_355_ethan",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopnumber2_2",
+            "displayName": "微风",
+            "originPrice": 600,
+            "price": 600,
+            "discount": 0,
+            "slotId": 20,
+            "availCount": 6,
+            "item": {
+                "id": "char_275_breeze",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm1_3",
+            "displayName": "芯片助剂",
+            "originPrice": 90,
+            "price": 90,
+            "discount": 0,
+            "slotId": 100,
+            "availCount": -1,
+            "item": {
+                "id": "32001",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm2_1",
+            "displayName": "事相碎片",
+            "originPrice": 20,
+            "price": 20,
+            "discount": 0,
+            "slotId": 101,
+            "availCount": -1,
+            "item": {
+                "id": "STORY_REVIEW_COIN",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": 1634284800,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm3_1",
+            "displayName": "布丁",
+            "originPrice": 150,
+            "price": 150,
+            "discount": 0,
+            "slotId": 17,
+            "availCount": 6,
+            "item": {
+                "id": "char_4004_pudd",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": 1635753600,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm3_2",
+            "displayName": "蜜莓",
+            "originPrice": 600,
+            "price": 600,
+            "discount": 0,
+            "slotId": 18,
+            "availCount": 6,
+            "item": {
+                "id": "char_449_glider",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": 1635753600,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm4_1",
+            "displayName": "石英",
+            "originPrice": 150,
+            "price": 150,
+            "discount": 0,
+            "slotId": 15,
+            "availCount": 6,
+            "item": {
+                "id": "char_4063_quartz",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": 1667289600,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm4_2",
+            "displayName": "雪绒",
+            "originPrice": 600,
+            "price": 600,
+            "discount": 0,
+            "slotId": 16,
+            "availCount": 6,
+            "item": {
+                "id": "char_466_qanik",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": 1667289600,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm5_1",
+            "displayName": "跃跃",
+            "originPrice": 150,
+            "price": 150,
+            "discount": 0,
+            "slotId": 13,
+            "availCount": 6,
+            "item": {
+                "id": "char_4100_caper",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": 1698825600,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm5_2",
+            "displayName": "折光",
+            "originPrice": 600,
+            "price": 600,
+            "discount": 0,
+            "slotId": 14,
+            "availCount": 6,
+            "item": {
+                "id": "char_499_kaitou",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": 1698825600,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm6_1",
+            "displayName": "云迹",
+            "originPrice": 150,
+            "price": 150,
+            "discount": 0,
+            "slotId": 11,
+            "availCount": 6,
+            "item": {
+                "id": "char_4165_ctrail",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": 1730433600,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopPerm6_2",
+            "displayName": "菲莱",
+            "originPrice": 600,
+            "price": 600,
+            "discount": 0,
+            "slotId": 12,
+            "availCount": 6,
+            "item": {
+                "id": "char_4148_philae",
+                "count": 1,
+                "type": "CHAR"
+            },
+            "newFlagTimeStamp": 1730433600,
+            "goodEndTime": -1,
+            "shopType": 1
+        },
+        {
+            "goodId": "ES_xShdShopMonth42_1",
+            "displayName": "模组数据块",
+            "originPrice": 120,
+            "price": 120,
+            "discount": 0,
+            "slotId": 42,
+            "availCount": 4,
+            "item": {
+                "id": "mod_unlock_token",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": 1743451199,
+            "shopType": 2
+        },
+        {
+            "goodId": "ES_xShdShopTemp3_1",
+            "displayName": "重装传承信物",
+            "originPrice": 45,
+            "price": 45,
+            "discount": 0,
+            "slotId": 20,
+            "availCount": 4,
+            "item": {
+                "id": "tier4_tank",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 0
+        },
+        {
+            "goodId": "ES_xShdShopTemp3_2",
+            "displayName": "医疗传承信物",
+            "originPrice": 45,
+            "price": 45,
+            "discount": 0,
+            "slotId": 21,
+            "availCount": 4,
+            "item": {
+                "id": "tier4_medic",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 0
+        },
+        {
+            "goodId": "ES_xShdShopTemp3_3",
+            "displayName": "术师传承信物",
+            "originPrice": 45,
+            "price": 45,
+            "discount": 0,
+            "slotId": 22,
+            "availCount": 4,
+            "item": {
+                "id": "tier4_caster",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 0
+        },
+        {
+            "goodId": "ES_xShdShopTemp3_4",
+            "displayName": "狙击传承信物",
+            "originPrice": 45,
+            "price": 45,
+            "discount": 0,
+            "slotId": 23,
+            "availCount": 4,
+            "item": {
+                "id": "tier4_sniper",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 0
+        },
+        {
+            "goodId": "ES_xShdShopTemp3_5",
+            "displayName": "先锋遗产信物",
+            "originPrice": 180,
+            "price": 180,
+            "discount": 0,
+            "slotId": 24,
+            "availCount": 4,
+            "item": {
+                "id": "tier5_pioneer",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 0
+        },
+        {
+            "goodId": "ES_xShdShopTemp3_6",
+            "displayName": "辅助遗产信物",
+            "originPrice": 180,
+            "price": 180,
+            "discount": 0,
+            "slotId": 25,
+            "availCount": 4,
+            "item": {
+                "id": "tier5_supporter",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 0
+        },
+        {
+            "goodId": "ES_xShdShopTemp3_7",
+            "displayName": "近卫皇家信物",
+            "originPrice": 720,
+            "price": 720,
+            "discount": 0,
+            "slotId": 26,
+            "availCount": 4,
+            "item": {
+                "id": "tier6_guard",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 0
+        },
+        {
+            "goodId": "ES_xShdShopTemp3_8",
+            "displayName": "特种皇家信物",
+            "originPrice": 720,
+            "price": 720,
+            "discount": 0,
+            "slotId": 27,
+            "availCount": 4,
+            "item": {
+                "id": "tier6_special",
+                "count": 1,
+                "type": "MATERIAL"
+            },
+            "newFlagTimeStamp": -1,
+            "goodEndTime": -1,
+            "shopType": 0
+        }
+    ],
+    "goodList": [
+        {
+            "goodId": "good_EPGS_1",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "30145",
+                "count": 49,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 1,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_2",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "30155",
+                "count": 49,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 2,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_3",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "30135",
+                "count": 49,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 3,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_4",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "30115",
+                "count": 49,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 4,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_5",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "30125",
+                "count": 49,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 5,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_6",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "mod_unlock_token",
+                "count": 49,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 6,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_7",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "mod_update_token_2",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 7,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_8",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "mod_update_token_1",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 8,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_9",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "2004",
+                "count": 999,
+                "type": "CARD_EXP"
+            },
+            "price": 200,
+            "sortId": 9,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_10",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "2003",
+                "count": 999,
+                "type": "CARD_EXP"
+            },
+            "price": 160,
+            "sortId": 10,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_11",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "2002",
+                "count": 999,
+                "type": "CARD_EXP"
+            },
+            "price": 120,
+            "sortId": 11,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_12",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "2001",
+                "count": 999,
+                "type": "CARD_EXP"
+            },
+            "price": 80,
+            "sortId": 12,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_13",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "3303",
+                "count": 499,
+                "type": "MATERIAL"
+            },
+            "price": 200,
+            "sortId": 13,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_14",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "3302",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 160,
+            "sortId": 14,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_15",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "3301",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 120,
+            "sortId": 15,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_16",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "31084",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 80,
+            "sortId": 16,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_17",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "31074",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 75,
+            "sortId": 17,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_18",
+            "goodType": "NORMAL",
+            "startTime": 1667275200,
+            "item": {
+                "id": "31064",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 70,
+            "sortId": 18,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_19",
+            "goodType": "NORMAL",
+            "startTime": 1635750000,
+            "item": {
+                "id": "31054",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 70,
+            "sortId": 19,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_20",
+            "goodType": "NORMAL",
+            "startTime": 1635750000,
+            "item": {
+                "id": "31044",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 70,
+            "sortId": 20,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_21",
+            "goodType": "NORMAL",
+            "startTime": 1604203200,
+            "item": {
+                "id": "31034",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 90,
+            "sortId": 21,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_22",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "31024",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 75,
+            "sortId": 22,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_23",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "31014",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 65,
+            "sortId": 23,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_24",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30104",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 80,
+            "sortId": 24,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_25",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30094",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 75,
+            "sortId": 25,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_26",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30084",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 80,
+            "sortId": 26,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_27",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30074",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 65,
+            "sortId": 27,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_28",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30064",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 85,
+            "sortId": 28,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_29",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30054",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 85,
+            "sortId": 29,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_30",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30044",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 90,
+            "sortId": 30,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_31",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30034",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 80,
+            "sortId": 31,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_32",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30024",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 75,
+            "sortId": 32,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_33",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30014",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 60,
+            "sortId": 33,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_34",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "31083",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 60,
+            "sortId": 34,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_35",
+            "goodType": "NORMAL",
+            "startTime": 1698811200,
+            "item": {
+                "id": "31073",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 55,
+            "sortId": 35,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_36",
+            "goodType": "NORMAL",
+            "startTime": 1667275200,
+            "item": {
+                "id": "31063",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 55,
+            "sortId": 36,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_37",
+            "goodType": "NORMAL",
+            "startTime": 1635750000,
+            "item": {
+                "id": "31053",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 50,
+            "sortId": 37,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_38",
+            "goodType": "NORMAL",
+            "startTime": 1635750000,
+            "item": {
+                "id": "31043",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 50,
+            "sortId": 38,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_39",
+            "goodType": "NORMAL",
+            "startTime": 1604203200,
+            "item": {
+                "id": "31033",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 40,
+            "sortId": 39,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_40",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "31023",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 40,
+            "sortId": 40,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_41",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "31013",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 50,
+            "sortId": 41,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_42",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30103",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 60,
+            "sortId": 42,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_43",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30093",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 50,
+            "sortId": 43,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_44",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30083",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 45,
+            "sortId": 44,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_45",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30073",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 40,
+            "sortId": 45,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_46",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30063",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 60,
+            "sortId": 46,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_47",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30053",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 45,
+            "sortId": 47,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_48",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30043",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 45,
+            "sortId": 48,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_49",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30033",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 35,
+            "sortId": 49,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_50",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30023",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 35,
+            "sortId": 50,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_51",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30013",
+                "count": 99,
+                "type": "MATERIAL"
+            },
+            "price": 30,
+            "sortId": 51,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_52",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30062",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 40,
+            "sortId": 52,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_53",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30052",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 30,
+            "sortId": 53,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_54",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30042",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 30,
+            "sortId": 54,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_55",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30032",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 25,
+            "sortId": 55,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_56",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30022",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 25,
+            "sortId": 56,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_57",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30012",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 15,
+            "sortId": 57,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_58",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30061",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 40,
+            "sortId": 58,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_59",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30051",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 30,
+            "sortId": 59,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_60",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30041",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 30,
+            "sortId": 60,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_61",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30031",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 25,
+            "sortId": 61,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_62",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30021",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 25,
+            "sortId": 62,
+            "availCount": -1
+        },
+        {
+            "goodId": "good_EPGS_63",
+            "goodType": "NORMAL",
+            "startTime": 1588316400,
+            "item": {
+                "id": "30011",
+                "count": 999,
+                "type": "MATERIAL"
+            },
+            "price": 15,
+            "sortId": 63,
+            "availCount": -1
+        }
+    ],
+    "playerDataDelta": {
+        "modified": {},
+        "deleted": {}
+    }
+}

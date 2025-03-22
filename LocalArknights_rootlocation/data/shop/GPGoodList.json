@@ -1,0 +1,679 @@
+{
+	"weeklyGroup": {
+		"weeklyGroup": {
+			"groupId": "gW_315",
+			"startDateTime": 1740945600,
+			"endDateTime": 1741550399,
+			"packages": {
+				"GP_gW_315_W_1": {
+					"goodId": "GP_gW_315_W_1",
+					"groupId": "gW_315",
+					"giftPackageId": "W_2",
+					"displayName": "每周养成组合包",
+					"priority": 46,
+					"availCount": 1,
+					"currencyUnit": "CASH",
+					"price": 68,
+					"originPrice": 68,
+					"discount": 0,
+					"items": [
+						{
+							"id": "4001",
+							"count": 80000,
+							"type": "GOLD"
+						},
+						{
+							"id": "2004",
+							"count": 10,
+							"type": "CARD_EXP"
+						},
+						{
+							"id": "2003",
+							"count": 25,
+							"type": "CARD_EXP"
+						},
+						{
+							"id": "2002",
+							"count": 50,
+							"type": "CARD_EXP"
+						},
+						{
+							"id": "3302",
+							"count": 20,
+							"type": "MATERIAL"
+						},
+						{
+							"id": "3301",
+							"count": 40,
+							"type": "MATERIAL"
+						},
+						{
+							"id": "3112",
+							"count": 10,
+							"type": "MATERIAL"
+						},
+						{
+							"id": "3401",
+							"count": 360,
+							"type": "MATERIAL"
+						}
+					],
+					"specialItemInfos": {},
+					"tab": [
+						"Tab_permPackage_4"
+					]
+				}
+			}
+		},
+		"monthlyGroup": {
+			"groupId": "gM_76",
+			"startDateTime": 1740772800,
+			"endDateTime": 1743451199,
+			"packages": {
+				"GP_gM_76_M_1": {
+					"goodId": "GP_gM_76_M_1",
+					"groupId": "gM_76",
+					"giftPackageId": "M_1",
+					"displayName": "每月寻访组合包",
+					"priority": 299,
+					"availCount": 1,
+					"currencyUnit": "CASH",
+					"price": 168,
+					"originPrice": 168,
+					"discount": 0,
+					"items": [
+						{
+							"id": "4002",
+							"count": 42,
+							"type": "DIAMOND"
+						},
+						{
+							"id": "7004",
+							"count": 1,
+							"type": "TKT_GACHA_10"
+						}
+					],
+					"specialItemInfos": {},
+					"tab": [
+						"Tab_permPackage_4",
+						"Tab_limitTime_10"
+					]
+				},
+				"GP_gM_76_M_2": {
+					"goodId": "GP_gM_76_M_2",
+					"groupId": "gM_76",
+					"giftPackageId": "M_2",
+					"displayName": "每月芯片自选组合包",
+					"priority": 50,
+					"availCount": 2,
+					"currencyUnit": "CASH",
+					"price": 12,
+					"originPrice": 12,
+					"discount": 0,
+					"items": [
+						{
+							"id": "voucher_chipPackage",
+							"count": 1,
+							"type": "OPTIONAL_VOUCHER_PICK"
+						}
+					],
+					"specialItemInfos": {
+						"voucher_chipPackage": {
+							"showPreview": false,
+							"specialDesc": "可以印刻出任一职业芯片组印刻仪（打开可获得对应职业的芯片组*8、芯片*5）",
+							"specialBtnText": null
+						}
+					},
+					"tab": [
+						"Tab_permPackage_4"
+					]
+				},
+				"GP_gM_76_M_4": {
+					"goodId": "GP_gM_76_M_4",
+					"groupId": "gM_76",
+					"giftPackageId": "M_4",
+					"displayName": "每月材料自选组合包",
+					"priority": 47,
+					"availCount": 3,
+					"currencyUnit": "CASH",
+					"price": 30,
+					"originPrice": 30,
+					"discount": 0,
+					"items": [
+						{
+							"id": "premium_material_voucher_perm",
+							"count": 8,
+							"type": "MATERIAL_ISSUE_VOUCHER"
+						},
+						{
+							"id": "advanced_material_voucher_perm",
+							"count": 12,
+							"type": "MATERIAL_ISSUE_VOUCHER"
+						}
+					],
+					"specialItemInfos": {
+						"premium_material_voucher_perm": {
+							"showPreview": false,
+							"specialDesc": "使用后可获得任一特级品质精英材料",
+							"specialBtnText": null
+						},
+						"advanced_material_voucher_perm": {
+							"showPreview": false,
+							"specialDesc": "使用后可获得任一高级品质精英材料",
+							"specialBtnText": null
+						}
+					},
+					"tab": [
+						"Tab_permPackage_4"
+					]
+				},
+				"GP_gM_76_M_5": {
+					"goodId": "GP_gM_76_M_5",
+					"groupId": "gM_76",
+					"giftPackageId": "M_5",
+					"displayName": "每月资金组合包",
+					"priority": 49,
+					"availCount": 3,
+					"currencyUnit": "CASH",
+					"price": 18,
+					"originPrice": 18,
+					"discount": 0,
+					"items": [
+						{
+							"id": "4001",
+							"count": 240000,
+							"type": "GOLD"
+						}
+					],
+					"specialItemInfos": {},
+					"tab": [
+						"Tab_permPackage_4"
+					]
+				},
+				"GP_gM_76_M_6": {
+					"goodId": "GP_gM_76_M_6",
+					"groupId": "gM_76",
+					"giftPackageId": "M_6",
+					"displayName": "每月作战记录组合包",
+					"priority": 48,
+					"availCount": 3,
+					"currencyUnit": "CASH",
+					"price": 30,
+					"originPrice": 30,
+					"discount": 0,
+					"items": [
+						{
+							"id": "2004",
+							"count": 80,
+							"type": "CARD_EXP"
+						},
+						{
+							"id": "2003",
+							"count": 100,
+							"type": "CARD_EXP"
+						},
+						{
+							"id": "2002",
+							"count": 160,
+							"type": "CARD_EXP"
+						}
+					],
+					"specialItemInfos": {},
+					"tab": [
+						"Tab_permPackage_4"
+					]
+				}
+			}
+		},
+		"monthlySub": [
+			{
+				"goodId": "GP_mCard_1",
+				"displayName": "月卡",
+				"cardId": "mCard_1",
+				"priority": 300,
+				"currencyUnit": "CASH",
+				"price": 30,
+				"items": [
+					{
+						"id": "4002",
+						"count": 6,
+						"type": "DIAMOND"
+					}
+				],
+				"dailyBonus": [
+					{
+						"id": "4003",
+						"count": 200,
+						"type": "DIAMOND_SHD"
+					},
+					{
+						"id": "ap_supply_lt_80",
+						"count": 1,
+						"type": "AP_SUPPLY"
+					}
+				],
+				"imgId": "monthly_card_2_img",
+				"backId": "monthly_card_2_back",
+				"tab": [
+					"Tab_mCard_4",
+					"Tab_limitTime_10",
+					"Tab_permPackage_4"
+				]
+			}
+		],
+		"levelGP": [
+			null,
+			null
+		],
+		"oneTimeGP": [
+			{
+				"goodId": "GP_Once_2",
+				"giftPackageId": "Once_2",
+				"priority": 97,
+				"displayName": "新人寻访组合包",
+				"currencyUnit": "CASH",
+				"price": 128,
+				"originPrice": 128,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": -1,
+				"endDateTime": -1,
+				"items": [
+					{
+						"id": "7004",
+						"count": 2,
+						"type": "TKT_GACHA_10"
+					}
+				],
+				"specialItemInfos": {},
+				"tab": [
+					"Tab_permPackage_4"
+				]
+			},
+			{
+				"goodId": "GP_Once_3",
+				"giftPackageId": "Once_3",
+				"priority": 95,
+				"displayName": "新人养成组合包",
+				"currencyUnit": "CASH",
+				"price": 68,
+				"originPrice": 68,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": -1,
+				"endDateTime": -1,
+				"items": [
+					{
+						"id": "4002",
+						"count": 13,
+						"type": "DIAMOND"
+					},
+					{
+						"id": "4001",
+						"count": 40000,
+						"type": "GOLD"
+					},
+					{
+						"id": "2003",
+						"count": 20,
+						"type": "CARD_EXP"
+					},
+					{
+						"id": "2002",
+						"count": 30,
+						"type": "CARD_EXP"
+					},
+					{
+						"id": "2001",
+						"count": 40,
+						"type": "CARD_EXP"
+					},
+					{
+						"id": "3302",
+						"count": 10,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "3301",
+						"count": 30,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "30062",
+						"count": 4,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "30052",
+						"count": 5,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "30042",
+						"count": 5,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "30032",
+						"count": 7,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "30022",
+						"count": 7,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "30012",
+						"count": 10,
+						"type": "MATERIAL"
+					}
+				],
+				"specialItemInfos": {},
+				"tab": [
+					"Tab_permPackage_4"
+				]
+			},
+			{
+				"goodId": "GP_Once_4",
+				"giftPackageId": "Once_4",
+				"priority": 94,
+				"displayName": "新人家具组合包",
+				"currencyUnit": "CASH",
+				"price": 68,
+				"originPrice": 68,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": -1,
+				"endDateTime": -1,
+				"items": [
+					{
+						"id": "4002",
+						"count": 6,
+						"type": "DIAMOND"
+					},
+					{
+						"id": "3401",
+						"count": 2400,
+						"type": "MATERIAL"
+					}
+				],
+				"specialItemInfos": {},
+				"tab": [
+					"Tab_permPackage_4"
+				]
+			},
+			{
+				"goodId": "GP_Once_106",
+				"giftPackageId": "Once_106",
+				"priority": 99,
+				"displayName": "新人组合包",
+				"currencyUnit": "CASH",
+				"price": 6,
+				"originPrice": 6,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": 1688616000,
+				"endDateTime": -1,
+				"items": [
+					{
+						"id": "char_151_myrtle",
+						"count": 1,
+						"type": "CHAR"
+					},
+					{
+						"id": "7003",
+						"count": 1,
+						"type": "TKT_GACHA"
+					},
+					{
+						"id": "4001",
+						"count": 10000,
+						"type": "GOLD"
+					},
+					{
+						"id": "2001",
+						"count": 20,
+						"type": "CARD_EXP"
+					}
+				],
+				"specialItemInfos": {},
+				"tab": [
+					"Tab_permPackage_4"
+				]
+			},
+			{
+				"goodId": "GP_Once_206",
+				"giftPackageId": "Once_206",
+				"priority": 98,
+				"displayName": "新人月卡组合包",
+				"currencyUnit": "CASH",
+				"price": 45,
+				"originPrice": 45,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": 1722484800,
+				"endDateTime": -1,
+				"items": [
+					{
+						"id": "mcardVoucher",
+						"count": 1,
+						"type": "MCARD_VOUCHER"
+					},
+					{
+						"id": "7003",
+						"count": 3,
+						"type": "TKT_GACHA"
+					}
+				],
+				"specialItemInfos": {
+					"mcardVoucher": {
+						"showPreview": false,
+						"specialDesc": "购买后立刻生效且此月卡不受时长上限影响",
+						"specialBtnText": null
+					}
+				},
+				"tab": [
+					"Tab_permPackage_4"
+				]
+			},
+			{
+				"goodId": "GP_Once_207",
+				"giftPackageId": "Once_207",
+				"priority": 96,
+				"displayName": "新人特训组合包",
+				"currencyUnit": "CASH",
+				"price": 168,
+				"originPrice": 168,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": 1722484800,
+				"endDateTime": -1,
+				"items": [
+					{
+						"id": "voucher_elite_II_6",
+						"count": 1,
+						"type": "VOUCHER_ELITE_II_6"
+					},
+					{
+						"id": "voucher_elite_II_5",
+						"count": 1,
+						"type": "VOUCHER_ELITE_II_5"
+					},
+					{
+						"id": "voucher_elite_II_4",
+						"count": 2,
+						"type": "VOUCHER_ELITE_II_4"
+					}
+				],
+				"specialItemInfos": {
+					"voucher_elite_II_6": {
+						"showPreview": true,
+						"specialDesc": "可以选择一位已聘用的6★干员直接晋升至精英阶段2，等级1",
+						"specialBtnText": "范围预览"
+					},
+					"voucher_elite_II_5": {
+						"showPreview": true,
+						"specialDesc": "可以选择一位已聘用的5★干员直接晋升至精英阶段2，等级1",
+						"specialBtnText": "范围预览"
+					},
+					"voucher_elite_II_4": {
+						"showPreview": true,
+						"specialDesc": "可以选择一位已聘用的4★干员直接晋升至精英阶段2，等级1",
+						"specialBtnText": "范围预览"
+					}
+				},
+				"tab": [
+					"Tab_permPackage_4"
+				]
+			},
+			{
+				"goodId": "GP_Once_241",
+				"giftPackageId": "Once_241",
+				"priority": 45,
+				"displayName": "ID信息更新礼包",
+				"currencyUnit": "DIAMOND",
+				"price": 0,
+				"originPrice": 0,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": 1730433600,
+				"endDateTime": 1746071999,
+				"items": [
+					{
+						"id": "renamingCard_0_056",
+						"count": 1,
+						"type": "RENAMING_CARD"
+					}
+				],
+				"specialItemInfos": {},
+				"tab": [
+					"Tab_permPackage_4"
+				]
+			},
+			{
+				"goodId": "GP_Once_242",
+				"giftPackageId": "Once_242",
+				"priority": 44,
+				"displayName": "ID信息更新礼包",
+				"currencyUnit": "CASH",
+				"price": 30,
+				"originPrice": 30,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": 1730433600,
+				"endDateTime": 1746071999,
+				"items": [
+					{
+						"id": "renamingCard_30_056",
+						"count": 1,
+						"type": "RENAMING_CARD"
+					}
+				],
+				"specialItemInfos": {},
+				"tab": [
+					"Tab_permPackage_4"
+				]
+			},
+			{
+				"goodId": "GP_Once_267",
+				"giftPackageId": "Once_267",
+				"priority": 150,
+				"displayName": "术师芯片礼包",
+				"currencyUnit": "CASH",
+				"price": 30,
+				"originPrice": 30,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": 1741320000,
+				"endDateTime": 1743105599,
+				"items": [
+					{
+						"id": "3253",
+						"count": 4,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "3251",
+						"count": 5,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "3303",
+						"count": 45,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "3302",
+						"count": 25,
+						"type": "MATERIAL"
+					},
+					{
+						"id": "3301",
+						"count": 10,
+						"type": "MATERIAL"
+					}
+				],
+				"specialItemInfos": {},
+				"tab": [
+					"Tab_limitTime_10"
+				]
+			},
+			{
+				"goodId": "GP_Once_268",
+				"giftPackageId": "Once_268",
+				"priority": 340,
+				"displayName": "无终奇语特训礼包",
+				"currencyUnit": "CASH",
+				"price": 168,
+				"originPrice": 168,
+				"discount": 0,
+				"availCount": 1,
+				"startDateTime": 1741320000,
+				"endDateTime": 1743105599,
+				"items": [
+					{
+						"id": "voucher_elite_II_6",
+						"count": 1,
+						"type": "VOUCHER_ELITE_II_6"
+					},
+					{
+						"id": "voucher_elite_II_5",
+						"count": 1,
+						"type": "VOUCHER_ELITE_II_5"
+					},
+					{
+						"id": "voucher_elite_II_4",
+						"count": 2,
+						"type": "VOUCHER_ELITE_II_4"
+					}
+				],
+				"specialItemInfos": {
+					"voucher_elite_II_6": {
+						"showPreview": true,
+						"specialDesc": "可以选择一位已聘用的6★干员直接晋升至精英阶段2，等级1",
+						"specialBtnText": "范围预览"
+					},
+					"voucher_elite_II_5": {
+						"showPreview": true,
+						"specialDesc": "可以选择一位已聘用的5★干员直接晋升至精英阶段2，等级1",
+						"specialBtnText": "范围预览"
+					},
+					"voucher_elite_II_4": {
+						"showPreview": true,
+						"specialDesc": "可以选择一位已聘用的4★干员直接晋升至精英阶段2，等级1",
+						"specialBtnText": "范围预览"
+					}
+				},
+				"tab": [
+					"Tab_limitTime_10"
+				]
+			}
+		],
+		"chooseGroup": [],
+		"playerDataDelta": {
+			"modified": {},
+			"deleted": {}
+		}
+	}
+}

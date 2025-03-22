@@ -1,0 +1,1539 @@
+{
+    "goodList": [
+        {
+            "goodId": "good_SOCIAL_1",
+            "displayName": "能天使",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 1,
+            "availCount": 6,
+            "item": {
+                "id": "char_103_angel",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_2",
+            "displayName": "空弦",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 2,
+            "availCount": 6,
+            "item": {
+                "id": "char_332_archet",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_3",
+            "displayName": "灰烬",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 3,
+            "availCount": 6,
+            "item": {
+                "id": "char_456_ash",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_4",
+            "displayName": "黑",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 4,
+            "availCount": 6,
+            "item": {
+                "id": "char_340_shwaz",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_5",
+            "displayName": "鸿雪",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 5,
+            "availCount": 6,
+            "item": {
+                "id": "char_4055_bgsnow",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_6",
+            "displayName": "远牙",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 6,
+            "availCount": 6,
+            "item": {
+                "id": "char_430_fartth",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_7",
+            "displayName": "W",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 7,
+            "availCount": 6,
+            "item": {
+                "id": "char_113_cqbw",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_8",
+            "displayName": "菲亚梅塔",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 8,
+            "availCount": 6,
+            "item": {
+                "id": "char_300_phenxi",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_9",
+            "displayName": "早露",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 9,
+            "availCount": 6,
+            "item": {
+                "id": "char_197_poca",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_10",
+            "displayName": "提丰",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 10,
+            "availCount": 6,
+            "item": {
+                "id": "char_2012_typhon",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_11",
+            "displayName": "迷迭香",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 11,
+            "availCount": 6,
+            "item": {
+                "id": "char_391_rosmon",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_12",
+            "displayName": "维什戴尔",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 12,
+            "availCount": 6,
+            "item": {
+                "id": "char_1035_wisdel",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_13",
+            "displayName": "假日威龙陈",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 13,
+            "availCount": 6,
+            "item": {
+                "id": "char_1013_chen2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_14",
+            "displayName": "莱伊",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 14,
+            "availCount": 6,
+            "item": {
+                "id": "char_4117_ray",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_15",
+            "displayName": "娜仁图亚",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 15,
+            "availCount": 6,
+            "item": {
+                "id": "char_4138_narant",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_16",
+            "displayName": "推进之王",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 16,
+            "availCount": 6,
+            "item": {
+                "id": "char_112_siege",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_17",
+            "displayName": "风笛",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 17,
+            "availCount": 6,
+            "item": {
+                "id": "char_222_bpipe",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_18",
+            "displayName": "嵯峨",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 18,
+            "availCount": 6,
+            "item": {
+                "id": "char_362_saga",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_19",
+            "displayName": "忍冬",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 19,
+            "availCount": 6,
+            "item": {
+                "id": "char_4026_vulpis",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_20",
+            "displayName": "琴柳",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 20,
+            "availCount": 6,
+            "item": {
+                "id": "char_479_sleach",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_21",
+            "displayName": "焰尾",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 21,
+            "availCount": 6,
+            "item": {
+                "id": "char_420_flamtl",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_22",
+            "displayName": "伺夜",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 22,
+            "availCount": 6,
+            "item": {
+                "id": "char_427_vigil",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_23",
+            "displayName": "缪尔赛思",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 23,
+            "availCount": 6,
+            "item": {
+                "id": "char_249_mlyss",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_24",
+            "displayName": "伊内丝",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 24,
+            "availCount": 6,
+            "item": {
+                "id": "char_4087_ines",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_25",
+            "displayName": "伊芙利特",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 25,
+            "availCount": 6,
+            "item": {
+                "id": "char_134_ifrit",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_26",
+            "displayName": "莫斯提马",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 26,
+            "availCount": 6,
+            "item": {
+                "id": "char_213_mostma",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_27",
+            "displayName": "艾雅法拉",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 27,
+            "availCount": 6,
+            "item": {
+                "id": "char_180_amgoat",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_28",
+            "displayName": "刻俄柏",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 28,
+            "availCount": 6,
+            "item": {
+                "id": "char_2013_cerber",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_29",
+            "displayName": "霍尔海雅",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 29,
+            "availCount": 6,
+            "item": {
+                "id": "char_4027_heyak",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_30",
+            "displayName": "逻各斯",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 30,
+            "availCount": 6,
+            "item": {
+                "id": "char_4133_logos",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_31",
+            "displayName": "夕",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 31,
+            "availCount": 6,
+            "item": {
+                "id": "char_2015_dusk",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_32",
+            "displayName": "玛露西尔",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 32,
+            "availCount": 6,
+            "item": {
+                "id": "char_4141_marcil",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_33",
+            "displayName": "异客",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 33,
+            "availCount": 6,
+            "item": {
+                "id": "char_472_pasngr",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_34",
+            "displayName": "卡涅利安",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 34,
+            "availCount": 6,
+            "item": {
+                "id": "char_426_billro",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_35",
+            "displayName": "林",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 35,
+            "availCount": 6,
+            "item": {
+                "id": "char_4080_lin",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_36",
+            "displayName": "澄闪",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 36,
+            "availCount": 6,
+            "item": {
+                "id": "char_377_gdglow",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_37",
+            "displayName": "荒芜拉普兰德",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 37,
+            "availCount": 6,
+            "item": {
+                "id": "char_1038_whitw2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_38",
+            "displayName": "黑键",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 38,
+            "availCount": 6,
+            "item": {
+                "id": "char_4046_ebnhlz",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_39",
+            "displayName": "妮芙",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 39,
+            "availCount": 6,
+            "item": {
+                "id": "char_4146_nymph",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_40",
+            "displayName": "烛煌",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 40,
+            "availCount": 6,
+            "item": {
+                "id": "char_1040_blaze2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_41",
+            "displayName": "死芒",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 41,
+            "availCount": 6,
+            "item": {
+                "id": "char_450_necras",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_42",
+            "displayName": "灵知",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 42,
+            "availCount": 6,
+            "item": {
+                "id": "char_206_gnosis",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_43",
+            "displayName": "安洁莉娜",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 43,
+            "availCount": 6,
+            "item": {
+                "id": "char_291_aglina",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_44",
+            "displayName": "铃兰",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 44,
+            "availCount": 6,
+            "item": {
+                "id": "char_358_lisa",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_45",
+            "displayName": "麦哲伦",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 45,
+            "availCount": 6,
+            "item": {
+                "id": "char_248_mgllan",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_46",
+            "displayName": "浊心斯卡蒂",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 46,
+            "availCount": 6,
+            "item": {
+                "id": "char_1012_skadi2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_47",
+            "displayName": "魔王",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 47,
+            "availCount": 6,
+            "item": {
+                "id": "char_4134_cetsyr",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_48",
+            "displayName": "淬羽赫默",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 48,
+            "availCount": 6,
+            "item": {
+                "id": "char_1031_slent2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_49",
+            "displayName": "令",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 49,
+            "availCount": 6,
+            "item": {
+                "id": "char_2023_ling",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_50",
+            "displayName": "白铁",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 50,
+            "availCount": 6,
+            "item": {
+                "id": "char_4072_ironmn",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_51",
+            "displayName": "塑心",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 51,
+            "availCount": 6,
+            "item": {
+                "id": "char_245_cello",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_52",
+            "displayName": "傀影",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 52,
+            "availCount": 6,
+            "item": {
+                "id": "char_250_phatom",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_53",
+            "displayName": "缄默德克萨斯",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 53,
+            "availCount": 6,
+            "item": {
+                "id": "char_1028_texas2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_54",
+            "displayName": "麒麟R夜刀",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 54,
+            "availCount": 6,
+            "item": {
+                "id": "char_1029_yato2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_55",
+            "displayName": "弑君者",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 55,
+            "availCount": 6,
+            "item": {
+                "id": "char_1502_crosly",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_56",
+            "displayName": "老鲤",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 56,
+            "availCount": 6,
+            "item": {
+                "id": "char_322_lmlee",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_57",
+            "displayName": "琳琅诗怀雅",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 57,
+            "availCount": 6,
+            "item": {
+                "id": "char_1033_swire2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_58",
+            "displayName": "温蒂",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 58,
+            "availCount": 6,
+            "item": {
+                "id": "char_400_weedy",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_59",
+            "displayName": "阿",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 59,
+            "availCount": 6,
+            "item": {
+                "id": "char_225_haak",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_60",
+            "displayName": "歌蕾蒂娅",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 60,
+            "availCount": 6,
+            "item": {
+                "id": "char_474_glady",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_61",
+            "displayName": "水月",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 61,
+            "availCount": 6,
+            "item": {
+                "id": "char_437_mizuki",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_62",
+            "displayName": "阿斯卡纶",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 62,
+            "availCount": 6,
+            "item": {
+                "id": "char_4132_ascln",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_63",
+            "displayName": "归溟幽灵鲨",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 63,
+            "availCount": 6,
+            "item": {
+                "id": "char_1023_ghost2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_64",
+            "displayName": "多萝西",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 64,
+            "availCount": 6,
+            "item": {
+                "id": "char_4048_doroth",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_65",
+            "displayName": "艾拉",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 65,
+            "availCount": 6,
+            "item": {
+                "id": "char_4123_ela",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_66",
+            "displayName": "引星棘刺",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 66,
+            "availCount": 6,
+            "item": {
+                "id": "char_1039_thorn2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_67",
+            "displayName": "闪灵",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 67,
+            "availCount": 6,
+            "item": {
+                "id": "char_147_shining",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_68",
+            "displayName": "夜莺",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 68,
+            "availCount": 6,
+            "item": {
+                "id": "char_179_cgbird",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_69",
+            "displayName": "凯尔希",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 69,
+            "availCount": 6,
+            "item": {
+                "id": "char_003_kalts",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_70",
+            "displayName": "流明",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 70,
+            "availCount": 6,
+            "item": {
+                "id": "char_4042_lumen",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_71",
+            "displayName": "纯烬艾雅法拉",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 71,
+            "availCount": 6,
+            "item": {
+                "id": "char_1016_agoat2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_72",
+            "displayName": "焰影苇草",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 72,
+            "availCount": 6,
+            "item": {
+                "id": "char_1020_reed2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_73",
+            "displayName": "星熊",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 73,
+            "availCount": 6,
+            "item": {
+                "id": "char_136_hsguma",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_74",
+            "displayName": "塞雷娅",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 74,
+            "availCount": 6,
+            "item": {
+                "id": "char_202_demkni",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_75",
+            "displayName": "瑕光",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 75,
+            "availCount": 6,
+            "item": {
+                "id": "char_423_blemsh",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_76",
+            "displayName": "黍",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 76,
+            "availCount": 6,
+            "item": {
+                "id": "char_2025_shu",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_77",
+            "displayName": "年",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 77,
+            "availCount": 6,
+            "item": {
+                "id": "char_2014_nian",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_78",
+            "displayName": "泥岩",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 78,
+            "availCount": 6,
+            "item": {
+                "id": "char_311_mudrok",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_79",
+            "displayName": "斥罪",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 79,
+            "availCount": 6,
+            "item": {
+                "id": "char_4065_judge",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_80",
+            "displayName": "森蚺",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 80,
+            "availCount": 6,
+            "item": {
+                "id": "char_416_zumama",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_81",
+            "displayName": "号角",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 81,
+            "availCount": 6,
+            "item": {
+                "id": "char_4039_horn",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_82",
+            "displayName": "涤火杰西卡",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 82,
+            "availCount": 6,
+            "item": {
+                "id": "char_1034_jesca2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_83",
+            "displayName": "余",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 83,
+            "availCount": 6,
+            "item": {
+                "id": "char_2026_yu",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_84",
+            "displayName": "山",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 84,
+            "availCount": 6,
+            "item": {
+                "id": "char_264_f12yin",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_85",
+            "displayName": "重岳",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 85,
+            "availCount": 6,
+            "item": {
+                "id": "char_2024_chyue",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_86",
+            "displayName": "银灰",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 86,
+            "availCount": 6,
+            "item": {
+                "id": "char_172_svrash",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_87",
+            "displayName": "棘刺",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 87,
+            "availCount": 6,
+            "item": {
+                "id": "char_293_thorns",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_88",
+            "displayName": "仇白",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 88,
+            "availCount": 6,
+            "item": {
+                "id": "char_4082_qiubai",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_89",
+            "displayName": "赫德雷",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 89,
+            "availCount": 6,
+            "item": {
+                "id": "char_4088_hodrer",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_90",
+            "displayName": "乌尔比安",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 90,
+            "availCount": 6,
+            "item": {
+                "id": "char_4145_ulpia",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_91",
+            "displayName": "佩佩",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 91,
+            "availCount": 6,
+            "item": {
+                "id": "char_4058_pepe",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_92",
+            "displayName": "陈",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 92,
+            "availCount": 6,
+            "item": {
+                "id": "char_010_chen",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_93",
+            "displayName": "艾丽妮",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 93,
+            "availCount": 6,
+            "item": {
+                "id": "char_4009_irene",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_94",
+            "displayName": "锏",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 94,
+            "availCount": 6,
+            "item": {
+                "id": "char_4116_blkkgt",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_95",
+            "displayName": "煌",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 95,
+            "availCount": 6,
+            "item": {
+                "id": "char_017_huang",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_96",
+            "displayName": "百炼嘉维尔",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 96,
+            "availCount": 6,
+            "item": {
+                "id": "char_1026_gvial2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_97",
+            "displayName": "史尔特尔",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 97,
+            "availCount": 6,
+            "item": {
+                "id": "char_350_surtr",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_98",
+            "displayName": "薇薇安娜",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 98,
+            "availCount": 6,
+            "item": {
+                "id": "char_4098_vvana",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_99",
+            "displayName": "维娜·维多利亚",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 99,
+            "availCount": 6,
+            "item": {
+                "id": "char_1019_siege2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_100",
+            "displayName": "赫拉格",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 100,
+            "availCount": 6,
+            "item": {
+                "id": "char_188_helage",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_101",
+            "displayName": "左乐",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 101,
+            "availCount": 6,
+            "item": {
+                "id": "char_4121_zuole",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_102",
+            "displayName": "帕拉斯",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 102,
+            "availCount": 6,
+            "item": {
+                "id": "char_485_pallas",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_103",
+            "displayName": "耀骑士临光",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 103,
+            "availCount": 6,
+            "item": {
+                "id": "char_1014_nearl2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_104",
+            "displayName": "止颂",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 104,
+            "availCount": 6,
+            "item": {
+                "id": "char_4011_lessng",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_105",
+            "displayName": "圣约送葬人",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 105,
+            "availCount": 6,
+            "item": {
+                "id": "char_1032_excu2",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_106",
+            "displayName": "隐德来希",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 106,
+            "availCount": 6,
+            "item": {
+                "id": "char_4010_etlchi",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_107",
+            "displayName": "玛恩纳",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 107,
+            "availCount": 6,
+            "item": {
+                "id": "char_4064_mlynar",
+                "type": "CHAR",
+                "count": 1
+            }
+        },
+        {
+            "goodId": "good_SOCIAL_108",
+            "displayName": "斯卡蒂",
+            "originPrice": 9999,
+            "price": 160,
+            "discount": 0.99,
+            "sortId": 108,
+            "availCount": 6,
+            "item": {
+                "id": "char_263_skadi",
+                "type": "CHAR",
+                "count": 1
+            }
+        }
+    ],
+    "charPurchase": {
+        "char_198_blackd": 6,
+        "char_187_ccheal": 6,
+        "char_260_durnar": 6
+    },
+    "costSocialPoint": 113520,
+    "creditGroup": "creditGroup2",
+    "playerDataDelta": {
+        "modified": {
+            "shop": {
+                "SOCIAL": {
+                    "curShopId": "SOCIAL20211106",
+                    "info": [],
+                    "charPurchase": {
+                        "char_198_blackd": 6,
+                        "char_187_ccheal": 6,
+                        "char_260_durnar": 6
+                    }
+                }
+            }
+        },
+        "deleted": {}
+    }
+}
