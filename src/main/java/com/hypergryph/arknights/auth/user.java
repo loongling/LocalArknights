@@ -6,10 +6,7 @@ import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.function.httpClient;
 import com.hypergryph.arknights.core.pojo.Account;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +17,7 @@ import java.util.List;
 public class user {
     private static String Key = "IxMMveJRWsxStJgX";
 
-    public user(){
+    public user() {
     }
 
     @RequestMapping({"/info/v1/need_cloud_auth"})
@@ -30,6 +27,7 @@ public class user {
         result.put("msg", "faq");
         return result;
     }
+
 
     @RequestMapping({"/v1/guestLogin"})
     public JSONObject GuestLogin() {
@@ -66,28 +64,6 @@ public class user {
         return result;
     }
 
-    @RequestMapping({"/sendSmsCode"})
-    public JSONObject sendSmsCode(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /v1/sendSmsCode");
-        String account = jsonBody.getString("account");
-        JSONObject result;
-        if (ArKnightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha")) {
-            result = new JSONObject(true);
-            result.put("result", 4);
-            return result;
-        }
-        else if (httpClient.sentSmsCode(account).getIntValue("code") == 200) {
-            result = new JSONObject(true);
-            result.put("result", 0);
-            return result;
-        }
-        else {
-            result = new JSONObject(true);
-            result.put("result", 4);
-            return result;
-        }
-    }
     @PostMapping(
             value = {"/register"},
             produces = {"application/json;charset=UTF-8"}
@@ -105,20 +81,17 @@ public class user {
             result.put("result", 5);
             result.put("errMsg", "该用户已存在，请确认注册信息");
             return result;
-        }
-        else if (ArKnightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha") && httpClient.verifySmsCode(account, smsCode).getIntValue("code") == 503) {
+        } else if (ArKnightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha") && httpClient.verifySmsCode(account, smsCode).getIntValue("code") == 503) {
             result = new JSONObject(true);
             result.put("result", 5);
             result.put("errMsg", "验证码错误");
             return result;
-        }
-        else if (userDao.RegisterAccount(account, DigestUtils.md5DigestAsHex((password + Key).getBytes()), secret) != 1) {
+        } else if (userDao.RegisterAccount(account, DigestUtils.md5DigestAsHex((password + Key).getBytes()), secret) != 1) {
             result = new JSONObject(true);
             result.put("result", 5);
             result.put("errMsg", "注册失败，未知错误");
             return result;
-        }
-        else {
+        } else {
             result = new JSONObject(true);
             result.put("result", 0);
             result.put("uid", 0);
@@ -146,12 +119,11 @@ public class user {
             result = new JSONObject(true);
             result.put("result", 1);
             return result;
-        }
-        else {
+        } else {
             result = new JSONObject(true);
             result.put("result", 0);
-            result.put("uid", ((Account)accounts.get(0)).getUid());
-            result.put("token", ((Account)accounts.get(0)).getSecret());
+            result.put("uid", ((Account) accounts.get(0)).getUid());
+            result.put("token", ((Account) accounts.get(0)).getSecret());
             result.put("isAuthenticate", true);
             result.put("isMinor", false);
             result.put("needAuthenticate", false);
@@ -161,12 +133,12 @@ public class user {
     }
 
     @PostMapping(
-            value = {"/auth"},
+            value = {"/oauth2/v2/grant"},
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject Auth(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /user/auth");
+        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /user/oauth2/v2/grant");
         String secret = JsonBody.getString("token");
         if (secret == null && secret.length() < 0) {
             response.setStatus(400);
@@ -175,17 +147,15 @@ public class user {
             result.put("error", "Bad Request");
             result.put("message", "invalid token");
             return result;
-        }
-        else {
+        } else {
             List<Account> Accounts = userDao.queryAccountBySecret(secret);
             if (Accounts.size() != 1) {
                 JSONObject result = new JSONObject(true);
                 result.put("result", 2);
                 result.put("error", "无法查询到此账户");
                 return result;
-            }
-            else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
+            } else {
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject result = new JSONObject(true);
                 result.put("uid", uid);
                 result.put("isMinor", false);
@@ -196,5 +166,15 @@ public class user {
                 return result;
             }
         }
+    }
+
+    @PostMapping(
+            value = {"/online/v1/loginout"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject LoginOut(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject(true);
+        jsonObject.put("result", 0);
+        return jsonObject;
     }
 }

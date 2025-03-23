@@ -31,7 +31,7 @@ public class online {
     }
 
     @PostMapping(
-            value = {"/v1/logout"},
+            value = {"/online/v1/loginout"},
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject LoginOut(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
@@ -39,4 +39,5 @@ public class online {
         jsonObject.put("result", 0);
         return jsonObject;
     }
+
 }

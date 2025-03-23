@@ -1,10 +1,12 @@
 package com.hypergryph.arknights.general;
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.core.function.httpClient;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 
 @RestController
@@ -29,6 +31,27 @@ public class v1 {
         result.put("status", 0);
 
         return result;
+    }
+
+    @RequestMapping({"/send_phone_code"})
+    public JSONObject sendSmsCode(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
+        String clientIp = ArKnightsApplication.getIpAddr(request);
+        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] 请求发送手机验证码 /general/v1/sendSmsCode");
+        String account = jsonBody.getString("account");
+        JSONObject result;
+        if (ArKnightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha")) {
+            result = new JSONObject(true);
+            result.put("result", 4);
+            return result;
+        } else if (httpClient.sentSmsCode(account).getIntValue("code") == 200) {
+            result = new JSONObject(true);
+            result.put("result", 0);
+            return result;
+        } else {
+            result = new JSONObject(true);
+            result.put("result", 4);
+            return result;
+        }
     }
 
     private boolean checkIfHoliday(String date) {
