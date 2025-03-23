@@ -4,6 +4,7 @@
 		"http":38660,
 		"https":38650,
 		"captcha":false,
+		"enableServer":true,
 		"closeMessage":"服务器目前暂未开放",
 		"GMKey":"$Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h"
 	},

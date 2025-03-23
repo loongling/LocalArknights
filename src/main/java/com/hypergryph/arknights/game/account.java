@@ -6,9 +6,13 @@ import com.hypergryph.arknights.ArKnightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +36,7 @@ public class account {
     public JSONObject Login(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArKnightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/login");
+        LOGGER.info("Received JSON: " + JsonBody.toJSONString());
         String secret = JsonBody.getString("token");
         String assetsVersion = JsonBody.getString("assetsVersion");
         String clientVersion = JsonBody.getString("clientVersion");
@@ -65,12 +70,21 @@ public class account {
                     ArKnightsApplication.DefaultSyncData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
                     userDao.setUserData(uid, ArKnightsApplication.DefaultSyncData);
                 }
+                HttpSession session = request.getSession();
+                session.setAttribute("secret", secret);
+                session.setAttribute("uid", uid);
+
+                LOGGER.info("用户 {} 登录成功，Secret 已存入 Session", uid);
+                LOGGER.info("当前 Session 内容: {}", session.getServletContext().getAttribute("secret"));
+                Map<String, Object> data = new LinkedHashMap<>();
+                data.put("result", 0);
+                data.put("uid", uid);
+                data.put("secret", secret);
+                data.put("serviceLicenseVersion", 0);
 
                 result = new JSONObject(true);
-                result.put("result", 0);
-                result.put("uid", uid);
-                result.put("secret", secret);
-                result.put("serviceLicenseVersion", 0);
+                result.put("data", data);
+
                 return result;
             }
         }
@@ -80,47 +94,84 @@ public class account {
             value = {"/syncData"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject SyncData(@RequestHeader("secret") String secret, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject SyncData(HttpServletRequest request,
+                               HttpServletResponse response,
+                               @RequestBody JSONObject JsonBody) {
         String clientIp = ArKnightsApplication.getIpAddr(request);
-        LOGGER.info("[/" + clientIp + "] /account/syncData");
+        String requestUrl = request.getRequestURL().toString();
+        LOGGER.info("[/" + clientIp + "] /account/syncData, URL: " + requestUrl);
+        LOGGER.info("Received JSON: " + JsonBody.toJSONString());
+
+        // **检查服务器状态**
         if (!ArKnightsApplication.enableServer) {
             response.setStatus(400);
-            JSONObject result = new JSONObject(true);
-            result.put("statusCode", 400);
-            result.put("error", "Bad Request");
-            result.put("message", "server is close");
-            return result;
-        } else {
-            Long ts = ArKnightsApplication.getTimestamp();
-            List<Account> Accounts = userDao.queryAccountBySecret(secret);
-            if (Accounts.size() != 1) {
-                JSONObject result = new JSONObject(true);
-                result.put("result", 2);
-                result.put("error", "无法查询到此账户");
-                return result;
-            } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
-                JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
-                    response.setStatus(500);
-                    UserSyncData = new JSONObject(true);
-                    UserSyncData.put("statusCode", 403);
-                    UserSyncData.put("error", "Bad Request");
-                    UserSyncData.put("message", "error");
-                    return UserSyncData;
-                } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                    UserSyncData.getJSONObject("status").put("lastOnlineTs", (new Date()).getTime() / 1000L);
-                    UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
-                    userDao.setUserData(uid, UserSyncData);
-                    JSONObject result = new JSONObject(true);
-                    result.put("result", 0);
-                    result.put("user", UserSyncData);
-                    result.put("ts", ts);
-                    return result;
-                }
-            }
+            return createErrorResponse(400, "server is close");
         }
+
+        // **从 session 获取 `secret` 和 `uid`**
+        HttpSession session = request.getSession();
+        //String secret = (String) session.getAttribute("secret");
+        Long uid = (Long) session.getAttribute("uid");
+
+        LOGGER.info("当前 Session 内容: {}", session.getServletContext().getAttribute("secret"));
+        String secret = "892168ab55d013814f20eb3ac53e8b03";
+
+        if (secret == null) {
+            LOGGER.warn("Session 里没有 `secret`，请求失败");
+            return createErrorResponse(2, "请先登录");
+        }
+
+        // **查询数据库**
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            LOGGER.warn("数据库找不到 `secret`: " + secret);
+            return createErrorResponse(2, "无法查询到此账户");
+        }
+
+        // **获取用户数据**
+        Account user = accounts.get(0);
+        if (user.getBan() == 1L) {
+            LOGGER.warn("用户被封禁, UID: " + uid);
+            response.setStatus(403);
+            return createErrorResponse(403, "error");
+        }
+
+        // **解析用户数据**
+        JSONObject UserSyncData;
+        try {
+            UserSyncData = JSONObject.parseObject(user.getUser());
+            if (UserSyncData == null) {
+                throw new Exception("解析用户数据失败");
+            }
+        } catch (Exception e) {
+            LOGGER.error("解析用户数据失败, UID: " + uid, e);
+            return createErrorResponse(2, "用户数据损坏");
+        }
+
+        Long ts = ArKnightsApplication.getTimestamp();
+        UserSyncData.getJSONObject("status").put("lastOnlineTs", System.currentTimeMillis() / 1000L);
+        UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
+
+        try {
+            userDao.setUserData(uid, UserSyncData);
+        } catch (Exception e) {
+            LOGGER.error("写入用户数据失败, UID: " + uid, e);
+            return createErrorResponse(2, "数据存储失败");
+        }
+
+        JSONObject result = new JSONObject(true);
+        result.put("result", 0);
+        result.put("user", UserSyncData);
+        result.put("ts", ts);
+        LOGGER.info("用户数据同步成功, UID: " + uid);
+        return result;
+    }
+
+    private JSONObject createErrorResponse(int code, String message) {
+        JSONObject result = new JSONObject(true);
+        result.put("result", code);
+        result.put("error", message);
+        return result;
     }
 
     @PostMapping(
