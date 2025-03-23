@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping({"/user"})
-public class user {
+public class users {
     private static final Logger LOGGER = LogManager.getLogger();
-    public user() {}
+    public users() {}
     @PostMapping(
             value = {"bindNickName"},
             produces = {"application/json;charset=UTF-8"}
