@@ -1,0 +1,50 @@
+2025-03-25 21:53:04 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - Starting ArKnightsApplication using Java 17.0.12 on FurryOS-LoongLing with PID 1588 (E:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-1.9.3.jar started by LoongLing in E:\javacode\LocalArknights\LocalArknights_rootlocation)
+2025-03-25 21:53:04 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - The following 1 profile is active: "default"
+2025-03-25 21:53:07 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 8443 (http)
+2025-03-25 21:53:07 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2025-03-25 21:53:07 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8443"]
+2025-03-25 21:53:07 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-25 21:53:07 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-03-25 21:53:07 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-25 21:53:07 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3171 ms
+2025-03-25 21:53:08 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2025-03-25 21:53:08 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8443"]
+2025-03-25 21:53:08 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 8443 (http) with context path ''
+2025-03-25 21:53:08 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - Started ArKnightsApplication in 4.836 seconds (JVM running for 6.066)
+2025-03-25 21:53:08 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 载入服务器配置...
+2025-03-25 21:53:08 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 载入游戏数据...
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 载入完成，耗时：1560ms
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 检测数据库版本中...
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 数据库版本 8.0.35
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 服务端版本 0.2.0Alpha
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 客户端版本 2.4.61
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 构建时间 2025年3月22日
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 管理员密钥 $Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 服务端更新日志:
+2025-03-25 21:53:10 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2025-03-25 21:53:15 [main] INFO  com.hypergryph.arknights.command.CommandHelp - §e------------------- §f帮助菜单 §e-------------------
+2025-03-25 21:53:15 [main] INFO  com.hypergryph.arknights.command.CommandHelp - §6/help §f[string]<命令>
+2025-03-25 21:55:13 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - Starting ArKnightsApplication using Java 17.0.12 on FurryOS-LoongLing with PID 3556 (E:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-1.9.3.jar started by LoongLing in E:\javacode\LocalArknights\LocalArknights_rootlocation)
+2025-03-25 21:55:13 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - The following 1 profile is active: "default"
+2025-03-25 21:55:15 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 8443 (http)
+2025-03-25 21:55:15 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2025-03-25 21:55:15 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8443"]
+2025-03-25 21:55:15 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-25 21:55:15 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-03-25 21:55:15 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-25 21:55:15 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1553 ms
+2025-03-25 21:55:15 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2025-03-25 21:55:15 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8443"]
+2025-03-25 21:55:15 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 8443 (http) with context path ''
+2025-03-25 21:55:15 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - Started ArKnightsApplication in 2.67 seconds (JVM running for 4.388)
+2025-03-25 21:55:15 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 载入服务器配置...
+2025-03-25 21:55:15 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 载入游戏数据...
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 载入完成，耗时：1330ms
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 检测数据库版本中...
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 数据库版本 8.0.35
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 服务端版本 0.2.0Alpha
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 客户端版本 2.4.61
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 构建时间 2025年3月22日
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 管理员密钥 $Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 服务端更新日志:
+2025-03-25 21:55:17 [main] INFO  com.hypergryph.arknights.ArKnightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
