@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,12 +68,7 @@ public class account {
                     ArKnightsApplication.DefaultSyncData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
                     userDao.setUserData(uid, ArKnightsApplication.DefaultSyncData);
                 }
-                HttpSession session = request.getSession();
-                session.setAttribute("secret", secret);
-                session.setAttribute("uid", uid);
-
-                LOGGER.info("用户 {} 登录成功，Secret 已存入 Session", uid);
-                LOGGER.info("当前 Session 内容: {}", session.getServletContext().getAttribute("secret"));
+                ArKnightsApplication.addSecretForIP(clientIp, secret);
                 Map<String, Object> data = new LinkedHashMap<>();
                 data.put("result", 0);
                 data.put("uid", uid);
@@ -95,12 +88,13 @@ public class account {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject SyncData(HttpServletRequest request,
-                               HttpServletResponse response,
-                               @RequestBody JSONObject JsonBody) {
+                               HttpServletResponse response) {
         String clientIp = ArKnightsApplication.getIpAddr(request);
         String requestUrl = request.getRequestURL().toString();
         LOGGER.info("[/" + clientIp + "] /account/syncData, URL: " + requestUrl);
-        LOGGER.info("Received JSON: " + JsonBody.toJSONString());
+        String secret = ArKnightsApplication.getSecretByIP(clientIp);
+        long uid = 0;
+        List<Account> Accounts = userDao.queryAccountBySecret(String.valueOf(uid));
 
         // **检查服务器状态**
         if (!ArKnightsApplication.enableServer) {
@@ -108,16 +102,8 @@ public class account {
             return createErrorResponse(400, "server is close");
         }
 
-        // **从 session 获取 `secret` 和 `uid`**
-        HttpSession session = request.getSession();
-        //String secret = (String) session.getAttribute("secret");
-        Long uid = (Long) session.getAttribute("uid");
-
-        LOGGER.info("当前 Session 内容: {}", session.getServletContext().getAttribute("secret"));
-        String secret = "892168ab55d013814f20eb3ac53e8b03";
-
         if (secret == null) {
-            LOGGER.warn("Session 里没有 `secret`，请求失败");
+            LOGGER.warn("请求失败");
             return createErrorResponse(2, "请先登录");
         }
 
@@ -160,9 +146,13 @@ public class account {
         }
 
         JSONObject result = new JSONObject(true);
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("deleted", new JSONObject(true));  // 空对象而非null
+        playerDataDelta.put("modified", new JSONObject(true)); // 空对象而非null
+        result.put("playerDataDelta", playerDataDelta);
         result.put("result", 0);
-        result.put("user", UserSyncData);
         result.put("ts", ts);
+        result.put("user", UserSyncData);
         LOGGER.info("用户数据同步成功, UID: " + uid);
         return result;
     }

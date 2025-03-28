@@ -36,7 +36,7 @@ public class v1 {
     @RequestMapping({"/send_phone_code"})
     public JSONObject sendSmsCode(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
         String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] 请求发送手机验证码 /general/v1/sendSmsCode");
+        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] 请求发送手机验证码 /general/v1/send_phone_code");
         String account = jsonBody.getString("account");
         JSONObject result;
         if (ArKnightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha")) {
