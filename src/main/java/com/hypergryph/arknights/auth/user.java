@@ -222,7 +222,7 @@ public class user {
             value = {"/online/v1/loginout"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject LoginOut(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject LoginOut(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject(true);
         jsonObject.put("result", 0);
         return jsonObject;

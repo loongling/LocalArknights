@@ -25,8 +25,9 @@ public class users {
             value = {"bindNickName"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject bindNickName(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request){
+    public JSONObject bindNickName(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request){
         String clientIp = ArKnightsApplication.getIpAddr(request);
+        String secret = ArKnightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/bindNickName");
         if (!ArKnightsApplication.enableServer){
             response.setStatus(400);

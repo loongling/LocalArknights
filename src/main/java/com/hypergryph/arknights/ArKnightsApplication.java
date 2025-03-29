@@ -10,20 +10,23 @@ import com.hypergryph.arknights.core.file.IOTools;
 import com.hypergryph.arknights.core.function.randomPwd;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import javax.servlet.*;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -167,37 +170,61 @@ public class ArKnightsApplication {
     }
 
     public static long getTimestamp() {
-        long ts = serverConfig.getJSONObject("timestamp").getLongValue(DateUtil.dayOfWeekEnum(DateUtil.date()).toString().toLowerCase());
-        if (ts == -1L) {
-            ts = (new Date()).getTime() / 1000L;
+        // 读取 JSON 配置中的时间字符串
+        String ts = serverConfig.getJSONObject("timer").getString("set_server_time");
+
+        // 处理 null 或空字符串情况
+        if (ts == null || ts.isEmpty()) {
+            return System.currentTimeMillis() / 1000L; // 返回当前时间戳（秒）
         }
 
-        return ts;
-    }
-    public static final ConcurrentHashMap<String, String> IP_SECRET_MAP = new ConcurrentHashMap<>();
+        // 定义支持的时间格式
+        List<String> timeFormats = List.of(
+                "yyyy/MM/dd HH:mm:ss",
+                "ddMMyyyy HH:mm:ss",
+                "dd-MM-yyyy HH:mm:ss",
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyyMMdd HH:mm:ss"
+        );
 
-    // 绑定 IP -> secret
-    public static void addSecretForIP(String ip, String secret) {
-        IP_SECRET_MAP.put(ip, secret);
-
-        // 10 秒后自动删除
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                IP_SECRET_MAP.remove(ip);
+        // 遍历尝试解析时间字符串
+        for (String format : timeFormats) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+                LocalDateTime dt = LocalDateTime.parse(ts, formatter);
+                long unixTime = dt.atZone(ZoneId.systemDefault()).toEpochSecond(); // 转换为 Unix 时间戳（秒）
+                return unixTime == -1 ? System.currentTimeMillis() / 1000L : unixTime; // -1 时返回真实时间
+            } catch (Exception ignored) {
+                // 解析失败则尝试下一个格式
             }
-        }, 600000);
+        }
+        return System.currentTimeMillis() / 1000L;
+    };
+        public static final ConcurrentHashMap<String, String> IP_SECRET_MAP = new ConcurrentHashMap<>();
+
+        // 绑定 IP -> secret
+        public static void addSecretForIP (String ip, String secret){
+            IP_SECRET_MAP.put(ip, secret);
+        }
+
+    @Configuration
+    public class WebConfig implements WebMvcConfigurer {
+
+        @Autowired
+        private HttpRequestLoggerInterceptor requestLoggerInterceptor;
+
+        @Override
+        public void addInterceptors(InterceptorRegistry registry) {
+            registry.addInterceptor(requestLoggerInterceptor);
+        }
     }
+
 
     // 获取 secret
     public static String getSecretByIP(String ip) {
         return IP_SECRET_MAP.get(ip);
     }
 
-    // 删除 secret
-    public static void removeSecretByIP(String ip) {
-        IP_SECRET_MAP.remove(ip);
-    }
     public static void reloadServerConfig() {
         long startTime = System.currentTimeMillis();
         LOGGER.info("载入服务器配置...");
@@ -220,6 +247,7 @@ public class ArKnightsApplication {
         SocialGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SocialGoodList.json");
         AllProductList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/AllProductList.json");
         skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
+        itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json");
         long endTime = System.currentTimeMillis();
         LOGGER.info("载入完成，耗时：" + (endTime - startTime) + "ms");
     }

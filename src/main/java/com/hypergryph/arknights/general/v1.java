@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArKnightsApplication;
 import com.hypergryph.arknights.core.function.httpClient;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,17 +14,16 @@ import java.time.LocalDate;
 @RequestMapping("/general/v1")
 public class v1 {
 
-    private static final String HOLIDAY_API_URL = "https://timor.tech/api/holiday/info/";
-
     @GetMapping("/server_time")
-    public JSONObject serverTime() {
-        long UnixTime = System.currentTimeMillis();
-        LocalDate today = LocalDate.now();
-        boolean isHoliday = checkIfHoliday(today.toString());
+    public JSONObject serverTime(HttpServletRequest request) {
+        String clientIp = ArKnightsApplication.getIpAddr(request);
+        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] 请求服务器时间 /general/v1/server_time");
+        long UnixTime = System.currentTimeMillis() / 1000L;
+        boolean isHoliday = false;
 
         JSONObject data  = new JSONObject();
         data.put("isHoliday", isHoliday);
-        data.put("UnixTime", UnixTime);
+        data.put("serverTime", UnixTime);
 
         JSONObject result = new JSONObject();
         result.put("data", data);
@@ -54,18 +54,4 @@ public class v1 {
         }
     }
 
-    private boolean checkIfHoliday(String date) {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            String url = HOLIDAY_API_URL + date;
-            JSONObject response = restTemplate.getForObject(url, JSONObject.class);
-            if (response != null && response.getBoolean("holiday")) {
-                return true;
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 }

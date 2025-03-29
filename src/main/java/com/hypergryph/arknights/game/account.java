@@ -90,8 +90,7 @@ public class account {
     public JSONObject SyncData(HttpServletRequest request,
                                HttpServletResponse response) {
         String clientIp = ArKnightsApplication.getIpAddr(request);
-        String requestUrl = request.getRequestURL().toString();
-        LOGGER.info("[/" + clientIp + "] /account/syncData, URL: " + requestUrl);
+        LOGGER.info("[/" + clientIp + "] /account/syncData");
         String secret = ArKnightsApplication.getSecretByIP(clientIp);
         long uid = 0;
         List<Account> Accounts = userDao.queryAccountBySecret(String.valueOf(uid));
@@ -168,7 +167,10 @@ public class account {
             value = {"/syncStatus"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject SyncStatus(@RequestHeader("secret") String secret, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject SyncStatus(HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArKnightsApplication.getIpAddr(request);
+        LOGGER.info("[/" + clientIp + "] /account/syncStatus");
+        String secret = ArKnightsApplication.getSecretByIP(clientIp);
         if (!ArKnightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);

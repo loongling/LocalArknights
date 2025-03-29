@@ -2,10 +2,12 @@ package com.hypergryph.arknights.config;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArKnightsApplication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
@@ -98,14 +100,17 @@ public class prod {
         return ArKnightsApplication.serverConfig.getJSONObject("announce").getJSONObject("announcement");
     }
 
-    @RequestMapping({"/announce_meta/IOS/preannouncement.meta.json"})
-    public JSONObject IOSPreAnnouncement(HttpServletRequest request) {
-        return ArKnightsApplication.serverConfig.getJSONObject("announce").getJSONObject("preannouncement");
+    @GetMapping("/announce_meta/Android/preannouncement.meta.json/api/gate/meta/Android")
+    public Map<String, Object> prodGateMeta() {
+        ArKnightsApplication.LOGGER.info("请求网关信息: /api/gate/meta/Android");
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("preAnnounceId", "478");
+        response.put("actived", true);
+        response.put("preAnnounceType", 2);
+
+        return response;
     }
 
-    @RequestMapping({"/announce_meta/IOS/announcement.meta.json"})
-    public JSONObject IOSannouncement(HttpServletRequest request) {
-        return ArKnightsApplication.serverConfig.getJSONObject("announce").getJSONObject("announcement");
-    }
 
 }
