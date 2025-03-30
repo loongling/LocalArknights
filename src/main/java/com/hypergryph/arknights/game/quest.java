@@ -9,12 +9,8 @@ import com.hypergryph.arknights.core.decrypt.Utils;
 import com.hypergryph.arknights.core.pojo.Account;
 import com.hypergryph.arknights.core.pojo.SearchAssistCharList;
 import com.hypergryph.arknights.core.pojo.UserInfo;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+
+import java.util.*;
 import java.util.stream.IntStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.hypergryph.arknights.ArKnightsApplication.stageTable;
 
 @RestController
 @RequestMapping({"/quest"})
@@ -35,6 +33,7 @@ public class quest {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject BattleStart(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        ArKnightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
         String clientIp = ArKnightsApplication.getIpAddr(request);
         String secret = ArKnightsApplication.getSecretByIP(clientIp);
         ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleStart");
@@ -68,7 +67,7 @@ public class quest {
                     return UserSyncData;
                 } else {
                     UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                    JSONObject stage_table = ArKnightsApplication.stageTable.getJSONObject(stageId);
+                    JSONObject stage_table = stageTable.getJSONObject(stageId);
                     JSONObject result;
                     if (!UserSyncData.getJSONObject("dungeon").getJSONObject("stages").containsKey(stageId)) {
                         result = new JSONObject(true);
@@ -129,1583 +128,1064 @@ public class quest {
             value = {"/battleFinish"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject BattleFinish(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
+        public JSONObject BattleFinish(@RequestBody JSONObject JsonBody,
+                                       HttpServletResponse response,
+                                       HttpServletRequest request) {
+            // 1. 初始化与基础验证
+            String clientIp = ArKnightsApplication.getIpAddr(request);
         String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleFinish");
-        if (!ArKnightsApplication.enableServer) {
-            response.setStatus(400);
+            ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleFinish");
+
             JSONObject result = new JSONObject(true);
-            result.put("statusCode", 400);
-            result.put("error", "Bad Request");
-            result.put("message", "server is close");
-            return result;
-        } else {
+
+            if (!ArKnightsApplication.enableServer) {
+                response.setStatus(400);
+                result.put("statusCode", 400);
+                result.put("error", "Bad Request");
+                result.put("message", "server is close");
+                return result;
+            }
+
+            // 2. 验证用户
             List<Account> Accounts = userDao.queryAccountBySecret(secret);
             if (Accounts.size() != 1) {
-                JSONObject result = new JSONObject(true);
                 result.put("result", 2);
                 result.put("error", "无法查询到此账户");
                 return result;
+            }
+
+            Account account = Accounts.get(0);
+            Long uid = account.getUid();
+
+            if (account.getBan() == 1L) {
+                response.setStatus(500);
+                JSONObject banResult = new JSONObject(true);
+                banResult.put("statusCode", 403);
+                banResult.put("error", "Bad Request");
+                banResult.put("message", "error");
+                return banResult;
+            }
+
+            // 3. 获取用户数据
+            JSONObject UserSyncData = JSON.parseObject(account.getUser());
+            JSONObject BattleData = Utils.BattleData_decrypt(JsonBody.getString("data"),
+                    UserSyncData.getJSONObject("pushFlags").getString("status"));
+
+            String stageId = BattleData.getString("battleId");
+            JSONObject stage_table = stageTable.getJSONObject(stageId);
+
+            // 4. 获取关卡解锁信息
+            JSONObject stageClear = new JSONObject();
+            if (ArKnightsApplication.mainStage.containsKey(stageId)) {
+                stageClear = ArKnightsApplication.mainStage.getJSONObject(stageId);
             } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
-                JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
-                    response.setStatus(500);
-                    UserSyncData = new JSONObject(true);
-                    UserSyncData.put("statusCode", 403);
-                    UserSyncData.put("error", "Bad Request");
-                    UserSyncData.put("message", "error");
-                    return UserSyncData;
+                stageClear.put("next", (Object)null);
+                stageClear.put("star", (Object)null);
+                stageClear.put("sub", (Object)null);
+                stageClear.put("hard", (Object)null);
+            }
+
+            // 5. 处理练习模式
+            if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("practiceTimes") == 1) {
+                return handlePracticeMode(UserSyncData, uid, stageId);
+            }
+
+            // 6. 处理正常战斗
+            JSONObject chars = UserSyncData.getJSONObject("troop").getJSONObject("chars");
+            JSONObject troop = new JSONObject(true);
+
+            int DropRate = ArKnightsApplication.serverConfig.getJSONObject("battle").getIntValue("dropRate");
+            int completeState = BattleData.getIntValue("completeState");
+
+            if (ArKnightsApplication.serverConfig.getJSONObject("battle").getBooleanValue("debug")) {
+                completeState = 3;
+            }
+
+            int apCost = stage_table.getIntValue("apCost");
+            int expGain = stage_table.getIntValue("expGain");
+            int goldGain = stage_table.getIntValue("goldGain");
+
+            // 7. 处理AP消耗
+            handleApConsumption(UserSyncData, apCost, completeState, stage_table);
+
+            // 8. 战斗失败处理
+            if (completeState == 1) {
+                return handleBattleFailure(UserSyncData, uid, stage_table, stageId);
+            }
+
+            // 9. 战斗成功处理
+            updateStageState(UserSyncData, stageId, completeState);
+
+            // 10. 首次通关奖励
+            boolean FirstClear = checkFirstClear(UserSyncData, stageId, completeState);
+            if (FirstClear) {
+                handleFirstClearRewards(UserSyncData, stage_table, stageId, chars, troop);
+            }
+
+            // 11. 关卡解锁
+            JSONArray unlockStages = new JSONArray();
+            JSONArray unlockStagesObject = new JSONArray();
+            handleStageUnlock(UserSyncData, stageId, completeState, stageClear, unlockStages, unlockStagesObject);
+
+            // 12. 发放奖励
+            JSONObject rewards = calculateRewards(UserSyncData, stage_table, completeState, FirstClear, DropRate);
+
+            // 13. 更新干员好感度
+            updateOperatorFavor(UserSyncData, BattleData, stage_table, completeState);
+
+            // 14. 构建返回结果
+            result.put("result", 0);
+            result.put("alert", new JSONArray());
+            result.put("suggestFriend", false);
+            result.put("apFailReturn", 0);
+            result.putAll(rewards);
+            result.put("unlockStages", unlockStages);
+
+            // 15. 构建玩家数据变更
+            JSONObject playerDataDelta = buildPlayerDataDelta(UserSyncData, unlockStagesObject, stageId, troop);
+            result.put("playerDataDelta", playerDataDelta);
+
+            // 16. 保存数据
+            userDao.setUserData(uid, UserSyncData);
+
+            return result;
+        }
+
+        // ========== 辅助方法实现 ==========
+
+        private JSONObject handlePracticeMode(JSONObject UserSyncData, Long uid, String stageId) {
+            UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("practiceTimes", 0);
+
+            if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("state") == 0) {
+                UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("state", 1);
+            }
+
+            userDao.setUserData(uid, UserSyncData);
+
+            JSONObject chars = new JSONObject(true);
+            JSONObject troop = new JSONObject(true);
+            JSONObject result = new JSONObject(true);
+
+            JSONObject dungeon = new JSONObject(true);
+            JSONObject stages = new JSONObject(true);
+            stages.put(stageId, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId));
+            dungeon.put("stages", stages);
+
+            result.put("status", UserSyncData.getJSONObject("status"));
+            result.put("dungeon", dungeon);
+
+            troop.put("deleted", new JSONObject(true));
+            troop.put("modified", result);
+
+            chars.put("playerDataDelta", troop);
+            chars.put("result", 0);
+
+            return chars;
+        }
+
+        private void handleApConsumption(JSONObject UserSyncData, int apCost, int completeState, JSONObject stage_table) {
+            int nowTime = (int)(new Date().getTime() / 1000L);
+            int lastApAddTime = UserSyncData.getJSONObject("status").getIntValue("lastApAddTime");
+            int addAp = (nowTime - lastApAddTime) / 360;
+
+            if (UserSyncData.getJSONObject("status").getIntValue("ap") < UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
+                if (UserSyncData.getJSONObject("status").getIntValue("ap") + addAp >= UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
+                    UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("maxAp"));
+                    UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
+                } else if (addAp != 0) {
+                    UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") + addAp);
+                    UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
+                }
+            }
+
+            UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") - apCost);
+        }
+
+        private JSONObject handleBattleFailure(JSONObject UserSyncData, Long uid, JSONObject stage_table, String stageId) {
+            int apFailReturn = stage_table.getIntValue("apFailReturn");
+            if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("noCostCnt") == 1) {
+                apFailReturn = stage_table.getIntValue("apCost");
+                UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("noCostCnt", 0);
+            }
+
+            int nowTime = (int)(new Date().getTime() / 1000L);
+            int lastApAddTime = UserSyncData.getJSONObject("status").getIntValue("lastApAddTime");
+            int addAp = (lastApAddTime - nowTime) / 360;
+
+            if (UserSyncData.getJSONObject("status").getIntValue("ap") < UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
+                if (UserSyncData.getJSONObject("status").getIntValue("ap") + addAp >= UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
+                    UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("maxAp"));
+                    UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
                 } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                    JSONObject BattleData = Utils.BattleData_decrypt(JsonBody.getString("data"), UserSyncData.getJSONObject("pushFlags").getString("status"));
-                    String stageId = BattleData.getString("battleId");
-                    JSONObject stage_table = ArKnightsApplication.stageTable.getJSONObject(stageId);
-                    JSONObject stageClear = new JSONObject();
-                    if (ArKnightsApplication.mainStage.containsKey(stageId)) {
-                        stageClear = ArKnightsApplication.mainStage.getJSONObject(stageId);
+                    UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") + addAp);
+                    UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
+                }
+            }
+
+            UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") + apFailReturn);
+            UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
+            userDao.setUserData(uid, UserSyncData);
+
+            JSONObject result = new JSONObject(true);
+            JSONObject playerDataDelta = new JSONObject(true);
+            JSONObject modified = new JSONObject(true);
+
+            result.put("additionalRewards", new JSONArray());
+            result.put("alert", new JSONArray());
+            result.put("firstRewards", new JSONArray());
+            result.put("furnitureRewards", new JSONArray());
+            result.put("unlockStages", new JSONArray());
+            result.put("unusualRewards", new JSONArray());
+            result.put("rewards", new JSONArray());
+            result.put("expScale", 0);
+            result.put("goldScale", 0);
+            result.put("apFailReturn", apFailReturn);
+
+            modified.put("status", UserSyncData.getJSONObject("status"));
+
+            JSONObject dungeon = new JSONObject(true);
+            JSONObject stages = new JSONObject(true);
+            stages.put(stageId, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId));
+            dungeon.put("stages", stages);
+            modified.put("dungeon", dungeon);
+
+            playerDataDelta.put("deleted", new JSONObject(true));
+            playerDataDelta.put("modified", modified);
+
+            result.put("playerDataDelta", playerDataDelta);
+            result.put("result", 0);
+
+            return result;
+        }
+
+        private void updateStageState(JSONObject UserSyncData, String stageId, int completeState) {
+            JSONObject stages_data = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId);
+
+            if (stages_data.getIntValue("state") == 0) {
+                stages_data.put("state", 1);
+            }
+
+            if (stages_data.getIntValue("state") != 3) {
+                stages_data.put("state", completeState);
+            }
+
+            if (completeState == 4) {
+                stages_data.put("state", completeState);
+            }
+        }
+
+        private boolean checkFirstClear(JSONObject UserSyncData, String stageId, int completeState) {
+            JSONObject stages_data = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId);
+            return (stages_data.getIntValue("state") != 3 && completeState == 3) ||
+                    (stages_data.getIntValue("state") == 3 && completeState == 4);
+        }
+
+        private void handleFirstClearRewards(JSONObject UserSyncData, JSONObject stage_table, String stageId,
+                                             JSONObject chars, JSONObject troop) {
+            if (stageId.equals("main_08-16")) {
+                handleAmiyaTransform(UserSyncData, chars, troop);
+            }
+
+            JSONArray displayDetailRewards = stage_table.getJSONObject("stageDropInfo").getJSONArray("displayDetailRewards");
+
+            for (int i = 0; i < displayDetailRewards.size(); i++) {
+                JSONObject reward = displayDetailRewards.getJSONObject(i);
+                int dropType = reward.getIntValue("dropType");
+                String reward_id = reward.getString("id");
+                String reward_type = reward.getString("type");
+
+                if (dropType == 1 || dropType == 8) {
+                    handleFirstClearReward(UserSyncData, reward_id, reward_type, chars, troop);
+                }
+            }
+        }
+
+        private void handleAmiyaTransform(JSONObject UserSyncData, JSONObject chars, JSONObject troop) {
+            for (Map.Entry<String, Object> entry : UserSyncData.getJSONObject("troop").getJSONObject("chars").entrySet()) {
+                JSONObject charData = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(entry.getKey());
+                String charId = charData.getString("charId");
+
+                if (charId.equals("char_002_amiya")) {
+                    JSONArray amiya_skills = charData.getJSONArray("skills");
+                    String skin = charData.getString("skin");
+                    int defaultSkillIndex = charData.getIntValue("defaultSkillIndex");
+
+                    charData.put("skin", (Object)null);
+                    charData.put("defaultSkillIndex", -1);
+                    charData.put("skills", new JSONArray());
+                    charData.put("currentTmpl", "char_1001_amiya2");
+
+                    JSONObject tmpl = new JSONObject(true);
+                    JSONObject charList = new JSONObject(true);
+                    charList.put("skinId", skin);
+                    charList.put("defaultSkillIndex", defaultSkillIndex);
+                    charList.put("skills", amiya_skills);
+                    charList.put("currentEquip", (Object)null);
+                    charList.put("equip", new JSONObject(true));
+                    tmpl.put("char_002_amiya", charList);
+
+                    JSONArray sword_amiya_skills = new JSONArray();
+                    JSONObject skill1 = new JSONObject(true);
+                    skill1.put("skillId", "skchr_amiya2_1");
+                    skill1.put("unlock", 1);
+                    skill1.put("state", 0);
+                    skill1.put("specializeLevel", 0);
+                    skill1.put("completeUpgradeTime", -1);
+                    sword_amiya_skills.add(skill1);
+
+                    JSONObject skill2 = new JSONObject(true);
+                    skill2.put("skillId", "skchr_amiya2_1");
+                    skill2.put("unlock", 1);
+                    skill2.put("state", 0);
+                    skill2.put("specializeLevel", 0);
+                    skill2.put("completeUpgradeTime", -1);
+                    sword_amiya_skills.add(skill2);
+
+                    JSONObject newCharData = new JSONObject(true);
+                    newCharData.put("skinId", "char_1001_amiya2#2");
+                    newCharData.put("defaultSkillIndex", 0);
+                    newCharData.put("skills", sword_amiya_skills);
+                    newCharData.put("currentEquip", (Object)null);
+                    newCharData.put("equip", new JSONObject(true));
+                    tmpl.put("char_1001_amiya2", newCharData);
+
+                    charData.put("tmpl", tmpl);
+                    JSONObject charinstId = new JSONObject(true);
+                    charinstId.put(entry.getKey(), charData);
+                    troop.put("chars", charinstId);
+                    UserSyncData.getJSONObject("troop").getJSONObject("chars").put(entry.getKey(), charData);
+                    break;
+                }
+            }
+        }
+
+        private void handleFirstClearReward(JSONObject UserSyncData, String reward_id, String reward_type,
+                                            JSONObject chars, JSONObject troop) {
+            if (!reward_type.equals("CHAR")) {
+                // 处理非干员奖励
+                handleNonCharFirstClearReward(UserSyncData, reward_id, reward_type);
+            } else {
+                // 处理干员奖励
+                handleCharFirstClearReward(UserSyncData, reward_id, chars, troop);
+            }
+        }
+
+        private void handleNonCharFirstClearReward(JSONObject UserSyncData, String reward_id, String reward_type) {
+            switch (reward_type) {
+                case "MATERIAL":
+                case "CARD_EXP":
+                    UserSyncData.getJSONObject("inventory").put(reward_id,
+                            UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + 1);
+                    break;
+                case "DIAMOND":
+                    UserSyncData.getJSONObject("status").put("androidDiamond",
+                            UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + 1);
+                    UserSyncData.getJSONObject("status").put("iosDiamond",
+                            UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + 1);
+                    break;
+                case "GOLD":
+                    UserSyncData.getJSONObject("status").put("gold",
+                            UserSyncData.getJSONObject("status").getIntValue("gold") + 1);
+                    break;
+                case "TKT_RECRUIT":
+                    UserSyncData.getJSONObject("status").put("recruitLicense",
+                            UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + 1);
+                    break;
+                case "FURN":
+                    if (!UserSyncData.getJSONObject("building").getJSONObject("furniture").containsKey(reward_id)) {
+                        JSONObject furniture = new JSONObject(true);
+                        furniture.put("count", 1);
+                        furniture.put("inUse", 0);
+                        UserSyncData.getJSONObject("building").getJSONObject("furniture").put(reward_id, furniture);
                     } else {
-                        stageClear.put("next", (Object)null);
-                        stageClear.put("star", (Object)null);
-                        stageClear.put("sub", (Object)null);
-                        stageClear.put("hard", (Object)null);
+                        UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id)
+                                .put("count", UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).getIntValue("count") + 1);
+                    }
+                    break;
+            }
+        }
+
+        private void handleCharFirstClearReward(JSONObject UserSyncData, String reward_id,
+                                                JSONObject chars, JSONObject troop) {
+            String randomCharId = reward_id;
+            int dropType = 0;
+
+            // 检查是否已拥有该干员
+            for (int i = 0; i < UserSyncData.getJSONObject("troop").getJSONObject("chars").size(); i++) {
+                if (UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(i + 1))
+                        .getString("charId").equals(randomCharId)) {
+                    dropType = i + 1;
+                    break;
+                }
+            }
+
+            if (dropType == 0) {
+                // 新干员
+                handleNewCharReward(UserSyncData, randomCharId, chars, troop);
+            } else {
+                // 已有干员
+                handleExistingCharReward(UserSyncData, randomCharId, dropType, chars, troop);
+            }
+        }
+
+        private void handleNewCharReward(JSONObject UserSyncData, String randomCharId,
+                                         JSONObject chars, JSONObject troop) {
+            JSONObject get_char = new JSONObject(true);
+            JSONObject char_data = new JSONObject(true);
+            JSONArray skilsArray = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
+            JSONArray skils = new JSONArray();
+
+            for (int i = 0; i < skilsArray.size(); i++) {
+                JSONObject new_skils = new JSONObject(true);
+                new_skils.put("skillId", skilsArray.getJSONObject(i).getString("skillId"));
+                new_skils.put("state", 0);
+                new_skils.put("specializeLevel", 0);
+                new_skils.put("completeUpgradeTime", -1);
+
+                if (skilsArray.getJSONObject(i).getJSONObject("unlockCond").getIntValue("phase") == 0) {
+                    new_skils.put("unlock", 1);
+                } else {
+                    new_skils.put("unlock", 0);
+                }
+
+                skils.add(new_skils);
+            }
+
+            int instId = UserSyncData.getJSONObject("troop").getJSONObject("chars").size() + 1;
+            char_data.put("instId", instId);
+            char_data.put("charId", randomCharId);
+            char_data.put("favorPoint", 0);
+            char_data.put("potentialRank", 0);
+            char_data.put("mainSkillLvl", 1);
+            char_data.put("skin", randomCharId + "#1");
+            char_data.put("level", 1);
+            char_data.put("exp", 0);
+            char_data.put("evolvePhase", 0);
+            char_data.put("gainTime", new Date().getTime() / 1000L);
+            char_data.put("skills", skils);
+            char_data.put("voiceLan", ArKnightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
+            char_data.put("defaultSkillIndex", skils.isEmpty() ? -1 : 0);
+
+            String itemType = randomCharId.substring(randomCharId.indexOf("_") + 1);
+            String itemId = itemType.substring(itemType.indexOf("_") + 1);
+
+            if (ArKnightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
+                JSONObject charGroup = new JSONObject(true);
+                JSONObject equip1 = new JSONObject(true);
+                equip1.put("hide", 0);
+                equip1.put("locked", 0);
+                equip1.put("level", 1);
+
+                JSONObject equip2 = new JSONObject(true);
+                equip2.put("hide", 0);
+                equip2.put("locked", 0);
+                equip2.put("level", 1);
+
+                charGroup.put("uniequip_001_" + itemId, equip1);
+                charGroup.put("uniequip_002_" + itemId, equip2);
+
+                char_data.put("equip", charGroup);
+                char_data.put("currentEquip", "uniequip_001_" + itemId);
+            } else {
+                char_data.put("currentEquip", (Object)null);
+            }
+
+            UserSyncData.getJSONObject("troop").getJSONObject("chars").put(String.valueOf(instId), char_data);
+
+            JSONObject charGroup = new JSONObject(true);
+            charGroup.put("favorPoint", 0);
+            UserSyncData.getJSONObject("troop").getJSONObject("charGroup").put(randomCharId, charGroup);
+
+            get_char.put("charInstId", instId);
+            get_char.put("charId", randomCharId);
+            get_char.put("isNew", 1);
+
+            JSONArray itemGet = new JSONArray();
+            JSONObject hggShard = new JSONObject(true);
+            hggShard.put("type", "HGG_SHD");
+            hggShard.put("id", "4004");
+            hggShard.put("count", 1);
+            itemGet.add(hggShard);
+
+            UserSyncData.getJSONObject("status").put("hggShard", UserSyncData.getJSONObject("status").getIntValue("hggShard") + 1);
+            get_char.put("itemGet", itemGet);
+            UserSyncData.getJSONObject("inventory").put("p_" + randomCharId, 0);
+
+            JSONObject newCharInst = new JSONObject(true);
+            newCharInst.put(String.valueOf(instId), char_data);
+            chars.put(String.valueOf(instId), char_data);
+            troop.put("chars", newCharInst);
+        }
+
+        private void handleExistingCharReward(JSONObject UserSyncData, String randomCharId, int dropType,
+                                              JSONObject chars, JSONObject troop) {
+            JSONObject get_char = new JSONObject(true);
+            get_char.put("charInstId", dropType);
+            get_char.put("charId", randomCharId);
+            get_char.put("isNew", 0);
+
+            JSONObject char_data = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(dropType));
+            int potentialRank = char_data.getIntValue("potentialRank");
+            int reward_rarity = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
+
+            String itemName = null;
+            String itemType = null;
+            String itemId = null;
+            int cur = 0;
+
+            switch (reward_rarity) {
+                case 0:
+                case 1:
+                    itemName = "lggShard";
+                    itemType = "LGG_SHD";
+                    itemId = "4005";
+                    cur = reward_rarity == 0 ? 1 : 1;
+                    break;
+                case 2:
+                    itemName = "lggShard";
+                    itemType = "LGG_SHD";
+                    itemId = "4005";
+                    cur = 5;
+                    break;
+                case 3:
+                    itemName = "lggShard";
+                    itemType = "LGG_SHD";
+                    itemId = "4005";
+                    cur = 30;
+                    break;
+                case 4:
+                    itemName = "hggShard";
+                    itemType = "HGG_SHD";
+                    itemId = "4004";
+                    cur = potentialRank != 5 ? 5 : 8;
+                    break;
+                case 5:
+                    itemName = "hggShard";
+                    itemType = "HGG_SHD";
+                    itemId = "4004";
+                    cur = potentialRank != 5 ? 10 : 15;
+                    break;
+            }
+
+            JSONArray itemGet = new JSONArray();
+            JSONObject shard = new JSONObject(true);
+            shard.put("type", itemType);
+            shard.put("id", itemId);
+            shard.put("count", cur);
+            itemGet.add(shard);
+
+            UserSyncData.getJSONObject("status").put(itemName, UserSyncData.getJSONObject("status").getIntValue(itemName) + cur);
+
+            JSONObject potentialItem = new JSONObject(true);
+            potentialItem.put("type", "MATERIAL");
+            potentialItem.put("id", "p_" + randomCharId);
+            potentialItem.put("count", 1);
+            itemGet.add(potentialItem);
+
+            get_char.put("itemGet", itemGet);
+            UserSyncData.getJSONObject("inventory").put("p_" + randomCharId,
+                    UserSyncData.getJSONObject("inventory").getIntValue("p_" + randomCharId) + 1);
+
+            JSONObject charinstId = new JSONObject(true);
+            charinstId.put(String.valueOf(dropType), char_data);
+            chars.put(String.valueOf(dropType), char_data);
+            troop.put("chars", charinstId);
+        }
+
+        private void handleStageUnlock(JSONObject UserSyncData, String stageId, int completeState,
+                                       JSONObject stageClear, JSONArray unlockStages, JSONArray unlockStagesObject) {
+            JSONObject stages_data = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId);
+            JSONObject stage_table = stageTable.getJSONObject(stageId);
+
+            if (stages_data.getIntValue("state") == 1 && (completeState == 3 || completeState == 2)) {
+                // 解锁后续关卡
+                if (stageClear.getString("next") != null) {
+                    String nextStageId = stageClear.getString("next");
+                    JSONObject hard_unlockStage = createNewStageEntry(nextStageId);
+                    UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(nextStageId, hard_unlockStage);
+
+                    if (stage_table.getString("stageType").equals("MAIN") || stage_table.getString("stageType").equals("SUB")) {
+                        UserSyncData.getJSONObject("status").put("mainStageProgress", nextStageId);
                     }
 
-                    JSONObject chars;
-                    JSONObject troop;
-                    JSONObject result;
-                    if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("practiceTimes") == 1) {
-                        if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("state") == 0) {
-                            UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("state", 1);
-                        }
-
-                        UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("practiceTimes", 0);
-                        userDao.setUserData(uid, UserSyncData);
-                        chars = new JSONObject(true);
-                        troop = new JSONObject(true);
-                        result = new JSONObject(true);
-                        JSONObject dungeon = new JSONObject(true);
-                        JSONObject stages = new JSONObject(true);
-                        stages.put(stageId, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId));
-                        dungeon.put("stages", stages);
-                        result.put("status", UserSyncData.getJSONObject("status"));
-                        result.put("dungeon", dungeon);
-                        troop.put("deleted", new JSONObject(true));
-                        troop.put("modified", result);
-                        chars.put("playerDataDelta", troop);
-                        chars.put("result", 0);
-                        return chars;
-                    } else {
-                        chars = UserSyncData.getJSONObject("troop").getJSONObject("chars");
-                        troop = new JSONObject(true);
-                        result = new JSONObject(true);
-                        int DropRate = ArKnightsApplication.serverConfig.getJSONObject("battle").getIntValue("dropRate");
-                        int completeState = BattleData.getIntValue("completeState");
-                        if (ArKnightsApplication.serverConfig.getJSONObject("battle").getBooleanValue("debug")) {
-                            completeState = 3;
-                        }
-
-                        int apCost = stage_table.getIntValue("apCost");
-                        int expGain = stage_table.getIntValue("expGain");
-                        int goldGain = stage_table.getIntValue("goldGain");
-                        result.put("goldScale", 1);
-                        result.put("expScale", 1);
-                        if (completeState == 3) {
-                            expGain = (int)((double)expGain * 1.2);
-                            goldGain = (int)((double)goldGain * 1.2);
-                            result.put("goldScale", 1.2);
-                            result.put("expScale", 1.2);
-                        }
-
-                        int nowTime = (int)((new Date()).getTime() / 1000L);
-                        int addAp = (nowTime - UserSyncData.getJSONObject("status").getIntValue("lastApAddTime")) / 360;
-                        if (UserSyncData.getJSONObject("status").getIntValue("ap") < UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
-                            if (UserSyncData.getJSONObject("status").getIntValue("ap") + addAp >= UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
-                                UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("maxAp"));
-                                UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
-                            } else if (addAp != 0) {
-                                UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") + addAp);
-                                UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
-                            }
-                        }
-
-                        UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") - apCost);
-                        if (completeState == 1) {
-                            int apFailReturn = stage_table.getIntValue("apFailReturn");
-                            if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("noCostCnt") == 1) {
-                                apFailReturn = stage_table.getIntValue("apCost");
-                                UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("noCostCnt", 0);
-                            }
-
-                            nowTime = (int)((new Date()).getTime() / 1000L);
-                            addAp = (UserSyncData.getJSONObject("status").getIntValue("lastApAddTime") - nowTime) / 360;
-                            if (UserSyncData.getJSONObject("status").getIntValue("ap") < UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
-                                if (UserSyncData.getJSONObject("status").getIntValue("ap") + addAp >= UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
-                                    UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("maxAp"));
-                                    UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
-                                } else {
-                                    UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") + addAp);
-                                    UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
-                                }
-                            }
-
-                            UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") + apFailReturn);
-                            UserSyncData.getJSONObject("status").put("lastApAddTime", nowTime);
-                            userDao.setUserData(uid, UserSyncData);
-                            JSONObject playerDataDelta = new JSONObject(true);
-                            JSONObject modified = new JSONObject(true);
-                            result.put("additionalRewards", new JSONArray());
-                            result.put("alert", new JSONArray());
-                            result.put("firstRewards", new JSONArray());
-                            result.put("furnitureRewards", new JSONArray());
-                            result.put("unlockStages", new JSONArray());
-                            result.put("unusualRewards", new JSONArray());
-                            result.put("rewards", new JSONArray());
-                            result.put("expScale", 0);
-                            result.put("goldScale", 0);
-                            result.put("apFailReturn", apFailReturn);
-                            modified.put("status", UserSyncData.getJSONObject("status"));
-                            JSONObject dungeon = new JSONObject(true);
-                            JSONObject stages = new JSONObject(true);
-                            stages.put(stageId, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId));
-                            dungeon.put("stages", stages);
-                            modified.put("dungeon", dungeon);
-                            playerDataDelta.put("deleted", new JSONObject(true));
-                            playerDataDelta.put("modified", modified);
-                            result.put("playerDataDelta", playerDataDelta);
-                            result.put("result", 0);
-                            return result;
-                        } else {
-                            if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("state") == 0) {
-                                UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("state", 1);
-                            }
-
-                            JSONObject stages_data = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId);
-                            JSONArray unlockStages = new JSONArray();
-                            JSONArray unlockStagesObject = new JSONArray();
-                            JSONArray additionalRewards = new JSONArray();
-                            JSONArray unusualRewards = new JSONArray();
-                            JSONArray furnitureRewards = new JSONArray();
-                            JSONArray firstRewards = new JSONArray();
-                            JSONArray rewards = new JSONArray();
-                            result.put("result", 0);
-                            result.put("alert", new JSONArray());
-                            result.put("suggestFriend", false);
-                            result.put("apFailReturn", 0);
-                            Boolean FirstClear = false;
-                            if (stages_data.getIntValue("state") != 3 && completeState == 3) {
-                                FirstClear = true;
-                            }
-
-                            if (stages_data.getIntValue("state") == 3 && completeState == 4) {
-                                FirstClear = true;
-                            }
-
-                            String reward_type;
-                            int completeFavor;
-                            JSONObject charList;
-                            JSONObject char_data;
-                            JSONObject dungeon;
-                            if (stages_data.getIntValue("state") == 1 && (completeState == 3 || completeState == 2)) {
-                                if (stageId.equals("main_08-16")) {
-                                    Iterator var32 = UserSyncData.getJSONObject("troop").getJSONObject("chars").entrySet().iterator();
-
-                                    while(var32.hasNext()) {
-                                        Map.Entry entry = (Map.Entry)var32.next();
-                                        JSONObject charData = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(entry.getKey().toString());
-                                        String charId = charData.getString("charId");
-                                        if (charId.equals("char_002_amiya")) {
-                                            JSONArray amiya_skills = charData.getJSONArray("skills");
-                                            reward_type = charData.getString("skin");
-                                            completeFavor = charData.getIntValue("defaultSkillIndex");
-                                            charData.put("skin", (Object)null);
-                                            charData.put("defaultSkillIndex", -1);
-                                            charData.put("skills", new JSONArray());
-                                            charData.put("currentTmpl", "char_1001_amiya2");
-                                            JSONObject tmpl = new JSONObject(true);
-                                            charList = new JSONObject(true);
-                                            charList.put("skinId", reward_type);
-                                            charList.put("defaultSkillIndex", completeFavor);
-                                            charList.put("skills", amiya_skills);
-                                            charList.put("currentEquip", (Object)null);
-                                            charList.put("equip", new JSONObject(true));
-                                            tmpl.put("char_002_amiya", charList);
-                                            JSONArray sword_amiya_skills = new JSONArray();
-                                            char_data = new JSONObject(true);
-                                            char_data.put("skillId", "skchr_amiya2_1");
-                                            char_data.put("unlock", 1);
-                                            char_data.put("state", 0);
-                                            char_data.put("specializeLevel", 0);
-                                            char_data.put("completeUpgradeTime", -1);
-                                            sword_amiya_skills.add(char_data);
-                                            dungeon = new JSONObject(true);
-                                            dungeon.put("skillId", "skchr_amiya2_1");
-                                            dungeon.put("unlock", 1);
-                                            dungeon.put("state", 0);
-                                            dungeon.put("specializeLevel", 0);
-                                            dungeon.put("completeUpgradeTime", -1);
-                                            sword_amiya_skills.add(dungeon);
-                                            charData = new JSONObject(true);
-                                            charData.put("skinId", "char_1001_amiya2#2");
-                                            charData.put("defaultSkillIndex", 0);
-                                            charData.put("skills", sword_amiya_skills);
-                                            charData.put("currentEquip", (Object)null);
-                                            charData.put("equip", new JSONObject(true));
-                                            tmpl.put("char_1001_amiya2", charData);
-                                            charData.put("tmpl", tmpl);
-                                            JSONObject charinstId = new JSONObject(true);
-                                            charinstId.put(entry.getKey().toString(), charData);
-                                            troop.put("chars", charinstId);
-                                            UserSyncData.getJSONObject("troop").getJSONObject("chars").put(entry.getKey().toString(), charData);
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                String hard;
-                                JSONObject hard_unlockStage;
-                                if (stageClear.getString("next") != null) {
-                                    hard = stageClear.getString("next");
-                                    hard_unlockStage = new JSONObject(true);
-                                    hard_unlockStage.put("hasBattleReplay", 0);
-                                    hard_unlockStage.put("noCostCnt", 1);
-                                    hard_unlockStage.put("practiceTimes", 0);
-                                    hard_unlockStage.put("completeTimes", 0);
-                                    hard_unlockStage.put("state", 0);
-                                    hard_unlockStage.put("stageId", hard);
-                                    hard_unlockStage.put("startTimes", 0);
-                                    UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(hard, hard_unlockStage);
-                                    if (stage_table.getString("stageType").equals("MAIN") || stage_table.getString("stageType").equals("SUB")) {
-                                        UserSyncData.getJSONObject("status").put("mainStageProgress", hard);
-                                    }
-
-                                    unlockStages.add(hard);
-                                    unlockStagesObject.add(hard_unlockStage);
-                                }
-
-                                if (stageClear.getString("sub") != null) {
-                                    hard = stageClear.getString("sub");
-                                    hard_unlockStage = new JSONObject(true);
-                                    hard_unlockStage.put("hasBattleReplay", 0);
-                                    hard_unlockStage.put("noCostCnt", 1);
-                                    hard_unlockStage.put("practiceTimes", 0);
-                                    hard_unlockStage.put("completeTimes", 0);
-                                    hard_unlockStage.put("state", 0);
-                                    hard_unlockStage.put("stageId", hard);
-                                    hard_unlockStage.put("startTimes", 0);
-                                    UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(hard, hard_unlockStage);
-                                    unlockStages.add(hard);
-                                    unlockStagesObject.add(hard_unlockStage);
-                                }
-
-                                if (completeState == 3) {
-                                    if (stageClear.getString("star") != null) {
-                                        hard = stageClear.getString("star");
-                                        hard_unlockStage = new JSONObject(true);
-                                        hard_unlockStage.put("hasBattleReplay", 0);
-                                        hard_unlockStage.put("noCostCnt", 0);
-                                        hard_unlockStage.put("practiceTimes", 0);
-                                        hard_unlockStage.put("completeTimes", 0);
-                                        hard_unlockStage.put("state", 0);
-                                        hard_unlockStage.put("stageId", hard);
-                                        hard_unlockStage.put("startTimes", 0);
-                                        UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(hard, hard_unlockStage);
-                                        unlockStages.add(hard);
-                                        unlockStagesObject.add(hard_unlockStage);
-                                    }
-
-                                    if (stageClear.getString("hard") != null) {
-                                        hard = stageClear.getString("hard");
-                                        hard_unlockStage = new JSONObject(true);
-                                        hard_unlockStage.put("hasBattleReplay", 0);
-                                        hard_unlockStage.put("noCostCnt", 0);
-                                        hard_unlockStage.put("practiceTimes", 0);
-                                        hard_unlockStage.put("completeTimes", 0);
-                                        hard_unlockStage.put("state", 0);
-                                        hard_unlockStage.put("stageId", hard);
-                                        hard_unlockStage.put("startTimes", 0);
-                                        UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(hard, hard_unlockStage);
-                                        unlockStages.add(hard);
-                                        unlockStagesObject.add(hard_unlockStage);
-                                    }
-                                }
-
-                                result.put("unlockStages", unlockStages);
-                            }
-
-                            JSONObject normal_reward;
-                            JSONArray playerExpMap;
-                            int gold;
-                            int dropType;
-                            int reward_count;
-                            int reward_rarity;
-                            JSONObject get_char;
-                            int instId;
-                            String itemName;
-                            String itemType;
-                            int cur;
-                            if (FirstClear) {
-                                playerExpMap = stage_table.getJSONObject("stageDropInfo").getJSONArray("displayDetailRewards");
-
-                                for(int i = 0; i < playerExpMap.size(); ++i) {
-                                    gold = playerExpMap.getJSONObject(i).getIntValue("dropType");
-                                    reward_count = 1 * DropRate;
-                                    String reward_id = playerExpMap.getJSONObject(i).getString("id");
-                                    reward_type = playerExpMap.getJSONObject(i).getString("type");
-                                    if (gold == 1 || gold == 8) {
-                                        JSONObject charGet;
-                                        if (!reward_type.equals("CHAR")) {
-                                            if (reward_type.equals("MATERIAL")) {
-                                                UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                            }
-
-                                            if (reward_type.equals("CARD_EXP")) {
-                                                UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                            }
-
-                                            if (reward_type.equals("DIAMOND")) {
-                                                UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                                UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                            }
-
-                                            if (reward_type.equals("GOLD")) {
-                                                UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                            }
-
-                                            if (reward_type.equals("TKT_RECRUIT")) {
-                                                UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                            }
-
-                                            if (reward_type.equals("FURN")) {
-                                                if (!UserSyncData.getJSONObject("building").getJSONObject("furniture").containsKey(reward_id)) {
-                                                    charGet = new JSONObject(true);
-                                                    charGet.put("count", 1);
-                                                    charGet.put("inUse", 0);
-                                                    UserSyncData.getJSONObject("building").getJSONObject("furniture").put(reward_id, charGet);
-                                                }
-
-                                                UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).put("count", UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).getIntValue("count") + 1);
-                                            }
-
-                                            charGet = new JSONObject(true);
-                                            charGet.put("count", reward_count);
-                                            charGet.put("id", reward_id);
-                                            charGet.put("type", reward_type);
-                                            firstRewards.add(charGet);
-                                        } else {
-                                            new JSONObject(true);
-                                            String randomCharId = reward_id;
-                                            dropType = 0;
-
-                                            for(reward_count = 0; reward_count < UserSyncData.getJSONObject("troop").getJSONObject("chars").size(); ++reward_count) {
-                                                if (UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(reward_count + 1)).getString("charId").equals(randomCharId)) {
-                                                    dropType = reward_count + 1;
-                                                    break;
-                                                }
-                                            }
-
-                                            String itemId;
-                                            JSONObject new_itemGet_1;
-                                            JSONObject new_itemGet_3;
-                                            JSONArray itemGet;
-                                            if (dropType == 0) {
-                                                get_char = new JSONObject(true);
-                                                char_data = new JSONObject(true);
-                                                JSONArray skilsArray = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
-                                                JSONArray skils = new JSONArray();
-
-                                                for(instId = 0; instId < skilsArray.size(); ++instId) {
-                                                    JSONObject new_skils = new JSONObject(true);
-                                                    new_skils.put("skillId", skilsArray.getJSONObject(instId).getString("skillId"));
-                                                    new_skils.put("state", 0);
-                                                    new_skils.put("specializeLevel", 0);
-                                                    new_skils.put("completeUpgradeTime", -1);
-                                                    if (skilsArray.getJSONObject(instId).getJSONObject("unlockCond").getIntValue("phase") == 0) {
-                                                        new_skils.put("unlock", 1);
-                                                    } else {
-                                                        new_skils.put("unlock", 0);
-                                                    }
-
-                                                    skils.add(new_skils);
-                                                }
-
-                                                instId = UserSyncData.getJSONObject("troop").getJSONObject("chars").size() + 1;
-                                                char_data.put("instId", instId);
-                                                char_data.put("charId", randomCharId);
-                                                char_data.put("favorPoint", 0);
-                                                char_data.put("potentialRank", 0);
-                                                char_data.put("mainSkillLvl", 1);
-                                                char_data.put("skin", randomCharId + "#1");
-                                                char_data.put("level", 1);
-                                                char_data.put("exp", 0);
-                                                char_data.put("evolvePhase", 0);
-                                                char_data.put("gainTime", (new Date()).getTime() / 1000L);
-                                                char_data.put("skills", skils);
-                                                char_data.put("voiceLan", ArKnightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
-                                                if (skils == new JSONArray()) {
-                                                    char_data.put("defaultSkillIndex", -1);
-                                                } else {
-                                                    char_data.put("defaultSkillIndex", 0);
-                                                }
-
-                                                itemType = randomCharId.substring(randomCharId.indexOf("_") + 1);
-                                                itemId = itemType.substring(itemType.indexOf("_") + 1);
-                                                JSONObject charGroup;
-                                                if (ArKnightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
-                                                    charGroup = new JSONObject(true);
-                                                    normal_reward = new JSONObject(true);
-                                                    normal_reward.put("hide", 0);
-                                                    normal_reward.put("locked", 0);
-                                                    normal_reward.put("level", 1);
-                                                    new_itemGet_1 = new JSONObject(true);
-                                                    new_itemGet_1.put("hide", 0);
-                                                    new_itemGet_1.put("locked", 0);
-                                                    new_itemGet_1.put("level", 1);
-                                                    charGroup.put("uniequip_001_" + itemId, normal_reward);
-                                                    charGroup.put("uniequip_002_" + itemId, new_itemGet_1);
-                                                    char_data.put("equip", charGroup);
-                                                    char_data.put("currentEquip", "uniequip_001_" + itemId);
-                                                } else {
-                                                    char_data.put("currentEquip", (Object)null);
-                                                }
-
-                                                UserSyncData.getJSONObject("troop").getJSONObject("chars").put(String.valueOf(instId), char_data);
-                                                charGroup = new JSONObject(true);
-                                                charGroup.put("favorPoint", 0);
-                                                UserSyncData.getJSONObject("troop").getJSONObject("charGroup").put(randomCharId, charGroup);
-                                                get_char.put("charInstId", instId);
-                                                get_char.put("charId", randomCharId);
-                                                get_char.put("isNew", 1);
-                                                itemGet = new JSONArray();
-                                                new_itemGet_1 = new JSONObject(true);
-                                                new_itemGet_1.put("type", "HGG_SHD");
-                                                new_itemGet_1.put("id", "4004");
-                                                new_itemGet_1.put("count", 1);
-                                                itemGet.add(new_itemGet_1);
-                                                UserSyncData.getJSONObject("status").put("hggShard", UserSyncData.getJSONObject("status").getIntValue("hggShard") + 1);
-                                                get_char.put("itemGet", itemGet);
-                                                UserSyncData.getJSONObject("inventory").put("p_" + randomCharId, 0);
-                                                charGet = get_char;
-                                                new_itemGet_3 = new JSONObject(true);
-                                                new_itemGet_3.put(String.valueOf(instId), char_data);
-                                                chars.put(String.valueOf(instId), char_data);
-                                                troop.put("chars", new_itemGet_3);
-                                            } else {
-                                                get_char = new JSONObject(true);
-                                                get_char.put("charInstId", dropType);
-                                                get_char.put("charId", randomCharId);
-                                                get_char.put("isNew", 0);
-                                                char_data = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(dropType));
-                                                int potentialRank = char_data.getIntValue("potentialRank");
-                                                reward_rarity = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
-                                                itemName = null;
-                                                itemType = null;
-                                                itemId = null;
-                                                cur = 0;
-                                                if (reward_rarity == 0) {
-                                                    itemName = "lggShard";
-                                                    itemType = "LGG_SHD";
-                                                    itemId = "4005";
-                                                    cur = 1;
-                                                }
-
-                                                if (reward_rarity == 1) {
-                                                    itemName = "lggShard";
-                                                    itemType = "LGG_SHD";
-                                                    itemId = "4005";
-                                                    cur = 1;
-                                                }
-
-                                                if (reward_rarity == 2) {
-                                                    itemName = "lggShard";
-                                                    itemType = "LGG_SHD";
-                                                    itemId = "4005";
-                                                    cur = 5;
-                                                }
-
-                                                if (reward_rarity == 3) {
-                                                    itemName = "lggShard";
-                                                    itemType = "LGG_SHD";
-                                                    itemId = "4005";
-                                                    cur = 30;
-                                                }
-
-                                                if (reward_rarity == 4) {
-                                                    itemName = "hggShard";
-                                                    itemType = "HGG_SHD";
-                                                    itemId = "4004";
-                                                    if (potentialRank != 5) {
-                                                        cur = 5;
-                                                    } else {
-                                                        cur = 8;
-                                                    }
-                                                }
-
-                                                if (reward_rarity == 5) {
-                                                    itemName = "hggShard";
-                                                    itemType = "HGG_SHD";
-                                                    itemId = "4004";
-                                                    if (potentialRank != 5) {
-                                                        cur = 10;
-                                                    } else {
-                                                        cur = 15;
-                                                    }
-                                                }
-
-                                                itemGet = new JSONArray();
-                                                new_itemGet_1 = new JSONObject(true);
-                                                new_itemGet_1.put("type", itemType);
-                                                new_itemGet_1.put("id", itemId);
-                                                new_itemGet_1.put("count", cur);
-                                                itemGet.add(new_itemGet_1);
-                                                UserSyncData.getJSONObject("status").put(itemName, UserSyncData.getJSONObject("status").getIntValue(itemName) + cur);
-                                                new_itemGet_3 = new JSONObject(true);
-                                                new_itemGet_3.put("type", "MATERIAL");
-                                                new_itemGet_3.put("id", "p_" + randomCharId);
-                                                new_itemGet_3.put("count", 1);
-                                                itemGet.add(new_itemGet_3);
-                                                get_char.put("itemGet", itemGet);
-                                                UserSyncData.getJSONObject("inventory").put("p_" + randomCharId, UserSyncData.getJSONObject("inventory").getIntValue("p_" + randomCharId) + 1);
-                                                charGet = get_char;
-                                                JSONObject charinstId = new JSONObject(true);
-                                                charinstId.put(String.valueOf(dropType), UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(dropType)));
-                                                chars.put(String.valueOf(dropType), UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(dropType)));
-                                                troop.put("chars", charinstId);
-                                            }
-
-                                            get_char = new JSONObject(true);
-                                            get_char.put("count", 1);
-                                            get_char.put("id", reward_id);
-                                            get_char.put("type", reward_type);
-                                            get_char.put("charGet", charGet);
-                                            firstRewards.add(get_char);
-                                        }
-                                    }
-                                }
-                            }
-
-                            result.put("firstRewards", firstRewards);
-                            if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("state") != 3) {
-                                UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("state", completeState);
-                            }
-
-                            if (completeState == 4) {
-                                UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("state", completeState);
-                            }
-
-                            UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("completeTime", BattleData.getJSONObject("battleData").getIntValue("completeTime"));
-                            playerExpMap = JSON.parseArray("[500,800,1240,1320,1400,1480,1560,1640,1720,1800,1880,1960,2040,2120,2200,2280,2360,2440,2520,2600,2680,2760,2840,2920,3000,3080,3160,3240,3350,3460,3570,3680,3790,3900,4200,4500,4800,5100,5400,5700,6000,6300,6600,6900,7200,7500,7800,8100,8400,8700,9000,9500,10000,10500,11000,11500,12000,12500,13000,13500,14000,14500,15000,15500,16000,17000,18000,19000,20000,21000,22000,23000,24000,25000,26000,27000,28000,29000,30000,31000,32000,33000,34000,35000,36000,37000,38000,39000,40000,41000,42000,43000,44000,45000,46000,47000,48000,49000,50000,51000,52000,54000,56000,58000,60000,62000,64000,66000,68000,70000,73000,76000,79000,82000,85000,88000,91000,94000,97000,100000]");
-                            JSONArray playerApMap = JSON.parseArray("[82,84,86,88,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,120,120,120,120,121,121,121,121,121,122,122,122,122,122,123,123,123,123,123,124,124,124,124,124,125,125,125,125,125,126,126,126,126,126,127,127,127,127,127,128,128,128,128,128,129,129,129,129,129,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,131,131,131,131,132,132,132,132,133,133,133,133,134,134,134,134,135,135,135,135]");
-                            gold = UserSyncData.getJSONObject("status").getIntValue("gold");
-                            reward_count = UserSyncData.getJSONObject("status").getIntValue("exp");
-                            int level = UserSyncData.getJSONObject("status").getIntValue("level");
-                            if (goldGain != 0) {
-                                UserSyncData.getJSONObject("status").put("gold", gold + goldGain);
-                                JSONObject rewards_gold = new JSONObject(true);
-                                rewards_gold.put("count", goldGain);
-                                rewards_gold.put("id", 4001);
-                                rewards_gold.put("type", "GOLD");
-                                rewards.add(rewards_gold);
-                            }
-
-                            if (level < 120 && expGain != 0) {
-                                UserSyncData.getJSONObject("status").put("exp", reward_count + expGain);
-
-                                for(int i = 0; i < playerExpMap.size(); ++i) {
-                                    if (level == i + 1) {
-                                        if (Integer.valueOf(playerExpMap.get(i).toString()) - UserSyncData.getJSONObject("status").getIntValue("exp") <= 0) {
-                                            if (i + 2 == 120) {
-                                                UserSyncData.getJSONObject("status").put("level", 120);
-                                                UserSyncData.getJSONObject("status").put("exp", 0);
-                                                UserSyncData.getJSONObject("status").put("maxAp", playerApMap.get(i + 1));
-                                                UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") + UserSyncData.getJSONObject("status").getIntValue("maxAp"));
-                                            } else {
-                                                UserSyncData.getJSONObject("status").put("level", i + 2);
-                                                UserSyncData.getJSONObject("status").put("exp", UserSyncData.getJSONObject("status").getIntValue("exp") - Integer.valueOf(playerExpMap.get(i).toString()));
-                                                UserSyncData.getJSONObject("status").put("maxAp", playerApMap.get(i + 1));
-                                                UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("ap") + UserSyncData.getJSONObject("status").getIntValue("maxAp"));
-                                            }
-
-                                            UserSyncData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
-
-                            JSONArray displayDetailRewards = stage_table.getJSONObject("stageDropInfo").getJSONArray("displayDetailRewards");
-
-                            int occPercent;
-                            int addPercent;
-                            for(completeFavor = 0; completeFavor < displayDetailRewards.size(); ++completeFavor) {
-                                occPercent = displayDetailRewards.getJSONObject(completeFavor).getIntValue("occPercent");
-                                dropType = displayDetailRewards.getJSONObject(completeFavor).getIntValue("dropType");
-                                reward_count = 1 * DropRate;
-                                String reward_id = displayDetailRewards.getJSONObject(completeFavor).getString("id");
-                                reward_type = displayDetailRewards.getJSONObject(completeFavor).getString("type");
-                                reward_rarity = 0;
-                                int Percent = 0;
-                                addPercent = 0;
-                                JSONArray dropArray;
-                                if (completeState == 3 && !reward_type.equals("FURN") && !reward_type.equals("CHAR")) {
-                                    reward_rarity = ArKnightsApplication.itemTable.getJSONObject(reward_id).getIntValue("rarity");
-                                    if (reward_rarity == 0) {
-                                        dropArray = new JSONArray();
-                                        JSONArray finalDropArray = dropArray;
-                                        IntStream.range(0, 70).forEach((n) -> {
-                                            finalDropArray.add(0);
-                                        });
-                                        JSONArray finalDropArray1 = dropArray;
-                                        IntStream.range(0, 20).forEach((n) -> {
-                                            finalDropArray1.add(1);
-                                        });
-                                        JSONArray finalDropArray2 = dropArray;
-                                        IntStream.range(0, 10).forEach((n) -> {
-                                            finalDropArray2.add(2);
-                                        });
-                                        Collections.shuffle(dropArray);
-                                        cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                        reward_count += cur;
-                                        Percent = 10;
-                                        addPercent = 0;
-                                    }
-
-                                    if (reward_rarity == 1) {
-                                        dropArray = new JSONArray();
-                                        JSONArray finalDropArray3 = dropArray;
-                                        IntStream.range(0, 70).forEach((n) -> {
-                                            finalDropArray3.add(0);
-                                        });
-                                        JSONArray finalDropArray4 = dropArray;
-                                        IntStream.range(0, 10).forEach((n) -> {
-                                            finalDropArray4.add(1);
-                                        });
-                                        JSONArray finalDropArray5 = dropArray;
-                                        IntStream.range(0, 5).forEach((n) -> {
-                                            finalDropArray5.add(2);
-                                        });
-                                        Collections.shuffle(dropArray);
-                                        cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                        reward_count += cur;
-                                        Percent = 5;
-                                        addPercent = 0;
-                                    }
-
-                                    if (reward_rarity == 2) {
-                                        Percent = 0;
-                                        addPercent = 110;
-                                    }
-
-                                    if (reward_rarity == 3) {
-                                        Percent = 0;
-                                        addPercent = 120;
-                                    }
-
-                                    if (reward_rarity == 4) {
-                                        Percent = 0;
-                                        addPercent = 130;
-                                    }
-                                }
-
-                                if (completeState == 2 && !reward_type.equals("FURN") && !reward_type.equals("CHAR")) {
-                                    reward_rarity = ArKnightsApplication.itemTable.getJSONObject(reward_id).getIntValue("rarity");
-                                    if (reward_rarity == 0) {
-                                        dropArray = new JSONArray();
-                                        JSONArray finalDropArray6 = dropArray;
-                                        IntStream.range(0, 90 + Percent).forEach((n) -> {
-                                            finalDropArray6.add(0);
-                                        });
-                                        JSONArray finalDropArray7 = dropArray;
-                                        IntStream.range(0, 12 + Percent).forEach((n) -> {
-                                            finalDropArray7.add(1);
-                                        });
-                                        JSONArray finalDropArray8 = dropArray;
-                                        IntStream.range(0, 8 + addPercent).forEach((n) -> {
-                                            finalDropArray8.add(2);
-                                        });
-                                        Collections.shuffle(dropArray);
-                                        cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                        reward_count += cur;
-                                        Percent = 0;
-                                        addPercent = 0;
-                                    }
-
-                                    if (reward_rarity == 1) {
-                                        dropArray = new JSONArray();
-                                        JSONArray finalDropArray9 = dropArray;
-                                        IntStream.range(0, 110 + Percent).forEach((n) -> {
-                                            finalDropArray9.add(0);
-                                        });
-                                        JSONArray finalDropArray10 = dropArray;
-                                        IntStream.range(0, 8 + Percent).forEach((n) -> {
-                                            finalDropArray10.add(1);
-                                        });
-                                        JSONArray finalDropArray11 = dropArray;
-                                        IntStream.range(0, 2 + addPercent).forEach((n) -> {
-                                            finalDropArray11.add(2);
-                                        });
-                                        Collections.shuffle(dropArray);
-                                        cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                        reward_count += cur;
-                                        Percent = 0;
-                                        addPercent = 0;
-                                    }
-
-                                    if (reward_rarity == 2) {
-                                        Percent = 0;
-                                        addPercent = 120;
-                                    }
-
-                                    if (reward_rarity == 3) {
-                                        Percent = 0;
-                                        addPercent = 140;
-                                    }
-
-                                    if (reward_rarity == 4) {
-                                        Percent = 0;
-                                        addPercent = 160;
-                                    }
-                                }
-
-                                if (occPercent == 0 && dropType == 2) {
-                                    if (reward_type.equals("MATERIAL")) {
-                                        if (stageId.equals("wk_toxic_1")) {
-                                            if (completeState == 3) {
-                                                reward_count = 4;
-                                            } else {
-                                                reward_count = 3;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_toxic_2")) {
-                                            if (completeState == 3) {
-                                                reward_count = 7;
-                                            } else {
-                                                reward_count = 3;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_toxic_3")) {
-                                            if (completeState == 3) {
-                                                reward_count = 11;
-                                            } else {
-                                                reward_count = 6;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_toxic_4")) {
-                                            if (completeState == 3) {
-                                                reward_count = 15;
-                                            } else {
-                                                reward_count = 7;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_toxic_5")) {
-                                            if (completeState == 3) {
-                                                reward_count = 21;
-                                            } else {
-                                                reward_count = 8;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_fly_1")) {
-                                            if (completeState == 3) {
-                                                reward_count = 3;
-                                            } else {
-                                                reward_count = 1;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_fly_2")) {
-                                            if (completeState == 3) {
-                                                reward_count = 5;
-                                            } else {
-                                                reward_count = 3;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_fly_3")) {
-                                            if (completeState == 3) {
-                                                if (reward_rarity == 1) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 2) {
-                                                    reward_count = 3;
-                                                }
-                                            } else {
-                                                if (reward_rarity == 1) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 2) {
-                                                    reward_count = 1;
-                                                }
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_fly_4")) {
-                                            if (completeState == 3) {
-                                                if (reward_rarity == 1) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 2) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 3) {
-                                                    reward_count = 2;
-                                                }
-                                            } else {
-                                                if (reward_rarity == 1) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 2) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 3) {
-                                                    reward_count = 1;
-                                                }
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_fly_5")) {
-                                            if (completeState == 3) {
-                                                if (reward_rarity == 1) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 2) {
-                                                    reward_count = 2;
-                                                }
-
-                                                if (reward_rarity == 3) {
-                                                    reward_count = 3;
-                                                }
-                                            } else {
-                                                if (reward_rarity == 1) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 2) {
-                                                    reward_count = 1;
-                                                }
-
-                                                if (reward_rarity == 3) {
-                                                    reward_count = 2;
-                                                }
-                                            }
-                                        }
-
-                                        UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                    }
-
-                                    if (reward_type.equals("CARD_EXP")) {
-                                        UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                    }
-
-                                    if (reward_type.equals("DIAMOND")) {
-                                        UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                        UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                    }
-
-                                    if (reward_type.equals("TKT_RECRUIT")) {
-                                        UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                    }
-
-                                    if (reward_type.equals("GOLD")) {
-                                        if (stageId.equals("main_01-01")) {
-                                            if (completeState == 3) {
-                                                reward_count = 660;
-                                            } else {
-                                                reward_count = 550;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_02-07")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1500;
-                                            } else {
-                                                reward_count = 1250;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_03-06")) {
-                                            if (completeState == 3) {
-                                                reward_count = 2040;
-                                            } else {
-                                                reward_count = 1700;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_04-01")) {
-                                            if (completeState == 3) {
-                                                reward_count = 2700;
-                                            } else {
-                                                reward_count = 2250;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_06-01")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1216;
-                                            } else {
-                                                reward_count = 1013;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_07-02")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1216;
-                                            } else {
-                                                reward_count = 1013;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_08-01")) {
-                                            if (completeState == 3) {
-                                                reward_count = 2700;
-                                            } else {
-                                                reward_count = 2250;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_08-04")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1216;
-                                            } else {
-                                                reward_count = 1013;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_09-01")) {
-                                            if (completeState == 3) {
-                                                reward_count = 2700;
-                                            } else {
-                                                reward_count = 2250;
-                                            }
-                                        }
-
-                                        if (stageId.equals("main_09-02")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1216;
-                                            } else {
-                                                reward_count = 1013;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_02-02")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1020;
-                                            } else {
-                                                reward_count = 850;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_04-2-3")) {
-                                            if (completeState == 3) {
-                                                reward_count = 3480;
-                                            } else {
-                                                reward_count = 2900;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_05-1-2")) {
-                                            if (completeState == 3) {
-                                                reward_count = 2700;
-                                            } else {
-                                                reward_count = 2250;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_05-2-1")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1216;
-                                            } else {
-                                                reward_count = 1013;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_05-3-1")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1216;
-                                            } else {
-                                                reward_count = 1013;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_06-1-2")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1216;
-                                            } else {
-                                                reward_count = 1013;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_06-2-2")) {
-                                            if (completeState == 3) {
-                                                reward_count = 2700;
-                                            } else {
-                                                reward_count = 2250;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_07-1-1")) {
-                                            if (completeState == 3) {
-                                                reward_count = 2700;
-                                            } else {
-                                                reward_count = 2250;
-                                            }
-                                        }
-
-                                        if (stageId.equals("sub_07-1-2")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1216;
-                                            } else {
-                                                reward_count = 1013;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_melee_1")) {
-                                            if (completeState == 3) {
-                                                reward_count = 1700;
-                                            } else {
-                                                reward_count = 1416;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_melee_2")) {
-                                            if (completeState == 3) {
-                                                reward_count = 2800;
-                                            } else {
-                                                reward_count = 2333;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_melee_3")) {
-                                            if (completeState == 3) {
-                                                reward_count = 4100;
-                                            } else {
-                                                reward_count = 3416;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_melee_4")) {
-                                            if (completeState == 3) {
-                                                reward_count = 5700;
-                                            } else {
-                                                reward_count = 4750;
-                                            }
-                                        }
-
-                                        if (stageId.equals("wk_melee_5")) {
-                                            if (completeState == 3) {
-                                                reward_count = 7500;
-                                            } else {
-                                                reward_count = 6250;
-                                            }
-                                        }
-
-                                        UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                    }
-
-                                    normal_reward = new JSONObject(true);
-                                    normal_reward.put("count", reward_count);
-                                    normal_reward.put("id", reward_id);
-                                    normal_reward.put("type", reward_type);
-                                    rewards.add(normal_reward);
-                                }
-
-                                if (occPercent == 1 && dropType == 2) {
-                                    dropArray = new JSONArray();
-                                    JSONArray finalDropArray12 = dropArray;
-                                    IntStream.range(0, 80 + Percent).forEach((n) -> {
-                                        finalDropArray12.add(1);
-                                    });
-                                    JSONArray finalDropArray13 = dropArray;
-                                    IntStream.range(0, 20 + addPercent).forEach((n) -> {
-                                        finalDropArray13.add(0);
-                                    });
-                                    Collections.shuffle(dropArray);
-                                    cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                    if (cur == 1) {
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("CARD_EXP")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("DIAMOND")) {
-                                            UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                            UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("GOLD")) {
-                                            UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("TKT_RECRUIT")) {
-                                            UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        rewards.add(normal_reward);
-                                    }
-                                }
-
-                                if (occPercent == 2 && dropType == 2) {
-                                    if (stageId.indexOf("pro_") != -1) {
-                                        dropArray = new JSONArray();
-                                        JSONArray finalDropArray14 = dropArray;
-                                        IntStream.range(0, 5).forEach((n) -> {
-                                            finalDropArray14.add(1);
-                                        });
-                                        JSONArray finalDropArray15 = dropArray;
-                                        IntStream.range(0, 5).forEach((n) -> {
-                                            finalDropArray15.add(0);
-                                        });
-                                        Collections.shuffle(dropArray);
-                                        cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                        reward_id = displayDetailRewards.getJSONObject(cur).getString("id");
-                                        reward_type = displayDetailRewards.getJSONObject(cur).getString("type");
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        rewards.add(normal_reward);
-                                        break;
-                                    }
-
-                                    dropArray = new JSONArray();
-                                    JSONArray finalDropArray16 = dropArray;
-                                    IntStream.range(0, 50 + Percent).forEach((n) -> {
-                                        finalDropArray16.add(1);
-                                    });
-                                    JSONArray finalDropArray17 = dropArray;
-                                    IntStream.range(0, 50 + addPercent).forEach((n) -> {
-                                        finalDropArray17.add(0);
-                                    });
-                                    Collections.shuffle(dropArray);
-                                    cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                    if (cur == 1) {
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("CARD_EXP")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("DIAMOND")) {
-                                            UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                            UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("GOLD")) {
-                                            UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("TKT_RECRUIT")) {
-                                            UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        rewards.add(normal_reward);
-                                    }
-                                }
-
-                                if (occPercent == 3 && dropType == 2) {
-                                    dropArray = new JSONArray();
-                                    JSONArray finalDropArray18 = dropArray;
-                                    IntStream.range(0, 15 + Percent).forEach((n) -> {
-                                        finalDropArray18.add(1);
-                                    });
-                                    JSONArray finalDropArray19 = dropArray;
-                                    IntStream.range(0, 90 + addPercent).forEach((n) -> {
-                                        finalDropArray19.add(0);
-                                    });
-                                    Collections.shuffle(dropArray);
-                                    cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                    if (cur == 1) {
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("CARD_EXP")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("DIAMOND")) {
-                                            UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                            UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("GOLD")) {
-                                            UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("TKT_RECRUIT")) {
-                                            UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("FURN")) {
-                                            if (!UserSyncData.getJSONObject("building").getJSONObject("furniture").containsKey(reward_id)) {
-                                                normal_reward = new JSONObject(true);
-                                                normal_reward.put("count", 1);
-                                                normal_reward.put("inUse", 0);
-                                                UserSyncData.getJSONObject("building").getJSONObject("furniture").put(reward_id, normal_reward);
-                                            }
-
-                                            UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).put("count", UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).getIntValue("count") + 1);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        if (!reward_type.equals("FURN")) {
-                                            rewards.add(normal_reward);
-                                        } else {
-                                            furnitureRewards.add(normal_reward);
-                                        }
-                                    }
-                                }
-
-                                if (occPercent == 4 && dropType == 2) {
-                                    dropArray = new JSONArray();
-                                    JSONArray finalDropArray20 = dropArray;
-                                    IntStream.range(0, 10 + Percent).forEach((n) -> {
-                                        finalDropArray20.add(1);
-                                    });
-                                    JSONArray finalDropArray21 = dropArray;
-                                    IntStream.range(0, 90 + addPercent).forEach((n) -> {
-                                        finalDropArray21.add(0);
-                                    });
-                                    Collections.shuffle(dropArray);
-                                    cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                    if (cur == 1) {
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("CARD_EXP")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("DIAMOND")) {
-                                            UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                            UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("GOLD")) {
-                                            UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("TKT_RECRUIT")) {
-                                            UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("FURN")) {
-                                            if (!UserSyncData.getJSONObject("building").getJSONObject("furniture").containsKey(reward_id)) {
-                                                normal_reward = new JSONObject(true);
-                                                normal_reward.put("count", 1);
-                                                normal_reward.put("inUse", 0);
-                                                UserSyncData.getJSONObject("building").getJSONObject("furniture").put(reward_id, normal_reward);
-                                            }
-
-                                            UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).put("count", UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).getIntValue("count") + 1);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        if (!reward_type.equals("FURN")) {
-                                            rewards.add(normal_reward);
-                                        } else {
-                                            furnitureRewards.add(normal_reward);
-                                        }
-                                    }
-                                }
-
-                                if (occPercent == 0 && dropType == 3) {
-                                    if (reward_type.equals("MATERIAL")) {
-                                        UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                    }
-
-                                    if (reward_type.equals("CARD_EXP")) {
-                                        UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                    }
-
-                                    if (reward_type.equals("DIAMOND")) {
-                                        UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                        UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                    }
-
-                                    if (reward_type.equals("GOLD")) {
-                                        UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                    }
-
-                                    if (reward_type.equals("TKT_RECRUIT")) {
-                                        UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                    }
-
-                                    normal_reward = new JSONObject(true);
-                                    normal_reward.put("count", reward_count);
-                                    normal_reward.put("id", reward_id);
-                                    normal_reward.put("type", reward_type);
-                                    unusualRewards.add(normal_reward);
-                                }
-
-                                if (occPercent == 3 && dropType == 3) {
-                                    dropArray = new JSONArray();
-                                    JSONArray finalDropArray22 = dropArray;
-                                    IntStream.range(0, 5 + Percent).forEach((n) -> {
-                                        finalDropArray22.add(1);
-                                    });
-                                    JSONArray finalDropArray23 = dropArray;
-                                    IntStream.range(0, 95 + addPercent).forEach((n) -> {
-                                        finalDropArray23.add(0);
-                                    });
-                                    Collections.shuffle(dropArray);
-                                    cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                    if (cur == 1) {
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("CARD_EXP")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("DIAMOND")) {
-                                            UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                            UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("GOLD")) {
-                                            UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("TKT_RECRUIT")) {
-                                            UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        unusualRewards.add(normal_reward);
-                                    }
-                                }
-
-                                if (occPercent == 4 && dropType == 3) {
-                                    dropArray = new JSONArray();
-                                    JSONArray finalDropArray24 = dropArray;
-                                    IntStream.range(0, 5 + Percent).forEach((n) -> {
-                                        finalDropArray24.add(1);
-                                    });
-                                    JSONArray finalDropArray25 = dropArray;
-                                    IntStream.range(0, 95 + addPercent).forEach((n) -> {
-                                        finalDropArray25.add(0);
-                                    });
-                                    Collections.shuffle(dropArray);
-                                    cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                    if (cur == 1) {
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("CARD_EXP")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("DIAMOND")) {
-                                            UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                            UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("GOLD")) {
-                                            UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("TKT_RECRUIT")) {
-                                            UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        unusualRewards.add(normal_reward);
-                                    }
-                                }
-
-                                if (occPercent == 3 && dropType == 4) {
-                                    dropArray = new JSONArray();
-                                    JSONArray finalDropArray26 = dropArray;
-                                    IntStream.range(0, 5 + Percent).forEach((n) -> {
-                                        finalDropArray26.add(1);
-                                    });
-                                    JSONArray finalDropArray27 = dropArray;
-                                    IntStream.range(0, 95 + addPercent).forEach((n) -> {
-                                        finalDropArray27.add(0);
-                                    });
-                                    Collections.shuffle(dropArray);
-                                    cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                    if (cur == 1) {
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("CARD_EXP")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("DIAMOND")) {
-                                            UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                            UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("GOLD")) {
-                                            UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("TKT_RECRUIT")) {
-                                            UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        additionalRewards.add(normal_reward);
-                                    }
-                                }
-
-                                if (occPercent == 4 && dropType == 4) {
-                                    dropArray = new JSONArray();
-                                    JSONArray finalDropArray28 = dropArray;
-                                    IntStream.range(0, 25 + Percent).forEach((n) -> {
-                                        finalDropArray28.add(1);
-                                    });
-                                    JSONArray finalDropArray29 = dropArray;
-                                    IntStream.range(0, 75 + addPercent).forEach((n) -> {
-                                        finalDropArray29.add(0);
-                                    });
-                                    Collections.shuffle(dropArray);
-                                    cur = dropArray.getIntValue((new Random()).nextInt(dropArray.size()));
-                                    if (cur == 1) {
-                                        if (reward_type.equals("MATERIAL")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("CARD_EXP")) {
-                                            UserSyncData.getJSONObject("inventory").put(reward_id, UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
-                                        }
-
-                                        if (reward_type.equals("DIAMOND")) {
-                                            UserSyncData.getJSONObject("status").put("androidDiamond", UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
-                                            UserSyncData.getJSONObject("status").put("iosDiamond", UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("GOLD")) {
-                                            UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
-                                        }
-
-                                        if (reward_type.equals("TKT_RECRUIT")) {
-                                            UserSyncData.getJSONObject("status").put("recruitLicense", UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
-                                        }
-
-                                        normal_reward = new JSONObject(true);
-                                        normal_reward.put("count", reward_count);
-                                        normal_reward.put("id", reward_id);
-                                        normal_reward.put("type", reward_type);
-                                        additionalRewards.add(normal_reward);
-                                    }
-                                }
-                            }
-
-                            result.put("rewards", rewards);
-                            result.put("additionalRewards", additionalRewards);
-                            result.put("unusualRewards", unusualRewards);
-                            result.put("furnitureRewards", furnitureRewards);
-                            completeFavor = stage_table.getIntValue("completeFavor");
-                            occPercent = stage_table.getIntValue("passFavor");
-                            charList = BattleData.getJSONObject("battleData").getJSONObject("stats").getJSONObject("charList");
-                            Iterator var96 = charList.entrySet().iterator();
-                            JSONObject charData;
-
-                            while(true) {
-                                while(true) {
-                                    do {
-                                        if (!var96.hasNext()) {
-                                            get_char = new JSONObject(true);
-                                            char_data = new JSONObject(true);
-                                            dungeon = new JSONObject(true);
-                                            charData = new JSONObject(true);
-
-                                            for(instId = 0; instId < unlockStagesObject.size(); ++instId) {
-                                                itemType = unlockStagesObject.getJSONObject(instId).getString("stageId");
-                                                charData.put(itemType, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(itemType));
-                                            }
-
-                                            charData.put(stageId, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId));
-                                            dungeon.put("stages", charData);
-                                            char_data.put("dungeon", dungeon);
-                                            char_data.put("status", UserSyncData.getJSONObject("status"));
-                                            char_data.put("troop", troop);
-                                            char_data.put("inventory", UserSyncData.getJSONObject("inventory"));
-                                            get_char.put("deleted", new JSONObject(true));
-                                            get_char.put("modified", char_data);
-                                            result.put("playerDataDelta", get_char);
-                                            userDao.setUserData(uid, UserSyncData);
-                                            return result;
-                                        }
-
-                                        Map.Entry<String, Object> entry = (Map.Entry)var96.next();
-                                        reward_type = (String)entry.getKey();
-                                    } while(!UserSyncData.getJSONObject("troop").getJSONObject("chars").containsKey(reward_type));
-
-                                    charData = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(reward_type);
-                                    itemName = charData.getString("charId");
-                                    addPercent = charData.getIntValue("favorPoint");
-                                    if (completeState != 3 && completeState != 4) {
-                                        charData.put("favorPoint", addPercent + occPercent);
-                                        if (UserSyncData.getJSONObject("troop").getJSONObject("charGroup").containsKey(itemName)) {
-                                            UserSyncData.getJSONObject("troop").getJSONObject("charGroup").getJSONObject(itemName).put("favorPoint", addPercent + occPercent);
-                                        }
-                                    } else {
-                                        charData.put("favorPoint", addPercent + completeFavor);
-                                        if (UserSyncData.getJSONObject("troop").getJSONObject("charGroup").containsKey(itemName)) {
-                                            UserSyncData.getJSONObject("troop").getJSONObject("charGroup").getJSONObject(itemName).put("favorPoint", addPercent + completeFavor);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    unlockStages.add(nextStageId);
+                    unlockStagesObject.add(hard_unlockStage);
+                }
+
+                // 解锁支线关卡
+                if (stageClear.getString("sub") != null) {
+                    String subStageId = stageClear.getString("sub");
+                    JSONObject sub_unlockStage = createNewStageEntry(subStageId);
+                    UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(subStageId, sub_unlockStage);
+                    unlockStages.add(subStageId);
+                    unlockStagesObject.add(sub_unlockStage);
+                }
+
+                // 三星通关解锁
+                if (completeState == 3) {
+                    if (stageClear.getString("star") != null) {
+                        String starStageId = stageClear.getString("star");
+                        JSONObject star_unlockStage = createNewStageEntry(starStageId);
+                        UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(starStageId, star_unlockStage);
+                        unlockStages.add(starStageId);
+                        unlockStagesObject.add(star_unlockStage);
+                    }
+
+                    if (stageClear.getString("hard") != null) {
+                        String hardStageId = stageClear.getString("hard");
+                        JSONObject hard_unlockStage = createNewStageEntry(hardStageId);
+                        UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(hardStageId, hard_unlockStage);
+                        unlockStages.add(hardStageId);
+                        unlockStagesObject.add(hard_unlockStage);
                     }
                 }
             }
         }
-    }
+
+        private JSONObject createNewStageEntry(String stageId) {
+            JSONObject newStage = new JSONObject(true);
+            newStage.put("stageId", stageId);
+            newStage.put("hasBattleReplay", 0);
+            newStage.put("noCostCnt", 0);
+            newStage.put("practiceTimes", 0);
+            newStage.put("completeTimes", 0);
+            newStage.put("state", 0);
+            newStage.put("startTimes", 0);
+            return newStage;
+        }
+
+        private JSONObject calculateRewards(JSONObject UserSyncData, JSONObject stage_table,
+                                            int completeState, boolean FirstClear, int DropRate) {
+            JSONObject result = new JSONObject();
+
+            // 初始化奖励数组
+            JSONArray additionalRewards = new JSONArray();
+            JSONArray unusualRewards = new JSONArray();
+            JSONArray furnitureRewards = new JSONArray();
+            JSONArray firstRewards = new JSONArray();
+            JSONArray rewards = new JSONArray();
+
+            // 处理基础奖励
+            int expGain = stage_table.getIntValue("expGain");
+            int goldGain = stage_table.getIntValue("goldGain");
+
+            if (completeState == 3) {
+                expGain = (int)(expGain * 1.2);
+                goldGain = (int)(goldGain * 1.2);
+                result.put("goldScale", 1.2);
+                result.put("expScale", 1.2);
+            } else {
+                result.put("goldScale", 1);
+                result.put("expScale", 1);
+            }
+
+            // 发放金币
+            if (goldGain != 0) {
+                UserSyncData.getJSONObject("status").put("gold",
+                        UserSyncData.getJSONObject("status").getIntValue("gold") + goldGain);
+
+                JSONObject goldReward = new JSONObject(true);
+                goldReward.put("count", goldGain);
+                goldReward.put("id", 4001);
+                goldReward.put("type", "GOLD");
+                rewards.add(goldReward);
+            }
+
+            // 发放经验
+            if (expGain != 0) {
+                handleExpReward(UserSyncData, expGain);
+            }
+
+            // 处理掉落奖励
+            JSONArray displayDetailRewards = stage_table.getJSONObject("stageDropInfo").getJSONArray("displayDetailRewards");
+
+            for (int i = 0; i < displayDetailRewards.size(); i++) {
+                JSONObject reward = displayDetailRewards.getJSONObject(i);
+                int occPercent = reward.getIntValue("occPercent");
+                int dropType = reward.getIntValue("dropType");
+                int reward_count = 1 * DropRate;
+                String reward_id = reward.getString("id");
+                String reward_type = reward.getString("type");
+
+                // 根据掉落类型和概率处理奖励
+                handleDropReward(UserSyncData, occPercent, dropType, reward_count, reward_id, reward_type,
+                        completeState, FirstClear, additionalRewards, unusualRewards,
+                        furnitureRewards, firstRewards, rewards);
+            }
+
+            // 设置返回结果
+            result.put("additionalRewards", additionalRewards);
+            result.put("unusualRewards", unusualRewards);
+            result.put("furnitureRewards", furnitureRewards);
+            result.put("firstRewards", firstRewards);
+            result.put("rewards", rewards);
+
+            return result;
+        }
+
+        private void handleExpReward(JSONObject UserSyncData, int expGain) {
+            JSONArray playerExpMap = JSON.parseArray("[500,800,1240,1320,1400,1480,1560,1640,1720,1800,1880,1960,2040,2120,2200,2280,2360,2440,2520,2600,2680,2760,2840,2920,3000,3080,3160,3240,3350,3460,3570,3680,3790,3900,4200,4500,4800,5100,5400,5700,6000,6300,6600,6900,7200,7500,7800,8100,8400,8700,9000,9500,10000,10500,11000,11500,12000,12500,13000,13500,14000,14500,15000,15500,16000,17000,18000,19000,20000,21000,22000,23000,24000,25000,26000,27000,28000,29000,30000,31000,32000,33000,34000,35000,36000,37000,38000,39000,40000,41000,42000,43000,44000,45000,46000,47000,48000,49000,50000,51000,52000,54000,56000,58000,60000,62000,64000,66000,68000,70000,73000,76000,79000,82000,85000,88000,91000,94000,97000,100000]");
+            JSONArray playerApMap = JSON.parseArray("[82,84,86,88,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,120,120,120,120,121,121,121,121,121,122,122,122,122,122,123,123,123,123,123,124,124,124,124,124,125,125,125,125,125,126,126,126,126,126,127,127,127,127,127,128,128,128,128,128,129,129,129,129,129,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,131,131,131,131,132,132,132,132,133,133,133,133,134,134,134,134,135,135,135,135]");
+
+            int level = UserSyncData.getJSONObject("status").getIntValue("level");
+            if (level >= 120) return;
+
+            UserSyncData.getJSONObject("status").put("exp",
+                    UserSyncData.getJSONObject("status").getIntValue("exp") + expGain);
+
+            for (int i = 0; i < playerExpMap.size(); i++) {
+                if (level == i + 1) {
+                    if (playerExpMap.getIntValue(i) - UserSyncData.getJSONObject("status").getIntValue("exp") <= 0) {
+                        if (i + 2 == 120) {
+                            // 满级
+                            UserSyncData.getJSONObject("status").put("level", 120);
+                            UserSyncData.getJSONObject("status").put("exp", 0);
+                            UserSyncData.getJSONObject("status").put("maxAp", playerApMap.getIntValue(i + 1));
+                            UserSyncData.getJSONObject("status").put("ap", UserSyncData.getJSONObject("status").getIntValue("maxAp"));
+                        } else {
+                            // 升级
+                            UserSyncData.getJSONObject("status").put("level", i + 2);
+                            UserSyncData.getJSONObject("status").put("exp",
+                                    UserSyncData.getJSONObject("status").getIntValue("exp") - playerExpMap.getIntValue(i));
+                            UserSyncData.getJSONObject("status").put("maxAp", playerApMap.getIntValue(i + 1));
+                            UserSyncData.getJSONObject("status").put("ap",
+                                    UserSyncData.getJSONObject("status").getIntValue("ap") + UserSyncData.getJSONObject("status").getIntValue("maxAp"));
+                        }
+                        UserSyncData.getJSONObject("status").put("lastApAddTime", (int)(new Date().getTime() / 1000L));
+                    }
+                    break;
+                }
+            }
+        }
+
+        private void handleDropReward(JSONObject UserSyncData, int occPercent, int dropType, int reward_count,
+                                      String reward_id, String reward_type, int completeState, boolean FirstClear,
+                                      JSONArray additionalRewards, JSONArray unusualRewards,
+                                      JSONArray furnitureRewards, JSONArray firstRewards, JSONArray rewards) {
+            // 根据掉落类型和概率处理奖励
+            switch (dropType) {
+                case 2: // 普通掉落
+                    handleNormalDrop(UserSyncData, occPercent, reward_count, reward_id, reward_type,
+                            completeState, FirstClear, furnitureRewards, rewards);
+                    break;
+                case 3: // 稀有掉落
+                    handleRareDrop(UserSyncData, occPercent, reward_count, reward_id, reward_type,
+                            unusualRewards);
+                    break;
+                case 4: // 额外掉落
+                    handleExtraDrop(UserSyncData, occPercent, reward_count, reward_id, reward_type,
+                            additionalRewards);
+                    break;
+            }
+        }
+
+        private void handleNormalDrop(JSONObject UserSyncData, int occPercent, int reward_count,
+                                      String reward_id, String reward_type, int completeState,
+                                      boolean FirstClear, JSONArray furnitureRewards, JSONArray rewards) {
+            JSONArray dropArray = new JSONArray();
+            int cur = 0;
+
+            // 根据概率初始化掉落数组
+            switch (occPercent) {
+                case 0: // 必定掉落
+                    handleGuaranteedDrop(UserSyncData, reward_count, reward_id, reward_type, rewards);
+                    break;
+                case 1: // 80%概率
+                    IntStream.range(0, 80).forEach(n -> dropArray.add(1));
+                    IntStream.range(0, 20).forEach(n -> dropArray.add(0));
+                    Collections.shuffle(dropArray);
+                    cur = dropArray.getIntValue(new Random().nextInt(dropArray.size()));
+                    if (cur == 1) {
+                        grantReward(UserSyncData, reward_id, reward_type, reward_count, furnitureRewards, rewards);
+                    }
+                    break;
+                case 2: // 50%概率
+                    IntStream.range(0, 50).forEach(n -> dropArray.add(1));
+                    IntStream.range(0, 50).forEach(n -> dropArray.add(0));
+                    Collections.shuffle(dropArray);
+                    cur = dropArray.getIntValue(new Random().nextInt(dropArray.size()));
+                    if (cur == 1) {
+                        grantReward(UserSyncData, reward_id, reward_type, reward_count, furnitureRewards, rewards);
+                    }
+                    break;
+                case 3: // 15%概率
+                    IntStream.range(0, 15).forEach(n -> dropArray.add(1));
+                    IntStream.range(0, 85).forEach(n -> dropArray.add(0));
+                    Collections.shuffle(dropArray);
+                    cur = dropArray.getIntValue(new Random().nextInt(dropArray.size()));
+                    if (cur == 1) {
+                        grantReward(UserSyncData, reward_id, reward_type, reward_count, furnitureRewards, rewards);
+                    }
+                    break;
+                case 4: // 10%概率
+                    IntStream.range(0, 10).forEach(n -> dropArray.add(1));
+                    IntStream.range(0, 90).forEach(n -> dropArray.add(0));
+                    Collections.shuffle(dropArray);
+                    cur = dropArray.getIntValue(new Random().nextInt(dropArray.size()));
+                    if (cur == 1) {
+                        grantReward(UserSyncData, reward_id, reward_type, reward_count, furnitureRewards, rewards);
+                    }
+                    break;
+            }
+        }
+
+        private void handleGuaranteedDrop(JSONObject UserSyncData, int reward_count,
+                                          String reward_id, String reward_type, JSONArray rewards) {
+            JSONArray furnitureRewards = new JSONArray();
+            if (furnitureRewards == null) {
+                furnitureRewards = new JSONArray();
+            }
+            switch (reward_type) {
+                case "MATERIAL":
+                    UserSyncData.getJSONObject("inventory").put(reward_id,
+                            UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
+                    break;
+                case "CARD_EXP":
+                    UserSyncData.getJSONObject("inventory").put(reward_id,
+                            UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
+                    break;
+                case "DIAMOND":
+                    UserSyncData.getJSONObject("status").put("androidDiamond",
+                            UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
+                    UserSyncData.getJSONObject("status").put("iosDiamond",
+                            UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
+                    break;
+                case "GOLD":
+                    UserSyncData.getJSONObject("status").put("gold",
+                            UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
+                    break;
+                case "TKT_RECRUIT":
+                    UserSyncData.getJSONObject("status").put("recruitLicense",
+                            UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
+                    break;
+                case "FURN":
+                    if (!UserSyncData.getJSONObject("building").getJSONObject("furniture").containsKey(reward_id)) {
+                        JSONObject furniture = new JSONObject(true);
+                        furniture.put("count", 1);
+                        furniture.put("inUse", 0);
+                        UserSyncData.getJSONObject("building").getJSONObject("furniture").put(reward_id, furniture);
+                    } else {
+                        UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id)
+                                .put("count", UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).getIntValue("count") + 1);
+                    }
+                    break;
+            }
+
+            JSONObject reward = new JSONObject(true);
+            reward.put("count", reward_count);
+            reward.put("id", reward_id);
+            reward.put("type", reward_type);
+
+            if (!reward_type.equals("FURN")) {
+                rewards.add(reward);
+            } else {
+                furnitureRewards.add(reward);
+            }
+        }
+
+        private void grantReward(JSONObject UserSyncData, String reward_id, String reward_type,
+                                 int reward_count, JSONArray furnitureRewards, JSONArray rewards) {
+            switch (reward_type) {
+                case "MATERIAL":
+                    UserSyncData.getJSONObject("inventory").put(reward_id,
+                            UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
+                    break;
+                case "CARD_EXP":
+                    UserSyncData.getJSONObject("inventory").put(reward_id,
+                            UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
+                    break;
+                case "DIAMOND":
+                    UserSyncData.getJSONObject("status").put("androidDiamond",
+                            UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
+                    UserSyncData.getJSONObject("status").put("iosDiamond",
+                            UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
+                    break;
+                case "GOLD":
+                    UserSyncData.getJSONObject("status").put("gold",
+                            UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
+                    break;
+                case "TKT_RECRUIT":
+                    UserSyncData.getJSONObject("status").put("recruitLicense",
+                            UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
+                    break;
+                case "FURN":
+                    if (!UserSyncData.getJSONObject("building").getJSONObject("furniture").containsKey(reward_id)) {
+                        JSONObject furniture = new JSONObject(true);
+                        furniture.put("count", 1);
+                        furniture.put("inUse", 0);
+                        UserSyncData.getJSONObject("building").getJSONObject("furniture").put(reward_id, furniture);
+                    } else {
+                        UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id)
+                                .put("count", UserSyncData.getJSONObject("building").getJSONObject("furniture").getJSONObject(reward_id).getIntValue("count") + 1);
+                    }
+                    break;
+            }
+
+            JSONObject reward = new JSONObject(true);
+            reward.put("count", reward_count);
+            reward.put("id", reward_id);
+            reward.put("type", reward_type);
+
+            if (!reward_type.equals("FURN")) {
+                rewards.add(reward);
+            } else {
+                furnitureRewards.add(reward);
+            }
+        }
+
+        private void handleRareDrop(JSONObject UserSyncData, int occPercent, int reward_count,
+                                    String reward_id, String reward_type, JSONArray unusualRewards) {
+            JSONArray dropArray = new JSONArray();
+            int cur = 0;
+
+            switch (occPercent) {
+                case 0: // 必定掉落
+                    grantReward(UserSyncData, reward_id, reward_type, reward_count, unusualRewards);
+                    break;
+                case 3: // 5%概率
+                    IntStream.range(0, 5).forEach(n -> dropArray.add(1));
+                    IntStream.range(0, 95).forEach(n -> dropArray.add(0));
+                    Collections.shuffle(dropArray);
+                    cur = dropArray.getIntValue(new Random().nextInt(dropArray.size()));
+                    if (cur == 1) {
+                        grantReward(UserSyncData, reward_id, reward_type, reward_count, unusualRewards);
+                    }
+                    break;
+                case 4: // 5%概率
+                    IntStream.range(0, 5).forEach(n -> dropArray.add(1));
+                    IntStream.range(0, 95).forEach(n -> dropArray.add(0));
+                    Collections.shuffle(dropArray);
+                    cur = dropArray.getIntValue(new Random().nextInt(dropArray.size()));
+                    if (cur == 1) {
+                        grantReward(UserSyncData, reward_id, reward_type, reward_count, unusualRewards);
+                    }
+                    break;
+            }
+        }
+
+        private void grantReward(JSONObject UserSyncData, String reward_id, String reward_type,
+                                 int reward_count, JSONArray unusualRewards) {
+            switch (reward_type) {
+                case "MATERIAL":
+                    UserSyncData.getJSONObject("inventory").put(reward_id,
+                            UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
+                    break;
+                case "CARD_EXP":
+                    UserSyncData.getJSONObject("inventory").put(reward_id,
+                            UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + reward_count);
+                    break;
+                case "DIAMOND":
+                    UserSyncData.getJSONObject("status").put("androidDiamond",
+                            UserSyncData.getJSONObject("status").getIntValue("androidDiamond") + reward_count);
+                    UserSyncData.getJSONObject("status").put("iosDiamond",
+                            UserSyncData.getJSONObject("status").getIntValue("iosDiamond") + reward_count);
+                    break;
+                case "GOLD":
+                    UserSyncData.getJSONObject("status").put("gold",
+                            UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
+                    break;
+                case "TKT_RECRUIT":
+                    UserSyncData.getJSONObject("status").put("recruitLicense",
+                            UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
+                    break;
+            }
+
+            JSONObject reward = new JSONObject(true);
+            reward.put("count", reward_count);
+            reward.put("id", reward_id);
+            reward.put("type", reward_type);
+            unusualRewards.add(reward);
+        }
+
+        private void handleExtraDrop(JSONObject UserSyncData, int occPercent, int reward_count,
+                                     String reward_id, String reward_type, JSONArray additionalRewards) {
+            JSONArray dropArray = new JSONArray();
+            int cur = 0;
+
+            switch (occPercent) {
+                case 3: // 5%概率
+                    IntStream.range(0, 5).forEach(n -> dropArray.add(1));
+                    IntStream.range(0, 95).forEach(n -> dropArray.add(0));
+                    Collections.shuffle(dropArray);
+                    cur = dropArray.getIntValue(new Random().nextInt(dropArray.size()));
+                    if (cur == 1) {
+                        grantReward(UserSyncData, reward_id, reward_type, reward_count, additionalRewards);
+                    }
+                    break;
+                case 4: // 25%概率
+                    IntStream.range(0, 25).forEach(n -> dropArray.add(1));
+                    IntStream.range(0, 75).forEach(n -> dropArray.add(0));
+                    Collections.shuffle(dropArray);
+                    cur = dropArray.getIntValue(new Random().nextInt(dropArray.size()));
+                    if (cur == 1) {
+                        grantReward(UserSyncData, reward_id, reward_type, reward_count, additionalRewards);
+                    }
+                    break;
+            }
+        }
+
+
+        private void updateOperatorFavor(JSONObject UserSyncData, JSONObject BattleData,
+                                         JSONObject stage_table, int completeState) {
+            int completeFavor = stage_table.getIntValue("completeFavor");
+            int passFavor = stage_table.getIntValue("passFavor");
+            JSONObject charList = BattleData.getJSONObject("battleData").getJSONObject("stats").getJSONObject("charList");
+
+            for (Map.Entry<String, Object> entry : charList.entrySet()) {
+                String charInstId = entry.getKey();
+                if (!UserSyncData.getJSONObject("troop").getJSONObject("chars").containsKey(charInstId)) {
+                    continue;
+                }
+
+                JSONObject charData = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(charInstId);
+                String charId = charData.getString("charId");
+                int currentFavor = charData.getIntValue("favorPoint");
+
+                if (completeState != 3 && completeState != 4) {
+                    // 非三星通关
+                    charData.put("favorPoint", currentFavor + passFavor);
+                    if (UserSyncData.getJSONObject("troop").getJSONObject("charGroup").containsKey(charId)) {
+                        UserSyncData.getJSONObject("troop").getJSONObject("charGroup").getJSONObject(charId)
+                                .put("favorPoint", currentFavor + passFavor);
+                    }
+                } else {
+                    // 三星通关
+                    charData.put("favorPoint", currentFavor + completeFavor);
+                    if (UserSyncData.getJSONObject("troop").getJSONObject("charGroup").containsKey(charId)) {
+                        UserSyncData.getJSONObject("troop").getJSONObject("charGroup").getJSONObject(charId)
+                                .put("favorPoint", currentFavor + completeFavor);
+                    }
+                }
+            }
+        }
+
+        private JSONObject buildPlayerDataDelta(JSONObject UserSyncData, JSONArray unlockStagesObject,
+                                                String stageId, JSONObject troop) {
+            JSONObject playerDataDelta = new JSONObject(true);
+            JSONObject modified = new JSONObject(true);
+
+            // 构建关卡数据
+            JSONObject dungeon = new JSONObject(true);
+            JSONObject stages = new JSONObject(true);
+
+            for (int i = 0; i < unlockStagesObject.size(); i++) {
+                String unlockedStageId = unlockStagesObject.getJSONObject(i).getString("stageId");
+                stages.put(unlockedStageId, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(unlockedStageId));
+            }
+
+            stages.put(stageId, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId));
+            dungeon.put("stages", stages);
+
+            modified.put("dungeon", dungeon);
+            modified.put("status", UserSyncData.getJSONObject("status"));
+            modified.put("troop", troop);
+            modified.put("inventory", UserSyncData.getJSONObject("inventory"));
+
+            playerDataDelta.put("deleted", new JSONObject(true));
+            playerDataDelta.put("modified", modified);
+
+            return playerDataDelta;
+        }
 
     @PostMapping(
             value = {"/squadFormation"},

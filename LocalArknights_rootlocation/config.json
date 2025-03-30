@@ -1,8 +1,6 @@
 {
 	"server":{
 		"url":"http://127.0.0.1:8443",
-
-
 		"http":8443,
 		"https":36650,
 		"captcha":false,
