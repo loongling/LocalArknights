@@ -248,6 +248,8 @@ public class ArKnightsApplication {
         AllProductList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/AllProductList.json");
         skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
         itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json");
+        skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
+        skinTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/skin_table.json").getJSONObject("charSkins");
         long endTime = System.currentTimeMillis();
         LOGGER.info("载入完成，耗时：" + (endTime - startTime) + "ms");
     }
