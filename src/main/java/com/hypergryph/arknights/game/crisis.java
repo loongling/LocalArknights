@@ -1,7 +1,7 @@
 package com.hypergryph.arknights.game;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.decrypt.Utils;
 import com.hypergryph.arknights.core.pojo.Account;
@@ -22,9 +22,9 @@ public class crisis {
 
     @RequestMapping({"/getInfo"})
     public JSONObject getInfo(HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /crisis/getInfo");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /crisis/getInfo");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -33,16 +33,16 @@ public class crisis {
             return result;
         }
         else {
-            ArKnightsApplication.CrisisData.put("ts", ArKnightsApplication.getTimestamp());
-            return ArKnightsApplication.CrisisData;
+            ArknightsApplication.CrisisData.put("ts", ArknightsApplication.getTimestamp());
+            return ArknightsApplication.CrisisData;
         }
     }
 
     @RequestMapping({"/battleStart"})
     public JSONObject battleStart(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /crisis/battleStart");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /crisis/battleStart");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -68,9 +68,9 @@ public class crisis {
 
     @RequestMapping({"/battleFinish"})
     public JSONObject battleFinish(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /crisis/battleFinish");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /crisis/battleFinish");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);

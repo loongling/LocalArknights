@@ -11,7 +11,7 @@ public class console extends SimpleTerminalConsole {
     }
 
     protected void runCommand(String s) {
-        ArKnightsApplication.ConsoleCommandManager.executeCommand(ArKnightsApplication.Sender, s);
+        ArknightsApplication.ConsoleCommandManager.executeCommand(ArknightsApplication.Sender, s);
     }
 
     protected void shutdown() {

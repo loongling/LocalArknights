@@ -14,9 +14,9 @@ public class network {
 
     @RequestMapping({"/"})
     public JSONObject network_config(HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/official/network_config");
-        JSONObject server_network = ArKnightsApplication.serverConfig.getJSONObject("network");
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/official/network_config");
+        JSONObject server_network = ArknightsApplication.serverConfig.getJSONObject("network");
         JSONObject network = new JSONObject(true);
         network.put("sign", server_network.getString("sign"));
         JSONObject content = new JSONObject(true);
@@ -33,7 +33,7 @@ public class network {
             while(var10.hasNext()) {
                 Map.Entry funcNetworkEntry = (Map.Entry)var10.next();
                 String value = funcNetwork.getString(funcNetworkEntry.getKey().toString());
-                funcNetwork.put(funcNetworkEntry.getKey().toString(), value.replace("{server}", ArKnightsApplication.serverConfig.getJSONObject("server").getString("url")));
+                funcNetwork.put(funcNetworkEntry.getKey().toString(), value.replace("{server}", ArknightsApplication.serverConfig.getJSONObject("server").getString("url")));
             }
         }
 

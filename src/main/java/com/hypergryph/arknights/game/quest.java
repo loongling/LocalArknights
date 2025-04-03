@@ -3,7 +3,7 @@ package com.hypergryph.arknights.game;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.decrypt.Utils;
 import com.hypergryph.arknights.core.pojo.Account;
@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.hypergryph.arknights.ArKnightsApplication.stageTable;
+import static com.hypergryph.arknights.ArknightsApplication.mainStage;
+import static com.hypergryph.arknights.ArknightsApplication.stageTable;
 
 @RestController
 @RequestMapping({"/quest"})
@@ -33,11 +33,11 @@ public class quest {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject BattleStart(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        ArKnightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleStart");
-        if (!ArKnightsApplication.enableServer) {
+        ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleStart");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -85,7 +85,7 @@ public class quest {
                         UserSyncData.getJSONObject("status").put("practiceTicket", UserSyncData.getJSONObject("status").getIntValue("practiceTicket") - 1);
                         UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("practiceTimes", 1);
                     }
-
+                    UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("startTimes", UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("startTimes") + 1);
                     userDao.setUserData(uid, UserSyncData);
                     result = new JSONObject(true);
                     JSONObject playerDataDelta = new JSONObject(true);
@@ -123,7 +123,7 @@ public class quest {
             }
         }
     }
-
+JSONArray firstReward = new JSONArray();
     @PostMapping(
             value = {"/battleFinish"},
             produces = {"application/json;charset=UTF-8"}
@@ -132,13 +132,13 @@ public class quest {
                                        HttpServletResponse response,
                                        HttpServletRequest request) {
             // 1. 初始化与基础验证
-            String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-            ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleFinish");
+            String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+            ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleFinish");
 
             JSONObject result = new JSONObject(true);
 
-            if (!ArKnightsApplication.enableServer) {
+            if (!ArknightsApplication.enableServer) {
                 response.setStatus(400);
                 result.put("statusCode", 400);
                 result.put("error", "Bad Request");
@@ -176,8 +176,8 @@ public class quest {
 
             // 4. 获取关卡解锁信息
             JSONObject stageClear = new JSONObject();
-            if (ArKnightsApplication.mainStage.containsKey(stageId)) {
-                stageClear = ArKnightsApplication.mainStage.getJSONObject(stageId);
+            if (ArknightsApplication.mainStage.containsKey(stageId)) {
+                stageClear = ArknightsApplication.mainStage.getJSONObject(stageId);
             } else {
                 stageClear.put("next", (Object)null);
                 stageClear.put("star", (Object)null);
@@ -194,10 +194,10 @@ public class quest {
             JSONObject chars = UserSyncData.getJSONObject("troop").getJSONObject("chars");
             JSONObject troop = new JSONObject(true);
 
-            int DropRate = ArKnightsApplication.serverConfig.getJSONObject("battle").getIntValue("dropRate");
+            int DropRate = ArknightsApplication.serverConfig.getJSONObject("battle").getIntValue("dropRate");
             int completeState = BattleData.getIntValue("completeState");
 
-            if (ArKnightsApplication.serverConfig.getJSONObject("battle").getBooleanValue("debug")) {
+            if (ArknightsApplication.serverConfig.getJSONObject("battle").getBooleanValue("debug")) {
                 completeState = 3;
             }
 
@@ -217,9 +217,9 @@ public class quest {
             updateStageState(UserSyncData, stageId, completeState);
 
             // 10. 首次通关奖励
-            boolean FirstClear = checkFirstClear(UserSyncData, stageId, completeState);
+        boolean FirstClear = checkFirstClear(UserSyncData, stageId);
             if (FirstClear) {
-                handleFirstClearRewards(UserSyncData, stage_table, stageId, chars, troop);
+                handleFirstClearRewards(UserSyncData, stageId, chars, troop);
             }
 
             // 11. 关卡解锁
@@ -244,9 +244,11 @@ public class quest {
             // 15. 构建玩家数据变更
             JSONObject playerDataDelta = buildPlayerDataDelta(UserSyncData, unlockStagesObject, stageId, troop);
             result.put("playerDataDelta", playerDataDelta);
+            UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("completeTimes", UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("completeTimes") + 1);
 
             // 16. 保存数据
             userDao.setUserData(uid, UserSyncData);
+            ArknightsApplication.LOGGER.info(result.toJSONString());
 
             return result;
         }
@@ -332,7 +334,7 @@ public class quest {
 
             result.put("additionalRewards", new JSONArray());
             result.put("alert", new JSONArray());
-            result.put("firstRewards", new JSONArray());
+            result.put("firstRewards", firstReward);
             result.put("furnitureRewards", new JSONArray());
             result.put("unlockStages", new JSONArray());
             result.put("unusualRewards", new JSONArray());
@@ -374,31 +376,37 @@ public class quest {
             }
         }
 
-        private boolean checkFirstClear(JSONObject UserSyncData, String stageId, int completeState) {
-            JSONObject stages_data = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId);
-            return (stages_data.getIntValue("state") != 3 && completeState == 3) ||
-                    (stages_data.getIntValue("state") == 3 && completeState == 4);
+        private boolean checkFirstClear(JSONObject UserSyncData, String stageId) {
+            int complete = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("completeTimes");
+            return complete == 0;
         }
 
-        private void handleFirstClearRewards(JSONObject UserSyncData, JSONObject stage_table, String stageId,
-                                             JSONObject chars, JSONObject troop) {
-            if (stageId.equals("main_08-16")) {
-                handleAmiyaTransform(UserSyncData, chars, troop);
-            }
+    private void handleFirstClearRewards(JSONObject UserSyncData, String stageId,
+                                         JSONObject chars, JSONObject troop) {
+        if (stageId.equals("main_08-16")) {
+            handleAmiyaTransform(UserSyncData, chars, troop);
+        }
 
-            JSONArray displayDetailRewards = stage_table.getJSONObject("stageDropInfo").getJSONArray("displayDetailRewards");
+        JSONArray displayDetailRewards = stageTable.getJSONObject(stageId).getJSONObject("stageDropInfo").getJSONArray("displayDetailRewards");
+        ArknightsApplication.LOGGER.info("DDR:" + displayDetailRewards.toJSONString());
 
-            for (int i = 0; i < displayDetailRewards.size(); i++) {
-                JSONObject reward = displayDetailRewards.getJSONObject(i);
-                int dropType = reward.getIntValue("dropType");
-                String reward_id = reward.getString("id");
-                String reward_type = reward.getString("type");
+        for (int i = 0; i < displayDetailRewards.size(); i++) {
+            JSONObject reward = displayDetailRewards.getJSONObject(i);
+            int dropType = reward.getIntValue("dropType");
+            String reward_id = reward.getString("id");
+            String reward_type = reward.getString("type");
 
-                if (dropType == 1 || dropType == 8) {
-                    handleFirstClearReward(UserSyncData, reward_id, reward_type, chars, troop);
-                }
+            if (dropType == 1 || dropType == 8) {
+                handleFirstClearReward(UserSyncData, reward_id, reward_type, chars, troop);
+                JSONObject filteredReward = new JSONObject();
+                filteredReward.put("type", reward.getString("type"));
+                filteredReward.put("id", reward.getString("id"));
+                filteredReward.put("count", 1);
+                firstReward.add(filteredReward);
             }
         }
+        ArknightsApplication.LOGGER.info("First rewards extracted: " + firstReward.toJSONString());
+    }
 
         private void handleAmiyaTransform(JSONObject UserSyncData, JSONObject chars, JSONObject troop) {
             for (Map.Entry<String, Object> entry : UserSyncData.getJSONObject("troop").getJSONObject("chars").entrySet()) {
@@ -532,7 +540,7 @@ public class quest {
                                          JSONObject chars, JSONObject troop) {
             JSONObject get_char = new JSONObject(true);
             JSONObject char_data = new JSONObject(true);
-            JSONArray skilsArray = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
+            JSONArray skilsArray = ArknightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
             JSONArray skils = new JSONArray();
 
             for (int i = 0; i < skilsArray.size(); i++) {
@@ -563,13 +571,13 @@ public class quest {
             char_data.put("evolvePhase", 0);
             char_data.put("gainTime", new Date().getTime() / 1000L);
             char_data.put("skills", skils);
-            char_data.put("voiceLan", ArKnightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
+            char_data.put("voiceLan", ArknightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
             char_data.put("defaultSkillIndex", skils.isEmpty() ? -1 : 0);
 
             String itemType = randomCharId.substring(randomCharId.indexOf("_") + 1);
             String itemId = itemType.substring(itemType.indexOf("_") + 1);
 
-            if (ArKnightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
+            if (ArknightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
                 JSONObject charGroup = new JSONObject(true);
                 JSONObject equip1 = new JSONObject(true);
                 equip1.put("hide", 0);
@@ -626,7 +634,7 @@ public class quest {
 
             JSONObject char_data = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(dropType));
             int potentialRank = char_data.getIntValue("potentialRank");
-            int reward_rarity = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
+            int reward_rarity = ArknightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
 
             String itemName = null;
             String itemType = null;
@@ -695,7 +703,7 @@ public class quest {
         private void handleStageUnlock(JSONObject UserSyncData, String stageId, int completeState,
                                        JSONObject stageClear, JSONArray unlockStages, JSONArray unlockStagesObject) {
             JSONObject stages_data = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId);
-            JSONObject stage_table = stageTable.getJSONObject(stageId);
+            JSONObject stage_table = mainStage.getJSONObject(stageId);
 
             if (stages_data.getIntValue("state") == 1 && (completeState == 3 || completeState == 2)) {
                 // 解锁后续关卡
@@ -746,7 +754,7 @@ public class quest {
             JSONObject newStage = new JSONObject(true);
             newStage.put("stageId", stageId);
             newStage.put("hasBattleReplay", 0);
-            newStage.put("noCostCnt", 0);
+            newStage.put("noCostCnt", 1);
             newStage.put("practiceTimes", 0);
             newStage.put("completeTimes", 0);
             newStage.put("state", 0);
@@ -817,7 +825,7 @@ public class quest {
             result.put("additionalRewards", additionalRewards);
             result.put("unusualRewards", unusualRewards);
             result.put("furnitureRewards", furnitureRewards);
-            result.put("firstRewards", firstRewards);
+            result.put("firstRewards", firstReward);
             result.put("rewards", rewards);
 
             return result;
@@ -1192,10 +1200,10 @@ public class quest {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject SquadFormation(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/squadFormation");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/squadFormation");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -1247,11 +1255,11 @@ public class quest {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject SaveBattleReplay(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/saveBattleReplay");
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/saveBattleReplay");
         JSONObject BattleData;
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             BattleData = new JSONObject(true);
             BattleData.put("statusCode", 400);
@@ -1305,10 +1313,10 @@ public class quest {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject GetBattleReplay(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/getBattleReplay");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/getBattleReplay");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -1353,10 +1361,10 @@ public class quest {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject ChangeSquadName(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/changeSquadName");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/changeSquadName");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -1409,10 +1417,10 @@ public class quest {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject getAssistList(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/getAssistList");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/getAssistList");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -1577,10 +1585,10 @@ public class quest {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject finishStoryStage(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /quest/finishStoryStage");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/finishStoryStage");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -1608,12 +1616,12 @@ public class quest {
                 } else {
                     UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
                     int stage_state = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("state");
-                    JSONObject stageClear = ArKnightsApplication.mainStage.getJSONObject(stageId);
+                    JSONObject stageClear = ArknightsApplication.mainStage.getJSONObject(stageId);
                     JSONArray rewards = new JSONArray();
                     JSONArray unlockStages = new JSONArray();
                     JSONArray unlockStagesObject = new JSONArray();
                     JSONArray alert = new JSONArray();
-                    int DropRate = ArKnightsApplication.serverConfig.getJSONObject("battle").getIntValue("dropRate");
+                    int DropRate = ArknightsApplication.serverConfig.getJSONObject("battle").getIntValue("dropRate");
                     JSONObject hard_unlockStage;
                     JSONObject reward;
                     if (stage_state != 3) {

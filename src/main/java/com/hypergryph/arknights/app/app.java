@@ -1,10 +1,7 @@
 package com.hypergryph.arknights.app;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-import static com.hypergryph.arknights.ArKnightsApplication.LOGGER;
+import static com.hypergryph.arknights.ArknightsApplication.LOGGER;
 
 @RestController
 @RequestMapping("/app")
@@ -24,7 +21,7 @@ public class app {
 
     @GetMapping("/getSettings")
     public JSONObject appGetSettings(HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
+        String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /app/getSettings");
         String url = "https://passport.arknights.global/app/getSettings";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -33,7 +30,7 @@ public class app {
 
     @GetMapping("/getCode")
     public JSONObject appGetCode( HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
+        String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /app/getCode");
         String url = "https://passport.arknights.global/app/getCode";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -41,7 +38,7 @@ public class app {
     }
     @GetMapping("/v1/config")
     public JSONObject appV1Config(@RequestParam("appCode") String appCode, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
+        String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /app/v1/config");
 
         // 反成瘾设置

@@ -1,6 +1,6 @@
 package com.hypergryph.arknights.command;
 
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import java.util.Iterator;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
@@ -60,6 +60,6 @@ public class CommandHelp extends CommandBase {
             }
         }
     }
-    private Map<String, ICommand> getCommands() {return ArKnightsApplication.ConsoleCommandManager.getCommands();}
+    private Map<String, ICommand> getCommands() {return ArknightsApplication.ConsoleCommandManager.getCommands();}
 }
 

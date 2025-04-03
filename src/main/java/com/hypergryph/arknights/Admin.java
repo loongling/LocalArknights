@@ -46,7 +46,7 @@ public class Admin {
             if (repeatCharId == 0) {
                 get_char = new JSONObject(true);
                 char_data = new JSONObject(true);
-                JSONArray skilsArray = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
+                JSONArray skilsArray = ArknightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
                 JSONArray skils = new JSONArray();
 
                 int instId;
@@ -77,7 +77,7 @@ public class Admin {
                 char_data.put("evolvePhase", 0);
                 char_data.put("gainTime", (new Date()).getTime() / 1000L);
                 char_data.put("skills", skils);
-                char_data.put("voiceLan", ArKnightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
+                char_data.put("voiceLan", ArknightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
                 if (skils == new JSONArray()) {
                     char_data.put("defaultSkillIndex", -1);
                 } else {
@@ -88,7 +88,7 @@ public class Admin {
                 itemId = itemType.substring(itemType.indexOf("_") + 1);
                 JSONObject charGroup;
                 JSONObject buildingChar;
-                if (ArKnightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
+                if (ArknightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
                     charGroup = new JSONObject(true);
                     buildingChar = new JSONObject(true);
                     buildingChar.put("hide", 0);
@@ -158,7 +158,7 @@ public class Admin {
                 get_char.put("isNew", 0);
                 char_data = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(repeatCharId));
                 int potentialRank = char_data.getIntValue("potentialRank");
-                int rarity = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
+                int rarity = ArknightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
                 String itemName = null;
                 itemType = null;
                 itemId = null;
@@ -352,7 +352,7 @@ public class Admin {
 
     @RequestMapping({"/send/character"})
     public JSONObject character(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -380,7 +380,7 @@ public class Admin {
 
     @RequestMapping({"/send/item"})
     public JSONObject item(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String itemType, @RequestParam String itemId, @RequestParam int count) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -408,7 +408,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changeLevel"})
     public JSONObject level(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -452,7 +452,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changeFavorPoint"})
     public JSONObject favorPoint(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -496,7 +496,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changePotentialRank"})
     public JSONObject PotentialRank(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -540,7 +540,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changeMainSkillLvl"})
     public JSONObject mainSkillLvl(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -584,7 +584,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changeExp"})
     public JSONObject Exp(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -628,7 +628,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changeEvolvePhase"})
     public JSONObject evolvePhase(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -672,7 +672,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changeDefaultSkillIndex"})
     public JSONObject defaultSkillIndex(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -716,7 +716,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changeSkin"})
     public JSONObject skin(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam String value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -760,7 +760,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/unlockAllSkills"})
     public JSONObject unlockAllSkills(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");
@@ -807,7 +807,7 @@ public class Admin {
 
     @RequestMapping({"/charBuild/changeSpecializeLevel"})
     public JSONObject UpSpecializeLevel(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
-        if (!ArKnightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             JSONObject result = new JSONObject(true);
             result.put("code", 401);
             result.put("msg", "Unauthorized");

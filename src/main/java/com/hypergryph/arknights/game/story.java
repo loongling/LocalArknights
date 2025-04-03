@@ -1,7 +1,7 @@
 package com.hypergryph.arknights.game;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
 import java.util.List;
@@ -23,10 +23,10 @@ public class story {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject FinishStory(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /story/finishStory");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /story/finishStory");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);

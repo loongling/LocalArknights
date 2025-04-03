@@ -1,6 +1,5 @@
 package com.hypergryph.arknights;
 
-import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.dao.mailDao;
@@ -33,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @SpringBootApplication(
         exclude = {DataSourceAutoConfiguration.class}
 )
-public class ArKnightsApplication {
+public class ArknightsApplication {
     public static final Logger LOGGER = LogManager.getLogger();
     public static JdbcTemplate jdbcTemplate = null;
     public static JSONObject serverConfig = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/config.json");
@@ -67,7 +66,7 @@ public class ArKnightsApplication {
     public static CommandManager ConsoleCommandManager;
     public static ICommandSender Sender;
 
-    public ArKnightsApplication() {
+    public ArknightsApplication() {
     }
 
     public static void main(String[] args) throws Exception {
@@ -83,7 +82,7 @@ public class ArKnightsApplication {
         DataSource.setUsername(username);
         DataSource.setPassword(password);
         jdbcTemplate = new JdbcTemplate(DataSource);
-        SpringApplication springApplication = new SpringApplication(new Class[]{ArKnightsApplication.class});
+        SpringApplication springApplication = new SpringApplication(new Class[]{ArknightsApplication.class});
         springApplication.setBannerMode(Banner.Mode.OFF);
         String[] disabledCommands = new String[]{"--server.port=" + serverConfig.getJSONObject("server").getString("https"), "--spring.profiles.active=default"};
         String[] fullArgs = StringUtils.concatenateStringArrays(args, disabledCommands);
@@ -233,6 +232,7 @@ public class ArKnightsApplication {
         LOGGER.info("载入游戏数据...");
         DefaultSyncData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/defaultSyncData.json");
         roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
+        characterJson = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/character_table.json");
         stageTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/stage_table.json").getJSONObject("stages");
         CrisisData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/crisis/cc12.json");
         CashGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/CashGoodList.json");
@@ -250,6 +250,7 @@ public class ArKnightsApplication {
         itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json");
         skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
         skinTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/skin_table.json").getJSONObject("charSkins");
+        mainStage = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/stage.json").getJSONObject("MainStage");
         long endTime = System.currentTimeMillis();
         LOGGER.info("载入完成，耗时：" + (endTime - startTime) + "ms");
     }

@@ -1,14 +1,11 @@
 package com.hypergryph.arknights.general;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.function.httpClient;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/general/v1")
@@ -16,8 +13,8 @@ public class v1 {
 
     @GetMapping("/server_time")
     public JSONObject serverTime(HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] 请求服务器时间 /general/v1/server_time");
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求服务器时间 /general/v1/server_time");
         long UnixTime = System.currentTimeMillis() / 1000L;
         boolean isHoliday = false;
 
@@ -35,11 +32,11 @@ public class v1 {
 
     @RequestMapping({"/send_phone_code"})
     public JSONObject sendSmsCode(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] 请求发送手机验证码 /general/v1/send_phone_code");
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求发送手机验证码 /general/v1/send_phone_code");
         String account = jsonBody.getString("account");
         JSONObject result;
-        if (ArKnightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha")) {
+        if (ArknightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha")) {
             result = new JSONObject(true);
             result.put("result", 4);
             return result;

@@ -1,7 +1,7 @@
 package com.hypergryph.arknights.auth;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.pojo.Account;
 import com.hypergryph.arknights.core.dao.userDao;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,31 +25,31 @@ public class u8 {
             produces = "application/json;charset=UTF-8"
     )
     public Map<String, Object> getToken(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /user/v1/getToken");
-        ArKnightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /user/v1/getToken");
+        ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
 
         // 解析 JSON 请求体，获取 `token`
         if (!JsonBody.containsKey("extension") || !JsonBody.getJSONObject("extension").containsKey("code")) {
-            ArKnightsApplication.LOGGER.warn("请求体缺少 token (code)");
+            ArknightsApplication.LOGGER.warn("请求体缺少 token (code)");
             return Map.of("result", 2, "error", "Missing Token");
         }
 
         String token = JsonBody.getJSONObject("extension").getString("code");
 
         // 检查服务器是否启用
-        if (!ArKnightsApplication.enableServer) {
-            ArKnightsApplication.LOGGER.warn("服务器已关闭");
+        if (!ArknightsApplication.enableServer) {
+            ArknightsApplication.LOGGER.warn("服务器已关闭");
             return Map.of(
                     "result", 2,
-                    "error", ArKnightsApplication.serverConfig.getJSONObject("server").getString("closeMessage")
+                    "error", ArknightsApplication.serverConfig.getJSONObject("server").getString("closeMessage")
             );
         }
 
         // 通过 token 查询数据库获取用户信息
         List<Account> accounts = userDao.queryAccountBySecret(token);
         if (accounts.size() != 1) {
-            ArKnightsApplication.LOGGER.warn("无效的 token: " + token);
+            ArknightsApplication.LOGGER.warn("无效的 token: " + token);
             return Map.of("result", 2, "error", "无法查询到此账户");
         }
 
@@ -75,10 +75,10 @@ public class u8 {
     )
     public JSONObject VerifyAccount(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String secret = JsonBody.getJSONObject("extension").getString("access_token");
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             JSONObject result = new JSONObject(true);
             result.put("result", 2);
-            result.put("error", ArKnightsApplication.serverConfig.getJSONObject("server").getString("closeMessage"));
+            result.put("error", ArknightsApplication.serverConfig.getJSONObject("server").getString("closeMessage"));
             return result;
         }
         else {
@@ -105,7 +105,7 @@ public class u8 {
     }
     @RequestMapping({"/pay/getAllProductList"})
     public JSONObject GetAllProductList(HttpServletResponse response, HttpServletRequest request) {
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -114,7 +114,7 @@ public class u8 {
             return result;
         }
         else {
-            return ArKnightsApplication.AllProductList;
+            return ArknightsApplication.AllProductList;
         }
     }
 
@@ -124,7 +124,7 @@ public class u8 {
     )
     public JSONObject confirmOrderState(HttpServletResponse response, HttpServletRequest request) {
         JSONObject result;
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             result = new JSONObject(true);
             result.put("statusCode", 400);

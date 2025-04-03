@@ -2,7 +2,7 @@ package com.hypergryph.arknights.asset;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONArray;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.FileSystemResource;
@@ -33,13 +34,13 @@ public class official {
 
     @RequestMapping({"/{assetsHash}/{fileName}"})
     public ResponseEntity<FileSystemResource> getFile(@PathVariable("os") String os, @PathVariable("assetsHash") String assetsHash, @PathVariable("fileName") String fileName, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        Boolean redirect = ArKnightsApplication.serverConfig.getJSONObject("assets").getBooleanValue("enableRedirect");
-        String redirectUrl = ArKnightsApplication.serverConfig.getJSONObject("assets").getString("redirectUrl");
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        Boolean redirect = ArknightsApplication.serverConfig.getJSONObject("assets").getBooleanValue("enableRedirect");
+        String redirectUrl = ArknightsApplication.serverConfig.getJSONObject("assets").getString("redirectUrl");
         String filePath = System.getProperty("user.dir") + "/assets/" + assetsHash + "/direct/";
         if (redirect) {
             filePath = System.getProperty("user.dir") + "/assets/" + assetsHash + "/redirect/";
-            JSONArray localFiles = ArKnightsApplication.serverConfig.getJSONObject("assets").getJSONArray("localFiles");
+            JSONArray localFiles = ArknightsApplication.serverConfig.getJSONObject("assets").getJSONArray("localFiles");
             if (!localFiles.contains(fileName)) {
                 response.sendRedirect(redirectUrl + "/" + fileName);
                 return null;

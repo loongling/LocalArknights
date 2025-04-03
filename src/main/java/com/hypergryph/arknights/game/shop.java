@@ -3,7 +3,7 @@ package com.hypergryph.arknights.game;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.Admin;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
 import org.springframework.web.bind.annotation.*;
@@ -29,15 +29,15 @@ public class shop {
         JSONArray charIdList = JsonBody.getJSONArray("charIdList");
         JSONArray goodList = new JSONArray();
         if (charIdList.size() == 0) {
-            return ArKnightsApplication.skinGoodList;
+            return ArknightsApplication.skinGoodList;
         } else {
-            Iterator var4 = ArKnightsApplication.skinTable.entrySet().iterator();
+            Iterator var4 = ArknightsApplication.skinTable.entrySet().iterator();
 
             while(var4.hasNext()) {
                 Map.Entry<String, Object> entry = (Map.Entry)var4.next();
                 String skinId = (String)entry.getKey();
                 if (skinId.indexOf(charIdList.getString(0)) != -1 && skinId.indexOf("@") != -1) {
-                    JSONObject SkinData = ArKnightsApplication.skinTable.getJSONObject(skinId);
+                    JSONObject SkinData = ArknightsApplication.skinTable.getJSONObject(skinId);
                     JSONObject SkinGood = new JSONObject(true);
                     SkinGood.put("charId", SkinData.getString("charId"));
                     SkinGood.put("skinId", SkinData.getString("skinId"));
@@ -71,9 +71,9 @@ public class shop {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject buySkinGood(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buySkinGood");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buySkinGood");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -128,9 +128,9 @@ public class shop {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject buyLowGood(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyLowGood");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyLowGood");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -161,8 +161,8 @@ public class shop {
                     JSONArray items = new JSONArray();
 
                     JSONObject lowGood;
-                    for(int i = 0; i < ArKnightsApplication.LowGoodList.getJSONArray("goodList").size(); ++i) {
-                        lowGood = ArKnightsApplication.LowGoodList.getJSONArray("goodList").getJSONObject(i);
+                    for(int i = 0; i < ArknightsApplication.LowGoodList.getJSONArray("goodList").size(); ++i) {
+                        lowGood = ArknightsApplication.LowGoodList.getJSONArray("goodList").getJSONObject(i);
                         if (lowGood.getString("goodId").equals(goodId)) {
                             UserSyncData.getJSONObject("status").put("lggShard", UserSyncData.getJSONObject("status").getIntValue("lggShard") - lowGood.getIntValue("price") * count);
                             String reward_id = lowGood.getJSONObject("item").getString("id");
@@ -199,9 +199,9 @@ public class shop {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject buyHighGood(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyHighGood");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyHighGood");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -232,8 +232,8 @@ public class shop {
                     JSONArray items = new JSONArray();
 
                     JSONObject HighGood;
-                    for(int i = 0; i < ArKnightsApplication.HighGoodList.getJSONArray("goodList").size(); ++i) {
-                        HighGood = ArKnightsApplication.HighGoodList.getJSONArray("goodList").getJSONObject(i);
+                    for(int i = 0; i < ArknightsApplication.HighGoodList.getJSONArray("goodList").size(); ++i) {
+                        HighGood = ArknightsApplication.HighGoodList.getJSONArray("goodList").getJSONObject(i);
                         if (HighGood.getString("goodId").equals(goodId)) {
                             UserSyncData.getJSONObject("status").put("hggShard", UserSyncData.getJSONObject("status").getIntValue("hggShard") - HighGood.getIntValue("price") * count);
                             String reward_id = HighGood.getJSONObject("item").getString("id");
@@ -270,9 +270,9 @@ public class shop {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject buyExtraGood(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyExtraGood");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyExtraGood");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -303,8 +303,8 @@ public class shop {
                     JSONArray items = new JSONArray();
 
                     JSONObject ExtraGood;
-                    for(int i = 0; i < ArKnightsApplication.ExtraGoodList.getJSONArray("goodList").size(); ++i) {
-                        ExtraGood = ArKnightsApplication.ExtraGoodList.getJSONArray("goodList").getJSONObject(i);
+                    for(int i = 0; i < ArknightsApplication.ExtraGoodList.getJSONArray("goodList").size(); ++i) {
+                        ExtraGood = ArknightsApplication.ExtraGoodList.getJSONArray("goodList").getJSONObject(i);
                         if (ExtraGood.getString("goodId").equals(goodId)) {
                             UserSyncData.getJSONObject("inventory").put("4006", UserSyncData.getJSONObject("inventory").getIntValue("4006") - ExtraGood.getIntValue("price") * count);
                             String reward_id = ExtraGood.getJSONObject("item").getString("id");
@@ -341,9 +341,9 @@ public class shop {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject decomposePotentialItem(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /shop/decomposePotentialItem");
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/decomposePotentialItem");
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -380,7 +380,7 @@ public class shop {
                         String CharId = status.getString("charId");
                         int pcount = UserSyncData.getJSONObject("inventory").getIntValue("p_" + CharId);
                         UserSyncData.getJSONObject("inventory").put("p_" + CharId, 0);
-                        int rarity = ArKnightsApplication.characterJson.getJSONObject(CharId).getIntValue("rarity");
+                        int rarity = ArknightsApplication.characterJson.getJSONObject(CharId).getIntValue("rarity");
                         JSONObject item = new JSONObject(true);
                         if (rarity == 0) {
                             item.put("type", "LGG_SHD");
@@ -454,51 +454,51 @@ public class shop {
 
     @RequestMapping({"/getCashGoodList"})
     public JSONObject getCashGoodList() {
-        return ArKnightsApplication.CashGoodList;
+        return ArknightsApplication.CashGoodList;
     }
 
     @RequestMapping({"/getGPGoodList"})
     public JSONObject getGPGoodList() {
-        return ArKnightsApplication.GPGoodList;
+        return ArknightsApplication.GPGoodList;
     }
 
     @RequestMapping({"/getLowGoodList"})
     public JSONObject getLowGoodList() {
-        return ArKnightsApplication.LowGoodList;
+        return ArknightsApplication.LowGoodList;
     }
 
     @RequestMapping({"/getHighGoodList"})
     public JSONObject getHighGoodList() {
-        return ArKnightsApplication.HighGoodList;
+        return ArknightsApplication.HighGoodList;
     }
 
     @RequestMapping({"/getExtraGoodList"})
     public JSONObject getExtraGoodList() {
-        return ArKnightsApplication.ExtraGoodList;
+        return ArknightsApplication.ExtraGoodList;
     }
 
     @RequestMapping({"/getLMTGSGoodList"})
     public JSONObject getLMTGSGoodList() {
-        return ArKnightsApplication.LMTGSGoodList;
+        return ArknightsApplication.LMTGSGoodList;
     }
 
     @RequestMapping({"/getEPGSGoodList"})
     public JSONObject getEPGSGoodList() {
-        return ArKnightsApplication.EPGSGoodList;
+        return ArknightsApplication.EPGSGoodList;
     }
 
     @RequestMapping({"/getRepGoodList"})
     public JSONObject getRepGoodList() {
-        return ArKnightsApplication.RepGoodList;
+        return ArknightsApplication.RepGoodList;
     }
 
     @RequestMapping({"/getFurniGoodList"})
     public JSONObject getFurniGoodList() {
-        return ArKnightsApplication.FurniGoodList;
+        return ArknightsApplication.FurniGoodList;
     }
 
     @RequestMapping({"/getSocialGoodList"})
     public JSONObject getSocialGoodList() {
-        return ArKnightsApplication.SocialGoodList;
+        return ArknightsApplication.SocialGoodList;
     }
 }

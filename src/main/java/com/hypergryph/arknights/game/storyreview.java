@@ -1,7 +1,7 @@
 package com.hypergryph.arknights.game;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
 import java.util.List;
@@ -27,9 +27,9 @@ public class storyreview {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject markStoryAcceKnown(HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /story/finishStory");
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /story/finishStory");
         List<Account> Accounts = userDao.queryAccountBySecret(secret);
 
         if (Accounts.size() != 1) {
@@ -71,7 +71,7 @@ public class storyreview {
 
             // 更新用户数据
             userDao.setUserData(uid, UserSyncData);
-            ArKnightsApplication.LOGGER.info("Received JSON: " + UserSyncData.toJSONString());
+            ArknightsApplication.LOGGER.info("Received JSON: " + UserSyncData.toJSONString());
 
             // 构造返回数据
             JSONObject result = new JSONObject(true);

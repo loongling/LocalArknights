@@ -2,7 +2,7 @@ package com.hypergryph.arknights.game;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
 import java.util.Date;
@@ -31,7 +31,7 @@ public class account {
             produces = {"application/json; charset=utf-8"}
     )
     public JSONObject Login(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
+        String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/login");
         LOGGER.info("Received JSON: " + JsonBody.toJSONString());
         String secret = JsonBody.getString("token");
@@ -51,23 +51,23 @@ public class account {
                 result.put("result", 1);
                 result.put("error", "您已被此服务器封禁");
                 return result;
-            } else if (!clientVersion.equals(ArKnightsApplication.serverConfig.getJSONObject("version").getJSONObject("android").getString("clientVersion"))) {
+            } else if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("android").getString("clientVersion"))) {
                 result = new JSONObject(true);
                 result.put("result", 2);
                 result.put("error", "客户端版本需要更新");
                 return result;
-            } else if (!assetsVersion.equals(ArKnightsApplication.serverConfig.getJSONObject("version").getJSONObject("android").getString("resVersion"))) {
+            } else if (!assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("android").getString("resVersion"))) {
                 result = new JSONObject(true);
                 result.put("result", 4);
                 result.put("error", "资源需要更新");
                 return result;
             } else {
                 if (((Account)Accounts.get(0)).getUser().equals("{}")) {
-                    ArKnightsApplication.DefaultSyncData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
-                    ArKnightsApplication.DefaultSyncData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
-                    userDao.setUserData(uid, ArKnightsApplication.DefaultSyncData);
+                    ArknightsApplication.DefaultSyncData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
+                    ArknightsApplication.DefaultSyncData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
+                    userDao.setUserData(uid, ArknightsApplication.DefaultSyncData);
                 }
-                ArKnightsApplication.addSecretForIP(clientIp, secret);
+                ArknightsApplication.addSecretForIP(clientIp, secret);
                 Map<String, Object> data = new LinkedHashMap<>();
                 data.put("result", 0);
                 data.put("uid", uid);
@@ -88,14 +88,14 @@ public class account {
     )
     public JSONObject SyncData(HttpServletRequest request,
                                HttpServletResponse response) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
+        String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/syncData");
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         long uid = 0;
         List<Account> Accounts = userDao.queryAccountBySecret(String.valueOf(uid));
 
         // **检查服务器状态**
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             return createErrorResponse(400, "server is close");
         }
@@ -132,7 +132,7 @@ public class account {
             return createErrorResponse(2, "用户数据损坏");
         }
 
-        Long ts = ArKnightsApplication.getTimestamp();
+        Long ts = ArknightsApplication.getTimestamp();
         UserSyncData.getJSONObject("status").put("lastOnlineTs", System.currentTimeMillis() / 1000L);
         UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
 
@@ -167,10 +167,10 @@ public class account {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject SyncStatus(HttpServletResponse response, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
+        String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/syncStatus");
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        if (!ArKnightsApplication.enableServer) {
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
@@ -197,7 +197,7 @@ public class account {
                 } else {
                     UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
                     UserSyncData.getJSONObject("status").put("lastOnlineTs", (new Date()).getTime() / 1000L);
-                    UserSyncData.getJSONObject("status").put("lastRefreshTs", ArKnightsApplication.getTimestamp());
+                    UserSyncData.getJSONObject("status").put("lastRefreshTs", ArknightsApplication.getTimestamp());
                     UserSyncData.getJSONObject("pushFlags").put("hasGifts", 0);
                     UserSyncData.getJSONObject("pushFlags").put("hasFriendRequest", 0);
                     JSONArray listMailBox = JSONArray.parseArray(((Account)Accounts.get(0)).getMails());
@@ -233,9 +233,9 @@ public class account {
                     playerDataDelta.put("deleted", new JSONObject(true));
                     result.put("playerDataDelta", playerDataDelta);
                     JSONObject result_announcement = new JSONObject(true);
-                    result_announcement.put("4", ArKnightsApplication.serverConfig.getJSONObject("announce").getJSONObject("status"));
+                    result_announcement.put("4", ArknightsApplication.serverConfig.getJSONObject("announce").getJSONObject("status"));
                     result.put("result", result_announcement);
-                    result.put("ts", ArKnightsApplication.getTimestamp());
+                    result.put("ts", ArknightsApplication.getTimestamp());
                     return result;
                 }
             }

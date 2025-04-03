@@ -2,7 +2,7 @@ package com.hypergryph.arknights.game;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.file.IOTools;
 import com.hypergryph.arknights.core.pojo.Account;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,10 +27,10 @@ public class gacha {
 
     @PostMapping("/syncNormalGacha")
     public JSONObject syncNormalGacha(HttpServletResponse response,HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/syncNormalGacha");
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
-        if (!ArKnightsApplication.enableServer) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/syncNormalGacha");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        if (!ArknightsApplication.enableServer) {
             return createErrorResponse(response, 400, "server is close");
         }
 
@@ -57,11 +56,11 @@ public class gacha {
 
     @PostMapping("/normalGacha")
     public JSONObject normalGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/normalGacha");
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/normalGacha");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         logRequest(request, "/gacha/normalGacha");
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             return createErrorResponse(400, "server is close");
         }
 
@@ -105,11 +104,11 @@ public class gacha {
 
     @PostMapping("/finishNormalGacha")
     public JSONObject finishNormalGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/finishNormalGacha");
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/finishNormalGacha");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         logRequest(request, "/gacha/finishNormalGacha");
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             return createErrorResponse(400, "server is close");
         }
 
@@ -149,11 +148,11 @@ public class gacha {
 
     @PostMapping("/getPoolDetail")
     public JSONObject getPoolDetail(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/getPoolDetail");
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/getPoolDetail");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         logRequest(request, "/gacha/getPoolDetail");
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             return createErrorResponse(400, "server is close");
         }
 
@@ -170,11 +169,11 @@ public class gacha {
 
     @PostMapping("/advancedGacha")
     public JSONObject advancedGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/advancedGacha");
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/advancedGacha");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         logRequest(request, "/gacha/advancedGacha");
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             return createErrorResponse(400, "server is close");
         }
 
@@ -185,11 +184,11 @@ public class gacha {
 
     @PostMapping("/tenAdvancedGacha")
     public JSONObject tenAdvancedGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/tenAdvancedGacha");
-        String secret = ArKnightsApplication.getSecretByIP(clientIp);
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/tenAdvancedGacha");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         logRequest(request, "/gacha/tenAdvancedGacha");
-        if (!ArKnightsApplication.enableServer) {
+        if (!ArknightsApplication.enableServer) {
             return createErrorResponse(400, "server is close");
         }
 
@@ -218,8 +217,8 @@ public class gacha {
     }
 
     private void logRequest(HttpServletRequest request, String endpoint) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] " + endpoint);
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] " + endpoint);
     }
 
     private JSONArray createSelectTags(JSONArray tagList) {
@@ -236,7 +235,7 @@ public class gacha {
     private JSONObject performNormalGacha(JSONObject userSyncData) {
         JSONObject chars = userSyncData.getJSONObject("troop").getJSONObject("chars");
         JSONObject buildingChars = userSyncData.getJSONObject("building").getJSONObject("chars");
-        JSONArray availCharInfo = ArKnightsApplication.normalGachaData.getJSONObject("detailInfo").getJSONObject("availCharInfo").getJSONArray("perAvailList");
+        JSONArray availCharInfo = ArknightsApplication.normalGachaData.getJSONObject("detailInfo").getJSONObject("availCharInfo").getJSONArray("perAvailList");
         JSONArray randomRankArray = new JSONArray();
 
         // Calculate probabilities
@@ -286,7 +285,7 @@ public class gacha {
             // Repeat character
             charGet = chars.getJSONObject(String.valueOf(repeatCharId));
             int potentialRank = charGet.getIntValue("potentialRank");
-            int rarity = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
+            int rarity = ArknightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
 
             JSONObject shardItem = createShardItem(rarity, potentialRank);
             itemGet.add(shardItem);
@@ -320,7 +319,7 @@ public class gacha {
 
     private JSONObject createNewCharacter(String charId, JSONObject userSyncData, JSONObject chars, JSONObject buildingChars) {
         JSONObject charGet = new JSONObject(true);
-        JSONArray skillsArray = ArKnightsApplication.characterJson.getJSONObject(charId).getJSONArray("skills");
+        JSONArray skillsArray = ArknightsApplication.characterJson.getJSONObject(charId).getJSONArray("skills");
         JSONArray skills = new JSONArray();
 
         for (int i = 0; i < skillsArray.size(); i++) {
@@ -345,13 +344,13 @@ public class gacha {
         charGet.put("evolvePhase", 0);
         charGet.put("gainTime", new Date().getTime() / 1000L);
         charGet.put("skills", skills);
-        charGet.put("voiceLan", ArKnightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(charId));
+        charGet.put("voiceLan", ArknightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(charId));
         charGet.put("defaultSkillIndex", skills.isEmpty() ? -1 : 0);
 
         // Handle equipment
         String itemType = charId.substring(charId.indexOf("_") + 1);
         String itemId = itemType.substring(itemType.indexOf("_") + 1);
-        if (ArKnightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
+        if (ArknightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
             JSONObject equip = new JSONObject(true);
             JSONObject uniequip1 = new JSONObject(true);
             uniequip1.put("hide", 0);
@@ -718,7 +717,7 @@ public class gacha {
                                     JSONObject charGet, JSONObject chars, JSONObject troop) {
         JSONObject get_char = new JSONObject(true);
         JSONObject char_data = new JSONObject(true);
-        JSONArray skilsArray = ArKnightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
+        JSONArray skilsArray = ArknightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
         JSONArray skils = new JSONArray();
 
         for (int i = 0; i < skilsArray.size(); i++) {
@@ -743,13 +742,13 @@ public class gacha {
         char_data.put("evolvePhase", 0);
         char_data.put("gainTime", new Date().getTime() / 1000L);
         char_data.put("skills", skils);
-        char_data.put("voiceLan", ArKnightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
+        char_data.put("voiceLan", ArknightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
         char_data.put("defaultSkillIndex", skils.isEmpty() ? -1 : 0);
 
         String itemType = randomCharId.substring(randomCharId.indexOf("_") + 1);
         String itemId = itemType.substring(itemType.indexOf("_") + 1);
 
-        if (ArKnightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
+        if (ArknightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
             JSONObject charGroup = new JSONObject(true);
             JSONObject buildingChar = new JSONObject(true);
             buildingChar.put("hide", 0);

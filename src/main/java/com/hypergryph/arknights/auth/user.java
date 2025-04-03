@@ -1,7 +1,7 @@
 package com.hypergryph.arknights.auth;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArKnightsApplication;
+import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.function.httpClient;
 import com.hypergryph.arknights.core.pojo.Account;
@@ -71,8 +71,8 @@ public class user {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject Register(@RequestBody JSONObject JsonBody, HttpServletRequest request) {
-        String clientIp = ArKnightsApplication.getIpAddr(request);
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] /user/register");
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /user/register");
         String account = JsonBody.getString("account");
         String password = JsonBody.getString("password");
         String smsCode = JsonBody.getString("smsCode");
@@ -83,7 +83,7 @@ public class user {
             result.put("result", 5);
             result.put("errMsg", "该用户已存在，请确认注册信息");
             return result;
-        } else if (ArKnightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha") && httpClient.verifySmsCode(account, smsCode).getIntValue("code") == 503) {
+        } else if (ArknightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha") && httpClient.verifySmsCode(account, smsCode).getIntValue("code") == 503) {
             result = new JSONObject(true);
             result.put("result", 5);
             result.put("errMsg", "验证码错误");
@@ -113,9 +113,9 @@ public class user {
     public JSONObject Login(@RequestBody JSONObject JsonBody, HttpServletRequest request) {
         String account = JsonBody.getString("phone");
         String password = JsonBody.getString("password");
-        String clientIp = ArKnightsApplication.getIpAddr(request);
+        String clientIp = ArknightsApplication.getIpAddr(request);
 
-        ArKnightsApplication.LOGGER.info("[/" + clientIp + "] 用户登录 /auth/v1/token_by_phone_password");
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 用户登录 /auth/v1/token_by_phone_password");
 
         List<Account> accounts = userDao.LoginAccount(account, DigestUtils.md5DigestAsHex((password + Key).getBytes()));
 
@@ -142,12 +142,12 @@ public class user {
 
     @GetMapping("/info/v1/basic")
     public Map<String, Object> getUserInfo(@RequestParam("token") String token) {
-        ArKnightsApplication.LOGGER.info("请求用户信息: /user/info/v1/basic?token=" + token);
+        ArknightsApplication.LOGGER.info("请求用户信息: /user/info/v1/basic?token=" + token);
 
         // 通过 token (Secret) 查询数据库中的账户
         List<Account> accounts = userDao.queryAccountBySecret(token);
         if (accounts.size() != 1) {
-            ArKnightsApplication.LOGGER.warn("无效的 token: " + token);
+            ArknightsApplication.LOGGER.warn("无效的 token: " + token);
             JSONObject result = new JSONObject(true);
             result.put("status", 1);
             result.put("msg", "Invalid Token");
@@ -185,19 +185,19 @@ public class user {
             produces = {"application/json;charset=UTF-8"}
     )
     public Map<String, Object> grantOAuth(@RequestBody JSONObject JsonBody) {
-        ArKnightsApplication.LOGGER.info("请求 OAuth 授权: /oauth2/v2/grant");
+        ArknightsApplication.LOGGER.info("请求 OAuth 授权: /oauth2/v2/grant");
 
         // 从 JSON 请求体中获取 token
         String token = JsonBody.getString("token");
         if (token == null || token.isEmpty()) {
-            ArKnightsApplication.LOGGER.warn("请求体中缺少 token");
+            ArknightsApplication.LOGGER.warn("请求体中缺少 token");
             return Map.of("status", 1, "msg", "Missing Token");
         }
 
         // 通过 token (Secret) 查询数据库中的账户
         List<Account> accounts = userDao.queryAccountBySecret(token);
         if (accounts.size() != 1) {
-            ArKnightsApplication.LOGGER.warn("无效的 token: " + token);
+            ArknightsApplication.LOGGER.warn("无效的 token: " + token);
             return Map.of("status", 1, "msg", "Invalid Token");
         }
 

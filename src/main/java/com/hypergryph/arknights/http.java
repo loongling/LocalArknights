@@ -14,8 +14,8 @@ public class http {
     int HttpPort;
 
     public http() {
-        this.ServerPort = ArKnightsApplication.serverConfig.getJSONObject("server").getIntValue("https");
-        this.HttpPort = ArKnightsApplication.serverConfig.getJSONObject("server").getIntValue("http");
+        this.ServerPort = ArknightsApplication.serverConfig.getJSONObject("server").getIntValue("https");
+        this.HttpPort = ArknightsApplication.serverConfig.getJSONObject("server").getIntValue("http");
     }
 
     @Bean

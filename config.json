@@ -1,28 +1,22 @@
 {
 	"server":{
-		"url":"http://192.168.1.6:38660",
-		"http":38660,
-		"https":38650,
+		"url":"http://127.0.0.1:8443",
+		"http":8443,
+		"https":36650,
 		"captcha":false,
 		"enableServer":true,
 		"closeMessage":"服务器目前暂未开放",
 		"GMKey":"$Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h"
 	},
-	"timestamp":{
-		"monday":1645437600,
-		"tuesday":1644919200,
-		"wednesday":1645005600,
-		"thursday":1645092000,
-		"friday":1645178400,
-		"saturday":1645264800,
-		"sunday":1645351200
+	"timer": {
+		"set_server_time": "-1"
 	},
 	"database":{
 		"host":"localhost",
-		"port":62814,
+		"port":3306,
 		"dbname":"arknights",
-		"username":"root",
-		"password":"Arknights",
+		"user":"ark",
+		"password":"Loongling120312!",
 		"extra":"useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
 	},
 	"roguelike":{
@@ -37,7 +31,7 @@
 	},
 	"version":{
 		"android":{
-			"resVersion":"25-03-06-16-27-08-c23c8c",
+			"resVersion":"25-03-18-13-18-46-22831e",
 			"clientVersion":"2.4.61"
 		},
 		"ios":{
@@ -47,20 +41,23 @@
 	},
 	"assets":{
 		"enableRedirect":true,
-		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/25-03-06-16-27-08-c23c8c",
+		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/25-03-18-13-18-46-22831e",
 		"localFiles":[]
 	},
 	"remote":{
-		"enableGameBI":false,
-		"enableSDKNetSecure":true,
-		"enableBestHttp":false
+		"HGDownload_1": 10000,
+		"HGDownload_2": 10000,
+		"enableGameBI": true,
+		"enableMarquee": false,
+		"enableNavtieLicense": false,
+		"fapv2": 1
 	},
 	"network":{
-		"sign":"liOYRfqui44FAHTZ3SoXtHJgl4Vj8vu90aumePes3Kh1A1Z4QVLCXtlG5h0EzfXsTKmdaBJjBaDkAaoR/BUt1JA+SdLIEzyb6BNjbgL5whdH8EQABSo/M5fYFn8QRjSbtQNl5tUK0cYJgCT3ODVnEmHKFqydrkjCPgVNyXU4Eyg=",
+		"sign":"Hv3c63kycotL0nGtIAH4Je7MH3Gq3FTGzg0irFpzr/ktsX3y+buKlC913yVGCPKM4nmJOtqSvwh0ykgWn5FJmbl/H73sQKlHv21T8i+TKnzKgRHovykxkvmIsE+wu3KqUFPT/JsHAtjWb4YwPEGYIRG2oc0qRlGHALwde0kQntU=",
 		"configVer":"5",
-		"funcVer":"V025",
+		"funcVer":"V059",
 		"configs":{
-			"V025":{
+			"V059":{
 				"override":true,
 				"network":{
 					"gs":"{server}",
@@ -78,7 +75,7 @@
 					"secure":false
 				}
 			},
-			"V026":{
+			"V060":{
 				"override":true,
 				"network":{
 					"gs":"https://ak-gs-gf.hypergryph.com",
