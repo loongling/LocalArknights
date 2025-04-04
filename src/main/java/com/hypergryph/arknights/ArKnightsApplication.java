@@ -231,10 +231,15 @@ public class ArknightsApplication {
         enableServer = serverConfig.getJSONObject("server").getBooleanValue("enableServer");
         LOGGER.info("载入游戏数据...");
         DefaultSyncData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/defaultSyncData.json");
-        roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
         characterJson = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/character_table.json");
+        roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
         stageTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/stage_table.json").getJSONObject("stages");
-        CrisisData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/crisis/cc12.json");
+        itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json").getJSONObject("items");
+        mainStage = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/stage.json").getJSONObject("MainStage");
+        uniequipTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/uniequip_table.json").getJSONObject("equipDict");
+        skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
+        skinTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/skin_table.json").getJSONObject("charSkins");
+        charwordTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/charword_table.json");
         CashGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/CashGoodList.json");
         GPGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/GPGoodList.json");
         LowGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/LowGoodList.json");
@@ -246,11 +251,9 @@ public class ArknightsApplication {
         FurniGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/FurniGoodList.json");
         SocialGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SocialGoodList.json");
         AllProductList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/AllProductList.json");
-        skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
-        itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json");
-        skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
-        skinTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/skin_table.json").getJSONObject("charSkins");
-        mainStage = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/stage.json").getJSONObject("MainStage");
+        CrisisData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/crisis/cc12.json");
+        CrisisV2Data = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/crisisv2/cc3.json");
+        buildingData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/building_data.json").getJSONObject("workshopFormulas");
         long endTime = System.currentTimeMillis();
         LOGGER.info("载入完成，耗时：" + (endTime - startTime) + "ms");
     }

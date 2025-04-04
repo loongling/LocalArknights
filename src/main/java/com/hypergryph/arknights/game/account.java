@@ -5,10 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
@@ -44,9 +42,9 @@ public class account {
             result.put("error", "无法查询到此账户");
             return result;
         } else {
-            Long uid = ((Account)Accounts.get(0)).getUid();
+            Long uid = ((Account) Accounts.get(0)).getUid();
             JSONObject result;
-            if (((Account)Accounts.get(0)).getBan() == 1L) {
+            if (((Account) Accounts.get(0)).getBan() == 1L) {
                 result = new JSONObject(true);
                 result.put("result", 1);
                 result.put("error", "您已被此服务器封禁");
@@ -62,7 +60,7 @@ public class account {
                 result.put("error", "资源需要更新");
                 return result;
             } else {
-                if (((Account)Accounts.get(0)).getUser().equals("{}")) {
+                if (((Account) Accounts.get(0)).getUser().equals("{}")) {
                     ArknightsApplication.DefaultSyncData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
                     ArknightsApplication.DefaultSyncData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
                     userDao.setUserData(uid, ArknightsApplication.DefaultSyncData);
@@ -185,9 +183,9 @@ public class account {
                 result.put("error", "无法查询到此账户");
                 return result;
             } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("statusCode", 403);
@@ -195,14 +193,14 @@ public class account {
                     UserSyncData.put("message", "error");
                     return UserSyncData;
                 } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
+                    UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
                     UserSyncData.getJSONObject("status").put("lastOnlineTs", (new Date()).getTime() / 1000L);
                     UserSyncData.getJSONObject("status").put("lastRefreshTs", ArknightsApplication.getTimestamp());
                     UserSyncData.getJSONObject("pushFlags").put("hasGifts", 0);
                     UserSyncData.getJSONObject("pushFlags").put("hasFriendRequest", 0);
-                    JSONArray listMailBox = JSONArray.parseArray(((Account)Accounts.get(0)).getMails());
+                    JSONArray listMailBox = JSONArray.parseArray(((Account) Accounts.get(0)).getMails());
 
-                    for(int i = 0; i < listMailBox.size(); ++i) {
+                    for (int i = 0; i < listMailBox.size(); ++i) {
                         if (listMailBox.getJSONObject(i).getIntValue("state") == 0) {
                             if ((new Date()).getTime() / 1000L <= listMailBox.getJSONObject(i).getLongValue("expireAt")) {
                                 UserSyncData.getJSONObject("pushFlags").put("hasGifts", 1);
@@ -213,7 +211,7 @@ public class account {
                         }
                     }
 
-                    JSONArray FriendRequest = JSONObject.parseObject(((Account)Accounts.get(0)).getFriend()).getJSONArray("request");
+                    JSONArray FriendRequest = JSONObject.parseObject(((Account) Accounts.get(0)).getFriend()).getJSONArray("request");
                     if (FriendRequest.size() != 0) {
                         UserSyncData.getJSONObject("pushFlags").put("hasFriendRequest", 1);
                     }
@@ -240,5 +238,13 @@ public class account {
                 }
             }
         }
+    }
+
+    @PostMapping({"/syncPushMessage"})
+    public JSONObject SyncPushMessage() {
+        JSONObject json = new JSONObject();
+        json.put("code", 200);
+        json.put("msg", "OK");
+        return json;
     }
 }

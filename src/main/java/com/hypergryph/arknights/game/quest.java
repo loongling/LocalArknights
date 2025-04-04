@@ -11,6 +11,8 @@ import com.hypergryph.arknights.core.pojo.SearchAssistCharList;
 import com.hypergryph.arknights.core.pojo.UserInfo;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +27,10 @@ import static com.hypergryph.arknights.ArknightsApplication.stageTable;
 @RestController
 @RequestMapping({"/quest"})
 public class quest {
-    public quest() {
+    private final ArknightsApplication arknightsApplication;
+
+    public quest(ArknightsApplication arknightsApplication) {
+        this.arknightsApplication = arknightsApplication;
     }
 
     @PostMapping(
@@ -123,7 +128,7 @@ public class quest {
             }
         }
     }
-JSONArray firstReward = new JSONArray();
+    JSONArray firstReward = new JSONArray();
     @PostMapping(
             value = {"/battleFinish"},
             produces = {"application/json;charset=UTF-8"}
@@ -225,7 +230,9 @@ JSONArray firstReward = new JSONArray();
             // 11. 关卡解锁
             JSONArray unlockStages = new JSONArray();
             JSONArray unlockStagesObject = new JSONArray();
-            handleStageUnlock(UserSyncData, stageId, completeState, stageClear, unlockStages, unlockStagesObject);
+            if(FirstClear) {
+                handleStageUnlock(UserSyncData, stageId, completeState, unlockStages, unlockStagesObject);
+            }
 
             // 12. 发放奖励
             JSONObject rewards = calculateRewards(UserSyncData, stage_table, completeState, FirstClear, DropRate);
@@ -256,6 +263,7 @@ JSONArray firstReward = new JSONArray();
         // ========== 辅助方法实现 ==========
 
         private JSONObject handlePracticeMode(JSONObject UserSyncData, Long uid, String stageId) {
+        firstReward.clear();
             UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("practiceTimes", 0);
 
             if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("state") == 0) {
@@ -304,6 +312,7 @@ JSONArray firstReward = new JSONArray();
         }
 
         private JSONObject handleBattleFailure(JSONObject UserSyncData, Long uid, JSONObject stage_table, String stageId) {
+        firstReward.clear();
             int apFailReturn = stage_table.getIntValue("apFailReturn");
             if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("noCostCnt") == 1) {
                 apFailReturn = stage_table.getIntValue("apCost");
@@ -383,6 +392,7 @@ JSONArray firstReward = new JSONArray();
 
     private void handleFirstClearRewards(JSONObject UserSyncData, String stageId,
                                          JSONObject chars, JSONObject troop) {
+        firstReward.clear();
         if (stageId.equals("main_08-16")) {
             handleAmiyaTransform(UserSyncData, chars, troop);
         }
@@ -475,6 +485,7 @@ JSONArray firstReward = new JSONArray();
             } else {
                 // 处理干员奖励
                 handleCharFirstClearReward(UserSyncData, reward_id, chars, troop);
+                ArknightsApplication.LOGGER.info("rewardSId:" + reward_id);
             }
         }
 
@@ -517,17 +528,23 @@ JSONArray firstReward = new JSONArray();
                                                 JSONObject chars, JSONObject troop) {
             String randomCharId = reward_id;
             int dropType = 0;
+            Pattern pattern = Pattern.compile("char_(\\d+)_");
+            Matcher matcher = pattern.matcher(reward_id);
+            ArknightsApplication.LOGGER.info("rewardSId:" + reward_id);
 
-            // 检查是否已拥有该干员
-            for (int i = 0; i < UserSyncData.getJSONObject("troop").getJSONObject("chars").size(); i++) {
-                if (UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(i + 1))
-                        .getString("charId").equals(randomCharId)) {
-                    dropType = i + 1;
-                    break;
-                }
+            int charId = 0;
+            if (matcher.find()) {
+                charId = Integer.parseInt(matcher.group(1));
+                ArknightsApplication.LOGGER.info("提取到的数字是: " + charId);
+            } else {
+                ArknightsApplication.LOGGER.info("未匹配到数字");
             }
 
-            if (dropType == 0) {
+            JSONObject char_data = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charId));
+            // 检查是否已拥有该干员
+
+
+            if (char_data == null) {
                 // 新干员
                 handleNewCharReward(UserSyncData, randomCharId, chars, troop);
             } else {
@@ -558,9 +575,18 @@ JSONArray firstReward = new JSONArray();
 
                 skils.add(new_skils);
             }
+            Pattern pattern = Pattern.compile("char_(\\d+)_");
+            Matcher matcher = pattern.matcher(randomCharId);
 
-            int instId = UserSyncData.getJSONObject("troop").getJSONObject("chars").size() + 1;
-            char_data.put("instId", instId);
+            int charId = 0;
+            if (matcher.find()) {
+                charId = Integer.parseInt(matcher.group(1));
+                ArknightsApplication.LOGGER.info("提取到的数字是: " + charId);
+            } else {
+                ArknightsApplication.LOGGER.info("未匹配到数字");
+            }
+
+            char_data.put("instId", charId);
             char_data.put("charId", randomCharId);
             char_data.put("favorPoint", 0);
             char_data.put("potentialRank", 0);
@@ -571,8 +597,9 @@ JSONArray firstReward = new JSONArray();
             char_data.put("evolvePhase", 0);
             char_data.put("gainTime", new Date().getTime() / 1000L);
             char_data.put("skills", skils);
-            char_data.put("voiceLan", ArknightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
+            char_data.put("voiceLan", "CN_MANDARIN");
             char_data.put("defaultSkillIndex", skils.isEmpty() ? -1 : 0);
+            char_data.put("starMark", 0);
 
             String itemType = randomCharId.substring(randomCharId.indexOf("_") + 1);
             String itemId = itemType.substring(itemType.indexOf("_") + 1);
@@ -595,16 +622,16 @@ JSONArray firstReward = new JSONArray();
                 char_data.put("equip", charGroup);
                 char_data.put("currentEquip", "uniequip_001_" + itemId);
             } else {
-                char_data.put("currentEquip", (Object)null);
+                char_data.put("currentEquip", (Object) null);
             }
 
-            UserSyncData.getJSONObject("troop").getJSONObject("chars").put(String.valueOf(instId), char_data);
+            UserSyncData.getJSONObject("troop").getJSONObject("chars").put(String.valueOf(charId), char_data);
 
             JSONObject charGroup = new JSONObject(true);
             charGroup.put("favorPoint", 0);
             UserSyncData.getJSONObject("troop").getJSONObject("charGroup").put(randomCharId, charGroup);
 
-            get_char.put("charInstId", instId);
+            get_char.put("charInstId", charId);
             get_char.put("charId", randomCharId);
             get_char.put("isNew", 1);
 
@@ -620,8 +647,8 @@ JSONArray firstReward = new JSONArray();
             UserSyncData.getJSONObject("inventory").put("p_" + randomCharId, 0);
 
             JSONObject newCharInst = new JSONObject(true);
-            newCharInst.put(String.valueOf(instId), char_data);
-            chars.put(String.valueOf(instId), char_data);
+            newCharInst.put(String.valueOf(charId), char_data);
+            chars.put(String.valueOf(charId), char_data);
             troop.put("chars", newCharInst);
         }
 
@@ -701,18 +728,14 @@ JSONArray firstReward = new JSONArray();
         }
 
         private void handleStageUnlock(JSONObject UserSyncData, String stageId, int completeState,
-                                       JSONObject stageClear, JSONArray unlockStages, JSONArray unlockStagesObject) {
-            JSONObject stages_data = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId);
-            JSONObject stage_table = mainStage.getJSONObject(stageId);
-
-            if (stages_data.getIntValue("state") == 1 && (completeState == 3 || completeState == 2)) {
+                                       JSONArray unlockStages, JSONArray unlockStagesObject) {
                 // 解锁后续关卡
-                if (stageClear.getString("next") != null) {
-                    String nextStageId = stageClear.getString("next");
+                if (mainStage.getJSONObject(stageId).getString("next") != null) {
+                    String nextStageId = mainStage.getJSONObject(stageId).getString("next");
                     JSONObject hard_unlockStage = createNewStageEntry(nextStageId);
                     UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(nextStageId, hard_unlockStage);
-
-                    if (stage_table.getString("stageType").equals("MAIN") || stage_table.getString("stageType").equals("SUB")) {
+                    arknightsApplication.LOGGER.info("nextstageId" + nextStageId);
+                    if (stageTable.getJSONObject(stageId).getString("stageType").equals("MAIN") || stageTable.getString("stageType").equals("SUB")) {
                         UserSyncData.getJSONObject("status").put("mainStageProgress", nextStageId);
                     }
 
@@ -721,8 +744,8 @@ JSONArray firstReward = new JSONArray();
                 }
 
                 // 解锁支线关卡
-                if (stageClear.getString("sub") != null) {
-                    String subStageId = stageClear.getString("sub");
+                if (mainStage.getJSONObject(stageId).getString("sub") != null) {
+                    String subStageId = mainStage.getJSONObject(stageId).getString("sub");
                     JSONObject sub_unlockStage = createNewStageEntry(subStageId);
                     UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(subStageId, sub_unlockStage);
                     unlockStages.add(subStageId);
@@ -731,23 +754,24 @@ JSONArray firstReward = new JSONArray();
 
                 // 三星通关解锁
                 if (completeState == 3) {
-                    if (stageClear.getString("star") != null) {
-                        String starStageId = stageClear.getString("star");
+                    if (mainStage.getJSONObject(stageId).getString("star") != null) {
+                        String starStageId = mainStage.getJSONObject(stageId).getString("star");
                         JSONObject star_unlockStage = createNewStageEntry(starStageId);
                         UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(starStageId, star_unlockStage);
                         unlockStages.add(starStageId);
                         unlockStagesObject.add(star_unlockStage);
                     }
 
-                    if (stageClear.getString("hard") != null) {
-                        String hardStageId = stageClear.getString("hard");
+                    if (mainStage.getJSONObject(stageId).getString("hard") != null) {
+                        String hardStageId = mainStage.getJSONObject(stageId).getString("hard");
                         JSONObject hard_unlockStage = createNewStageEntry(hardStageId);
                         UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(hardStageId, hard_unlockStage);
                         unlockStages.add(hardStageId);
                         unlockStagesObject.add(hard_unlockStage);
                     }
                 }
-            }
+            ArknightsApplication.LOGGER.info("UNLS:" + unlockStages);
+            ArknightsApplication.LOGGER.info("UNLSO:" + unlockStagesObject);
         }
 
         private JSONObject createNewStageEntry(String stageId) {

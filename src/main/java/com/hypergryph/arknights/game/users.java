@@ -93,8 +93,9 @@ public class users {
             value = {"/rebindNickName"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject reBindNickName(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject reBindNickName(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/rebindNickName");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -148,8 +149,9 @@ public class users {
             value = {"/exchangeDiamondShard"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject exchangeDiamondShard(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject exchangeDiamondShard(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/exchangeDiamondShard");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -211,8 +213,9 @@ public class users {
             value = {"/changeResume"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject changeResume(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject changeResume(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/changeResume");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -262,8 +265,9 @@ public class users {
             value = {"/changeSecretary"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject changeSecretary(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject changeSecretary(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/changeSecretary");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -316,8 +320,9 @@ public class users {
             value = {"/buyAp"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buyAp(@RequestHeader("secret") String secret, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buyAp(HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/buyAp");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -386,8 +391,9 @@ public class users {
             value = {"/changeAvatar"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject changeAvatar(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject changeAvatar(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/changeAvatar");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
