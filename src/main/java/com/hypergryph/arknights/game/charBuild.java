@@ -33,6 +33,7 @@ public class charBuild {
         String clientIp = ArknightsApplication.getIpAddr(request);
         String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/upgradeChar");
+        ArknightsApplication.LOGGER.info("UC:" + JsonBody);
         int charInstId = JsonBody.getIntValue("charInstId");
         JSONArray expMats = JsonBody.getJSONArray("expMats");
         List<Account> Accounts = userDao.queryAccountBySecret(secret);

@@ -105,9 +105,9 @@ public class ArknightsApplication {
         }
 
         LOGGER.info("数据库版本 " + MysqlVersion);
-        LOGGER.info("服务端版本 0.3.4Alpha");
+        LOGGER.info("服务端版本 0.4.0Alpha");
         LOGGER.info("客户端版本 2.4.61");
-        LOGGER.info("构建时间 2025年3月29日23:17:50");
+        LOGGER.info("构建时间 2025年4月4日23:19:05");
         if (serverConfig.getJSONObject("server").getString("GMKey") == null) {
             serverConfig.getJSONObject("server").put("GMKey", randomPwd.getRandomPwd(64));
             IOTools.SaveJsonFile(System.getProperty("user.dir") + "/config.json", serverConfig);
@@ -242,6 +242,7 @@ public class ArknightsApplication {
         charwordTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/charword_table.json");
         CashGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/CashGoodList.json");
         GPGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/GPGoodList.json");
+        normalGachaData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/normalGacha.json");
         LowGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/LowGoodList.json");
         HighGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/HighGoodList.json");
         ExtraGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/ExtraGoodList.json");
