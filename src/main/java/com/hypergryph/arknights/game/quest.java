@@ -140,6 +140,7 @@ public class quest {
             String clientIp = ArknightsApplication.getIpAddr(request);
         String secret = ArknightsApplication.getSecretByIP(clientIp);
             ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleFinish");
+            ArknightsApplication.LOGGER.info("battleData:" + JsonBody);
 
             JSONObject result = new JSONObject(true);
 
@@ -600,30 +601,14 @@ public class quest {
             char_data.put("voiceLan", "CN_MANDARIN");
             char_data.put("defaultSkillIndex", skils.isEmpty() ? -1 : 0);
             char_data.put("starMark", 0);
-
             String itemType = randomCharId.substring(randomCharId.indexOf("_") + 1);
             String itemId = itemType.substring(itemType.indexOf("_") + 1);
+            JSONObject equip = new JSONObject();
+            String CE = null;
+            char_data.put("currentEquip", CE);
+            char_data.put("equip", equip);
+            ArknightsApplication.LOGGER.info("CD:"+ char_data);
 
-            if (ArknightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
-                JSONObject charGroup = new JSONObject(true);
-                JSONObject equip1 = new JSONObject(true);
-                equip1.put("hide", 0);
-                equip1.put("locked", 0);
-                equip1.put("level", 1);
-
-                JSONObject equip2 = new JSONObject(true);
-                equip2.put("hide", 0);
-                equip2.put("locked", 0);
-                equip2.put("level", 1);
-
-                charGroup.put("uniequip_001_" + itemId, equip1);
-                charGroup.put("uniequip_002_" + itemId, equip2);
-
-                char_data.put("equip", charGroup);
-                char_data.put("currentEquip", "uniequip_001_" + itemId);
-            } else {
-                char_data.put("currentEquip", (Object) null);
-            }
 
             UserSyncData.getJSONObject("troop").getJSONObject("chars").put(String.valueOf(charId), char_data);
 

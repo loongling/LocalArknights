@@ -417,6 +417,24 @@ public class gacha {
     }
 
     private JSONObject createNewCharacter(String charId, int instId) {
+
+        JSONArray skilsArray = ArknightsApplication.characterJson.getJSONObject(charId).getJSONArray("skills");
+        JSONArray skils = new JSONArray();
+        for (int i = 0; i < skilsArray.size(); i++) {
+            JSONObject new_skils = new JSONObject(true);
+            new_skils.put("skillId", skilsArray.getJSONObject(i).getString("skillId"));
+            new_skils.put("state", 0);
+            new_skils.put("specializeLevel", 0);
+            new_skils.put("completeUpgradeTime", -1);
+
+            if (skilsArray.getJSONObject(i).getJSONObject("unlockCond").getIntValue("phase") == 0) {
+                new_skils.put("unlock", 1);
+            } else {
+                new_skils.put("unlock", 0);
+            }
+
+            skils.add(new_skils);
+        }
         JSONObject charData = new JSONObject();
         charData.put("charId", charId);
         charData.put("instId", instId);
@@ -450,7 +468,7 @@ public class gacha {
         // 设置语音语言
         charData.put("voiceLan", "JP");
         charData.put("defaultSkillIndex", -1);
-        charData.put("starMark", 0);
+        charData.put("starMark", skils.isEmpty() ? -1 : 0);
 
         return charData;
     }
