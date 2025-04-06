@@ -14,7 +14,7 @@
 	"database":{
 
 
-		"host":"192.168.1.11",
+		"host":"192.168.1.8",
 		"port":3306,
 		"dbname":"arknights",
 		"user":"ark",
@@ -33,7 +33,7 @@
 	},
 	"version":{
 		"android":{
-			"resVersion":"25-03-18-13-18-46-22831e",
+			"resVersion":"25-03-27-16-19-10-4d4819",
 			"clientVersion":"2.4.61"
 		},
 		"ios":{
@@ -43,7 +43,7 @@
 	},
 	"assets":{
 		"enableRedirect":true,
-		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/25-03-18-13-18-46-22831e",
+		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/25-03-27-16-19-10-4d4819",
 		"localFiles":[]
 	},
 	"remote":{
