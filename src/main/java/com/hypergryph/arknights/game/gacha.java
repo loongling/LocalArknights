@@ -293,7 +293,7 @@ public class gacha {
 
     private JSONObject performNormalGacha(JSONObject userData) {
         JSONObject chars = userData.getJSONObject("troop").getJSONObject("chars");
-        JSONObject buildingChars = userData.getJSONObject("building").getJSONObject("chars");
+        JSONObject buildingChars = userData.getJSONObject("troop").getJSONObject("building").getJSONObject("chars");
         JSONArray availCharInfo = ArknightsApplication.normalGachaData.getJSONObject("detailInfo")
                 .getJSONObject("availCharInfo")
                 .getJSONArray("perAvailList");

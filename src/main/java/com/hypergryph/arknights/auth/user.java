@@ -14,6 +14,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.hypergryph.arknights.ArknightsApplication.DefaultSyncData;
+
 @RestController
 @RequestMapping({"/user"})
 public class user {
@@ -216,6 +218,53 @@ public class user {
         response.put("data", data);
 
         return response;
+    }
+
+    @PostMapping(
+            value = {"/auth/v2/token_by_phone_code"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject phonecode(@RequestBody JSONObject JsonBody, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求 手机号注册 授权: /auth/v2/token_by_phone_code");
+        ArknightsApplication.LOGGER.info("JSON:" + JsonBody);
+        String phone = JsonBody.getString("phone");
+        String code = JsonBody.getString("code");
+        String password = "ArkNightsLoongling001";
+        String secret = DigestUtils.md5DigestAsHex((phone + Key).getBytes());
+        JSONObject result;
+        if (userDao.queryAccountByPhone(phone).size() != 0) {
+            result = new JSONObject(true);
+            result.put("result", 5);
+            result.put("errMsg", "该用户已存在，请确认注册信息");
+            return result;
+        }
+        else if (ArknightsApplication.serverConfig.getJSONObject("server").getBooleanValue("captcha") && httpClient.verifySmsCode(phone, code).getIntValue("code") == 503) {
+            result = new JSONObject(true);
+            result.put("result", 5);
+            result.put("errMsg", "验证码错误");
+            return result;
+        }
+        else if (userDao.RegisterAccount(phone, DigestUtils.md5DigestAsHex((password + Key).getBytes()), secret) != 1) {
+            result = new JSONObject(true);
+            result.put("result", 5);
+            result.put("errMsg", "注册失败，未知错误");
+            return result;
+        }
+        else {
+            Map<String, Object> data = new LinkedHashMap<>();
+            result = new JSONObject(true);
+            result.put("result", 0);
+            result.put("uid", 0);
+            data.put("token", secret);
+            result.put("isAuthenticate", true);
+            result.put("isMinor", false);
+            result.put("needAuthenticate", false);
+            result.put("isLatestUserAgreement", true);
+            result.put("data", data);
+            ArknightsApplication.LOGGER.info("results:" + result);
+            return result;
+        }
     }
 
     @PostMapping(
