@@ -12,9 +12,7 @@
 		"set_server_time": "-1"
 	},
 	"database":{
-
-
-		"host":"192.168.1.8",
+		"host":"localhsot",
 		"port":3306,
 		"dbname":"arknights",
 		"user":"ark",
@@ -33,8 +31,8 @@
 	},
 	"version":{
 		"android":{
-			"resVersion":"25-03-27-16-19-10-4d4819",
-			"clientVersion":"2.4.61"
+			"resVersion":"25-10-31-10-13-38_6636d3",
+			"clientVersion":"2.6.71"
 		},
 		"ios":{
 			"resVersion":"21-12-20-11-24-40-d7328a",
@@ -43,7 +41,7 @@
 	},
 	"assets":{
 		"enableRedirect":true,
-		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/25-03-27-16-19-10-4d4819",
+		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/25-10-31-10-13-38_6636d3",
 		"localFiles":[]
 	},
 	"remote":{
@@ -55,11 +53,11 @@
 		"fapv2": 1
 	},
 	"network":{
-		"sign":"Hv3c63kycotL0nGtIAH4Je7MH3Gq3FTGzg0irFpzr/ktsX3y+buKlC913yVGCPKM4nmJOtqSvwh0ykgWn5FJmbl/H73sQKlHv21T8i+TKnzKgRHovykxkvmIsE+wu3KqUFPT/JsHAtjWb4YwPEGYIRG2oc0qRlGHALwde0kQntU=",
+		"sign":"qDOOWuetaSKR+N1pdy9X48gfoD3yIcZJqaiMVztL4t8PbIC2s/q4PjzqNsfK72GPkC/s/lgNyutB/1WI2OV9MhU+NxhDO20xcLOWfnwrSPw5myYrG7h3bwtBbM1w68bZQFQEVXwARBjZrKhdUWQZ/zZkOXpTimg2njjg1Bc6+pY=",
 		"configVer":"5",
-		"funcVer":"V059",
+		"funcVer":"V067",
 		"configs":{
-			"V059":{
+			"V064":{
 				"override":true,
 				"network":{
 					"gs":"{server}",
@@ -69,25 +67,7 @@
 					"hv":"{server}/config/prod/official/{0}/version",
 					"rc":"{server}/config/prod/official/remote_config",
 					"an":"{server}/config/prod/announce_meta/{0}/announcement.meta.json",
-					"prean":"{server}/config/prod/announce_meta/{0}/preannouncement.meta.json",
-					"sl":"https://ak.hypergryph.com/protocol/service",
-					"of":"https://ak.hypergryph.com/index.html",
-					"pkgAd":"https://ak.hypergryph.com/download",
-					"pkgIOS":"https://apps.apple.com/cn/app/id1454663939",
-					"secure":false
-				}
-			},
-			"V060":{
-				"override":true,
-				"network":{
-					"gs":"https://ak-gs-gf.hypergryph.com",
-					"as":"https://as.hypergryph.com",
-					"u8":"https://as.hypergryph.com/u8",
-					"hu":"https://ak.hycdn.cn/assetbundle/official",
-					"hv":"https://ak-conf.hypergryph.com/config/prod/official/{0}/version",
-					"rc":"https://ak-conf.hypergryph.com/config/prod/official/remote_config",
-					"an":"https://ak-conf.hypergryph.com/config/prod/announce_meta/{0}/announcement.meta.json",
-					"prean":"https://ak-conf.hypergryph.com/config/prod/announce_meta/{0}/preannouncement.meta.json",
+					"prean":"https://ak-webview.hypergryph.com",
 					"sl":"https://ak.hypergryph.com/protocol/service",
 					"of":"https://ak.hypergryph.com/index.html",
 					"pkgAd":"https://ak.hypergryph.com/download",

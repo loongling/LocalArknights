@@ -202,6 +202,7 @@ public class user {
             ArknightsApplication.LOGGER.warn("无效的 token: " + token);
             return Map.of("status", 1, "msg", "Invalid Token");
         }
+        ArknightsApplication.LOGGER.info("token: " + token);
 
         // 获取用户 UID
         Account user = accounts.get(0);
@@ -216,6 +217,7 @@ public class user {
         response.put("status", 0);
         response.put("msg", "OK");
         response.put("data", data);
+        ArknightsApplication.LOGGER.info("response: " + response);
 
         return response;
     }

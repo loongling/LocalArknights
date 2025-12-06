@@ -2,18 +2,23 @@ package com.hypergryph.arknights.asset;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.FileSystemResource;
@@ -21,8 +26,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping({"/assetbundle/official/{os}/assets"})
@@ -31,37 +38,71 @@ public class official {
 
     public official() {
     }
+    private static final String BASE_CDN = "https://ak.hycdn.cn/assetbundle/official";
+    RestTemplate restTemplate = new RestTemplate();
 
-    @RequestMapping({"/{assetsHash}/{fileName}"})
-    public ResponseEntity<FileSystemResource> getFile(@PathVariable("os") String os, @PathVariable("assetsHash") String assetsHash, @PathVariable("fileName") String fileName, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        String clientIp = ArknightsApplication.getIpAddr(request);
-        Boolean redirect = ArknightsApplication.serverConfig.getJSONObject("assets").getBooleanValue("enableRedirect");
-        String redirectUrl = ArknightsApplication.serverConfig.getJSONObject("assets").getString("redirectUrl");
-        String filePath = System.getProperty("user.dir") + "/assets/" + assetsHash + "/direct/";
-        if (redirect) {
-            filePath = System.getProperty("user.dir") + "/assets/" + assetsHash + "/redirect/";
-            JSONArray localFiles = ArknightsApplication.serverConfig.getJSONObject("assets").getJSONArray("localFiles");
-            if (!localFiles.contains(fileName)) {
-                response.sendRedirect(redirectUrl + "/" + fileName);
-                return null;
+
+
+    @RequestMapping("/{assetsHash}/{fileName}")
+    public ResponseEntity<?> proxyAsset(
+            @PathVariable("os") String os,
+            @PathVariable("assetsHash") String assetsHash,
+            @PathVariable("fileName") String fileName,
+            HttpServletRequest clientRequest) {
+
+        try {
+            String targetUrl = BASE_CDN + "/" + os + "/assets/" + assetsHash + "/" + fileName;
+
+            // 构建转发请求头
+            HttpHeaders forwardHeaders = new HttpHeaders();
+            String range = clientRequest.getHeader("Range");
+            if (range != null) {
+                forwardHeaders.set("Range", range);
             }
-        }
+            forwardHeaders.set("User-Agent", "okhttp/3.12.1"); // 强制与客户端一致
 
-        File file = new File(filePath, fileName);
-        if (file.exists()) {
-            return this.export(file);
-        } else {
-            LOGGER.warn("正在下载 " + assetsHash + "/" + fileName);
-            HttpUtil.downloadFile(redirectUrl + "/" + fileName, filePath + fileName);
-            file = new File(filePath, fileName);
-            if (file.exists()) {
-                LOGGER.info("[/" + clientIp + "] /" + assetsHash + "/" + fileName);
-                return this.export(file);
+            HttpEntity<Void> requestEntity = new HttpEntity<>(forwardHeaders);
+
+            ResponseEntity<byte[]> upstreamResponse = restTemplate.exchange(
+                    URI.create(targetUrl),
+                    HttpMethod.GET,
+                    requestEntity,
+                    byte[].class
+            );
+
+            byte[] body = upstreamResponse.getBody();
+            if (body == null || body.length == 0 || upstreamResponse.getStatusCode().is5xxServerError()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Remote resource failed.");
+            }
+
+            // 构建返回头
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.set("Accept-Ranges", "bytes");
+
+            if (range != null && upstreamResponse.getStatusCode() == HttpStatus.PARTIAL_CONTENT) {
+                // 客户端请求了 Range，我们手动补全 Content-Range
+                String contentRange = upstreamResponse.getHeaders().getFirst("Content-Range");
+                if (contentRange != null) {
+                    responseHeaders.set("Content-Range", contentRange);
+                } else {
+                    // 手动计算
+                    responseHeaders.set("Content-Range", "bytes 0-" + (body.length - 1) + "/" + body.length);
+                }
+                responseHeaders.setContentLength(body.length);
+                return new ResponseEntity<>(body, responseHeaders, HttpStatus.PARTIAL_CONTENT);
             } else {
-                return null;
+                // 非 Range 请求，正常返回
+                responseHeaders.setContentLength(body.length);
+                return new ResponseEntity<>(body, responseHeaders, HttpStatus.OK);
             }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("代理失败: " + e.getMessage());
         }
     }
+
+
 
     public static String downLoadFromUrl(String urlStr, String fileName, String savePath) {
         try {

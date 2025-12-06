@@ -41,7 +41,6 @@ public class app {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /app/v1/config");
 
-        // 反成瘾设置
         Map<String, Integer> antiAddiction = new HashMap<>();
         antiAddiction.put("minorPeriodEnd", 21);
         antiAddiction.put("minorPeriodStart", 20);
@@ -55,33 +54,41 @@ public class app {
 
         // 相关 URL
         Map<String, String> agreementUrl = Map.of(
-                "game", "https://user.hypergryph.com/protocol/plain/ak/index",
-                "unbind", "https://user.hypergryph.com/protocol/plain/ak/cancellation",
                 "account", "https://user.hypergryph.com/protocol/plain/index",
-                "privacy", "https://user.hypergryph.com/protocol/plain/privacy",
-                "register", "https://user.hypergryph.com/protocol/plain/registration",
-                "updateOverview", "https://user.hypergryph.com/protocol/plain/overview_of_changes",
-                "childrenPrivacy", "https://user.hypergryph.com/protocol/plain/children_privacy"
+                "childrenPrivacy","https://user.hypergryph.com/protocol/plain/children_privacy",
+                "game","https://user.hypergryph.com/protocol/plain/ak/index",
+                "gameService","https://user.hypergryph.com/protocol/plain/ak/service",
+                "privacy","https://user.hypergryph.com/protocol/plain/privacy",
+                "register","https://user.hypergryph.com/protocol/plain/registration",
+                "unbind","https://user.hypergryph.com/protocol/plain/ak/cancellation",
+                "updateOverview", "https://user.hypergryph.com/protocol/plain/overview_of_changes"
         );
 
         // App 设定
         Map<String, Object> app = new HashMap<>();
-        app.put("enablePayment", true);
-        app.put("enableAutoLogin", false);
-        app.put("enableAuthenticate", true);
-        app.put("enableAntiAddiction", true);
-        app.put("wechatAppId", "");
         app.put("alipayAppId", "");
-        app.put("oneLoginAppId", "");
-        app.put("enablePaidApp", false);
-        app.put("appName", "明日方舟");
         app.put("appAmount", 600);
+        app.put("appName", "明日方舟");
+        app.put("customerServiceUrl", "https://customer-service.hypergryph.com/ak?hg_token={hg_token}&source_from=sdk");
+        app.put("deviceCheckMode", 2);
+        app.put("enableAntiAddiction", true);
+        app.put("enableAuthenticate", true);
+        app.put("enableAutoLogin", false);
+        app.put("enableGiftCode", true);
+        app.put("enablePaidApp", false);
+        app.put("enablePayment", true);
+        app.put("enableScanLogin", false);
+        app.put("enableUnbindGrant", true);
+        app.put("needAntiAddictionAlert", true);
+        app.put("needShowName", false);
+        app.put("oneLoginAppId", "");
+        app.put("wechatAppId", "");
 
         // 组合 Data 数据
         Map<String, Object> data = new HashMap<>();
         data.put("antiAddiction", antiAddiction);
         data.put("payment", payment);
-        data.put("customerServiceUrl", "https://chat.hypergryph.com/chat/h5/v2/index.html");
+        data.put("customerServiceUrl", "https://chat.hypergryph.com/chat/h5/v2/index.html?sysnum=889ee281e3564ddf883942fe85764d44&channelid=2");
         data.put("cancelDeactivateUrl", "https://user.hypergryph.com/cancellation");
         data.put("agreementUrl", agreementUrl);
         data.put("app", app);

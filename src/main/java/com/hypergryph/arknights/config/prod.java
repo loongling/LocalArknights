@@ -55,6 +55,7 @@ public class prod {
 
         content.put("configs", configs);
         network.put("content", content.toJSONString());
+        network.put("type", "A");
         return network;
     }
     @RequestMapping({"/official/Android/version"})
@@ -100,7 +101,7 @@ public class prod {
         return ArknightsApplication.serverConfig.getJSONObject("announce").getJSONObject("announcement");
     }
 
-    @GetMapping("/announce_meta/Android/preannouncement.meta.json/api/gate/meta/Android")
+    @GetMapping("/announce_meta/Android/preannouncement.meta.json")
     public Map<String, Object> prodGateMeta() {
         ArknightsApplication.LOGGER.info("请求网关信息: /api/gate/meta/Android");
 
