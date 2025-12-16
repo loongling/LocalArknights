@@ -1,5 +1,7 @@
 package com.hypergryph.arknights.app;
 
+import com.hypergryph.arknights.ArknightsApplication;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +26,21 @@ public class api {
     }
 
     @GetMapping("/game/get_latest_game_info")
-    public Map<String, Object> getLatestGameInfo() {
+    public Map<String, Object> getLatestGameInfo(@RequestParam Map<String, String> params) {
         logger.info("请求最新游戏信息: /api/game/get_latest_game_info");
+        String version;
+        if (params.containsKey("version") && StringUtils.hasText(params.get("version"))) {
+            version = params.get("version");
+            logger.info("使用请求参数中的version: {}", version);
+        } else {
+            version = ArknightsApplication.serverConfig.getJSONObject("version_config").getString("CN");
+            logger.info("使用默认配置version: {}", version);
+        }
+        String clientVersion = ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("android").getString("clientVersion");
 
         Map<String, Object> response = new LinkedHashMap<>();
-        response.put("action", 3);
-        response.put("version","");
+        response.put("action", 0);
+        response.put("version",version);
 
         Map<String, Object> updateInfo = new LinkedHashMap<>();
         updateInfo.put("custom_info", "");
@@ -39,7 +50,7 @@ public class api {
 
         response.put("update_info", updateInfo);
         response.put("update_type", 0);
-        response.put("client_version", "");
+        response.put("client_version", clientVersion);
 
         return response;
     }

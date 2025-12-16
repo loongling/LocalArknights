@@ -12,7 +12,7 @@
 		"set_server_time": "-1"
 	},
 	"database":{
-		"host":"localhsot",
+		"host":"ht.furryproject.com",
 		"port":3306,
 		"dbname":"arknights",
 		"user":"ark",
@@ -32,7 +32,7 @@
 	"version":{
 		"android":{
 			"resVersion":"25-10-31-10-13-38_6636d3",
-			"clientVersion":"2.6.71"
+			"clientVersion":"2.6.82"
 		},
 		"ios":{
 			"resVersion":"21-12-20-11-24-40-d7328a",
@@ -52,12 +52,16 @@
 		"enableNavtieLicense": false,
 		"fapv2": 1
 	},
+	"version_config": {
+		"CN": "68.0.1",
+		"GLOBAL": ""
+	},
 	"network":{
 		"sign":"qDOOWuetaSKR+N1pdy9X48gfoD3yIcZJqaiMVztL4t8PbIC2s/q4PjzqNsfK72GPkC/s/lgNyutB/1WI2OV9MhU+NxhDO20xcLOWfnwrSPw5myYrG7h3bwtBbM1w68bZQFQEVXwARBjZrKhdUWQZ/zZkOXpTimg2njjg1Bc6+pY=",
 		"configVer":"5",
-		"funcVer":"V067",
+		"funcVer":"V068",
 		"configs":{
-			"V064":{
+			"V068":{
 				"override":true,
 				"network":{
 					"gs":"{server}",

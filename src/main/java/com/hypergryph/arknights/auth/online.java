@@ -36,7 +36,9 @@ public class online {
     )
     public JSONObject LoginOut(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject(true);
-        jsonObject.put("result", 0);
+        jsonObject.put("status", 0);
+        jsonObject.put("msg", "OK");
+        jsonObject.put("type", "A");
         return jsonObject;
     }
 

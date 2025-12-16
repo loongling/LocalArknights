@@ -217,6 +217,7 @@ public class user {
         response.put("status", 0);
         response.put("msg", "OK");
         response.put("data", data);
+        response.put("type","A");
         ArknightsApplication.LOGGER.info("response: " + response);
 
         return response;
