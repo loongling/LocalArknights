@@ -31,8 +31,8 @@
 	},
 	"version":{
 		"android":{
-			"resVersion":"25-10-31-10-13-38_6636d3",
-			"clientVersion":"2.6.82"
+			"resVersion":"26-01-23-10-05-06_762d08",
+			"clientVersion":"2.6.91"
 		},
 		"ios":{
 			"resVersion":"21-12-20-11-24-40-d7328a",
@@ -41,7 +41,7 @@
 	},
 	"assets":{
 		"enableRedirect":true,
-		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/25-10-31-10-13-38_6636d3",
+		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/26-01-23-10-05-06_762d08",
 		"localFiles":[]
 	},
 	"remote":{
@@ -52,16 +52,12 @@
 		"enableNavtieLicense": false,
 		"fapv2": 1
 	},
-	"version_config": {
-		"CN": "68.0.1",
-		"GLOBAL": ""
-	},
 	"network":{
 		"sign":"qDOOWuetaSKR+N1pdy9X48gfoD3yIcZJqaiMVztL4t8PbIC2s/q4PjzqNsfK72GPkC/s/lgNyutB/1WI2OV9MhU+NxhDO20xcLOWfnwrSPw5myYrG7h3bwtBbM1w68bZQFQEVXwARBjZrKhdUWQZ/zZkOXpTimg2njjg1Bc6+pY=",
 		"configVer":"5",
-		"funcVer":"V068",
+		"funcVer":"V069",
 		"configs":{
-			"V068":{
+			"V069":{
 				"override":true,
 				"network":{
 					"gs":"{server}",
@@ -94,80 +90,7 @@
 		},
 		"announcement":{
 			"focusAnnounceId":"843",
-			"announceList":[
-				{
-					"announceId":"842",
-					"title":"「阴云火花」\n限时活动开启",
-					"isWebUrl":true,
-					"webUrl":"https://ak.hycdn.cn/announce/Bilibili/announcement/842_1644912050.html",
-					"day":15,
-					"month":2,
-					"group":"ACTIVITY"
-				},
-				{
-					"announceId":"844",
-					"title":"0011/飙\n系列新装上架",
-					"isWebUrl":true,
-					"webUrl":"https://ak.hycdn.cn/announce/Bilibili/announcement/844_1643094250.html",
-					"day":15,
-					"month":2,
-					"group":"ACTIVITY"
-				},
-				{
-					"announceId":"843",
-					"title":"【火花绽放】\n限时寻访开启",
-					"isWebUrl":true,
-					"webUrl":"https://ak.hycdn.cn/announce/Bilibili/announcement/843_1643094095.html",
-					"day":15,
-					"month":2,
-					"group":"ACTIVITY"
-				},
-				{
-					"announceId":"856",
-					"title":"02月15日\n闪断更新公告",
-					"isWebUrl":true,
-					"webUrl":"https://ak.hycdn.cn/announce/Bilibili/announcement/856_1644826762.html",
-					"day":15,
-					"month":2,
-					"group":"SYSTEM"
-				},
-				{
-					"announceId":"841",
-					"title":"特定干员\n限时出率上升",
-					"isWebUrl":true,
-					"webUrl":"https://ak.hycdn.cn/announce/Bilibili/announcement/841_1643003341.html",
-					"day":3,
-					"month":2,
-					"group":"ACTIVITY"
-				},
-				{
-					"announceId":"828",
-					"title":"「将进酒」\n限时活动开启",
-					"isWebUrl":true,
-					"webUrl":"https://ak.hycdn.cn/announce/Bilibili/announcement/828_1643084660.html",
-					"day":25,
-					"month":1,
-					"group":"ACTIVITY"
-				},
-				{
-					"announceId":"826",
-					"title":"「制作组通讯」\n#16期",
-					"isWebUrl":true,
-					"webUrl":"https://ak.hycdn.cn/announce/Bilibili/announcement/826_1641543461.html",
-					"day":11,
-					"month":1,
-					"group":"SYSTEM"
-				},
-				{
-					"announceId":"105",
-					"title":"《明日方舟》\n公平运营申明",
-					"isWebUrl":true,
-					"webUrl":"https://ak.hycdn.cn/announce/Bilibili/announcement/105_1638970481.html",
-					"day":1,
-					"month":5,
-					"group":"SYSTEM"
-				}
-			],
+			"announceList":[],
 			"extra":{
 				"enable":false,
 				"name":"额外活动"

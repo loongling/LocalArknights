@@ -28,19 +28,11 @@ public class api {
     @GetMapping("/game/get_latest_game_info")
     public Map<String, Object> getLatestGameInfo(@RequestParam Map<String, String> params) {
         logger.info("请求最新游戏信息: /api/game/get_latest_game_info");
-        String version;
-        if (params.containsKey("version") && StringUtils.hasText(params.get("version"))) {
-            version = params.get("version");
-            logger.info("使用请求参数中的version: {}", version);
-        } else {
-            version = ArknightsApplication.serverConfig.getJSONObject("version_config").getString("CN");
-            logger.info("使用默认配置version: {}", version);
-        }
         String clientVersion = ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("android").getString("clientVersion");
 
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("action", 0);
-        response.put("version",version);
+        response.put("version", "69.0.0");
 
         Map<String, Object> updateInfo = new LinkedHashMap<>();
         updateInfo.put("custom_info", "");
@@ -54,13 +46,17 @@ public class api {
 
         return response;
     }
-    @GetMapping("/remote_config/101/prod/default/Android/ak_sdk_config")
+    @GetMapping("/remote_config/1/prod/default/Android/remote_config")
     public Map<String, Object> akSdkConfig() {
-        logger.info("请求 SDK 配置信息: /api/remote_config/101/prod/default/Android/ak_sdk_config");
+        logger.info("请求 SDK 配置信息: /api/remote_config/1/prod/default/Android/remote_config");
 
         Map<String, Object> response = new LinkedHashMap<>();
-        response.put("report_device_info", 10000);
-
+        response.put("HGDownload_1", 10000);
+        response.put("HGDownload_2", 10000);
+        response.put("enableGameBI", true);
+        response.put("enableMarquee", false);
+        response.put("enableNavtieLicense", false);
+        response.put("fapv2", 1);
         return response;
     }
 }
