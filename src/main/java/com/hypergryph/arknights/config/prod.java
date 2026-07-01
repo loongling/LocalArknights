@@ -58,9 +58,18 @@ public class prod {
         network.put("type", "A");
         return network;
     }
-    @RequestMapping({"/official/Android/version"})
+    @RequestMapping({"/official/android/version"})
     public JSONObject AndroidVersion(HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/official/android/version");
         return ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("android");
+    }
+
+    @RequestMapping({"/official/Windows/version"})
+    public JSONObject WindowsVersion(HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/official/Windows/version");
+        return ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows");
     }
 
     @RequestMapping({"/official/IOS/version"})

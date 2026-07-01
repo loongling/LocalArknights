@@ -1,7 +1,7 @@
 {
 	"server":{
-		"url":"http://127.0.0.1:8443",
-		"http":8443,
+		"url":"http://127.0.0.1:31416",
+		"http":31416,
 		"https":36650,
 		"captcha":false,
 		"enableServer":true,
@@ -30,18 +30,23 @@
 		"enableDiamondShop":true
 	},
 	"version":{
+		"Windows": {
+			"resVersion": "26-06-23-12-11-53_eec0f9",
+			"clientVersion": "2.7.41"
+		},
 		"android":{
-			"resVersion":"26-01-23-10-05-06_762d08",
+			"resVersion":"26-06-23-12-11-53_eec0f9",
 			"clientVersion":"2.6.91"
 		},
 		"ios":{
-			"resVersion":"21-12-20-11-24-40-d7328a",
+
+			"resVersion":"26-06-23-12-11-53_eec0f9",
 			"clientVersion":"1.7.01"
 		}
 	},
 	"assets":{
 		"enableRedirect":true,
-		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/26-01-23-10-05-06_762d08",
+		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/26-06-23-12-11-53_eec0f9",
 		"localFiles":[]
 	},
 	"remote":{
@@ -53,20 +58,20 @@
 		"fapv2": 1
 	},
 	"network":{
-		"sign":"qDOOWuetaSKR+N1pdy9X48gfoD3yIcZJqaiMVztL4t8PbIC2s/q4PjzqNsfK72GPkC/s/lgNyutB/1WI2OV9MhU+NxhDO20xcLOWfnwrSPw5myYrG7h3bwtBbM1w68bZQFQEVXwARBjZrKhdUWQZ/zZkOXpTimg2njjg1Bc6+pY=",
 		"configVer":"5",
-		"funcVer":"V069",
+		"funcVer":"V070",
 		"configs":{
-			"V069":{
+			"V070":{
 				"override":true,
 				"network":{
-					"gs":"{server}",
-					"as":"{server}",
-					"u8":"{server}/u8",
-					"hu":"{server}/assetbundle/official",
-					"hv":"{server}/config/prod/official/{0}/version",
-					"rc":"{server}/config/prod/official/remote_config",
-					"an":"{server}/config/prod/announce_meta/{0}/announcement.meta.json",
+					"devsdk": false,
+					"gs":"http://127.0.0.1:31416",
+					"as":"http://127.0.0.1:31416",
+					"u8":"http://127.0.0.1:31416/u8",
+					"hu":"http://127.0.0.1:31416/assetbundle/official",
+					"hv":"http://127.0.0.1:31416/config/prod/official/{0}/version",
+					"rc":"http://127.0.0.1:31416/config/prod/official/remote_config",
+					"an":"http://127.0.0.1:31416/config/prod/announce_meta/{0}/announcement.meta.json",
 					"prean":"https://ak-webview.hypergryph.com",
 					"sl":"https://ak.hypergryph.com/protocol/service",
 					"of":"https://ak.hypergryph.com/index.html",
