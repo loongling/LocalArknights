@@ -83,7 +83,7 @@ sudo ufw allow 3306/tcp
 ```
 修改host为你的MySQL服务器IP或域名，修改password为你设置的密码,保存它
 
-## 最后启动服务的
+## 最后启动服务端
 ```bash
 java -jar hypergryph-1.9.3.jar
 ```
