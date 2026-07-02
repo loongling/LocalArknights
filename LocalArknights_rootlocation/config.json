@@ -12,11 +12,11 @@
 		"set_server_time": "-1"
 	},
 	"database":{
-		"host":"ht.furryproject.com",
+		"host":"Host",
 		"port":3306,
 		"dbname":"arknights",
 		"user":"ark",
-		"password":"Loongling120312!",
+		"password":"Passwd",
 		"extra":"useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
 	},
 	"roguelike":{

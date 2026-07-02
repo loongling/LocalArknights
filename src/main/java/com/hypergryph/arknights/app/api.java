@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,11 +19,25 @@ public class api {
     private static final Logger logger = LoggerFactory.getLogger(api.class);
 
     @GetMapping("/gate/meta/Android")
-    public Map<String, Object> prodGateMeta() {
-        logger.info("请求网关信息: /api/gate/meta/Android");
+    public Map<String, Object> prodGateMeta(HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求网关信息 /api/gate/meta/Android");
 
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("preAnnounceId", "478");
+        response.put("actived", true);
+        response.put("preAnnounceType", 2);
+
+        return response;
+    }
+    @GetMapping("/gate/meta/Windows")
+    public Map<String, Object> prodGateMateW(HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求网关信息 /api/gate/meta/Windows");
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("preAnnounceId", "528");
         response.put("actived", true);
         response.put("preAnnounceType", 2);
 

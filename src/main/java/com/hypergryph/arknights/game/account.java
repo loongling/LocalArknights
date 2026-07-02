@@ -49,12 +49,12 @@ public class account {
                 result.put("result", 1);
                 result.put("error", "您已被此服务器封禁");
                 return result;
-            } else if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("android").getString("clientVersion"))) {
+            } else if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("clientVersion"))) {
                 result = new JSONObject(true);
                 result.put("result", 2);
                 result.put("error", "客户端版本需要更新");
                 return result;
-            } else if (!assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("android").getString("resVersion"))) {
+            } else if (!assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("resVersion"))) {
                 result = new JSONObject(true);
                 result.put("result", 4);
                 result.put("error", "资源需要更新");

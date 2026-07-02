@@ -275,8 +275,12 @@ public class user {
             produces = {"application/json;charset=UTF-8"}
     )
     public JSONObject LoginOut(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /user/online/v1/loginout");
         JSONObject jsonObject = new JSONObject(true);
-        jsonObject.put("result", 0);
+        jsonObject.put("status", 0);
+        jsonObject.put("msg", "OK");
+        jsonObject.put("type", "A");
         return jsonObject;
     }
 }

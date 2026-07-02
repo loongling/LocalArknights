@@ -103,6 +103,39 @@ public class u8 {
             }
         }
     }
+    @RequestMapping({"/user/auth/v1/agreement_version"})
+    public JSONObject AgreementVersion(HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求用户协议 /u8/user/auth/v1/agreement_version");
+        JSONObject result = new JSONObject(true);
+        JSONObject data = new JSONObject();
+        JSONObject agreementUrl = new JSONObject();
+        agreementUrl.put("childrenPrivacy", "http://127.0.0.1:31416/protocol/plain/ak/children_privacy");
+        agreementUrl.put("privacy", "http://127.0.0.1:31416/protocol/plain/ak/privacy");
+        agreementUrl.put("service", "http://127.0.0.1:31416/protocol/plain/ak/service");
+        agreementUrl.put("updateOverview", "http://127.0.0.1:31416/protocol/plain/ak/overview_of_changes");
+        data.put("agreementUrl", agreementUrl);
+        data.put("authorized", "true");
+        data.put("isLatestUserAgreement", "true");
+        result.put("data", data);
+        result.put("msg", "OK");
+        result.put("status", 0);
+        result.put("type", "");
+        return result;
+    }
+    @PostMapping(
+            value = "/user/auth/v1/update_agreement",
+            produces = "application/json;charset=UTF-8"
+    )
+    public Map<String, Object> UpdateAgreement(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 确认用户协议变更 /u8/user/auth/v1/update_agreement");
+        JSONObject result = new JSONObject();
+        result.put("msg", "OK");
+        result.put("status", "0");
+        result.put("type", "");
+        return result;
+        }
     @RequestMapping({"/pay/getAllProductList"})
     public JSONObject GetAllProductList(HttpServletResponse response, HttpServletRequest request) {
         if (!ArknightsApplication.enableServer) {
