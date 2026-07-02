@@ -35,18 +35,18 @@
 			"clientVersion": "2.7.41"
 		},
 		"android":{
-			"resVersion":"26-06-23-12-11-53_eec0f9",
-			"clientVersion":"2.6.91"
+			"resVersion":"26-06-23-12-12-11_556baa",
+			"clientVersion":"2.7.41"
 		},
 		"ios":{
 
-			"resVersion":"26-06-23-12-11-53_eec0f9",
+			"resVersion":"26-06-23-12-12-11_556baa",
 			"clientVersion":"1.7.01"
 		}
 	},
 	"assets":{
 		"enableRedirect":true,
-		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Android/assets/26-06-23-12-11-53_eec0f9",
+		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-06-23-12-11-53_eec0f9",
 		"localFiles":[]
 	},
 	"remote":{
