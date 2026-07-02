@@ -50,7 +50,7 @@ sudo mysql -u root -p
 ```bash
 CREATE DATABASE IF NOT EXISTS arknights;
 CREATE USER 'ark'@'%' IDENTIFIED BY '你的密码';
-GRANT ALL PRIVILEGES ON ak.* TO 'ark'@'%';
+GRANT ALL PRIVILEGES ON arknights.* TO 'ark'@'%';
 FLUSH PRIVILEGES;
 EXIT;
 ```
