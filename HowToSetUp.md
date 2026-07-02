@@ -50,7 +50,7 @@ sudo mysql -u root -p
 ```bash
 CREATE DATABASE IF NOT EXISTS arknights;
 CREATE USER 'ark'@'%' IDENTIFIED BY '你的密码';
-GRANT ALL PRIVILEGES ON ak.* TO 'ark'@'%';
+GRANT ALL PRIVILEGES ON arknights.* TO 'ark'@'%';
 FLUSH PRIVILEGES;
 EXIT;
 ```
@@ -83,7 +83,7 @@ sudo ufw allow 3306/tcp
 ```
 修改host为你的MySQL服务器IP或域名，修改password为你设置的密码,保存它
 
-## 最后启动服务的
+## 最后启动服务端
 ```bash
 java -jar hypergryph-1.9.3.jar
 ```
