@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,7 +54,7 @@ public class pay {
         JSONArray pushMessageArray = new JSONArray();
 
         JSONObject dataPayload = new JSONObject();
-        dataPayload.put("content", "Welcome to Local Arknights!");
+        dataPayload.put("content", "Welcome to Local Arknights!这是一个开源项目,如果你为它付费了,那你一定被骗了");
         dataPayload.put("loop", 3);
         dataPayload.put("majorVersion", "369");
 

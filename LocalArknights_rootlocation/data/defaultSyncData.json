@@ -25252,9 +25252,10 @@
   "checkIn": {
     "canCheckIn": 1,
     "newbiePackage": {
-      "open": true
+      "open": false
     },
     "showCount": 0,
+
     "longTermRecvRecord": {
       "signin_1": 1,
       "signin_2": 1,
@@ -45405,10 +45406,7 @@
   "equipment": {
     "missions": {}
   },
-  "event": {
-    "building": 0,
-    "status": 0
-  },
+  "event": {},
   "firework": {
     "unlock": true,
     "plate": {
@@ -85812,7 +85810,7 @@
     "maxAp": 84,
     "monthlySubscriptionEndTime": 0,
     "monthlySubscriptionStartTime": 0,
-    "nickName": "hello",
+    "nickName": "",
     "nickNumber": "",
     "payDiamond": 0,
     "practiceTicket": 30,
