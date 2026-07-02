@@ -27,7 +27,6 @@ public class pay {
         JSONObject result = new JSONObject(true); // true 保持字段顺序
 
         try {
-            // 3. 获取未确认订单列表（业务逻辑）
             JSONArray orderIdArray = new JSONArray();
             result.put("orderIdList", orderIdArray);
 

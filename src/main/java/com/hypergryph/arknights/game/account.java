@@ -89,9 +89,7 @@ public class account {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/syncData");
         String secret = ArknightsApplication.getSecretByIP(clientIp);
-        long uid = 0;
-        List<Account> Accounts = userDao.queryAccountBySecret(String.valueOf(uid));
-
+        long uid = userDao.queryUidBySecret(secret);
         // **检查服务器状态**
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);

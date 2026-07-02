@@ -17,6 +17,11 @@ public class userDao {
     public userDao() {
     }
 
+    public static int queryUidBySecret(String secret) {
+        String sql = "SELECT uid FROM account WHERE secret = ?";
+        return ArknightsApplication.jdbcTemplate.queryForObject(sql, Integer.class, secret);
+    }
+
     public static List<Account> queryAccountByUid(long uid) {
         String sql = "SELECT * FROM account WHERE uid = ?";
         BeanPropertyRowMapper<Account> rowMapper = new BeanPropertyRowMapper(Account.class);
