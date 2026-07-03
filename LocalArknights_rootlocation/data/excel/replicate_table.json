@@ -1,4 +1,1820 @@
 {
+  "act24sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_eastern_cabinet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_tatami_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 415,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_plant_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 135,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_pipeline_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_airCleaner_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 140,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_steps_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_sling_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_case_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 140,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_lamp_01",
+          "count": 4,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 35,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 160,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_eastern_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 160,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act42sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_gunworkshop_shelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 80,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_gunshelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_floorlamp_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 70,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_partition_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 140,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_cabinet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 110,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_chandelier_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 90,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_carpet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 70,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_statues_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 265,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_ceilinglight_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 50,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_storage_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 215,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_carpet_02",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 40,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_bench_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 75,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_recordplayer_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 70,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 140,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_gunworkshop_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 140,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terratimes_Laterano_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act41sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_tarahouse_hangingcarpet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 80,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_candletray_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 75,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_column_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 115,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_table_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 330,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_chair_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 75,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_chair_02",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 75,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_wallhanger_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 85,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_stool_01",
+          "count": 2,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 60,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_wallshelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_bartable_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 140,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_bookcase_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 85,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_carpet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 80,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_carpet_02",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 65,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tarahouse_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terracommericials_BarrensTequila_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act40sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_springfeast_ceilinglamp_01",
+          "count": 4,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 30,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_paravant_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_table_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 115,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_chair_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_sideshelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 170,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_chandelier_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 125,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_desserttable_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 275,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_bench_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 135,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_carpet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 110,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_lotus_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 125,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_teastove_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 85,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 135,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_springfeast_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 135,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terracommericials_SpinachPack_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act39sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_shipRoom_gridcarpet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 50,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_shelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 260,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_leftchair_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_rightchair_01",
+          "count": 2,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 85,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_table_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 165,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_canvas_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 155,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_bonelamp_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_candle_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 55,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_shipshelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 180,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_carpet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 65,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_ladder_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_shipRoom_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terracommericials_CondensedSuppressant_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act38sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_tailorShop_ceilingLight_01",
+          "count": 2,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 30,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_changingRoom_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 115,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_shelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 75,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_mirror_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_wardrobe_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 200,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_caneHolder_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 60,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_stool_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 70,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_collectioncabinet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 225,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_window_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 110,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_pottedplant_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 130,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_sofa_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_coffeetable_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 80,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 135,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_tailorShop_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 135,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terratimes_Siracusa_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act37sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_trainStation_hatBox_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 80,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_scheduleDisplay_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_bench_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_cart_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 130,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_plants_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_chandelier_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 60,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_pillar_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_boxshelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 140,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_ticketOffice_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 340,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_clock_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 55,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_Mailbox_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 115,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_trainStation_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terratimes_Glasgow_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act35sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_citizengarden_ceilingplant_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 65,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_flowerdeco_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_bigvase_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 130,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_plantwall_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 180,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_bench_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 125,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_fense_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_shelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 130,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_sink_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_tray_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 90,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_jewelcat_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 125,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_vaseshelf_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 125,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_cutoff_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 130,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_citizengarden_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terratimes_Sargon_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act34sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_HunterInstitute_samplecabinet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 120,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_circularspecimenrack_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 90,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_liftplatform_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 155,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_chandelier_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 185,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_projectionequipment_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 90,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_carpet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 110,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_spikedspecimenrack_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 90,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_largespecimen_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 125,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_pendantlight_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 40,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_rectangularspecimenrack_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 60,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_waterbed_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 130,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_littlehelper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_nightstand_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 90,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 135,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_HunterInstitute_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 135,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terratimes_AbyssalHunters_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
+  "act33sre": {
+    "replicateList": [
+      {
+        "item": {
+          "id": "furni_ScarMarket_shortstick_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 90,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_ironbasket_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_storagetable_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 105,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_longstick_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 125,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_collectioncabinet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 125,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_ironbox_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 110,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_partitionwall_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 145,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_shortstick_02",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 75,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_carbonfirebox_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 85,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_ironcabinet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 100,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_bench_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 70,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_stool_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 70,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_carpet_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 55,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_shoerack_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 80,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_wallpaper_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_ScarMarket_floor_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      },
+      {
+        "item": {
+          "id": "furni_terracommericials_CoffeePlainsCoffeeCandy_01",
+          "count": 1,
+          "type": "FURN"
+        },
+        "replicateTokenItem": {
+          "id": "REP_COIN",
+          "count": 150,
+          "type": "REP_COIN"
+        }
+      }
+    ]
+  },
   "act31sre": {
     "replicateList": [
       {

@@ -3,27 +3,27 @@
     "preShowDays": 7,
     "ruleDataList": [
       {
-        "ruleType": 1,
+        "ruleType": "TITLE",
         "ruleText": "过往事件数量的计算"
       },
       {
-        "ruleType": 2,
+        "ruleType": "CONTENT",
         "ruleText": "在<color=#0098dc>记录修复</color>开启后，玩家可在对应特别行动记述中消耗事相碎片重建过往事件，重建的过往事件数量的累计值即为总过往事件数量。可用以兑换<color=#0098dc>记录修复</color>的相应奖励。"
       },
       {
-        "ruleType": 1,
+        "ruleType": "TITLE",
         "ruleText": "干员的私人信件"
       },
       {
-        "ruleType": 2,
+        "ruleType": "CONTENT",
         "ruleText": "可用于将特定干员的潜能提升至满级，已有的该干员信物也会同时<color=#cc3030>全部消耗</color>。\n如果该干员潜能已满，则获得该私人信件时将会自动启封使用，已有的该干员信物<color=#cc3030>不会消耗</color>。"
       },
       {
-        "ruleType": 1,
+        "ruleType": "TITLE",
         "ruleText": "家具包"
       },
       {
-        "ruleType": 2,
+        "ruleType": "CONTENT",
         "ruleText": "包含在该微型故事活动中可获取的全部家具。如果已获得全部家具，则无法在<color=#0098dc>记录修复</color>中再次领取。"
       }
     ],
@@ -697,6 +697,86 @@
             }
           }
         ]
+      },
+      "act16mini": {
+        "actId": "act16mini",
+        "rewardStartTime": 1751486400,
+        "themeColor": "a84b16",
+        "rewardList": [
+          {
+            "trialRewardId": "trailReward_act16mini_1",
+            "orderId": 1,
+            "actId": "act16mini",
+            "targetStoryCount": 2,
+            "item": {
+              "id": "char_183_skgoat@epoque#30",
+              "count": 1,
+              "type": "CHAR_SKIN"
+            }
+          },
+          {
+            "trialRewardId": "trailReward_act16mini_2",
+            "orderId": 2,
+            "actId": "act16mini",
+            "targetStoryCount": 4,
+            "item": {
+              "id": "furni_terratimes_RimBilliton_01",
+              "count": 1,
+              "type": "FURN"
+            }
+          },
+          {
+            "trialRewardId": "trailReward_act16mini_3",
+            "orderId": 3,
+            "actId": "act16mini",
+            "targetStoryCount": 6,
+            "item": {
+              "id": "avatar_activity_TG",
+              "count": 1,
+              "type": "PLAYER_AVATAR"
+            }
+          }
+        ]
+      },
+      "act17mini": {
+        "actId": "act17mini",
+        "rewardStartTime": 1765828800,
+        "themeColor": "c4254d",
+        "rewardList": [
+          {
+            "trialRewardId": "trailReward_act17mini_1",
+            "orderId": 1,
+            "actId": "act17mini",
+            "targetStoryCount": 2,
+            "item": {
+              "id": "char_282_catap@summer#17",
+              "count": 1,
+              "type": "CHAR_SKIN"
+            }
+          },
+          {
+            "trialRewardId": "trailReward_act17mini_2",
+            "orderId": 2,
+            "actId": "act17mini",
+            "targetStoryCount": 4,
+            "item": {
+              "id": "furni_terracommericials_DreamingEssence_01",
+              "count": 1,
+              "type": "FURN"
+            }
+          },
+          {
+            "trialRewardId": "trailReward_act17mini_3",
+            "orderId": 3,
+            "actId": "act17mini",
+            "targetStoryCount": 6,
+            "item": {
+              "id": "avatar_activity_KR",
+              "count": 1,
+              "type": "PLAYER_AVATAR"
+            }
+          }
+        ]
       }
     }
   },
@@ -706,7 +786,7 @@
         "id": "act13side_pic_0",
         "desc": "长夜临光",
         "assetPath": "23_kv",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -715,7 +795,7 @@
         "id": "act13side_pic_1",
         "desc": "烛影渺然",
         "assetPath": "23_I11",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -724,7 +804,7 @@
         "id": "act13side_pic_2",
         "desc": "工作之余",
         "assetPath": "23_I02_1",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -733,7 +813,7 @@
         "id": "act13side_pic_3",
         "desc": "不速之客",
         "assetPath": "23_I02_2",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -742,7 +822,7 @@
         "id": "act13side_pic_4",
         "desc": "白角持剑的萨卡兹",
         "assetPath": "23_I10",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -751,7 +831,7 @@
         "id": "act13side_pic_5",
         "desc": "平衡与失衡",
         "assetPath": "23_I02_4",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -760,7 +840,7 @@
         "id": "act13side_pic_6",
         "desc": "舞蹈时刻",
         "assetPath": "23_I06",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -769,7 +849,7 @@
         "id": "act13side_pic_7",
         "desc": "以一敌万",
         "assetPath": "23_I07",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -778,7 +858,7 @@
         "id": "act13side_pic_8",
         "desc": "暗夜之铃",
         "assetPath": "23_I04",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -787,7 +867,7 @@
         "id": "act13side_pic_9",
         "desc": "流星坠落",
         "assetPath": "23_I12",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -796,7 +876,7 @@
         "id": "act13side_pic_10",
         "desc": "银枪入城",
         "assetPath": "23_I01",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -805,7 +885,7 @@
         "id": "act13side_pic_11",
         "desc": "梦魇之王",
         "assetPath": "23_I08",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -814,7 +894,7 @@
         "id": "act13side_pic_12",
         "desc": "博士之争",
         "assetPath": "23_I03",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -823,7 +903,7 @@
         "id": "act13side_pic_13",
         "desc": "光与血",
         "assetPath": "23_I05",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -832,7 +912,7 @@
         "id": "act13side_pic_14",
         "desc": "无胄与征战",
         "assetPath": "23_I09",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -841,7 +921,7 @@
         "id": "act13side_pic_15",
         "desc": "这条路",
         "assetPath": "23_I13",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "",
         "kvId": null
@@ -850,7 +930,7 @@
         "id": "act17side_pic_0",
         "desc": "愚人号",
         "assetPath": "27_kv",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "黄金色的旗舰，灿烂的时代，那是我们永不会褪色的荣耀。\n曾经的人们如此坚信，曾经的人们已经长眠。",
         "kvId": null
@@ -859,7 +939,7 @@
         "id": "act17side_pic_1",
         "desc": "“世界”",
         "assetPath": "27_i25",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "“大地”，这个词语因狭隘而普及。\n是否我们曾有一些宏伟的语言，用来形容天地间的一切，用来形容我们的生活所触及到的全部？",
         "kvId": null
@@ -868,7 +948,7 @@
         "id": "act17side_pic_2",
         "desc": "阴云小镇",
         "assetPath": "27_i26",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "这座小镇常年被阴云所笼罩，行色匆匆的人们习以为常。\n但或许，它也曾有遍洒金色阳光的日子。",
         "kvId": null
@@ -877,7 +957,7 @@
         "id": "act17side_pic_3",
         "desc": "青年的梦想",
         "assetPath": "27_i29",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "海洋是什么样子的？有着阿戈尔血统的青年却只能在想象中建构那里。\n只是踏足海边，都足以被称作一场冒险。",
         "kvId": null
@@ -886,7 +966,7 @@
         "id": "act17side_pic_4",
         "desc": "伊比利亚之眼",
         "assetPath": "27_i27",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "曾踏足这里、目睹这里的人，也都沉眠在了这里。\n牺牲值得被铭记，正因为我们还不曾忘却这座灯塔所象征的雄心。",
         "kvId": null
@@ -895,7 +975,7 @@
         "id": "act17side_pic_5",
         "desc": "破雾",
         "assetPath": "27_i28",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "黄金的幽灵从迷雾深处探出身子，六十余年的岁月也无法遮蔽它的光芒。\n造访者们，做好准备面对它的呢喃了吗？",
         "kvId": null
@@ -904,7 +984,7 @@
         "id": "act17side_pic_6",
         "desc": "旧日的王座",
         "assetPath": "27_i32",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "旧日的王座边，阴影们在徘徊。\n他们也曾是组成那光辉的一部分。",
         "kvId": null
@@ -913,7 +993,7 @@
         "id": "act17side_pic_7",
         "desc": "猎人与猎人",
         "assetPath": "27_i35",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "同僚？旧友？敌人？\n在这之前，他们都只是幸存者罢了。",
         "kvId": null
@@ -922,7 +1002,7 @@
         "id": "act17side_pic_8",
         "desc": "证明",
         "assetPath": "27_i39",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "如何证明我们的身躯中还有属于人的那部分？\n那就去做只有人才能做的事。",
         "kvId": null
@@ -931,7 +1011,7 @@
         "id": "act17side_pic_9",
         "desc": "审判",
         "assetPath": "27_i30",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "她明白自己在和什么战斗，这无关典籍与条律。\n她代表生存，向另一种生存下达判决。",
         "kvId": null
@@ -940,7 +1020,7 @@
         "id": "act17side_pic_10",
         "desc": "起舞",
         "assetPath": "27_i33",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "舞会时间到了，别打扰参与者们，这样的机会少之又少。\n久未相聚的她们有不少话题可以谈。",
         "kvId": null
@@ -949,7 +1029,7 @@
         "id": "act17side_pic_11",
         "desc": "哺育",
         "assetPath": "27_i34",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "人类会把奉献看做崇高而伟大的行为。\n这是他们的狭隘。",
         "kvId": null
@@ -958,7 +1038,7 @@
         "id": "act17side_pic_12",
         "desc": "火葬",
         "assetPath": "27_i31",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "他屹立在火焰中，这不是守护，这种庸俗的赞美甚至成了玷污。\n他在宣告人的存在。",
         "kvId": null
@@ -967,7 +1047,7 @@
         "id": "act17side_pic_13",
         "desc": "静谧",
         "assetPath": "27_i40",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "她凝视着面前优美的生物，祂从星空中款款而来。\n世间的一切声音都成了杂音。",
         "kvId": null
@@ -976,7 +1056,7 @@
         "id": "act17side_pic_14",
         "desc": "终音",
         "assetPath": "27_i37",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "旗舰沉没了，破碎的钢铁巨构訇然作响，时代终结于此。\n或许更早，终结于人们的叹息里。",
         "kvId": null
@@ -985,7 +1065,7 @@
         "id": "act17side_pic_15",
         "desc": "海渊之光",
         "assetPath": "27_i38",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "海渊之下，发光的城市在行进。那里是她们的故乡，只要稍稍伸出手去，就能触及过往的一切。\n她们只能离去。",
         "kvId": null
@@ -994,7 +1074,7 @@
         "id": "act17side_pic_16",
         "desc": "伟大的普通人",
         "assetPath": "27_i36",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "这个年轻人是怎么做到的？他甚至不是个战士，他只是个普通人。\n他清楚地认识到这一点，并且仍然决定去做。",
         "kvId": null
@@ -1003,7 +1083,7 @@
         "id": "act25side_pic_1",
         "desc": "孤星",
         "assetPath": "38_ex06",
-        "type": 0,
+        "type": "IMAGE",
         "subType": "pic_kv",
         "picDescription": "不灭。",
         "kvId": "act25side_entry_02"
@@ -1012,7 +1092,7 @@
         "id": "act25side_pic_2",
         "desc": "交错螺旋",
         "assetPath": "38_ex05",
-        "type": 0,
+        "type": "IMAGE",
         "subType": "pic_kv",
         "picDescription": "同一条路，不同的方向。同一个目标，不同的方法。",
         "kvId": "act25side_entry_01"
@@ -1021,7 +1101,7 @@
         "id": "act25side_pic_3",
         "desc": "见面礼",
         "assetPath": "38_i07",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "你好，再见。",
         "kvId": null
@@ -1030,7 +1110,7 @@
         "id": "act25side_pic_4",
         "desc": "嘲笑",
         "assetPath": "38_i03",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "你能杀死我，可你又能拯救谁？",
         "kvId": null
@@ -1039,7 +1119,7 @@
         "id": "act25side_pic_5",
         "desc": "忏悔",
         "assetPath": "38_i02",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "被遗忘，是一个人真正的死亡。",
         "kvId": null
@@ -1048,7 +1128,7 @@
         "id": "act25side_pic_6",
         "desc": "擦肩而过",
         "assetPath": "38_i06",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "她昂首阔步，她临深履薄。",
         "kvId": null
@@ -1057,7 +1137,7 @@
         "id": "act25side_pic_7",
         "desc": "前兆",
         "assetPath": "38_i10",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "它缓缓飞过所有人的头顶，势要让所有人记住它的身影。",
         "kvId": null
@@ -1066,7 +1146,7 @@
         "id": "act25side_pic_8",
         "desc": "同行者",
         "assetPath": "38_i01",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "为了莱茵生命。",
         "kvId": null
@@ -1075,7 +1155,7 @@
         "id": "act25side_pic_9",
         "desc": "导火索",
         "assetPath": "38_i15_2",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "三、二——",
         "kvId": null
@@ -1084,7 +1164,7 @@
         "id": "act25side_pic_10",
         "desc": "穿云之光",
         "assetPath": "38_i16",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "特里蒙的居民们永远不会忘记此情此景。",
         "kvId": null
@@ -1093,7 +1173,7 @@
         "id": "act25side_pic_11",
         "desc": "时间有限",
         "assetPath": "38_i11",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "斐尔迪南以为自己会害怕，但他发现，自己甚至有点想笑。",
         "kvId": null
@@ -1102,7 +1182,7 @@
         "id": "act25side_pic_12",
         "desc": "呵斥",
         "assetPath": "38_i09",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "面对那些不可战胜之物，唯有身边的人能够成为道标。",
         "kvId": null
@@ -1111,7 +1191,7 @@
         "id": "act25side_pic_13",
         "desc": "命运",
         "assetPath": "38_i08",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "她的眼中，是孤独的银河与放弃了一切的先驱者。 她的眼中，是璀璨的大地与执着于一切的战士。",
         "kvId": null
@@ -1120,7 +1200,7 @@
         "id": "act25side_pic_14",
         "desc": "错误的星图",
         "assetPath": "38_i04",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "该抬头了，泰拉人。",
         "kvId": null
@@ -1129,7 +1209,7 @@
         "id": "act25side_pic_15",
         "desc": "破天之柱",
         "assetPath": "38_ex07",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "也许太早了，但也有可能，已经太晚了。",
         "kvId": null
@@ -1138,7 +1218,7 @@
         "id": "act25side_pic_16",
         "desc": "真实的天空",
         "assetPath": "38_ex08",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "真实的双月与虚假的双月重叠，天空的真相昭然若揭。",
         "kvId": null
@@ -1147,7 +1227,7 @@
         "id": "act25side_pic_17",
         "desc": "抬头",
         "assetPath": "38_i13",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "回去的路很长，但还有时间。",
         "kvId": null
@@ -1156,7 +1236,7 @@
         "id": "act25side_pic_18",
         "desc": "哥伦比亚的秘密",
         "assetPath": "38_i14",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "新的时代即将到来。",
         "kvId": null
@@ -1165,7 +1245,7 @@
         "id": "act25side_pic_19",
         "desc": "孤独的精灵",
         "assetPath": "38_i05",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "愿你不再孤独。",
         "kvId": null
@@ -1174,7 +1254,7 @@
         "id": "act25side_pic_20",
         "desc": "再见，泰拉",
         "assetPath": "38_i12",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "让我们在真空之中再会吧。",
         "kvId": null
@@ -1183,7 +1263,7 @@
         "id": "act25side_pic_21",
         "desc": "能量井",
         "assetPath": "38_ex03",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "“地平弧光计划”的一环，通称——“能量井”。 作用为聚集能量，并将之传输至位于上方的聚焦发生器。它能够储存的能源，完全足够一个国家所有移动城市维持相当一段时间。",
         "kvId": null
@@ -1192,7 +1272,7 @@
         "id": "act25side_pic_22",
         "desc": "聚焦发生器",
         "assetPath": "38_ex01",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "“地平弧光计划”的一环，通称——“聚焦发生器”。 作用为吸收从地面输送而来的能量，在锁定目标后发射。它的打击范围广得超越多数泰拉人的想象。",
         "kvId": null
@@ -1201,7 +1281,7 @@
         "id": "act25side_pic_23",
         "desc": "万星园",
         "assetPath": "38_ex02",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "克丽斯腾·莱特出于个人喜好设计的观星间。 中央的星象仪采用了最先端的技术，精度极高。只是，那似乎并非泰拉人熟知的群星轨迹。",
         "kvId": null
@@ -1210,7 +1290,7 @@
         "id": "act25side_pic_24",
         "desc": "静滞所",
         "assetPath": "38_ex04",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "方块堆砌的群山，色彩冰冷的墓园。 无法理解这里发生了什么。",
         "kvId": null
@@ -1219,7 +1299,7 @@
         "id": "pic_rogue_1_KV2",
         "desc": "真相无言",
         "assetPath": "pic_rogue_1_KV2",
-        "type": 0,
+        "type": "IMAGE",
         "subType": "rogue_1_kv",
         "picDescription": "我的剧本里不存在昭然若揭的真相。\n继续寻找吧，血钻，让故事延续下去。",
         "kvId": "rogue_kv_1_2"
@@ -1228,7 +1308,7 @@
         "id": "pic_rogue_1_KV1",
         "desc": "猩红孤钻",
         "assetPath": "pic_rogue_1_KV1",
-        "type": 0,
+        "type": "IMAGE",
         "subType": "rogue_1_kv",
         "picDescription": "欢迎回家，我们的血钻。",
         "kvId": "rogue_kv_default"
@@ -1237,7 +1317,7 @@
         "id": "pic_rogue_1_1",
         "desc": "温暖的火",
         "assetPath": "pic_rogue_1_1",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "木柴在火炉中发出响声，光亮混杂着暖意播撒进整个空间，危险暂时远离了队伍。\n愿此时的安宁，陪伴我们走向远方。",
         "kvId": null
@@ -1246,7 +1326,7 @@
         "id": "pic_rogue_1_2",
         "desc": "古堡大门",
         "assetPath": "pic_rogue_1_2",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "克莱布拉松的残破古堡入口，一个艺术家组织已将内部据为己有。\n剧院打开大门，邀请演员与观众，还请少安毋躁，表演即将开始。",
         "kvId": null
@@ -1255,7 +1335,7 @@
         "id": "pic_rogue_1_3",
         "desc": "唯此刻永恒",
         "assetPath": "pic_rogue_1_3",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "石像是艺术的诉说者，但它们不用语言，而是以姿态讲述故事。\n从没人想过破坏这份宁静，或许你是第一个？",
         "kvId": null
@@ -1264,7 +1344,7 @@
         "id": "pic_rogue_1_4",
         "desc": "楚楚可怜",
         "assetPath": "pic_rogue_1_4",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "她很精致，她很可爱，她很美丽，没有人会拒绝拯救这样一名少女。\n但很可惜，那不是她真正的相貌。而在她眼中，你也不是救世主。",
         "kvId": null
@@ -1273,7 +1353,7 @@
         "id": "pic_rogue_1_5",
         "desc": "余晖",
         "assetPath": "pic_rogue_1_5",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "一件舞台道具，闪烁着高卢最后的光辉。\n真是可悲......",
         "kvId": null
@@ -1282,7 +1362,7 @@
         "id": "pic_rogue_1_6",
         "desc": "热情似火",
         "assetPath": "pic_rogue_1_6",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "对她来说，生活是舞蹈的一部分。\n即使是惊涛骇浪也无法淹没如火般跳动的热情。",
         "kvId": null
@@ -1291,7 +1371,7 @@
         "id": "pic_rogue_1_7",
         "desc": "音乐之声",
         "assetPath": "pic_rogue_1_7",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他循着音乐而来，心怀对艺术的憧憬。\n他也将乘着音乐而去，面对其中漆黑如墨的真相。",
         "kvId": null
@@ -1300,7 +1380,7 @@
         "id": "pic_rogue_1_8",
         "desc": "石中剑",
         "assetPath": "pic_rogue_1_8",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "它是超越时代的符号，\n你见到它，便知道会发生什么。",
         "kvId": null
@@ -1309,7 +1389,7 @@
         "id": "pic_rogue_1_9",
         "desc": "癔症",
         "assetPath": "pic_rogue_1_9",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "当艺术中产生压迫，自然会有人在重负下崩溃。\n正如这位可怜的青年。",
         "kvId": null
@@ -1318,7 +1398,7 @@
         "id": "pic_rogue_1_10",
         "desc": "往日秘辛",
         "assetPath": "pic_rogue_1_10",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这四张牌记录着傀影的过往，还有那一晚的零碎信息。\n真相引人探寻，但你，会把这些信息告诉傀影吗？",
         "kvId": null
@@ -1327,7 +1407,7 @@
         "id": "pic_rogue_1_11",
         "desc": "猩红舞会",
         "assetPath": "pic_rogue_1_11",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "褪去身份的舞会纯粹且美好，让人不由想要加入其中。\n这一表象太过诱人，是不是让人无意间忽略了一些——致命的细节？",
         "kvId": null
@@ -1336,7 +1416,7 @@
         "id": "pic_rogue_1_12",
         "desc": "鸭爵登场",
         "assetPath": "pic_rogue_1_12",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "冥冥之中，你觉得有些熟悉的身影会出现在你面前。\n然后他就以意想不到的方式出现了。",
         "kvId": null
@@ -1345,7 +1425,7 @@
         "id": "pic_rogue_1_13",
         "desc": "高普尼克的回忆",
         "assetPath": "pic_rogue_1_13",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "往日不再，物是人非。",
         "kvId": null
@@ -1354,7 +1434,7 @@
         "id": "pic_rogue_1_14",
         "desc": "奢华棺木",
         "assetPath": "pic_rogue_1_14",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "生活在移动城市里的人大多遗忘了古老的丧葬习俗，\n以至于看到棺木，就觉得那一定是邪恶萨卡兹的安眠之所。",
         "kvId": null
@@ -1363,7 +1443,7 @@
         "id": "pic_rogue_1_15",
         "desc": "绅士的结局",
         "assetPath": "pic_rogue_1_15",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "如果之前没有做出正确的选择，\n那么，当他询问你的时候，悲剧已无法挽回。",
         "kvId": null
@@ -1372,7 +1452,7 @@
         "id": "pic_rogue_1_16",
         "desc": "缩影",
         "assetPath": "pic_rogue_1_16",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "一座简陋舞台，一场易懂剧目。\n一位角色，一个符号，勾勒出历史的轮廓。",
         "kvId": null
@@ -1381,7 +1461,7 @@
         "id": "pic_rogue_1_17",
         "desc": "老童话",
         "assetPath": "pic_rogue_1_17",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "孩子们的读物随着时间流逝也会上年纪，但那并不是衰老，时间的沉淀反而让它们更加有力。\n只要还有人铭记，它们便能绽放光芒。",
         "kvId": null
@@ -1390,7 +1470,7 @@
         "id": "pic_rogue_1_18",
         "desc": "开怀畅饮",
         "assetPath": "pic_rogue_1_18",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "喝下些液体，获得些愉悦。\n喝得越多，快乐越多，何乐不为呢？",
         "kvId": null
@@ -1399,7 +1479,7 @@
         "id": "pic_rogue_1_19",
         "desc": "宝藏在哪里？",
         "assetPath": "pic_rogue_1_19",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "札拉克们没在这垃圾堆里找到什么宝藏。\n要不你来试试？",
         "kvId": null
@@ -1408,7 +1488,7 @@
         "id": "pic_rogue_1_20",
         "desc": "皇帝的肖像",
         "assetPath": "pic_rogue_1_20",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "对于普通人而言，那些留在画框中的肖像是人们对他们的唯一印象。",
         "kvId": null
@@ -1417,7 +1497,7 @@
         "id": "pic_rogue_1_21",
         "desc": "锡人",
         "assetPath": "pic_rogue_1_21",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "在他那由机械构建的身体里，住着一个有趣的灵魂。\n隐藏着萨卡兹人千年来的痛苦与不甘。",
         "kvId": null
@@ -1426,7 +1506,7 @@
         "id": "pic_rogue_1_22",
         "desc": "绝望",
         "assetPath": "pic_rogue_1_22",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "一位评论家曾经说过这样一句话：\n“死亡并非悲剧的终点。”",
         "kvId": null
@@ -1435,7 +1515,7 @@
         "id": "pic_rogue_1_23",
         "desc": "疯狂玩偶",
         "assetPath": "pic_rogue_1_23",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "报幕人的造物粗糙、扭曲、毫无美感。\n但他仍执着于此，无意间为自己敲定了结局。",
         "kvId": null
@@ -1444,7 +1524,7 @@
         "id": "pic_rogue_1_24",
         "desc": "解脱",
         "assetPath": "pic_rogue_1_24",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他心愿已了。\n一路顺风，朋友。",
         "kvId": null
@@ -1453,7 +1533,7 @@
         "id": "pic_rogue_1_25",
         "desc": "沉眠的宝物",
         "assetPath": "pic_rogue_1_25",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "宝物已经在盒子里等待很久了。\n勇敢的探险者啊，快快唤醒它吧。",
         "kvId": null
@@ -1462,7 +1542,7 @@
         "id": "pic_rogue_1_26",
         "desc": "尘封的宝物",
         "assetPath": "pic_rogue_1_26",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "从那些已逝往事的碎片中，你还能依稀想象出一座城市往日的样貌。\n就在那一刻，失落的城市迎来了新生。",
         "kvId": null
@@ -1471,7 +1551,7 @@
         "id": "pic_rogue_1_27",
         "desc": "铭刻",
         "assetPath": "pic_rogue_1_27",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "历史与艺术相辅亦相成，\n每个人都能从它身上获取自己想要的部分。",
         "kvId": null
@@ -1480,7 +1560,7 @@
         "id": "pic_rogue_1_28",
         "desc": "修饰",
         "assetPath": "pic_rogue_1_28",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "美是什么？\n完美又是什么？",
         "kvId": null
@@ -1489,7 +1569,7 @@
         "id": "pic_rogue_1_29",
         "desc": "品鉴",
         "assetPath": "pic_rogue_1_29",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "艺术不存在通则，\n那谁才有资格衡量它的价值呢？",
         "kvId": null
@@ -1498,7 +1578,7 @@
         "id": "pic_rogue_1_30",
         "desc": "氛围",
         "assetPath": "pic_rogue_1_30",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "默默无闻，\n无处不在。",
         "kvId": null
@@ -1507,7 +1587,7 @@
         "id": "pic_rogue_1_31",
         "desc": "生意兴隆",
         "assetPath": "pic_rogue_1_31",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这家小酒厂的啤酒品质相当卓越。\n你有预感它的老板能靠这个赚很多钱。",
         "kvId": null
@@ -1516,7 +1596,7 @@
         "id": "pic_rogue_1_32",
         "desc": "神秘晚宴",
         "assetPath": "pic_rogue_1_32",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "没有人会无故放弃在宴会上享乐的资格。\n除非......",
         "kvId": null
@@ -1525,7 +1605,7 @@
         "id": "pic_rogue_1_33",
         "desc": "密谋",
         "assetPath": "pic_rogue_1_33",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "属于此人的神秘面纱早已脱落，\n内里痴癫的灵魂暴露无遗。",
         "kvId": null
@@ -1534,7 +1614,7 @@
         "id": "pic_rogue_1_38",
         "desc": "自我囚禁",
         "assetPath": "pic_rogue_1_34",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "和写作相比，躯壳并不重要。",
         "kvId": null
@@ -1543,7 +1623,7 @@
         "id": "pic_rogue_1_39",
         "desc": "创作",
         "assetPath": "pic_rogue_1_35",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "创作的冲动掩盖不了对作品的失望。 \n所以他不停焚烧，不停书写。",
         "kvId": null
@@ -1552,7 +1632,7 @@
         "id": "pic_rogue_1_34",
         "desc": "落幕",
         "assetPath": "24_RL01",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_1_ending_1",
         "picDescription": "欢庆吧，诸位，欢庆吧！\n这便是众人企盼的美好结局！",
         "kvId": null
@@ -1561,7 +1641,7 @@
         "id": "pic_rogue_1_35",
         "desc": "幕后黑手",
         "assetPath": "24_RL02",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_1_ending_2",
         "picDescription": "众人都在欢庆，\n只有Miss.Christine看到了阴谋的始作俑者。",
         "kvId": null
@@ -1570,7 +1650,7 @@
         "id": "pic_rogue_1_36",
         "desc": "开演",
         "assetPath": "24_RL03",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_1_ending_3",
         "picDescription": "猩红剧团因傀影而“覆灭”，\n也必将因傀影而重生。",
         "kvId": null
@@ -1579,7 +1659,7 @@
         "id": "pic_rogue_1_37",
         "desc": "沉默之章",
         "assetPath": "24_RL04",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_1_ending_4",
         "picDescription": "一篇精雕细琢的稿件终于出炉，剧作家将之交付给了剧团长。\n而就是这样一张薄薄的纸，将在今后毁灭无数人的生活。",
         "kvId": null
@@ -1588,7 +1668,7 @@
         "id": "pic_rogue_2_KV2",
         "desc": "萌芽期的终结",
         "assetPath": "pic_rogue_2_KV2",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "向上，再向上，直到枝条卷取群星，直到根系啜饮星河。",
         "kvId": "rogue_2_kv_1_2"
@@ -1597,7 +1677,7 @@
         "id": "pic_rogue_2_KV1",
         "desc": "深蓝之树",
         "assetPath": "pic_rogue_2_KV1",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "海洋亦是土壤，落入此中的种子，他日也能成为参天大树。",
         "kvId": "rogue_kv_default"
@@ -1606,7 +1686,7 @@
         "id": "pic_rogue_2_1",
         "desc": "天涯绝壁",
         "assetPath": "pic_rogue_2_1",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "陆地至此戛然而止，再往前便是海洋的领地。",
         "kvId": null
@@ -1615,7 +1695,7 @@
         "id": "pic_rogue_2_53",
         "desc": "温暖的火",
         "assetPath": "pic_rogue_1_1",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "木柴在火炉中发出响声，光亮混杂着暖意驱退黑暗与潮湿，危险暂时远离了队伍。愿此时的安宁，陪伴我们走向远方。",
         "kvId": null
@@ -1624,7 +1704,7 @@
         "id": "pic_rogue_2_3",
         "desc": "呼唤",
         "assetPath": "pic_rogue_2_3",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "人类耳中听闻的歌声描绘着生存的渴望，但恐鱼只是在呼唤同伴吞食，好让自己在这命终之时仍能为大群做贡献。",
         "kvId": null
@@ -1633,7 +1713,7 @@
         "id": "pic_rogue_2_4",
         "desc": "割舍",
         "assetPath": "pic_rogue_2_4",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "阿戈尔这一单词同时代表了海民的种族与国家。然而对于某些阿戈尔来说，国家这层意义已经近乎从这一单词中消失了。",
         "kvId": null
@@ -1642,7 +1722,7 @@
         "id": "pic_rogue_2_5",
         "desc": "未知机械",
         "assetPath": "pic_rogue_2_5",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "你知道这台终端的操作方式？那就很有意思了",
         "kvId": null
@@ -1651,7 +1731,7 @@
         "id": "pic_rogue_2_6",
         "desc": "意志的延续",
         "assetPath": "pic_rogue_2_6",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "于审判官而言，死亡与绝望并非信念的终点。",
         "kvId": null
@@ -1660,7 +1740,7 @@
         "id": "pic_rogue_2_7",
         "desc": "光荣前夜",
         "assetPath": "pic_rogue_2_7",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这位审判官在掩饰自己的身份，但看得出来，她很高兴能作为一名审判官、一个伊比利亚人、一位干员，与你见上最后一面。",
         "kvId": null
@@ -1669,7 +1749,7 @@
         "id": "pic_rogue_2_8",
         "desc": "文明的尽头",
         "assetPath": "pic_rogue_2_8",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "没有人类来承载，文明便就此步入自己的坟场安然下葬。",
         "kvId": null
@@ -1678,7 +1758,7 @@
         "id": "pic_rogue_2_9",
         "desc": "感同身受",
         "assetPath": "pic_rogue_2_9",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "即使拥有海嗣的躯壳，你仍旧只能以人类的思维思考并行动。那么，你也仍是人类，不属于大群。",
         "kvId": null
@@ -1687,7 +1767,7 @@
         "id": "pic_rogue_2_10",
         "desc": "分解或修复",
         "assetPath": "pic_rogue_2_10",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "大群只是在重整陆地，人类却因此丧失了栖息地。所以我们陷入恐惧，久久不能自拔。",
         "kvId": null
@@ -1696,7 +1776,7 @@
         "id": "pic_rogue_2_11",
         "desc": "开壳",
         "assetPath": "pic_rogue_2_11",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这是人类的生存手段，也是少数几种能够让人类尽情宣泄复仇情感的行动。",
         "kvId": null
@@ -1705,7 +1785,7 @@
         "id": "pic_rogue_2_12",
         "desc": "愿景",
         "assetPath": "pic_rogue_2_12",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "一种可能性，一种对于未来猜想的实践，只要存在过，就有机会再现。",
         "kvId": null
@@ -1714,7 +1794,7 @@
         "id": "pic_rogue_2_13",
         "desc": "圣像",
         "assetPath": "pic_rogue_2_13",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "倾倒、破碎、沾满污渍，可只要它还存在着，伊比利亚人就自认还有希望。这就是偶像的作用，通过它，伊比利亚人将信念与力量凝聚到一起，照亮整片海岸。",
         "kvId": null
@@ -1723,7 +1803,7 @@
         "id": "pic_rogue_2_14",
         "desc": "信者的模样",
         "assetPath": "pic_rogue_2_14",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "信仰能够改变，也可以异化。端看受信者所信仰的，究竟是什么。",
         "kvId": null
@@ -1732,7 +1812,7 @@
         "id": "pic_rogue_2_15",
         "desc": "诸王博物馆",
         "assetPath": "pic_rogue_2_15",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "伊比利亚的先祖们曾被遗忘，如今又将被再度遗忘。关于他们的真相会变得更加破碎。而当伊比利亚人无法诉说自己的由来时，他们还能称呼自己为“伊比利亚”人吗？",
         "kvId": null
@@ -1741,7 +1821,7 @@
         "id": "pic_rogue_2_16",
         "desc": "惹人厌老板",
         "assetPath": "pic_rogue_2_16",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "鸭爵总是有一种独特的魅力，让你觉得他很欠揍，当他开口说话时，你就会再也忍不下去，满脑子里只想着狠狠踹他屁股。",
         "kvId": null
@@ -1750,7 +1830,7 @@
         "id": "pic_rogue_2_17",
         "desc": "尽职保镖",
         "assetPath": "pic_rogue_2_17",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "给老板的敌人一拳头，不用考虑原因，不用顾虑后果。这就是高普尼克的工作。",
         "kvId": null
@@ -1759,7 +1839,7 @@
         "id": "pic_rogue_2_18",
         "desc": "兽主与仆从",
         "assetPath": "pic_rogue_2_18",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这么说或许不太准确，但如果以世俗的关系来定义，他们应该是老板与雇员。",
         "kvId": null
@@ -1768,7 +1848,7 @@
         "id": "pic_rogue_2_19",
         "desc": "民用科技",
         "assetPath": "pic_rogue_2_19",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "阿戈尔社会的物资与精神丰富程度确实大大出乎泰拉人的意料。",
         "kvId": null
@@ -1777,7 +1857,7 @@
         "id": "pic_rogue_2_20",
         "desc": "过时礼物",
         "assetPath": "pic_rogue_2_20",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "礼旧情意重。",
         "kvId": null
@@ -1786,7 +1866,7 @@
         "id": "pic_rogue_2_21",
         "desc": "变废为宝",
         "assetPath": "pic_rogue_2_21",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "人赋予物品价值，时代则定义价值。你囊中的无用弃物，在别人手中或许便能成为珍宝。",
         "kvId": null
@@ -1795,7 +1875,7 @@
         "id": "pic_rogue_2_22",
         "desc": "无望坚守",
         "assetPath": "pic_rogue_2_22",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "观潮者等待重回海洋时的最大阻力竟仍来自海洋，这不得不说是一种讽刺。",
         "kvId": null
@@ -1804,7 +1884,7 @@
         "id": "pic_rogue_2_23",
         "desc": "骑士真容",
         "assetPath": "pic_rogue_2_23",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他的生物性早已改变，用以填充钢铁躯壳的是癫狂与固执。即使揭开面罩，也不会显现出人类的容貌。",
         "kvId": null
@@ -1813,7 +1893,7 @@
         "id": "pic_rogue_2_24",
         "desc": "抗争",
         "assetPath": "pic_rogue_2_24",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "对于理智的人而言，没有战胜海洋的手段；对于感性的人而言，遮天海浪足以摧垮心灵；对于骑士而言，过程与结果皆无意义，只要海洋存在，他就要杀死海洋。",
         "kvId": null
@@ -1822,7 +1902,7 @@
         "id": "pic_rogue_2_25",
         "desc": "风雨已至",
         "assetPath": "pic_rogue_2_25",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "阴谋已经铸就，逝者无法挽回。但在这电闪雷鸣的末日景象下，你仍有能做的事。你的选择，将决定泰拉的命运。",
         "kvId": null
@@ -1831,7 +1911,7 @@
         "id": "pic_rogue_2_26",
         "desc": "深蓝实验室",
         "assetPath": "pic_rogue_2_26",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "海嗣种群的起源；已逝海神的心脏；改变未来的希望。",
         "kvId": null
@@ -1840,7 +1920,7 @@
         "id": "pic_rogue_2_27",
         "desc": "落定",
         "assetPath": "pic_rogue_2_27",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "或曾懊悔，或有遗憾，或仍愤怒。属于他们的斗争画上了句号，无需更多纷扰，寝园已设，敬请安眠。",
         "kvId": null
@@ -1849,7 +1929,7 @@
         "id": "pic_rogue_2_28",
         "desc": "遗落石碑",
         "assetPath": "pic_rogue_2_28",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "不仅是景观装置，不仅用于计算，不仅模仿未来。",
         "kvId": null
@@ -1858,7 +1938,7 @@
         "id": "pic_rogue_2_29",
         "desc": "医师的坚持",
         "assetPath": "pic_rogue_2_29",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他虽拯救人类性命，但更渴望复兴文明。",
         "kvId": null
@@ -1867,7 +1947,7 @@
         "id": "pic_rogue_2_30",
         "desc": "卫兵的原则",
         "assetPath": "pic_rogue_2_30",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他只希望保一方平安，不允许任何危害出现。",
         "kvId": null
@@ -1876,7 +1956,7 @@
         "id": "pic_rogue_2_31",
         "desc": "循循善诱",
         "assetPath": "pic_rogue_2_31",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "若不是你满心想着看看宝箱里的秘密而非把注意力留在这位萨卡兹舞娘身上，你们或许也不必兵戎相见。",
         "kvId": null
@@ -1885,7 +1965,7 @@
         "id": "pic_rogue_2_32",
         "desc": "懦弱跟班",
         "assetPath": "pic_rogue_2_32",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "流泪小子有个当侦探的舅舅，为了能够成为像舅舅那样勇敢的人，他开始出门给自己找事做。",
         "kvId": null
@@ -1894,7 +1974,7 @@
         "id": "pic_rogue_2_33",
         "desc": "归乡",
         "assetPath": "pic_rogue_2_33",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "在记忆之中，绕过这个拐角，家门便在眼前。可当你真正拐过去后，才发现那后面仍是一条长长的窄路，在路的尽头，还有一个似曾相识的拐角。",
         "kvId": null
@@ -1903,7 +1983,7 @@
         "id": "pic_rogue_2_34",
         "desc": "生命多样性",
         "assetPath": "pic_rogue_2_34",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "对于海嗣而言，适应后天环境比传承亲代基因更为重要，当整个族群都以这一目标进化时，物种不确定性便会在一个阶段中被不断放大，直至迎来进化奇点，诞生完美生物。",
         "kvId": null
@@ -1912,7 +1992,7 @@
         "id": "pic_rogue_2_35",
         "desc": "晦暗灯塔",
         "assetPath": "pic_rogue_2_35",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "在黑暗中发出光亮虽能为人提供一个前进的方向，但也会引来潜藏于黑暗中的野兽。光芒照耀的一切道路，都将会成为他们的猎场。",
         "kvId": null
@@ -1921,7 +2001,7 @@
         "id": "pic_rogue_2_36",
         "desc": "浸水酒馆",
         "assetPath": "pic_rogue_2_36",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "只要有人聚集的地方便总会有这样的场地。一些人在此喝些麻痹神经的饮品虚度光阴、另一些则以这人声鼎沸的地方作掩护收集或交流情报。",
         "kvId": null
@@ -1930,7 +2010,7 @@
         "id": "pic_rogue_2_37",
         "desc": "蒸蒸日上",
         "assetPath": "pic_rogue_2_37",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "虽然这家酒厂的老板进了监狱，但生意反而做得比以前更好了，真奇怪。",
         "kvId": null
@@ -1939,7 +2019,7 @@
         "id": "pic_rogue_2_38",
         "desc": "猎人的延伸",
         "assetPath": "pic_rogue_2_38",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "武器是猎人躯体的延伸，其生命与使命的构成元件，也是他们曾经存在过的象征。",
         "kvId": null
@@ -1948,7 +2028,7 @@
         "id": "pic_rogue_2_39",
         "desc": "海角孤石",
         "assetPath": "pic_rogue_2_39",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "海浪将坚石磨成沙粒，而陆地无动于衷。",
         "kvId": null
@@ -1957,7 +2037,7 @@
         "id": "pic_rogue_2_40",
         "desc": "天灾显现",
         "assetPath": "pic_rogue_2_40",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "看着天灾撕碎恐鱼，你脑中浮现了源石征服海嗣的可能性。可到那时，人类真的还能够继续生存吗？",
         "kvId": null
@@ -1966,7 +2046,7 @@
         "id": "pic_rogue_2_41",
         "desc": "使命之人",
         "assetPath": "pic_rogue_2_41",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他因这个国家的宿命选择寻求长生，所以他将与伊比利亚这个名字共同死去。",
         "kvId": null
@@ -1975,7 +2055,7 @@
         "id": "pic_rogue_2_42",
         "desc": "曙光",
         "assetPath": "pic_rogue_2_42",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "当每个人都甘愿为美好愿景奉献时，前方的黑暗也就没有那么可怖了。无私、团结，人类的力量正在于此。",
         "kvId": null
@@ -1984,7 +2064,7 @@
         "id": "pic_rogue_2_43",
         "desc": "藏宝地",
         "assetPath": "pic_rogue_2_43",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "多年以后，当新生的伊比利亚孩童向父辈索求童话时，大人们会为他们讲述一个，如黄金般璀璨的故事。",
         "kvId": null
@@ -1993,7 +2073,7 @@
         "id": "pic_rogue_2_45",
         "desc": "人员调配",
         "assetPath": "pic_rogue_2_45",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "后勤是所有军事行动至关重要的一环，而且必须投入人力。对于指挥人员来说，在发号施令之前，还是需要多想几步。",
         "kvId": null
@@ -2002,7 +2082,7 @@
         "id": "pic_rogue_2_46",
         "desc": "临海安全屋",
         "assetPath": "pic_rogue_2_46",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "罗德岛在伊比利亚各地搭建的安全屋。虽然略显简陋，但基础功能一应俱全，保证罗德岛干员能够在此紧急避险并补充物资。",
         "kvId": null
@@ -2011,7 +2091,7 @@
         "id": "pic_rogue_2_47",
         "desc": "加密通讯：郁金香",
         "assetPath": "pic_rogue_2_47",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "郁金香与你的通讯内容无非就是各种各样的任务委托。这对于你来说或许是工作，但在她眼中，这都是实打实的生存问题。",
         "kvId": null
@@ -2020,7 +2100,7 @@
         "id": "pic_rogue_2_56",
         "desc": "“蔓延的枝条”",
         "assetPath": "pic_rogue_2_56",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "吞食岩浆，哺育大群，将根系埋入泰拉地核。即使思维已死，本能仍驱动着它完成母亲给予的职责。",
         "kvId": null
@@ -2029,7 +2109,7 @@
         "id": "pic_rogue_2_57",
         "desc": "世系",
         "assetPath": "pic_rogue_2_57",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "“初生”只是进化的起点，由其身躯上衍生而出的万千命脉，终将尽数成为参天大树。",
         "kvId": null
@@ -2038,7 +2118,7 @@
         "id": "pic_rogue_2_48",
         "desc": "篝火晚会",
         "assetPath": "pic_rogue_2_48",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_2_ending_1",
         "picDescription": "好吧，从规模上来说算不上是什么晚会。但边吃边聊，对今后有个不算太坏的期盼，也还挺不错的。",
         "kvId": null
@@ -2047,7 +2127,7 @@
         "id": "pic_rogue_2_49",
         "desc": "英雄殉身",
         "assetPath": "pic_rogue_2_49",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_2_ending_2",
         "picDescription": "解脱压迫、束缚与死亡的一跃。",
         "kvId": null
@@ -2056,7 +2136,7 @@
         "id": "pic_rogue_2_50",
         "desc": "献身",
         "assetPath": "pic_rogue_2_50",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_2_ending_3",
         "picDescription": "水月并没有逝去，但当你下一次见到祂时，你也不会再称呼祂为水月了。",
         "kvId": null
@@ -2065,7 +2145,7 @@
         "id": "pic_rogue_2_51",
         "desc": "再会",
         "assetPath": "pic_rogue_2_51",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_2_ending_3",
         "picDescription": "从未言说的约定每一年都会被履行。可人性的遗留啊，你还能挣扎多久呢？",
         "kvId": null
@@ -2074,7 +2154,7 @@
         "id": "pic_rogue_2_55",
         "desc": "由海蓝至深蓝",
         "assetPath": "pic_rogue_2_55",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_2_ending_4",
         "picDescription": "终于，在万千磨难过后，他与祂的族群都将迎来新生。",
         "kvId": null
@@ -2083,7 +2163,7 @@
         "id": "pic_rogue_3_KV2",
         "desc": "推开门扉之人",
         "assetPath": "pic_rogue_3_KV2",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "以有尽的生命探索无垠，度量永恒。",
         "kvId": "rogue_3_kv_1_2"
@@ -2092,7 +2172,7 @@
         "id": "pic_rogue_3_KV1",
         "desc": "银凇止境",
         "assetPath": "pic_rogue_3_KV1",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "冰原的严酷令生灵止步，探索者叩问大地何处是尽头。",
         "kvId": "rogue_kv_default"
@@ -2101,7 +2181,7 @@
         "id": "pic_rogue_3_1",
         "desc": "战争傀儡",
         "assetPath": "pic_rogue_3_1",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "两位值得尊敬的斗士，一场惊心动魄的聚会——或许你太在乎自己能不能猜对胜负了。",
         "kvId": null
@@ -2110,7 +2190,7 @@
         "id": "pic_rogue_3_2",
         "desc": "与树为友",
         "assetPath": "pic_rogue_3_2",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这位朋友守口如瓶，从不吐露恶言，而且永远不会主动离你而去。",
         "kvId": null
@@ -2119,7 +2199,7 @@
         "id": "pic_rogue_3_3",
         "desc": "未知坑洞勘察",
         "assetPath": "pic_rogue_3_3",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "过于漫长的时间在眼前被剖开，你还没有掌握其中流动的任何一种语言符号。",
         "kvId": null
@@ -2128,7 +2208,7 @@
         "id": "pic_rogue_3_4",
         "desc": "林木幽深",
         "assetPath": "pic_rogue_3_4",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "勇敢地走进黑色的森林，真诚地向泥土伸出双手。",
         "kvId": null
@@ -2137,7 +2217,7 @@
         "id": "pic_rogue_3_5",
         "desc": "困于幻影",
         "assetPath": "pic_rogue_3_5",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "似乎没有下雨，但黑色的雨的确淋湿了他。",
         "kvId": null
@@ -2146,7 +2226,7 @@
         "id": "pic_rogue_3_6",
         "desc": "群山之间",
         "assetPath": "pic_rogue_3_6",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "萨米有意抬起山脉，拦住迷途的幼兽望向冰原的视线，因此你只感觉到寒冷正渗入骨髓。",
         "kvId": null
@@ -2155,7 +2235,7 @@
         "id": "pic_rogue_3_7",
         "desc": "行船",
         "assetPath": "40_i05",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "泽地居民的仪式总在水上，躯壳接受洗涤，灵魂时刻纯净。",
         "kvId": null
@@ -2164,7 +2244,7 @@
         "id": "pic_rogue_3_8",
         "desc": "污染居所",
         "assetPath": "pic_rogue_3_8",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "一场苦战在这里留下痕迹。荆棘终究会被风雪掩埋，但那黑色的足迹一旦留下便不会再消失。",
         "kvId": null
@@ -2173,7 +2253,7 @@
         "id": "pic_rogue_3_9",
         "desc": "黑雪",
         "assetPath": "pic_rogue_3_9",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "你或许比失去角兽友邻的萨米人更清楚，利刃依旧在掠夺它触及的一切。",
         "kvId": null
@@ -2182,7 +2262,7 @@
         "id": "pic_rogue_3_10",
         "desc": "重力错位",
         "assetPath": "pic_rogue_3_10",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "当人们尝试识别坍缩对现实空间造成的影响时，他们的思维与实在也正在被识别。",
         "kvId": null
@@ -2191,7 +2271,7 @@
         "id": "pic_rogue_3_12",
         "desc": "未知地标",
         "assetPath": "pic_rogue_3_12",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "它的光芒短暂得来不及被人们理解，你只好想象在漫长的岁月里它曾多少次如此闪烁。",
         "kvId": null
@@ -2200,7 +2280,7 @@
         "id": "pic_rogue_3_13",
         "desc": "穿行于风雪",
         "assetPath": "pic_rogue_3_13",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "阴影正缓缓侵蚀着群山，大多数人恐怕走不出这场遮天蔽日的大雪。",
         "kvId": null
@@ -2209,7 +2289,7 @@
         "id": "pic_rogue_3_14",
         "desc": "被遗忘的银白",
         "assetPath": "pic_rogue_3_14",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "一切都被亘古的坚冰覆盖，走出的第一步与最后一步仿佛并无不同。",
         "kvId": null
@@ -2218,7 +2298,7 @@
         "id": "pic_rogue_3_15",
         "desc": "温泉木屋",
         "assetPath": "pic_rogue_3_15",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "高温为玻璃蒙上厚厚的水雾，你不确定自己是真的看到了某个熟悉的库兰塔，还是热得有些眼花。",
         "kvId": null
@@ -2227,7 +2307,7 @@
         "id": "pic_rogue_3_16",
         "desc": "流浪的占卜者",
         "assetPath": "pic_rogue_3_16",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "她的梦里有一片清洁而宁静的雪地。她为那不可复得的景色长久流浪。",
         "kvId": null
@@ -2236,7 +2316,7 @@
         "id": "pic_rogue_3_17",
         "desc": "与树同行",
         "assetPath": "40_i04",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "影子会伴随着树一同迁徙，就像树不会抛下它的族人。",
         "kvId": null
@@ -2245,7 +2325,7 @@
         "id": "pic_rogue_3_18",
         "desc": "灼热异常的预兆",
         "assetPath": "pic_rogue_3_18",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "那时文字尚未诞生，事情无法言传。",
         "kvId": null
@@ -2254,7 +2334,7 @@
         "id": "pic_rogue_3_19",
         "desc": "覆霜洞窟",
         "assetPath": "pic_rogue_3_19",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "萨米为祂的子民备好了躲避风雪的栖息地，自然本不会阻拦任何生灵进入。",
         "kvId": null
@@ -2263,7 +2343,7 @@
         "id": "pic_rogue_3_20",
         "desc": "黑萨满",
         "assetPath": "pic_rogue_3_20",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "部族各有自己的信仰与传统，极少数部族甚至会与其他部族格格不入。但在萨米的语言里，“敌人”始终只有一个。",
         "kvId": null
@@ -2272,7 +2352,7 @@
         "id": "pic_rogue_3_21",
         "desc": "集市之树",
         "assetPath": "pic_rogue_3_21",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "大自然知道你的付出究竟有多少价值，无论你交出的是珠宝奇物，还是自己的鲜血。",
         "kvId": null
@@ -2281,7 +2361,7 @@
         "id": "pic_rogue_3_22",
         "desc": "过往/当下/未来",
         "assetPath": "pic_rogue_3_22",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他们并无区别。",
         "kvId": null
@@ -2290,7 +2370,7 @@
         "id": "pic_rogue_3_23",
         "desc": "老朋友的关照",
         "assetPath": "pic_rogue_3_23",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "你还记得这家开到萨米的杂货连锁店起源于一家酒厂，并且忍不住揣测酒厂老板在出狱后获得了怎样的机遇。",
         "kvId": null
@@ -2299,7 +2379,7 @@
         "id": "pic_rogue_3_24",
         "desc": "冰原科考站",
         "assetPath": "pic_rogue_2_46",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "探索协会各成员企业联合在冰原建立的众多科考站之一，配备了完善的维生系统，对设施和物资状况保持严密监控，保证科考队能够在此紧急避险并补充物资。",
         "kvId": null
@@ -2308,7 +2388,7 @@
         "id": "pic_rogue_3_25",
         "desc": "雪中小径",
         "assetPath": "pic_rogue_3_25",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "科考队探索的总是地图尚未测绘的地域，因此派出人手侦察、选择前行道路时，需要格外谨慎小心。",
         "kvId": null
@@ -2317,7 +2397,7 @@
         "id": "pic_rogue_3_26",
         "desc": "银白梦境",
         "assetPath": "40_i06",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "你恍惚梦见了祂。祂教你如何接受林地的恩赐，如同你也是萨米的孩子。",
         "kvId": null
@@ -2326,7 +2406,7 @@
         "id": "pic_rogue_3_27",
         "desc": "树藤迷境",
         "assetPath": "pic_rogue_3_27",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "也许是萨满们使用咒语催促林木和藤条如此生长，也许是自然自己听懂了人们的愿望。无论如何，你都是迷了路的外来者。",
         "kvId": null
@@ -2335,7 +2415,7 @@
         "id": "pic_rogue_3_28",
         "desc": "向大地回答",
         "assetPath": "pic_rogue_3_28",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "山风轰鸣，落雪隆隆，那是无法隔绝的质问之声。",
         "kvId": null
@@ -2344,7 +2424,7 @@
         "id": "pic_rogue_3_29",
         "desc": "英雄的头盔",
         "assetPath": "pic_rogue_3_29",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "一代代战士的眼睛曾透过这里，看向他人的死亡。",
         "kvId": null
@@ -2353,7 +2433,7 @@
         "id": "pic_rogue_3_30",
         "desc": "等待土壤的花",
         "assetPath": "pic_rogue_3_30",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他们习惯于等待注定之事发生，他们对短视的人类已经不抱太多期望。无论如何，众多独眼巨人所见的道路终点，在此刻选择了你。",
         "kvId": null
@@ -2362,7 +2442,7 @@
         "id": "pic_rogue_3_36",
         "desc": "走失的小佩洛",
         "assetPath": "pic_rogue_2_32",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "你听到有什么东西不停在你耳边抽泣，至于你找到的，或许是萨米土地上最不恐怖的对象。",
         "kvId": null
@@ -2371,7 +2451,7 @@
         "id": "pic_rogue_3_37",
         "desc": "创造财富的仪式",
         "assetPath": "pic_rogue_2_16",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "鸭爵总是有一种独特的魅力，让你觉得你应该揍他，更何况现在他聚集了一帮受到污染的萨米人，不知在举行什么危险仪式。",
         "kvId": null
@@ -2380,7 +2460,7 @@
         "id": "pic_rogue_3_38",
         "desc": "严禁靠近",
         "assetPath": "pic_rogue_2_17",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "如果再往前走，你就会挨上一拳头。这就是高普尼克的工作。",
         "kvId": null
@@ -2389,7 +2469,7 @@
         "id": "pic_rogue_3_39",
         "desc": "反派堡垒鸭",
         "assetPath": "pic_rogue_2_18",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这样夸张的反派往往只在漫画里出现，而空缺的英雄主角位置，难免会有人认为属于自己。",
         "kvId": null
@@ -2398,7 +2478,7 @@
         "id": "pic_rogue_3_40",
         "desc": "梦魇足迹",
         "assetPath": "23_I08",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "营寨首尾相连，向着北方不断延伸，正如一位独行的骑士，在大地上留下一个个脚印。",
         "kvId": null
@@ -2407,7 +2487,7 @@
         "id": "pic_rogue_3_41",
         "desc": "银白戏目",
         "assetPath": "pic_rogue_1_2",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "剧团在此采撷灵感，挥就一场悲剧。",
         "kvId": null
@@ -2416,7 +2496,7 @@
         "id": "pic_rogue_3_42",
         "desc": "言听计从",
         "assetPath": "pic_rogue_3_42",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "听说对面相不善的人言听计从，只会降低自己的生还几率......可是你为什么会觉得这位礼貌得体的萨卡兹女士面相不善？",
         "kvId": null
@@ -2425,7 +2505,7 @@
         "id": "pic_rogue_3_43",
         "desc": "无瑕原野",
         "assetPath": "pic_rogue_3_43",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这些游荡的萨米人曾经通晓冰原上的种种威胁，但如今他们什么都说不出，也什么都不是了。",
         "kvId": null
@@ -2434,7 +2514,7 @@
         "id": "pic_rogue_3_44",
         "desc": "依木而居",
         "assetPath": "pic_rogue_3_44",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "理解萨米人的生活方式，然后重新理解自然与文明。",
         "kvId": null
@@ -2443,7 +2523,7 @@
         "id": "pic_rogue_3_45",
         "desc": "黑色邀约",
         "assetPath": "pic_rogue_3_45",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "你又一次凝视邀约函独特的封缄。没有什么能阻拦你向北方探索的决心。",
         "kvId": null
@@ -2452,7 +2532,7 @@
         "id": "pic_rogue_3_46",
         "desc": "联合工程",
         "assetPath": "pic_rogue_3_46",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "探索者的足迹，萨米的坚守，先知的远见，自然的慈爱......遍历诸多事件的因果之后，你得以看到这扇门扉开启。",
         "kvId": null
@@ -2461,7 +2541,7 @@
         "id": "pic_rogue_3_47",
         "desc": "银与金",
         "assetPath": "pic_rogue_3_47",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "遗世门扉的彼端，大地的尽头只是起点。",
         "kvId": null
@@ -2470,7 +2550,7 @@
         "id": "pic_rogue_3_31",
         "desc": "探索者",
         "assetPath": "pic_rogue_3_31",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_3_ending_1",
         "picDescription": "探索者留下的总是背影，渺小却不畏惧被自然淹没。",
         "kvId": null
@@ -2479,7 +2559,7 @@
         "id": "pic_rogue_3_32",
         "desc": "痕迹",
         "assetPath": "pic_rogue_3_32",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_3_ending_2",
         "picDescription": "透过伤痕累累的躯壳，他向深爱之人曾生活过的世间投去最后一瞥。",
         "kvId": null
@@ -2488,7 +2568,7 @@
         "id": "pic_rogue_3_33",
         "desc": "星空之门",
         "assetPath": "pic_rogue_3_33",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_3_ending_3",
         "picDescription": "事件发生的次序已经合理，黑色的帷幕已经被揭开。并非渴求，无关理想，这就是她的命运。",
         "kvId": null
@@ -2497,7 +2577,7 @@
         "id": "pic_rogue_3_34",
         "desc": "湮灭",
         "assetPath": "pic_rogue_3_34",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_3_ending_3",
         "picDescription": "安玛如此宽广地爱着她的孩子们，即使过去许久，你仿佛仍能感到温热的雨落在脸上。",
         "kvId": null
@@ -2506,7 +2586,7 @@
         "id": "pic_rogue_3_35",
         "desc": "征服永恒",
         "assetPath": "pic_rogue_3_35",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_3_ending_4",
         "picDescription": "历史不曾如此传述，历史在此处已无关紧要。",
         "kvId": null
@@ -2515,7 +2595,7 @@
         "id": "pic_rogue_4_KV2",
         "desc": "遁入阇那",
         "assetPath": "pic_rogue_4_KV2",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "万般解脱，自在其中。",
         "kvId": "rogue_4_kv_1_2"
@@ -2524,7 +2604,7 @@
         "id": "pic_rogue_4_KV1",
         "desc": "无终奇语",
         "assetPath": "pic_rogue_4_KV1",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "这是独属于萨卡兹的探险，也是独属于萨卡兹的浪漫。",
         "kvId": "rogue_kv_default"
@@ -2533,7 +2613,7 @@
         "id": "pic_rogue_4_KV3",
         "desc": "无瑕之日",
         "assetPath": "pic_rogue_4_KV3",
-        "type": 0,
+        "type": "IMAGE",
         "subType": null,
         "picDescription": "拼上这块名为“结局”的拼图，故事才归于完整。",
         "kvId": "rogue_4_kv_1_3"
@@ -2542,7 +2622,7 @@
         "id": "pic_rogue_4_1",
         "desc": "希望之女",
         "assetPath": "pic_rogue_4_1",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "她的存在本身便是一种愿景，一个关于和平的幻象。",
         "kvId": null
@@ -2551,7 +2631,7 @@
         "id": "pic_rogue_4_2",
         "desc": "通道",
         "assetPath": "pic_rogue_4_2",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "在你做出选择后，隐秘通道也会展现自己的考量......即使它并不会思考。",
         "kvId": null
@@ -2560,7 +2640,7 @@
         "id": "pic_rogue_4_3",
         "desc": "求识问路",
         "assetPath": "pic_rogue_4_3",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "迷失的人总想寻求解答，可惜并非所有人都能触碰那近在咫尺的答案。",
         "kvId": null
@@ -2569,7 +2649,7 @@
         "id": "pic_rogue_4_4",
         "desc": "天地有别",
         "assetPath": "pic_rogue_4_4",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "天上的一块废品，砸在地上都是大自然的馈赠。",
         "kvId": null
@@ -2578,7 +2658,7 @@
         "id": "pic_rogue_4_5",
         "desc": "知识的爱徒",
         "assetPath": "pic_rogue_4_5",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "她根本没有掩饰自己的身份，不是么？接受她的帮助吧。",
         "kvId": null
@@ -2587,7 +2667,7 @@
         "id": "pic_rogue_4_6",
         "desc": "轮回",
         "assetPath": "pic_rogue_4_6",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "揭过这一页，便能看到新的篇章。",
         "kvId": null
@@ -2596,7 +2676,7 @@
         "id": "pic_rogue_4_7",
         "desc": "善后仪式",
         "assetPath": "pic_rogue_4_7",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "“燃烧”在萨卡兹的文明里似乎有特殊的含义，看，从熔炉到铁桶，他们总在做相同的事。",
         "kvId": null
@@ -2605,7 +2685,7 @@
         "id": "pic_rogue_4_8",
         "desc": "为王的记录",
         "assetPath": "pic_rogue_4_8",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这正是众人期盼的未来，但也绝没有想象中那么完美。",
         "kvId": null
@@ -2614,7 +2694,7 @@
         "id": "pic_rogue_4_9",
         "desc": "代价",
         "assetPath": "pic_rogue_4_9",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这里堆积着故事变换的代价。远去的虽归来了，熟悉的却就此陌生了。",
         "kvId": null
@@ -2623,7 +2703,7 @@
         "id": "pic_rogue_4_10",
         "desc": "老传统",
         "assetPath": "pic_rogue_4_10",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "贩卖暴力的传统源于生存与竞争。",
         "kvId": null
@@ -2632,7 +2712,7 @@
         "id": "pic_rogue_4_11",
         "desc": "新事物",
         "assetPath": "pic_rogue_4_11",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "交易暴力的行为来自商业与政治。",
         "kvId": null
@@ -2641,7 +2721,7 @@
         "id": "pic_rogue_4_12",
         "desc": "萨卡兹主题画展",
         "assetPath": "pic_rogue_4_12",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "在卡兹戴尔帝国覆灭，萨卡兹绝迹后的年代，创作萨卡兹题材的画作是一笔稳赚不赔的买卖。",
         "kvId": null
@@ -2650,7 +2730,7 @@
         "id": "pic_rogue_4_13",
         "desc": "背井离乡",
         "assetPath": "pic_rogue_4_13",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "话虽如此，萨卡兹没有“井”也没有“乡”，在漫长的时间里，他们都在试图赋予这两个词意义，最后，它们合并成了一个词：卡兹戴尔。",
         "kvId": null
@@ -2659,7 +2739,7 @@
         "id": "pic_rogue_4_14",
         "desc": "第一类接触",
         "assetPath": "pic_rogue_4_14",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "初次见面时犯的错，往后要拿百年千年去偿还。",
         "kvId": null
@@ -2668,7 +2748,7 @@
         "id": "pic_rogue_4_15",
         "desc": "咯吱咯吱",
         "assetPath": "pic_rogue_4_15",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "在不受束缚的想象里，萨卡兹的形态千变万化。这是基于节肢生物的一种。",
         "kvId": null
@@ -2677,7 +2757,7 @@
         "id": "pic_rogue_4_16",
         "desc": "归期",
         "assetPath": "pic_rogue_4_16",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "回家的方式不止一种。",
         "kvId": null
@@ -2686,7 +2766,7 @@
         "id": "pic_rogue_4_17",
         "desc": "驮行天下",
         "assetPath": "pic_rogue_4_17",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "驮兽也有自己的故事，它只是暂时和你走上一段。",
         "kvId": null
@@ -2695,7 +2775,7 @@
         "id": "pic_rogue_4_18",
         "desc": "裂地深坑",
         "assetPath": "pic_rogue_4_18",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "大地一口吞下了萨卡兹与卡兹戴尔，直至今日，还在品尝与回味。",
         "kvId": null
@@ -2704,7 +2784,7 @@
         "id": "pic_rogue_4_19",
         "desc": "坑蒙拐骗",
         "assetPath": "pic_rogue_4_19",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "无人维护的历史就会被别有用心者随意装扮。",
         "kvId": null
@@ -2713,7 +2793,7 @@
         "id": "pic_rogue_4_20",
         "desc": "记录者",
         "assetPath": "pic_rogue_4_20",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "对于一些运气不佳的人来说，无论他们为故事叙述了怎样美好的开头，最后总会滑至悲惨的结局。",
         "kvId": null
@@ -2722,7 +2802,7 @@
         "id": "pic_rogue_4_21",
         "desc": "夜晚的家园",
         "assetPath": "pic_rogue_4_21",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "只要魂灵熔炉不熄灭，看着那柔和的火光，就能努力再过一天。",
         "kvId": null
@@ -2731,7 +2811,7 @@
         "id": "pic_rogue_4_22",
         "desc": "无限",
         "assetPath": "pic_rogue_4_22",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "她想要消除一切黑暗未来，可只要她仍能预见，那样的未来就不会结束，她所做的一切都徒劳无功。",
         "kvId": null
@@ -2740,7 +2820,7 @@
         "id": "pic_rogue_4_23",
         "desc": "室内观光",
         "assetPath": "pic_rogue_4_23",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "卡兹戴尔的真容取决于看客的臆想......以及他们的回忆。",
         "kvId": null
@@ -2749,7 +2829,7 @@
         "id": "pic_rogue_4_24",
         "desc": "技术转化期",
         "assetPath": "pic_rogue_4_24",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "萨科塔技术不可能全是律法的恩惠，究竟有多少萨卡兹巫术最终发展成了独特的技术，这一点还有待研究。",
         "kvId": null
@@ -2758,7 +2838,7 @@
         "id": "pic_rogue_4_25",
         "desc": "科技特色",
         "assetPath": "pic_rogue_4_25",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "一些风格化的特征会伴随着种族发展延续下去，例如习惯，例如符号，例如对固定配色的偏爱。",
         "kvId": null
@@ -2767,7 +2847,7 @@
         "id": "pic_rogue_4_26",
         "desc": "夜晚热闹闹",
         "assetPath": "pic_rogue_4_26",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "管它明日天翻地覆，今晚举杯欢庆，好好犒劳自己。",
         "kvId": null
@@ -2776,7 +2856,7 @@
         "id": "pic_rogue_4_27",
         "desc": "老朋友",
         "assetPath": "pic_rogue_4_27",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "他一直是那个被幸运眷顾的人。",
         "kvId": null
@@ -2785,7 +2865,7 @@
         "id": "pic_rogue_4_28",
         "desc": "故事的婴儿期",
         "assetPath": "pic_rogue_4_28",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "令它圆满吧，它不会辜负你。",
         "kvId": null
@@ -2794,7 +2874,7 @@
         "id": "pic_rogue_4_29",
         "desc": "复仇",
         "assetPath": "pic_rogue_4_29",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "从古堡逃脱后，她开始肆意猎杀猩红剧团成员，也在不知不觉间，成了剧团新剧本的一部分。",
         "kvId": null
@@ -2803,7 +2883,7 @@
         "id": "pic_rogue_4_30",
         "desc": "同伴",
         "assetPath": "pic_rogue_4_30",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "阿纳萨与鬼最大的区别并非生理构造，而是生活地域不同导致的文化差异。",
         "kvId": null
@@ -2812,7 +2892,7 @@
         "id": "pic_rogue_4_31",
         "desc": "亲属",
         "assetPath": "pic_rogue_4_31",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "血浓于水，姐弟两人如金石般的情谊将赋予他们抵御万难的力量。",
         "kvId": null
@@ -2821,7 +2901,7 @@
         "id": "pic_rogue_4_32",
         "desc": "撰写结局",
         "assetPath": "pic_rogue_4_32",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "请演绎你畅想的故事。",
         "kvId": null
@@ -2830,7 +2910,7 @@
         "id": "pic_rogue_4_33",
         "desc": "突破边际",
         "assetPath": "pic_rogue_4_33",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这一刻，想象的重要性挣脱了一切禁锢。",
         "kvId": null
@@ -2839,7 +2919,7 @@
         "id": "pic_rogue_4_34",
         "desc": "鬼故事的源头",
         "assetPath": "pic_rogue_2_32",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "谁都没想到这个畏畏缩缩的佩洛能够成为卡兹戴尔都市传说的组成部分。",
         "kvId": null
@@ -2848,7 +2928,7 @@
         "id": "pic_rogue_4_35",
         "desc": "一鸭当先",
         "assetPath": "pic_rogue_2_16",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这次他不是来谈生意的，他有更远大的构想。",
         "kvId": null
@@ -2857,7 +2937,7 @@
         "id": "pic_rogue_4_36",
         "desc": "界限分明",
         "assetPath": "pic_rogue_2_17",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "高普尼克还是那副老样子，只要你不惹他，他也不会请你吃拳头。",
         "kvId": null
@@ -2866,7 +2946,7 @@
         "id": "pic_rogue_4_37",
         "desc": "商业帝国鸭兹戴尔",
         "assetPath": "pic_rogue_2_18",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "哦，这当然不会成真，但这的确是他带着员工在这里徘徊的主要原因。",
         "kvId": null
@@ -2875,7 +2955,7 @@
         "id": "pic_rogue_4_38",
         "desc": "大经理圆仔",
         "assetPath": "pic_rogue_4_38",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "札拉克吹的驮兽听听就行了，别太当真。",
         "kvId": null
@@ -2884,7 +2964,7 @@
         "id": "pic_rogue_4_39",
         "desc": "鸭轴好戏",
         "assetPath": "pic_rogue_1_12",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "又开拍卖会又当竞拍者，你也不知道鸭爵到底在想什么。",
         "kvId": null
@@ -2893,7 +2973,7 @@
         "id": "pic_rogue_4_40",
         "desc": "银色山脉",
         "assetPath": "pic_rogue_3_43",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "萨卡兹最初的天堑。",
         "kvId": null
@@ -2902,7 +2982,7 @@
         "id": "pic_rogue_4_46",
         "desc": "玄铁三身天王",
         "assetPath": "pic_rogue_4_40",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "剑聚财，弓引材，箭利才，赞叹随喜，心诚必灵。",
         "kvId": null
@@ -2911,7 +2991,7 @@
         "id": "pic_rogue_4_47",
         "desc": "为所欲为",
         "assetPath": "pic_rogue_4_41",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "这就是先祖们自己会讲的故事，除了破坏毫无亮点。",
         "kvId": null
@@ -2920,7 +3000,7 @@
         "id": "pic_rogue_4_48",
         "desc": "苦路善果",
         "assetPath": "pic_rogue_4_42",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "你大可以把目光放在她身上，有缘才相会，眼缘也是缘。",
         "kvId": null
@@ -2929,7 +3009,7 @@
         "id": "pic_rogue_4_49",
         "desc": "异类",
         "assetPath": "pic_rogue_4_43",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "不属于时代的人最后会屈服还是反抗，还得看他自己作何选择。",
         "kvId": null
@@ -2938,7 +3018,7 @@
         "id": "pic_rogue_4_50",
         "desc": "携手",
         "assetPath": "pic_rogue_4_44",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "为了在这拼凑起的故事中占得先机，她们并不介意打通故事间的障壁。",
         "kvId": null
@@ -2947,7 +3027,7 @@
         "id": "pic_rogue_4_51",
         "desc": "推波助澜",
         "assetPath": "pic_rogue_4_45",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "苦痛引致疯狂，疯狂催动死魂灵心中对终结的无限渴望。",
         "kvId": null
@@ -2956,7 +3036,7 @@
         "id": "pic_rogue_4_52",
         "desc": "再无退路",
         "assetPath": "pic_rogue_4_46",
-        "type": 3,
+        "type": "ROGUE_IMAGE",
         "subType": null,
         "picDescription": "终结在每一段路的尽头注视着你，最终，她厌倦了等待，站起身向你走来。",
         "kvId": null
@@ -2965,7 +3045,7 @@
         "id": "pic_rogue_4_41",
         "desc": "再见，再见",
         "assetPath": "pic_rogue_4_34",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_4_ending_1",
         "picDescription": "或许是有生之年与死魂灵们的最后一场聚会了，就称呼它为......“葬礼”吧。",
         "kvId": null
@@ -2974,7 +3054,7 @@
         "id": "pic_rogue_4_42",
         "desc": "美梦成真",
         "assetPath": "pic_rogue_4_35",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_4_ending_2",
         "picDescription": "虚构的故事由此成为真实，抚慰了心灵中最深的缺憾。",
         "kvId": null
@@ -2983,7 +3063,7 @@
         "id": "pic_rogue_4_43",
         "desc": "律法在上",
         "assetPath": "pic_rogue_4_36",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_4_ending_3",
         "picDescription": "照拂未受福的同胞，便是最大的恩德。铳骑们绝不会忘记这一点，即使它意味着自己将受到伤害。",
         "kvId": null
@@ -2992,7 +3072,7 @@
         "id": "pic_rogue_4_44",
         "desc": "圣城之战",
         "assetPath": "pic_rogue_4_37",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_4_ending_3",
         "picDescription": "博卓卡斯替的圣卫与凯尔希的反抗军们都在想同一件事——将战场中央的同伴从对方手中拯救出来。",
         "kvId": null
@@ -3001,7 +3081,7 @@
         "id": "pic_rogue_4_45",
         "desc": "无忧树下",
         "assetPath": "pic_rogue_4_39",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_4_ending_4",
         "picDescription": "不执生法，不住我相。有怒者我，而有怒者非我。无忧者我，而无忧者亦非我。",
         "kvId": null
@@ -3010,9 +3090,612 @@
         "id": "pic_rogue_4_53",
         "desc": "拥入怀中",
         "assetPath": "pic_rogue_4_47",
-        "type": 2,
+        "type": "ENDING_IMAGE",
         "subType": "rogue_4_ending_5",
         "picDescription": "“阿米娅”决定承受你的痛苦。",
+        "kvId": null
+      },
+      "pic_rogue_5_KV1": {
+        "id": "pic_rogue_5_KV1",
+        "desc": "界园志异",
+        "assetPath": "pic_rogue_5_KV1",
+        "type": "IMAGE",
+        "subType": null,
+        "picDescription": "江山既如画，何人在境中？",
+        "kvId": "rogue_kv_default"
+      },
+      "pic_rogue_5_KV2": {
+        "id": "pic_rogue_5_KV2",
+        "desc": "无中生有",
+        "assetPath": "pic_rogue_5_KV2",
+        "type": "IMAGE",
+        "subType": null,
+        "picDescription": "以此织物，述记改易。",
+        "kvId": "rogue_5_kv_1_2"
+      },
+      "pic_rogue_5_KV3": {
+        "id": "pic_rogue_5_KV3",
+        "desc": "落子无悔",
+        "assetPath": "pic_rogue_5_KV3",
+        "type": "IMAGE",
+        "subType": null,
+        "picDescription": "于望如是，于岁亦如是。",
+        "kvId": "rogue_5_kv_1_3"
+      },
+      "pic_rogue_5_1": {
+        "id": "pic_rogue_5_1",
+        "desc": "石在",
+        "assetPath": "pic_rogue_5_1",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "它的敦厚与刚直能让最刁钻的官员无奈妥协。",
+        "kvId": null
+      },
+      "pic_rogue_5_2": {
+        "id": "pic_rogue_5_2",
+        "desc": "只闻其声",
+        "assetPath": "pic_rogue_5_2",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "且问知己在何方，四下不见，知己立檐上。",
+        "kvId": null
+      },
+      "pic_rogue_5_3": {
+        "id": "pic_rogue_5_3",
+        "desc": "文创有道",
+        "assetPath": "pic_rogue_5_3",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "游客一定想不到，这枚供他们盖章收藏的宝印，就是墙上所介绍的古董真品。",
+        "kvId": null
+      },
+      "pic_rogue_5_4": {
+        "id": "pic_rogue_5_4",
+        "desc": "纪念",
+        "assetPath": "pic_rogue_5_4",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "一代又一代，传承至今。",
+        "kvId": null
+      },
+      "pic_rogue_5_5": {
+        "id": "pic_rogue_5_5",
+        "desc": "另有妙用",
+        "assetPath": "pic_rogue_5_5",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "不仅能守土蓄水，聚物纳财，更有多种常人难知的巧思安在这缸中。",
+        "kvId": null
+      },
+      "pic_rogue_5_6": {
+        "id": "pic_rogue_5_6",
+        "desc": "慈莲尊者",
+        "assetPath": "pic_rogue_5_6",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "虽然，她是慈悲为怀的修行者，但若对她不敬，也是要受罚的。\n",
+        "kvId": null
+      },
+      "pic_rogue_5_7": {
+        "id": "pic_rogue_5_7",
+        "desc": "做大做强",
+        "assetPath": "pic_rogue_5_7",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "不知这位“鲍老板”有什么通天的手段，能把这杂货店开到界园里来......",
+        "kvId": null
+      },
+      "pic_rogue_5_8": {
+        "id": "pic_rogue_5_8",
+        "desc": "“文明的”商人",
+        "assetPath": "pic_rogue_5_8",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "老朋友，新工作。",
+        "kvId": null
+      },
+      "pic_rogue_5_9": {
+        "id": "pic_rogue_5_9",
+        "desc": "自耕自种",
+        "assetPath": "pic_rogue_5_9",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "只有作物最懂作物。",
+        "kvId": null
+      },
+      "pic_rogue_5_10": {
+        "id": "pic_rogue_5_10",
+        "desc": "释棋者",
+        "assetPath": "pic_rogue_5_10",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "海嗣以它独有的方式洞悉棋局中隐含的奥秘。",
+        "kvId": null
+      },
+      "pic_rogue_5_11": {
+        "id": "pic_rogue_5_11",
+        "desc": "动物园",
+        "assetPath": "pic_rogue_5_11",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "界园里都是动物，没有死物。",
+        "kvId": null
+      },
+      "pic_rogue_5_12": {
+        "id": "pic_rogue_5_12",
+        "desc": "大快朵颐",
+        "assetPath": "pic_rogue_5_12",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "填饱肚子固然很重要，但经常来份名为“贪欲”的甜点也不错。",
+        "kvId": null
+      },
+      "pic_rogue_5_13": {
+        "id": "pic_rogue_5_13",
+        "desc": "秉烛人与天师",
+        "assetPath": "pic_rogue_5_13",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "目标一致，手段不同。",
+        "kvId": null
+      },
+      "pic_rogue_5_14": {
+        "id": "pic_rogue_5_14",
+        "desc": "伥伥久久",
+        "assetPath": "pic_rogue_5_14",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "只有贪财才能填饱肚子，所以对她而言，经商是最好的选择。",
+        "kvId": null
+      },
+      "pic_rogue_5_15": {
+        "id": "pic_rogue_5_15",
+        "desc": "愿者自力",
+        "assetPath": "pic_rogue_5_15",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "钩入岁境，神识引鳞，收获满满，两手空空。\n",
+        "kvId": null
+      },
+      "pic_rogue_5_16": {
+        "id": "pic_rogue_5_16",
+        "desc": "柳千秋",
+        "assetPath": "pic_rogue_5_16",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "尚在伥物房供职做研究的才女，经年之后，或许也能成为一方泰斗。\n",
+        "kvId": null
+      },
+      "pic_rogue_5_17": {
+        "id": "pic_rogue_5_17",
+        "desc": "路漫漫",
+        "assetPath": "pic_rogue_5_17",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "人生如长路，首尾不由人，余下之事，万般绚烂。",
+        "kvId": null
+      },
+      "pic_rogue_5_18": {
+        "id": "pic_rogue_5_18",
+        "desc": "老伙计",
+        "assetPath": "pic_rogue_5_18",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "今日之安宁，离不开他们的坚守。",
+        "kvId": null
+      },
+      "pic_rogue_5_19": {
+        "id": "pic_rogue_5_19",
+        "desc": "“易先生”",
+        "assetPath": "pic_rogue_5_19",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "易就是梁，梁就是易，不要被语气和外相骗了。",
+        "kvId": null
+      },
+      "pic_rogue_5_20": {
+        "id": "pic_rogue_5_20",
+        "desc": "炎运人佑",
+        "assetPath": "pic_rogue_5_20",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "正因百姓守护，烛火才得以万古长明。",
+        "kvId": null
+      },
+      "pic_rogue_5_21": {
+        "id": "pic_rogue_5_21",
+        "desc": "镇陵木",
+        "assetPath": "pic_rogue_5_21",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "每一根都直直钉入岁躯。",
+        "kvId": null
+      },
+      "pic_rogue_5_22": {
+        "id": "pic_rogue_5_22",
+        "desc": "长相厮守",
+        "assetPath": "pic_rogue_5_22",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "今世只愿，生不离，死不别。",
+        "kvId": null
+      },
+      "pic_rogue_5_23": {
+        "id": "pic_rogue_5_23",
+        "desc": "天边古祠",
+        "assetPath": "pic_rogue_5_23",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "登天行仪，只差一步。",
+        "kvId": null
+      },
+      "pic_rogue_5_24": {
+        "id": "pic_rogue_5_24",
+        "desc": "岁陵一瞥",
+        "assetPath": "pic_rogue_5_24",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "古老神明的陵寝并非游园。如果没想好来做什么，那还是请回吧。",
+        "kvId": null
+      },
+      "pic_rogue_5_25": {
+        "id": "pic_rogue_5_25",
+        "desc": "讨说法",
+        "assetPath": "pic_rogue_5_25",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "天大地大，拳头最大。",
+        "kvId": null
+      },
+      "pic_rogue_5_26": {
+        "id": "pic_rogue_5_26",
+        "desc": "扬威名",
+        "assetPath": "pic_rogue_5_26",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "多少人等着这一天，就为在族谱上单开一页。",
+        "kvId": null
+      },
+      "pic_rogue_5_27": {
+        "id": "pic_rogue_5_27",
+        "desc": "弹指间",
+        "assetPath": "pic_rogue_5_27",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "沧海桑田，只不过是通宝落地前那短短一瞬。",
+        "kvId": null
+      },
+      "pic_rogue_5_28": {
+        "id": "pic_rogue_5_28",
+        "desc": "岁形指南",
+        "assetPath": "pic_rogue_5_28",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "一阵胡闹后，你发现其实他们对岁的理解也是天差地别，合不到一处。",
+        "kvId": null
+      },
+      "pic_rogue_5_29": {
+        "id": "pic_rogue_5_29",
+        "desc": "字墓",
+        "assetPath": "pic_rogue_5_29",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "你想要在这乱葬岗中挖掘出什么？\n",
+        "kvId": null
+      },
+      "pic_rogue_5_30": {
+        "id": "pic_rogue_5_30",
+        "desc": "沉墨棋局",
+        "assetPath": "pic_rogue_5_30",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "若只着眼棋局，则必败无疑。\n",
+        "kvId": null
+      },
+      "pic_rogue_5_31": {
+        "id": "pic_rogue_5_31",
+        "desc": "古迹",
+        "assetPath": "pic_rogue_5_31",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "这究竟是古人留下的奇观，还是神明未散的尸骸？",
+        "kvId": null
+      },
+      "pic_rogue_5_32": {
+        "id": "pic_rogue_5_32",
+        "desc": "机巧",
+        "assetPath": "pic_rogue_5_32",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "柳儿进不了岁兽残识，于是便有了这项发明。\n",
+        "kvId": null
+      },
+      "pic_rogue_5_33": {
+        "id": "pic_rogue_5_33",
+        "desc": "成双成对",
+        "assetPath": "pic_rogue_5_33",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "易就是这个性子，凡事都爱凑对，就连自己也不例外。",
+        "kvId": null
+      },
+      "pic_rogue_5_34": {
+        "id": "pic_rogue_5_34",
+        "desc": "原形毕露",
+        "assetPath": "pic_rogue_5_34",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "真人不露相，露相......是真人！",
+        "kvId": null
+      },
+      "pic_rogue_5_35": {
+        "id": "pic_rogue_5_35",
+        "desc": "余火",
+        "assetPath": "pic_rogue_5_35",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "不知为何，见到这捧火，就觉得肚子饿了。",
+        "kvId": null
+      },
+      "pic_rogue_5_36": {
+        "id": "pic_rogue_5_36",
+        "desc": "惊吓",
+        "assetPath": "pic_rogue_5_36",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "下次见大画家之前记得先敲门。",
+        "kvId": null
+      },
+      "pic_rogue_5_37": {
+        "id": "pic_rogue_5_37",
+        "desc": "游戏人间",
+        "assetPath": "pic_rogue_5_37",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "还有比在岁兽残识里玩乐更酷的事吗？！",
+        "kvId": null
+      },
+      "pic_rogue_5_38": {
+        "id": "pic_rogue_5_38",
+        "desc": "愿如细雨",
+        "assetPath": "pic_rogue_5_38",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "惟有众愿，可得硕果。",
+        "kvId": null
+      },
+      "pic_rogue_5_39": {
+        "id": "pic_rogue_5_39",
+        "desc": "共饮山河",
+        "assetPath": "pic_rogue_5_39",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "对酒当歌，投钱取乐之事，怎能不结伴？",
+        "kvId": null
+      },
+      "pic_rogue_5_40": {
+        "id": "pic_rogue_5_40",
+        "desc": "大亭小歇",
+        "assetPath": "pic_rogue_5_40",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "没了游人，便稍显冷清。",
+        "kvId": null
+      },
+      "pic_rogue_5_41": {
+        "id": "pic_rogue_5_41",
+        "desc": "小道场",
+        "assetPath": "pic_rogue_5_41",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "那位山海众成员已在界园建起了自己的小天地。",
+        "kvId": null
+      },
+      "pic_rogue_5_42": {
+        "id": "pic_rogue_5_42",
+        "desc": "战乱",
+        "assetPath": "pic_rogue_5_42",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "此处的戾气并不只源于岁兽。",
+        "kvId": null
+      },
+      "pic_rogue_5_43": {
+        "id": "pic_rogue_5_43",
+        "desc": "石中地",
+        "assetPath": "pic_rogue_5_43",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "为了守住安宁，村民们会做任何事。",
+        "kvId": null
+      },
+      "pic_rogue_5_44": {
+        "id": "pic_rogue_5_44",
+        "desc": "石中天",
+        "assetPath": "pic_rogue_5_44",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "为了与世隔绝，村民们会做任何事。",
+        "kvId": null
+      },
+      "pic_rogue_5_45": {
+        "id": "pic_rogue_5_45",
+        "desc": "战战兢兢",
+        "assetPath": "pic_rogue_5_45",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "不要去悬崖边，不要往下看，不要——",
+        "kvId": null
+      },
+      "pic_rogue_5_46": {
+        "id": "pic_rogue_5_46",
+        "desc": "远眺",
+        "assetPath": "pic_rogue_5_46",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "你见到了什么？",
+        "kvId": null
+      },
+      "pic_rogue_5_51": {
+        "id": "pic_rogue_5_51",
+        "desc": "熊无大志",
+        "assetPath": "pic_rogue_5_51",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "没人知道高普尼克想要什么，除了他的老板。",
+        "kvId": null
+      },
+      "pic_rogue_5_52": {
+        "id": "pic_rogue_5_52",
+        "desc": "狗怪故事",
+        "assetPath": "pic_rogue_5_52",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "流泪小子到哪里都会成为当地奇谈的一部分。\n",
+        "kvId": null
+      },
+      "pic_rogue_5_53": {
+        "id": "pic_rogue_5_53",
+        "desc": "恭鼠发财",
+        "assetPath": "pic_rogue_5_53",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "圆仔确实会挣钱，也讨人喜欢，就是跟错了老板。",
+        "kvId": null
+      },
+      "pic_rogue_5_54": {
+        "id": "pic_rogue_5_54",
+        "desc": "鸭塌糊涂",
+        "assetPath": "pic_rogue_5_54",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "这位企业家究竟有没有成功过？",
+        "kvId": null
+      },
+      "pic_rogue_5_55": {
+        "id": "pic_rogue_5_55",
+        "desc": "岁月结晶",
+        "assetPath": "pic_rogue_5_55",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "在司岁台的研究下，岁时有了新的用途。",
+        "kvId": null
+      },
+      "pic_rogue_5_56": {
+        "id": "pic_rogue_5_56",
+        "desc": "帷幕",
+        "assetPath": "pic_rogue_5_56",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "历史与现实就隔着这么一卷薄薄的纸，或许改换天时也并非难事。",
+        "kvId": null
+      },
+      "pic_rogue_5_57": {
+        "id": "pic_rogue_5_57",
+        "desc": "卷末",
+        "assetPath": "pic_rogue_5_57",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "超越因果前的最后一步。",
+        "kvId": null
+      },
+      "pic_rogue_5_58": {
+        "id": "pic_rogue_5_58",
+        "desc": "移兽",
+        "assetPath": "pic_rogue_5_58",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "山川可移，遑论兽类。",
+        "kvId": null
+      },
+      "pic_rogue_5_61": {
+        "id": "pic_rogue_5_61",
+        "desc": "此后千秋",
+        "assetPath": "pic_rogue_5_61",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "岁兽残识延展了她对自己的想象。",
+        "kvId": null
+      },
+      "pic_rogue_5_62": {
+        "id": "pic_rogue_5_62",
+        "desc": "收官",
+        "assetPath": "pic_rogue_5_62",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "望已用筹谋算尽所有变数，你需要完成的，只是放手去做大炎曾经做到的事——击败岁兽。",
+        "kvId": null
+      },
+      "pic_rogue_5_63": {
+        "id": "pic_rogue_5_63",
+        "desc": "兄友弟恭",
+        "assetPath": "pic_rogue_5_63",
+        "type": "ROGUE_IMAGE",
+        "subType": null,
+        "picDescription": "有时，浮于表面的争论只是同意的另一种表现形式。",
+        "kvId": null
+      },
+      "pic_rogue_5_47": {
+        "id": "pic_rogue_5_47",
+        "desc": "走个过场",
+        "assetPath": "pic_rogue_5_47",
+        "type": "ENDING_IMAGE",
+        "subType": "rogue_5_ending_1",
+        "picDescription": "司岁台的工作结束，该打扫园林，申报损失，然后为开园迎客准备宣传材料了。",
+        "kvId": null
+      },
+      "pic_rogue_5_48": {
+        "id": "pic_rogue_5_48",
+        "desc": "前事已忘",
+        "assetPath": "pic_rogue_5_48",
+        "type": "ENDING_IMAGE",
+        "subType": "rogue_5_ending_2",
+        "picDescription": "有兽■■，■■■■\n■数为■，■■■■",
+        "kvId": null
+      },
+      "pic_rogue_5_49": {
+        "id": "pic_rogue_5_49",
+        "desc": "相会何期",
+        "assetPath": "pic_rogue_5_49",
+        "type": "ENDING_IMAGE",
+        "subType": "rogue_5_ending_3",
+        "picDescription": "失名代理人仅剩的痕迹，再久一些，怕是要同这祠堂内外的匾额对联一般，消失得干干净净。",
+        "kvId": null
+      },
+      "pic_rogue_5_50": {
+        "id": "pic_rogue_5_50",
+        "desc": "有中生无",
+        "assetPath": "pic_rogue_5_50",
+        "type": "ENDING_IMAGE",
+        "subType": "rogue_5_ending_3",
+        "picDescription": "筹谋散尽，字形飘逝，徒留一卷空白，一点希冀，待他人着墨。",
+        "kvId": null
+      },
+      "pic_rogue_5_59": {
+        "id": "pic_rogue_5_59",
+        "desc": "展卷",
+        "assetPath": "pic_rogue_5_59",
+        "type": "ENDING_IMAGE",
+        "subType": "rogue_5_ending_4",
+        "picDescription": "筹谋百载，一卷承之。",
+        "kvId": null
+      },
+      "pic_rogue_5_60": {
+        "id": "pic_rogue_5_60",
+        "desc": "留墨",
+        "assetPath": "pic_rogue_5_60",
+        "type": "ENDING_IMAGE",
+        "subType": "rogue_5_ending_4",
+        "picDescription": "虚白从实，长卷有界。凭此玄黑，以书众籍。",
+        "kvId": null
+      },
+      "pic_rogue_5_64": {
+        "id": "pic_rogue_5_64",
+        "desc": "争我",
+        "assetPath": "pic_rogue_5_64",
+        "type": "ENDING_IMAGE",
+        "subType": "rogue_5_ending_5",
+        "picDescription": "再无顾虑，再无遗憾，放手一搏，求心，求我。\n",
         "kvId": null
       }
     },
@@ -3297,6 +3980,86 @@
         "desc": "music_rogue_4_13",
         "name": "......已至。"
       },
+      "music_rogue_5_1": {
+        "id": "music_rogue_5_1",
+        "desc": "music_rogue_5_1",
+        "name": "界园志异"
+      },
+      "music_rogue_5_2": {
+        "id": "music_rogue_5_2",
+        "desc": "music_rogue_5_2",
+        "name": "自有乾坤"
+      },
+      "music_rogue_5_3": {
+        "id": "music_rogue_5_3",
+        "desc": "music_rogue_5_3",
+        "name": "盘桓千古"
+      },
+      "music_rogue_5_4": {
+        "id": "music_rogue_5_4",
+        "desc": "music_rogue_5_4",
+        "name": "岁识气象"
+      },
+      "music_rogue_5_5": {
+        "id": "music_rogue_5_5",
+        "desc": "music_rogue_5_5",
+        "name": "枕景"
+      },
+      "music_rogue_5_6": {
+        "id": "music_rogue_5_6",
+        "desc": "music_rogue_5_6",
+        "name": "天不予"
+      },
+      "music_rogue_5_7": {
+        "id": "music_rogue_5_7",
+        "desc": "music_rogue_5_7",
+        "name": "逍遥难"
+      },
+      "music_rogue_5_8": {
+        "id": "music_rogue_5_8",
+        "desc": "music_rogue_5_8",
+        "name": "叙苍茫"
+      },
+      "music_rogue_5_9": {
+        "id": "music_rogue_5_9",
+        "desc": "music_rogue_5_9",
+        "name": "巧筑八方"
+      },
+      "music_rogue_5_10": {
+        "id": "music_rogue_5_10",
+        "desc": "music_rogue_5_10",
+        "name": "残卷"
+      },
+      "music_rogue_5_11": {
+        "id": "music_rogue_5_11",
+        "desc": "music_rogue_5_11",
+        "name": "意难平"
+      },
+      "music_rogue_5_12": {
+        "id": "music_rogue_5_12",
+        "desc": "music_rogue_5_12",
+        "name": "正当交易"
+      },
+      "music_rogue_5_13": {
+        "id": "music_rogue_5_13",
+        "desc": "music_rogue_5_13",
+        "name": "岁陵漫步"
+      },
+      "music_rogue_5_14": {
+        "id": "music_rogue_5_14",
+        "desc": "music_rogue_5_14",
+        "name": "守矩为义"
+      },
+      "music_rogue_5_15": {
+        "id": "music_rogue_5_15",
+        "desc": "music_rogue_5_15",
+        "name": "栖景室"
+      },
+      "music_rogue_5_16": {
+        "id": "music_rogue_5_16",
+        "desc": "music_rogue_5_16",
+        "name": "破晦"
+      },
       "music_sandbox_v2_1": {
         "id": "music_sandbox_v2_1",
         "desc": "music_sandbox_v2_1",
@@ -3346,6 +4109,51 @@
         "id": "music_sandbox_v2_10",
         "desc": "music_sandbox_v2_10",
         "name": "恶化螺旋"
+      },
+      "music_sandbox_v3_1": {
+        "id": "music_sandbox_v3_1",
+        "desc": "music_sandbox_v3_1",
+        "name": "栖所架构"
+      },
+      "music_sandbox_v3_2": {
+        "id": "music_sandbox_v3_2",
+        "desc": "music_sandbox_v3_2",
+        "name": "荒原黎明"
+      },
+      "music_sandbox_v3_3": {
+        "id": "music_sandbox_v3_3",
+        "desc": "music_sandbox_v3_3",
+        "name": "繁务间隙"
+      },
+      "music_sandbox_v3_4": {
+        "id": "music_sandbox_v3_4",
+        "desc": "music_sandbox_v3_4",
+        "name": "新生蓝图"
+      },
+      "music_sandbox_v3_5": {
+        "id": "music_sandbox_v3_5",
+        "desc": "music_sandbox_v3_5",
+        "name": "对峙"
+      },
+      "music_sandbox_v3_6": {
+        "id": "music_sandbox_v3_6",
+        "desc": "music_sandbox_v3_6",
+        "name": "兴衰旧篇"
+      },
+      "music_sandbox_v3_7": {
+        "id": "music_sandbox_v3_7",
+        "desc": "music_sandbox_v3_7",
+        "name": "悬锋待落"
+      },
+      "music_sandbox_v3_8": {
+        "id": "music_sandbox_v3_8",
+        "desc": "music_sandbox_v3_8",
+        "name": "Case Ejection"
+      },
+      "music_sandbox_v3_9": {
+        "id": "music_sandbox_v3_9",
+        "desc": "music_sandbox_v3_9",
+        "name": "血中之泪"
       }
     },
     "avgs": {
@@ -3571,31 +4379,31 @@
         "paramR": 0.5,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "经过各赛区为期数月的激烈角逐，本赛季骑士竞技选拔赛在热烈的氛围中正式收官。八支大骑士团旗下的六十四支骑士团于选拔赛的最终对决中脱颖而出，获得特别锦标赛的晋级资格。本届特锦赛的晋级规模为历届骑士竞技之最，从赛事反响及竞技结果看，赛制与规则改革成效显著。“大骑士领”卡瓦莱利亚基将在短暂的休整期后迎来下一轮火热竞技，将赛事再度推向高潮。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_1_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "收官轮的焦点场次看点不断，预选赛阶段备受关注的赤盏骑士团顺利入围特锦赛。卫冕冠军血骑士的精彩表现让我们有理由相信，他很有机会再一次成为潘哈德大骑士团克敌制胜的王牌。隶属于诺斯伍德大骑士团的散华骑士团同样迎来一场华丽的收官战，拥有特邀资格却屡屡下场参战的烛骑士在最后的角逐中轻松胜出。许多第一次现场观看骑士竞技的观众对接下来的赛事抱有热切的期待，我们也将继续追踪报道，为您呈现最新鲜的赛事资讯。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_1_2"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_2"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_1"
           }
         ]
@@ -3618,19 +4426,19 @@
         "paramR": 0.3,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "今日上午，第二十四届卡西米尔骑士竞技特别锦标赛开幕式在“大骑士领”卡瓦莱利亚基如期举行。卡西米尔监正会、卡西米尔国民院、卡西米尔商业联合会与卡西米尔骑士协会的高级代表莅临开幕式，大会特邀宾客莅临盛会，各赛区发言人应邀出席。大骑士长罗素女士主持开幕式并代表监正会致辞。罗素女士在致辞中表示，骑士竞技以旷古烁今的方式继承了卡西米尔源远流长的骑士精神，续写了卡西米尔辉煌且不朽的史诗篇章。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_2_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "“我相信每一个卡西米尔人都乐于看到，公正、坚定、重视荣誉、追求卓越的骑士美德并没有在这个高速前行的时代中褪色。通过三年一度的骑士竞技赛事，我们向整片大地传递出一个清晰的信息，那就是坚韧团结的卡西米尔不会在任何挑战面前退缩。”在经久不息的掌声中，大骑士长宣布特别锦标赛正式开幕，并对参赛骑士致以崇高的祝福。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_3"
           }
         ]
@@ -3653,27 +4461,27 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "独立骑士，也就是不与任何骑士团签约，以个人身份参与赛事的骑士。就在笔者整理这篇特稿的当下，一打关于他们的八卦正浮出水面，成为社交平台上炙手可热的新话题。值得注意的是，越来越多的受众将浪漫的遐想寄托在这些背景不详的骑士身上，但对他们从籍籍无名到名扬卡西米尔背后的过程缺乏关注，对这一切背后的“潜规则”不仅一无所知更缺乏基本的好奇。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_3_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "通过这段时间的暗访，笔者发现，不少独立骑士虽然持有骑士协会出具的合法资质证书，但成为骑士的目的却不是在赛场上角逐冠军荣耀。比起胜利，他们似乎更加看重如何吸引观众的眼球，为了实现这一点不惜奇装异服，甚至以浮夸的方式进行战斗。只有这样，他们才有机会得到平台猎头的青睐，获配更多媒体资源，进而跻身值得量身打造人设的行列中去。在未来，骑士协会是否会出台新规定对独立骑士的行为做出规范，我们将拭目以待。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_2"
           }
         ]
@@ -3696,23 +4504,23 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "针对近期发生在特锦赛花样竞技单元的感染者骑士意外死亡事件，国民院代表在新闻发布会上答记者问，对社会关切问题作出回应。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_4_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "国民院代表表示，发生在赛场上的不幸意外是一系列恶劣现象的缩影。国民院已经注意到一段时间以来社会各界对于感染者组织非法集资及持有武装等现象的关切和担忧。这些令人不安的现象不仅动摇了民众对感染者骑士法案的信心，更破坏了卡西米尔各界为感染者获准参与骑士竞技作出的共同努力和广泛协商。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "代表在发布会上重申，感染者乱象的纠治与整顿势在必行——这关乎包括感染者在内的卡西米尔全体国民的福祉。在卡西米尔，感染者骑士之所以能够享受相关法案的保护，离不开稳定繁荣的卡西米尔社会对于人道精神的坚持。值此舆论纷乱之际，社会各界在这一议题上有必要保持警醒与克制，相信国民院解决问题的决心。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_3"
           }
         ]
@@ -3735,31 +4543,31 @@
         "paramR": 0.3,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "昨日晚间，沸血骑士团主力，本赛季选拔赛前得到保释的骑士“锈铜”奥尔默·英格拉因赛场违规行为再次被国民院传讯。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_5_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "据国民院公示，本次传讯流程由履行赛事监督职能的商业联合会发言人马克维茨先生向国民院提请发起。这是奥尔默·英格拉竞技生涯第三十三次受到传讯，国民院审判团将就其在前不久发生的感染者骑士意外死亡事件中所应承担的责任进行质询与调查。接受审理期间，奥尔默·英格拉被处以为期一周的临时禁赛，最终审理结果将在本轮晋级赛后公布。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "截至目前，沸血骑士团方面仍未就此事作出正式表态，目前尚不明确锈铜骑士能否再次得到传奇般的快速保释。但无论审理结果如何，本次传讯都将对奥尔默·英格拉本赛季的后续赛程产生巨大的影响。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_2"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_3"
           }
         ]
@@ -3782,27 +4590,27 @@
         "paramR": 0.35,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "她，是来自莱塔尼亚的法术奇才，甫一登场就迫使骑士协会调整赛事规则；她，是松露林城堡的女主人，重新定义了上流社会对奢华的品鉴标准。她是烛骑士，薇薇安娜·德罗斯特，一颦一笑间征服无数竞技爱好者。在特锦赛赛程近半的当下，就请随笔者一同回顾烛骑士在本赛季的精彩表现，定格那些令人屏息的绝美瞬间！"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_6_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "选拔赛对阵溪流骑士一战，烛骑士展现了对于莱塔尼亚古典源石技艺的精通，烛火将对手剑刃熔为铁水。特锦赛初阵对决战鼓骑士，烛骑士表现出对于骑士竞技的深刻理解，面对猛攻策略性地保存体力，再以标志性的源石技艺完成环环相扣的反击。在花样竞技单元，烛骑士为全体观众呈现了一场绝佳的视觉盛宴，将整场比赛变成了她的个人秀！一位现场观众对笔者表示，他在赛后购入了十份录像带，打算将这些终生难忘的精彩瞬间与亲人朋友分享。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_6"
           }
         ]
@@ -3825,19 +4633,19 @@
         "paramR": 0.3,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "近日，四支征战骑士团于卡西米尔北方边境举行多兵种联合实战演习。本次军演的参演人员规模较大，动用最新的军事技术装备，演练项目涵盖渗透破坏、协同突击、纵深机动等实战行动。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "本次联合军演旨在加强乌卡边境地区的军事准备，提高征战骑士团在边境地带联合作战能力，对乌萨斯近期在边境的增兵行动和频繁挑衅作出有力回应以及针对性威慑。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "据悉，为了做好指挥体系整顿和新装备适应工作，银枪天马骑士团将缺席本次军演。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_3"
           }
         ]
@@ -3860,31 +4668,31 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "今日的新闻发布会结束后，本报记者独家专访了商业联合会发言人麦基先生。谈及有消息称本届特锦赛或因大骑士领安全形势变化提前落幕一事，发言人表示赛事进程决不会被任何人、任何事影响。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_8_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "麦基独家回答了本报的相关问题，称三年一度的骑士竞技赛事对于卡西米尔的意义早已超出了竞技本身。这场盛会是当代卡西米尔的骄傲，也是对骑士精神的传承。商业联合会方面已针对非法感染者带来的系列问题进行了广泛的协商，储备了必要的应对措施。这一系列努力将以强化赛场安保为基础，尽全力保障赛事的顺利进行。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "发言人向本报记者坦陈，在感染者问题上，商业联合会没有理由不主动承担相应的责任，也绝无听之任之的立场。非法感染者当前的一意孤行无助于争端的解决，推进收治区域的建设并寻求与外部医疗资源的合作才是解决长远问题的现实选择。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_2"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_1"
           }
         ]
@@ -3907,15 +4715,15 @@
         "paramR": 0.6,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "十月三十一日晚，大骑士领中心城区发生了大规模断电情况，商业联合会大楼、监正会及各大集团总部均受到波及。卡西米尔电力集团的抢修人员已经着手恢复城市供电，各大急需用电的公共场所现已相继开启备用电源，保障城市基础设施正常运作，请市民朋友不要惊慌。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "截至发稿时，城区内部分地段已陆续恢复通电，相信在抢修人员的不懈努力下，全城的电力供给一定能迅速恢复到正常水平。在城市电力完全恢复后，电力集团专业人员将调查断电的具体原因，给大骑士领市民一个满意的答复。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_3"
           }
         ]
@@ -3938,19 +4746,19 @@
         "paramR": 0.5,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "就在刚才，卡西米尔商业联合会所属的全部企业联名向卡西米尔监正会提出严正抗议，要求监正会对征战骑士擅自进入大骑士领一事给出合理解释。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "商业联合会发言人麦基先生表示，征战骑士在特锦赛期间进入大骑士领是“史无前例的极端危险行为”，对市民的正常生活和特锦赛的正常进行产生了严重的负面影响。不仅如此，征战骑士选在断电尚未恢复的时间点，毫无征兆地出现在大骑士领街道上列队行进，对恐慌情绪的蔓延和发酵起到了推波助澜的作用，若在此后引发严重后果，监正会必须对此全权负责。发言人重申，卡西米尔的繁荣与发展依赖于和平稳定的社会环境，而非征战骑士不作告知，擅自进城驻扎的不合规行为。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "截至记者发稿时，监正会尚未就此事作出任何回应。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_3"
           }
         ]
@@ -3973,39 +4781,39 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "昨天断电期间，如果你窝在家里，那你可能已经错过了近年来最难得一见的奇景——征战骑士进入大骑士领！这批征战骑士整齐划一的制式装备，无一不反射着夺目的银光，给市民们留下了深刻的印象！可以说，征战骑士的实力基础，正是建立在这些造价不菲的装备之上!"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_11_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "如果你也对这支守卫着卡西米尔边境的军事力量感兴趣，不妨和笔者一起看看他们装备的制造商之一——梅什科集团最新推出的X1系列！"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "银光闪耀的X1系列骑士套装采用新型复合材料，参考著名装备设计师给出的轻量化设计意见，在最大程度减轻负担的同时，为你提供最大程度的保护，让您无惧各种考验！"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "相比征战骑士们的制式产品，X1系列支持模块化改装，最多可以同时装备三个配件；如果这都满足不了你的胃口，X1旗舰型还提供高端定制服务，让你不再需要去适应装备，装备会主动来适应你的习惯！"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "此外，梅什科集团还专为装备爱好者和收藏家们推出了X1-SE系列，仅仅去除了可能造成人身伤害的可更换模块及插槽，其余配置与X1系列基本一致，售价却低至X1系列的约十分之一，为广大骑士爱好者提供了接近卡西米尔最强骑士们的独家平台！举起这对剑盾，穿上这身铠甲，感受涌动的光芒，你也能成为闪耀的征战骑士！"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_4"
           }
         ]
@@ -4028,35 +4836,35 @@
         "paramR": 0.35,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "近日，在卡西米尔骑士竞技特别锦标赛的过程中，出现了参赛者违反骑士竞技规则的情况，详情如下："
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "当事人逐魇骑士在与耀骑士的比赛过程中，违反了骑士竞技规则的第三条“竞技骑士不得以任何形式伤害或威胁观众的人身财产安全”及第七条“竞技骑士不得以任何形式干扰裁判的主观判断”，导致比赛中止。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "经查，逐魇骑士在比赛过程中施放了作用范围较大的源石技艺，波及了观众与裁判，因而被判违规；在裁判宣布比赛中止后，耀骑士藐视裁判判决，仍在攻击逐魇骑士，同样涉嫌违反骑士竞技规则。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "如果从严处理，二人本应共同失去比赛资格。但考虑到违规在先的逐魇骑士是在面对强敌时出现了失误，并非有意为之，其施放的源石技艺对观众和裁判的影响也非常轻微，并未造成实质性损害；出于对选手的关怀和对两人前途的考虑，骑士协会决定从轻处理这次事件，判决此次比赛的结果为平局。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "本次事件的处理过程公平合理，处理决定全文将在本次特锦赛赛程全部结束后择日发布。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_2"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_1"
           }
         ]
@@ -4079,35 +4887,35 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "是夜，笔者在饭后闲逛时偶遇逐魇骑士，本想趁此良机上前采访，却在靠近时目睹了惊人的一幕——这位赛场上的新星，竟在街巷酒吧前对业已退赛的玛莉娅·临光拳脚相向！究竟发生了什么，让逐魇骑士不顾体面大打出手，而这与玛莉娅·临光背后的耀骑士又有怎样的关系，请让笔者为诸位娓娓道来。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_13_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "根据本报掌握的消息，逐魇骑士许久以前就已对耀骑士心生情愫，千里迢迢来到大骑士领参赛，其根本目的正是向临光家提亲，赛场交锋只是为了在耀骑士面前一展英姿。落败之后，逐魇骑士仍旧坚持向耀骑士提亲，被耀骑士当场以只喜欢天马为由拒绝，随后临光家中的长辈，靠姐妹两人奖金养活的叔叔出现，将逐魇骑士羞辱一番后关上了大门。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "逐魇骑士在惨遭拒绝后将心中的爱意转移到了耀骑士的妹妹玛莉娅身上，可谁曾想到，当逐魇骑士在一家酒吧门口找到玛莉娅并向其表达爱慕后，竟同样遭到了拒绝，而拒绝的理由居然是自己早有婚约，不应和他人过多接触。连续遭受挫折后，逐魇骑士由爱生恨，怒从心头起、恶向胆边生，不顾形象在街边大打出手，当场将玛莉娅打倒在地，对其造成了严重的伤害。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "笔者衷心祈愿玛莉娅小姐能够安然度过今晚，也严正谴责逐魇骑士这种不恰当的行为，希望各位读者引以为戒，保护好自己及亲友的人身财产安全。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_2"
           }
         ]
@@ -4130,107 +4938,107 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_14_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "第十九届特锦赛决赛"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "黑骑士VS钻骑士"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "评语：最强的剑对最强的盾，黑骑士朴实无华的双锏对钻骑士的高科技奢华重甲，全力进攻对无缝防守，不到最后一刻，胜负仍未可知！"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": ""
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "第二十届特锦赛决赛"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "黑骑士VS苍骑士"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "评语：近二十年来最为精彩的比赛之一，黑骑士出场即巅峰。传统武艺、肉体力量、精神意志的全面碰撞。双锏对双刀，每时每刻都是经典！"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": ""
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "第二十一届特锦赛决赛"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "黑骑士VS银骑士"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "评语：在获得双冠后，黑骑士遇上了自己人生中最强大的敌人，银骑士。长枪对上双锏，在武器劣势的情况下，黑骑士还能将冠军收入囊中吗？"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": ""
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "第二十二届特锦赛决赛"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "耀骑士VS银骑士"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "评语：银骑士又一次冲击冠军宝座，而这回挡在他面前的，是横空出世的耀骑士，闪耀光辉相互碰撞下，谁能亮到最后，获得这一届的冠军头衔？！"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": ""
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "第二十三届特锦赛决赛"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "血骑士VS蛮骑士"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "评语：热血男儿间的搏斗总是能引起人们欢呼，即使有一位是感染者，也磨灭不了这一激动人心的事实，站着，即是最后的胜利！"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": ""
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "以上录像均在各大竞技场有售，耀骑士与血骑士录像特价促销中，请各位冠军支持者切勿错过。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "明晚八点于“骑士之刃”频道进行往届特锦赛决赛重播，敬请关注。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_2"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_6"
           }
         ]
@@ -4253,23 +5061,23 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "在昨夜进行的卡西米尔骑士竞技特别锦标赛决赛上，耀骑士玛嘉烈·临光与血骑士狄开俄波利斯为全卡西米尔奉上了一场荡气回肠的大战。激烈的对抗甚至损坏了双方的武器，源石技艺的碰撞成了决定胜负的关键。最终，血骑士惜败于耀骑士之手，耀骑士玛嘉烈·临光荣获本次特锦赛冠军。这是耀骑士第二次在特锦赛上夺冠。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_15_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "比赛结束以后，两位骑士将不朽的骑士精神贯彻到了最后一刻：耀骑士搀起了力竭倒地的血骑士，二人互相扶持，一直行进到冠军墙。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "大骑士长罗素女士盛赞两位参赛骑士的友爱精神，称昨夜是见证了崇高美德的一夜。“在捍卫荣誉的同时不忘尊重对手，这也是我们应当从骑士竞技中学到的美德之一。”罗素女士如是说。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_3"
           }
         ]
@@ -4292,31 +5100,31 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "近日，笔者联系到了血骑士，试图了解这位败在临光家最年轻的冠军耀骑士手下的昔日冠军近况如何，经历此次失败，他是否还有心气去面对下次赛事？出乎所有人的意料，他向我们透露了这样的信息——不日将放弃自己的卡西米尔骑士身份！或许，他无法忍受被一位前冠军击败的耻辱？但是，根据本报收集到的信息来看，真相不止如此！"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "相信大家都听闻了那日血骑士与耀骑士共赴冠军墙的消息，甚至征战骑士为其一路护卫，但是事实并非如眼见那般简单！"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_16_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "耀骑士在赛场将血骑士重伤时大喊自己家训“不畏苦暗”，就代表着向血骑士宣告自己背后有家族扶持；而后将其扶起，则是意味着自己能将其打败，也能让其重来，如此深意，令人胆寒！而征战骑士的护送更是让人细想之下不禁汗毛竖起，原本在外驻守的征战骑士们一夜之间来到大骑士领，背后是何人的指令？在这一路护送期间，血骑士是否在重伤之时受到来自临光家族的生命威胁？结合以上种种事件，我们不难相信，临光家族用意想不到的手段，不仅插手这次特锦赛过程，甚至还在赛后威胁参赛骑士以达自己的目的。或许，之前轻视临光家族的人们，都将为此付出代价……"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_5"
           }
         ]
@@ -4339,31 +5147,31 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "她，曾让骑士协会调整赛事规则，但如今却被骑士团内部调查；她，曾让无数竞技爱好者对其一见倾心，但如今恐将面临来自各方的指控。薇薇安娜·德罗斯特，究竟是什么样的出格行为，才让红极一时的烛骑士走到如今的地步？"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_17_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "据本报掌握的信息，烛骑士为了其私生活花费达到天价之数，除了之前大家熟知的红酒浴池、帅气男仆，她还独爱读诗。可惜，如此高雅的爱好却在烛骑士这里落入尘埃。据悉，烛骑士收藏的是卡西米尔顶级诗人的亲签限量本，获得购买资格就先要普通人一年的收入，而真的购买需要的则更是普通人多年的积蓄。这样的天价限量本，塞满了烛骑士的书柜，如此与骑士收入不相符的财力，实在是令人既羡慕又好奇，烛骑士究竟是从何而来的如此巨款？"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "但是，真相总是如此不堪，根据散华骑士团公布的账目表，我们不难得知，每月的流水，总有相当的数量凭空消失！如此数量的钱款，究竟最终前往了何处？回想以前高雅雍容的烛骑士，相信大家已有定夺。据内部人员消息，流水相关涉事人员已被散华骑士团开除，至于烛骑士的下场，我们将持续为大家报道。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_4"
           }
         ]
@@ -4386,31 +5194,31 @@
         "paramR": 0.4,
         "newsLines": [
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "根据骑士协会消息，六年前其内部人员被买通，出于满足私人利益的需求将耀骑士以伪证认定为感染者，而导致其遭到流放，被强制驱逐出境，国民院审判团严厉谴责此类行为，并已将涉事人员抓捕归案，相关责任人已被拘留。明日，骑士协会将召开新闻发布会，彻底抹除耀骑士是感染者的谣言，还其清白。"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_18_1"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "同时，国民院将借此事件再次展现一贯秉承的法治态度，将出台有关感染者身份鉴定的一系列规定，进一步健全相关法律，防止个人或集体从感染者鉴定中牟取私利，以期彻底杜绝此类事件再次发生。"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "截至目前，耀骑士本人和临光家族并未对此事进行正面回应，但我们仍然为她感到由衷的高兴：我们的冠军，不是感染者！"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_re_2"
           },
           {
-            "lineType": 0,
+            "lineType": "TextContent",
             "content": "由大数据为您精心甄选"
           },
           {
-            "lineType": 1,
+            "lineType": "ImageContent",
             "content": "act13side_newsTextPic_co_c_6"
           }
         ]
@@ -5333,6 +6141,36 @@
         "storyName": "音乐纪念馆导览手册",
         "textId": "Activities/act29side/mark/mark7"
       },
+      "act42side_file_1": {
+        "storyId": "act42side_file_1",
+        "titleName": "破碎的眼镜片",
+        "storyName": "破碎的眼镜片",
+        "textId": "Activities/act42side/mark/mark1"
+      },
+      "act42side_file_2": {
+        "storyId": "act42side_file_2",
+        "titleName": "空弹壳",
+        "storyName": "空弹壳",
+        "textId": "Activities/act42side/mark/mark2"
+      },
+      "act42side_file_3": {
+        "storyId": "act42side_file_3",
+        "titleName": "空相框",
+        "storyName": "空相框",
+        "textId": "Activities/act42side/mark/mark3"
+      },
+      "act42side_file_4": {
+        "storyId": "act42side_file_4",
+        "titleName": "空雕像",
+        "storyName": "空雕像",
+        "textId": "Activities/act42side/mark/mark4"
+      },
+      "act42side_file_5": {
+        "storyId": "act42side_file_5",
+        "titleName": "工坊钥匙",
+        "storyName": "工坊钥匙",
+        "textId": "Activities/act42side/mark/mark5"
+      },
       "rogue_3_challenge_story_01": {
         "storyId": "rogue_3_challenge_story_01",
         "titleName": "观察者的视野",
@@ -5429,8 +6267,8 @@
               "audioIdList": [
                 "music_act13side_0"
               ],
-              "avgIdList": [],
-              "storyIdList": [],
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_1",
                 "act13side_news_2",
@@ -5442,10 +6280,10 @@
               "timelineSortId": 2,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "10.25",
-              "picIdList": [],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_4",
                 "act13side_news_5",
@@ -5457,11 +6295,11 @@
               "timelineSortId": 3,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "10.27",
-              "picIdList": [],
+              "picIdList": null,
               "audioIdList": [
                 "music_act13side_1"
               ],
-              "avgIdList": [],
+              "avgIdList": null,
               "storyIdList": [
                 "act13side_file_1"
               ],
@@ -5477,9 +6315,9 @@
               "picIdList": [
                 "act13side_pic_1"
               ],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_8"
               ]
@@ -5496,10 +6334,10 @@
                 "act13side_pic_5",
                 "act13side_pic_6"
               ],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
-              "newsIdList": []
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_6",
@@ -5512,20 +6350,20 @@
                 "act13side_pic_9",
                 "act13side_pic_10"
               ],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
-              "newsIdList": []
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_7",
               "timelineSortId": 7,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.01",
-              "picIdList": [],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_9",
                 "act13side_news_10",
@@ -5540,8 +6378,8 @@
               "picIdList": [
                 "act13side_pic_12"
               ],
-              "audioIdList": [],
-              "avgIdList": [],
+              "audioIdList": null,
+              "avgIdList": null,
               "storyIdList": [
                 "act13side_file_2"
               ],
@@ -5561,9 +6399,9 @@
               "audioIdList": [
                 "music_act13side_2"
               ],
-              "avgIdList": [],
-              "storyIdList": [],
-              "newsIdList": []
+              "avgIdList": null,
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_10",
@@ -5578,8 +6416,8 @@
               "audioIdList": [
                 "music_act13side_3"
               ],
-              "avgIdList": [],
-              "storyIdList": [],
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_14"
               ]
@@ -5589,9 +6427,9 @@
               "timelineSortId": 11,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.06",
-              "picIdList": [],
-              "audioIdList": [],
-              "avgIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
+              "avgIdList": null,
               "storyIdList": [
                 "act13side_file_3"
               ],
@@ -5607,52 +6445,52 @@
               "timelineSortId": 12,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.08",
-              "picIdList": [],
-              "audioIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
               "avgIdList": [
                 "act13side_avg_1"
               ],
-              "storyIdList": [],
-              "newsIdList": []
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_13",
               "timelineSortId": 13,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.11",
-              "picIdList": [],
-              "audioIdList": [],
-              "avgIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
+              "avgIdList": null,
               "storyIdList": [
                 "act13side_file_4"
               ],
-              "newsIdList": []
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_14",
               "timelineSortId": 14,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.17",
-              "picIdList": [],
-              "audioIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
               "avgIdList": [
                 "act13side_avg_2"
               ],
-              "storyIdList": [],
-              "newsIdList": []
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_15",
               "timelineSortId": 15,
               "timelineTitle": "act13side_year_1098",
               "timelineDes": "???",
-              "picIdList": [],
-              "audioIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
               "avgIdList": [
                 "act13side_avg_3"
               ],
-              "storyIdList": [],
-              "newsIdList": []
+              "storyIdList": null,
+              "newsIdList": null
             }
           ]
         },
@@ -5856,8 +6694,8 @@
             }
           }
         },
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": null
       },
       "act13side": {
@@ -5874,8 +6712,8 @@
               "audioIdList": [
                 "music_act13side_0"
               ],
-              "avgIdList": [],
-              "storyIdList": [],
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_1",
                 "act13side_news_2",
@@ -5887,10 +6725,10 @@
               "timelineSortId": 2,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "10.25",
-              "picIdList": [],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_4",
                 "act13side_news_5",
@@ -5902,11 +6740,11 @@
               "timelineSortId": 3,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "10.27",
-              "picIdList": [],
+              "picIdList": null,
               "audioIdList": [
                 "music_act13side_1"
               ],
-              "avgIdList": [],
+              "avgIdList": null,
               "storyIdList": [
                 "act13side_file_1"
               ],
@@ -5922,9 +6760,9 @@
               "picIdList": [
                 "act13side_pic_1"
               ],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_8"
               ]
@@ -5941,10 +6779,10 @@
                 "act13side_pic_5",
                 "act13side_pic_6"
               ],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
-              "newsIdList": []
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_6",
@@ -5957,20 +6795,20 @@
                 "act13side_pic_9",
                 "act13side_pic_10"
               ],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
-              "newsIdList": []
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_7",
               "timelineSortId": 7,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.01",
-              "picIdList": [],
-              "audioIdList": [],
-              "avgIdList": [],
-              "storyIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_9",
                 "act13side_news_10",
@@ -5985,8 +6823,8 @@
               "picIdList": [
                 "act13side_pic_12"
               ],
-              "audioIdList": [],
-              "avgIdList": [],
+              "audioIdList": null,
+              "avgIdList": null,
               "storyIdList": [
                 "act13side_file_2"
               ],
@@ -6006,9 +6844,9 @@
               "audioIdList": [
                 "music_act13side_2"
               ],
-              "avgIdList": [],
-              "storyIdList": [],
-              "newsIdList": []
+              "avgIdList": null,
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_10",
@@ -6023,8 +6861,8 @@
               "audioIdList": [
                 "music_act13side_3"
               ],
-              "avgIdList": [],
-              "storyIdList": [],
+              "avgIdList": null,
+              "storyIdList": null,
               "newsIdList": [
                 "act13side_news_14"
               ]
@@ -6034,9 +6872,9 @@
               "timelineSortId": 11,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.06",
-              "picIdList": [],
-              "audioIdList": [],
-              "avgIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
+              "avgIdList": null,
               "storyIdList": [
                 "act13side_file_3"
               ],
@@ -6052,52 +6890,52 @@
               "timelineSortId": 12,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.08",
-              "picIdList": [],
-              "audioIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
               "avgIdList": [
                 "act13side_avg_1"
               ],
-              "storyIdList": [],
-              "newsIdList": []
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_13",
               "timelineSortId": 13,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.11",
-              "picIdList": [],
-              "audioIdList": [],
-              "avgIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
+              "avgIdList": null,
               "storyIdList": [
                 "act13side_file_4"
               ],
-              "newsIdList": []
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_14",
               "timelineSortId": 14,
               "timelineTitle": "act13side_year_1097",
               "timelineDes": "11.17",
-              "picIdList": [],
-              "audioIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
               "avgIdList": [
                 "act13side_avg_2"
               ],
-              "storyIdList": [],
-              "newsIdList": []
+              "storyIdList": null,
+              "newsIdList": null
             },
             {
               "timelineId": "act13side_timeline_15",
               "timelineSortId": 15,
               "timelineTitle": "act13side_year_1098",
               "timelineDes": "???",
-              "picIdList": [],
-              "audioIdList": [],
+              "picIdList": null,
+              "audioIdList": null,
               "avgIdList": [
                 "act13side_avg_3"
               ],
-              "storyIdList": [],
-              "newsIdList": []
+              "storyIdList": null,
+              "newsIdList": null
             }
           ]
         },
@@ -6301,8 +7139,8 @@
             }
           }
         },
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": null
       },
       "act17sre": {
@@ -6521,7 +7359,7 @@
               "act17side_log_1",
               "act17side_log_2"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_2": {
             "chapterName": "探听外来者的消息",
@@ -6533,7 +7371,7 @@
               "act17side_log_6",
               "act17side_log_8"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_3": {
             "chapterName": "调查邪教徒的计划",
@@ -6545,7 +7383,7 @@
               "act17side_log_9",
               "act17side_log_10"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_4": {
             "chapterName": "阻止恐鱼的蔓延",
@@ -6557,7 +7395,7 @@
               "act17side_log_13",
               "act17side_log_14"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_5": {
             "chapterName": "寻找清除“溟痕”的方法",
@@ -6568,7 +7406,7 @@
               "act17side_log_16",
               "act17side_log_17"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_6": {
             "chapterName": "找到渡海的办法",
@@ -6583,7 +7421,7 @@
               "act17side_log_23",
               "act17side_log_24"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_7": {
             "chapterName": "登陆伊比利亚之眼",
@@ -6595,7 +7433,7 @@
               "act17side_log_27",
               "act17side_log_28"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_8": {
             "chapterName": "前往灯塔控制室",
@@ -6608,7 +7446,7 @@
               "act17side_log_32",
               "act17side_log_33"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_9": {
             "chapterName": "找到失落的旗舰",
@@ -6619,7 +7457,7 @@
               "act17side_log_35",
               "act17side_log_36"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_10": {
             "chapterName": "进入斯图提斐拉号",
@@ -6629,7 +7467,7 @@
               "act17side_log_37",
               "act17side_log_38"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_11": {
             "chapterName": "探索船内舱室",
@@ -6644,7 +7482,7 @@
               "act17side_log_44",
               "act17side_log_45"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_12": {
             "chapterName": "直面船长阿方索",
@@ -6654,7 +7492,7 @@
               "act17side_log_46",
               "act17side_log_47"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_13": {
             "chapterName": "在狩猎中存活",
@@ -6671,7 +7509,7 @@
               "act17side_log_55",
               "act17side_log_56"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_14": {
             "chapterName": "寻找逃脱的海嗣",
@@ -6686,7 +7524,7 @@
               "act17side_log_62",
               "act17side_log_64"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_15": {
             "chapterName": "向船长证明实力",
@@ -6697,7 +7535,7 @@
               "act17side_log_65",
               "act17side_log_66"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_16": {
             "chapterName": "击败海嗣",
@@ -6709,7 +7547,7 @@
               "act17side_log_69",
               "act17side_log_70"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_17": {
             "chapterName": "追猎受伤的海嗣",
@@ -6745,7 +7583,7 @@
               "act17side_log_97",
               "act17side_log_98"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_18": {
             "chapterName": "终战",
@@ -6754,7 +7592,7 @@
             "logs": [
               "act17side_log_99"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_19": {
             "chapterName": "逃离斯图提斐拉号",
@@ -6763,7 +7601,7 @@
             "logs": [
               "act17side_log_100"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_20": {
             "chapterName": "回到格兰法洛",
@@ -6774,7 +7612,7 @@
               "act17side_log_102",
               "act17side_log_103"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_ex": {
             "chapterName": "拼凑散落的图册",
@@ -6815,7 +7653,7 @@
               "act17side_log_ex_32",
               "act17side_log_ex_33"
             ],
-            "chapterIcon": 1
+            "chapterIcon": "EX"
           },
           "chapter_h": {
             "chapterName": "寻找记忆的尽头",
@@ -6859,7 +7697,7 @@
               "act17side_log_h_35",
               "act17side_log_h_36"
             ],
-            "chapterIcon": 2
+            "chapterIcon": "HARD"
           }
         },
         "challengeBook": null
@@ -7080,7 +7918,7 @@
               "act17side_log_1",
               "act17side_log_2"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_2": {
             "chapterName": "探听外来者的消息",
@@ -7092,7 +7930,7 @@
               "act17side_log_6",
               "act17side_log_8"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_3": {
             "chapterName": "调查邪教徒的计划",
@@ -7104,7 +7942,7 @@
               "act17side_log_9",
               "act17side_log_10"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_4": {
             "chapterName": "阻止恐鱼的蔓延",
@@ -7116,7 +7954,7 @@
               "act17side_log_13",
               "act17side_log_14"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_5": {
             "chapterName": "寻找清除“溟痕”的方法",
@@ -7127,7 +7965,7 @@
               "act17side_log_16",
               "act17side_log_17"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_6": {
             "chapterName": "找到渡海的办法",
@@ -7142,7 +7980,7 @@
               "act17side_log_23",
               "act17side_log_24"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_7": {
             "chapterName": "登陆伊比利亚之眼",
@@ -7154,7 +7992,7 @@
               "act17side_log_27",
               "act17side_log_28"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_8": {
             "chapterName": "前往灯塔控制室",
@@ -7167,7 +8005,7 @@
               "act17side_log_32",
               "act17side_log_33"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_9": {
             "chapterName": "找到失落的旗舰",
@@ -7178,7 +8016,7 @@
               "act17side_log_35",
               "act17side_log_36"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_10": {
             "chapterName": "进入斯图提斐拉号",
@@ -7188,7 +8026,7 @@
               "act17side_log_37",
               "act17side_log_38"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_11": {
             "chapterName": "探索船内舱室",
@@ -7203,7 +8041,7 @@
               "act17side_log_44",
               "act17side_log_45"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_12": {
             "chapterName": "直面船长阿方索",
@@ -7213,7 +8051,7 @@
               "act17side_log_46",
               "act17side_log_47"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_13": {
             "chapterName": "在狩猎中存活",
@@ -7230,7 +8068,7 @@
               "act17side_log_55",
               "act17side_log_56"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_14": {
             "chapterName": "寻找逃脱的海嗣",
@@ -7245,7 +8083,7 @@
               "act17side_log_62",
               "act17side_log_64"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_15": {
             "chapterName": "向船长证明实力",
@@ -7256,7 +8094,7 @@
               "act17side_log_65",
               "act17side_log_66"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_16": {
             "chapterName": "击败海嗣",
@@ -7268,7 +8106,7 @@
               "act17side_log_69",
               "act17side_log_70"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_17": {
             "chapterName": "追猎受伤的海嗣",
@@ -7304,7 +8142,7 @@
               "act17side_log_97",
               "act17side_log_98"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_18": {
             "chapterName": "终战",
@@ -7313,7 +8151,7 @@
             "logs": [
               "act17side_log_99"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_19": {
             "chapterName": "逃离斯图提斐拉号",
@@ -7322,7 +8160,7 @@
             "logs": [
               "act17side_log_100"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_20": {
             "chapterName": "回到格兰法洛",
@@ -7333,7 +8171,7 @@
               "act17side_log_102",
               "act17side_log_103"
             ],
-            "chapterIcon": 0
+            "chapterIcon": "NORMAL"
           },
           "chapter_ex": {
             "chapterName": "拼凑散落的图册",
@@ -7374,7 +8212,7 @@
               "act17side_log_ex_32",
               "act17side_log_ex_33"
             ],
-            "chapterIcon": 1
+            "chapterIcon": "EX"
           },
           "chapter_h": {
             "chapterName": "寻找记忆的尽头",
@@ -7418,7 +8256,7 @@
               "act17side_log_h_35",
               "act17side_log_h_36"
             ],
-            "chapterIcon": 2
+            "chapterIcon": "HARD"
           }
         },
         "challengeBook": null
@@ -7580,8 +8418,8 @@
         },
         "avg": null,
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": null
       },
       "act25side": {
@@ -7741,9 +8579,77 @@
         },
         "avg": null,
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": null
+      },
+      "act42sre": {
+        "timeline": null,
+        "music": null,
+        "pic": null,
+        "story": null,
+        "avg": null,
+        "news": null,
+        "landmark": null,
+        "log": null,
+        "challengeBook": {
+          "stories": {
+            "act42side_file_1": {
+              "storyId": "act42side_file_1",
+              "sortId": 1
+            },
+            "act42side_file_2": {
+              "storyId": "act42side_file_2",
+              "sortId": 2
+            },
+            "act42side_file_3": {
+              "storyId": "act42side_file_3",
+              "sortId": 3
+            },
+            "act42side_file_4": {
+              "storyId": "act42side_file_4",
+              "sortId": 4
+            },
+            "act42side_file_5": {
+              "storyId": "act42side_file_5",
+              "sortId": 5
+            }
+          }
+        }
+      },
+      "act42side": {
+        "timeline": null,
+        "music": null,
+        "pic": null,
+        "story": null,
+        "avg": null,
+        "news": null,
+        "landmark": null,
+        "log": null,
+        "challengeBook": {
+          "stories": {
+            "act42side_file_1": {
+              "storyId": "act42side_file_1",
+              "sortId": 1
+            },
+            "act42side_file_2": {
+              "storyId": "act42side_file_2",
+              "sortId": 2
+            },
+            "act42side_file_3": {
+              "storyId": "act42side_file_3",
+              "sortId": 3
+            },
+            "act42side_file_4": {
+              "storyId": "act42side_file_4",
+              "sortId": 4
+            },
+            "act42side_file_5": {
+              "storyId": "act42side_file_5",
+              "sortId": 5
+            }
+          }
+        }
       },
       "act29sre": {
         "timeline": null,
@@ -7752,8 +8658,8 @@
         "story": null,
         "avg": null,
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": {
           "stories": {
             "act29side_majorInvest_1": {
@@ -7794,8 +8700,8 @@
         "story": null,
         "avg": null,
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": {
           "stories": {
             "act29side_majorInvest_1": {
@@ -8065,8 +8971,8 @@
           }
         },
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": {
           "stories": {}
         }
@@ -8358,8 +9264,8 @@
           "avgs": {}
         },
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": {
           "stories": {}
         }
@@ -8619,8 +9525,8 @@
           "avgs": {}
         },
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
         "challengeBook": {
           "stories": {
             "rogue_3_challenge_story_01": {
@@ -8969,8 +9875,361 @@
           "avgs": {}
         },
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
+        "challengeBook": {
+          "stories": {}
+        }
+      },
+      "rogue_5": {
+        "timeline": null,
+        "music": {
+          "musics": {
+            "music_rogue_5_1": {
+              "musicId": "music_rogue_5_1",
+              "musicSortId": 1
+            },
+            "music_rogue_5_2": {
+              "musicId": "music_rogue_5_2",
+              "musicSortId": 2
+            },
+            "music_rogue_5_3": {
+              "musicId": "music_rogue_5_3",
+              "musicSortId": 3
+            },
+            "music_rogue_5_4": {
+              "musicId": "music_rogue_5_4",
+              "musicSortId": 4
+            },
+            "music_rogue_5_5": {
+              "musicId": "music_rogue_5_5",
+              "musicSortId": 5
+            },
+            "music_rogue_5_6": {
+              "musicId": "music_rogue_5_6",
+              "musicSortId": 6
+            },
+            "music_rogue_5_7": {
+              "musicId": "music_rogue_5_7",
+              "musicSortId": 7
+            },
+            "music_rogue_5_8": {
+              "musicId": "music_rogue_5_8",
+              "musicSortId": 8
+            },
+            "music_rogue_5_9": {
+              "musicId": "music_rogue_5_9",
+              "musicSortId": 9
+            },
+            "music_rogue_5_10": {
+              "musicId": "music_rogue_5_10",
+              "musicSortId": 10
+            },
+            "music_rogue_5_11": {
+              "musicId": "music_rogue_5_11",
+              "musicSortId": 11
+            },
+            "music_rogue_5_12": {
+              "musicId": "music_rogue_5_12",
+              "musicSortId": 12
+            },
+            "music_rogue_5_13": {
+              "musicId": "music_rogue_5_13",
+              "musicSortId": 13
+            },
+            "music_rogue_5_14": {
+              "musicId": "music_rogue_5_14",
+              "musicSortId": 14
+            },
+            "music_rogue_5_15": {
+              "musicId": "music_rogue_5_15",
+              "musicSortId": 15
+            },
+            "music_rogue_5_16": {
+              "musicId": "music_rogue_5_16",
+              "musicSortId": 16
+            }
+          }
+        },
+        "pic": {
+          "pics": {
+            "pic_rogue_5_KV1": {
+              "picId": "pic_rogue_5_KV1",
+              "picSortId": 1
+            },
+            "pic_rogue_5_KV2": {
+              "picId": "pic_rogue_5_KV2",
+              "picSortId": 2
+            },
+            "pic_rogue_5_KV3": {
+              "picId": "pic_rogue_5_KV3",
+              "picSortId": 3
+            },
+            "pic_rogue_5_1": {
+              "picId": "pic_rogue_5_1",
+              "picSortId": 4
+            },
+            "pic_rogue_5_2": {
+              "picId": "pic_rogue_5_2",
+              "picSortId": 5
+            },
+            "pic_rogue_5_3": {
+              "picId": "pic_rogue_5_3",
+              "picSortId": 6
+            },
+            "pic_rogue_5_4": {
+              "picId": "pic_rogue_5_4",
+              "picSortId": 7
+            },
+            "pic_rogue_5_5": {
+              "picId": "pic_rogue_5_5",
+              "picSortId": 8
+            },
+            "pic_rogue_5_6": {
+              "picId": "pic_rogue_5_6",
+              "picSortId": 9
+            },
+            "pic_rogue_5_7": {
+              "picId": "pic_rogue_5_7",
+              "picSortId": 10
+            },
+            "pic_rogue_5_8": {
+              "picId": "pic_rogue_5_8",
+              "picSortId": 11
+            },
+            "pic_rogue_5_9": {
+              "picId": "pic_rogue_5_9",
+              "picSortId": 12
+            },
+            "pic_rogue_5_10": {
+              "picId": "pic_rogue_5_10",
+              "picSortId": 13
+            },
+            "pic_rogue_5_11": {
+              "picId": "pic_rogue_5_11",
+              "picSortId": 14
+            },
+            "pic_rogue_5_12": {
+              "picId": "pic_rogue_5_12",
+              "picSortId": 15
+            },
+            "pic_rogue_5_13": {
+              "picId": "pic_rogue_5_13",
+              "picSortId": 16
+            },
+            "pic_rogue_5_14": {
+              "picId": "pic_rogue_5_14",
+              "picSortId": 17
+            },
+            "pic_rogue_5_15": {
+              "picId": "pic_rogue_5_15",
+              "picSortId": 18
+            },
+            "pic_rogue_5_16": {
+              "picId": "pic_rogue_5_16",
+              "picSortId": 19
+            },
+            "pic_rogue_5_17": {
+              "picId": "pic_rogue_5_17",
+              "picSortId": 20
+            },
+            "pic_rogue_5_18": {
+              "picId": "pic_rogue_5_18",
+              "picSortId": 21
+            },
+            "pic_rogue_5_19": {
+              "picId": "pic_rogue_5_19",
+              "picSortId": 22
+            },
+            "pic_rogue_5_20": {
+              "picId": "pic_rogue_5_20",
+              "picSortId": 23
+            },
+            "pic_rogue_5_21": {
+              "picId": "pic_rogue_5_21",
+              "picSortId": 24
+            },
+            "pic_rogue_5_22": {
+              "picId": "pic_rogue_5_22",
+              "picSortId": 25
+            },
+            "pic_rogue_5_23": {
+              "picId": "pic_rogue_5_23",
+              "picSortId": 26
+            },
+            "pic_rogue_5_24": {
+              "picId": "pic_rogue_5_24",
+              "picSortId": 27
+            },
+            "pic_rogue_5_25": {
+              "picId": "pic_rogue_5_25",
+              "picSortId": 28
+            },
+            "pic_rogue_5_26": {
+              "picId": "pic_rogue_5_26",
+              "picSortId": 29
+            },
+            "pic_rogue_5_27": {
+              "picId": "pic_rogue_5_27",
+              "picSortId": 30
+            },
+            "pic_rogue_5_28": {
+              "picId": "pic_rogue_5_28",
+              "picSortId": 31
+            },
+            "pic_rogue_5_29": {
+              "picId": "pic_rogue_5_29",
+              "picSortId": 32
+            },
+            "pic_rogue_5_30": {
+              "picId": "pic_rogue_5_30",
+              "picSortId": 33
+            },
+            "pic_rogue_5_31": {
+              "picId": "pic_rogue_5_31",
+              "picSortId": 34
+            },
+            "pic_rogue_5_32": {
+              "picId": "pic_rogue_5_32",
+              "picSortId": 35
+            },
+            "pic_rogue_5_33": {
+              "picId": "pic_rogue_5_33",
+              "picSortId": 36
+            },
+            "pic_rogue_5_34": {
+              "picId": "pic_rogue_5_34",
+              "picSortId": 37
+            },
+            "pic_rogue_5_35": {
+              "picId": "pic_rogue_5_35",
+              "picSortId": 38
+            },
+            "pic_rogue_5_36": {
+              "picId": "pic_rogue_5_36",
+              "picSortId": 39
+            },
+            "pic_rogue_5_37": {
+              "picId": "pic_rogue_5_37",
+              "picSortId": 40
+            },
+            "pic_rogue_5_38": {
+              "picId": "pic_rogue_5_38",
+              "picSortId": 41
+            },
+            "pic_rogue_5_39": {
+              "picId": "pic_rogue_5_39",
+              "picSortId": 42
+            },
+            "pic_rogue_5_40": {
+              "picId": "pic_rogue_5_40",
+              "picSortId": 43
+            },
+            "pic_rogue_5_41": {
+              "picId": "pic_rogue_5_41",
+              "picSortId": 44
+            },
+            "pic_rogue_5_42": {
+              "picId": "pic_rogue_5_42",
+              "picSortId": 45
+            },
+            "pic_rogue_5_43": {
+              "picId": "pic_rogue_5_43",
+              "picSortId": 46
+            },
+            "pic_rogue_5_44": {
+              "picId": "pic_rogue_5_44",
+              "picSortId": 47
+            },
+            "pic_rogue_5_45": {
+              "picId": "pic_rogue_5_45",
+              "picSortId": 48
+            },
+            "pic_rogue_5_46": {
+              "picId": "pic_rogue_5_46",
+              "picSortId": 49
+            },
+            "pic_rogue_5_51": {
+              "picId": "pic_rogue_5_51",
+              "picSortId": 50
+            },
+            "pic_rogue_5_52": {
+              "picId": "pic_rogue_5_52",
+              "picSortId": 51
+            },
+            "pic_rogue_5_53": {
+              "picId": "pic_rogue_5_53",
+              "picSortId": 52
+            },
+            "pic_rogue_5_54": {
+              "picId": "pic_rogue_5_54",
+              "picSortId": 53
+            },
+            "pic_rogue_5_55": {
+              "picId": "pic_rogue_5_55",
+              "picSortId": 54
+            },
+            "pic_rogue_5_56": {
+              "picId": "pic_rogue_5_56",
+              "picSortId": 55
+            },
+            "pic_rogue_5_57": {
+              "picId": "pic_rogue_5_57",
+              "picSortId": 56
+            },
+            "pic_rogue_5_58": {
+              "picId": "pic_rogue_5_58",
+              "picSortId": 57
+            },
+            "pic_rogue_5_61": {
+              "picId": "pic_rogue_5_61",
+              "picSortId": 58
+            },
+            "pic_rogue_5_62": {
+              "picId": "pic_rogue_5_62",
+              "picSortId": 59
+            },
+            "pic_rogue_5_63": {
+              "picId": "pic_rogue_5_63",
+              "picSortId": 60
+            },
+            "pic_rogue_5_47": {
+              "picId": "pic_rogue_5_47",
+              "picSortId": 61
+            },
+            "pic_rogue_5_48": {
+              "picId": "pic_rogue_5_48",
+              "picSortId": 62
+            },
+            "pic_rogue_5_49": {
+              "picId": "pic_rogue_5_49",
+              "picSortId": 63
+            },
+            "pic_rogue_5_50": {
+              "picId": "pic_rogue_5_50",
+              "picSortId": 64
+            },
+            "pic_rogue_5_59": {
+              "picId": "pic_rogue_5_59",
+              "picSortId": 65
+            },
+            "pic_rogue_5_60": {
+              "picId": "pic_rogue_5_60",
+              "picSortId": 66
+            },
+            "pic_rogue_5_64": {
+              "picId": "pic_rogue_5_64",
+              "picSortId": 67
+            }
+          }
+        },
+        "story": null,
+        "avg": {
+          "avgs": {}
+        },
+        "news": null,
+        "landmark": null,
+        "log": null,
         "challengeBook": {
           "stories": {}
         }
@@ -9025,8 +10284,58 @@
         "story": null,
         "avg": null,
         "news": null,
-        "landmark": {},
-        "log": {},
+        "landmark": null,
+        "log": null,
+        "challengeBook": null
+      },
+      "sandbox_2": {
+        "timeline": null,
+        "music": {
+          "musics": {
+            "music_sandbox_v3_1": {
+              "musicId": "music_sandbox_v3_1",
+              "musicSortId": 1
+            },
+            "music_sandbox_v3_2": {
+              "musicId": "music_sandbox_v3_2",
+              "musicSortId": 2
+            },
+            "music_sandbox_v3_3": {
+              "musicId": "music_sandbox_v3_3",
+              "musicSortId": 3
+            },
+            "music_sandbox_v3_4": {
+              "musicId": "music_sandbox_v3_4",
+              "musicSortId": 4
+            },
+            "music_sandbox_v3_5": {
+              "musicId": "music_sandbox_v3_5",
+              "musicSortId": 5
+            },
+            "music_sandbox_v3_6": {
+              "musicId": "music_sandbox_v3_6",
+              "musicSortId": 6
+            },
+            "music_sandbox_v3_7": {
+              "musicId": "music_sandbox_v3_7",
+              "musicSortId": 7
+            },
+            "music_sandbox_v3_8": {
+              "musicId": "music_sandbox_v3_8",
+              "musicSortId": 8
+            },
+            "music_sandbox_v3_9": {
+              "musicId": "music_sandbox_v3_9",
+              "musicSortId": 9
+            }
+          }
+        },
+        "pic": null,
+        "story": null,
+        "avg": null,
+        "news": null,
+        "landmark": null,
+        "log": null,
         "challengeBook": null
       }
     }

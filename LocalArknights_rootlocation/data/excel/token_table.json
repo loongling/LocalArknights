@@ -2,6 +2,9 @@
   "trap_004_iceblock": {
     "name": "封印的地面",
     "description": null,
+    "sortIndex": 0,
+    "spTargetType": "NONE",
+    "spTargetId": null,
     "canUseGeneralPotentialItem": false,
     "canUseActivityPotentialItem": false,
     "potentialItemId": null,
@@ -10,17 +13,23 @@
     "nationId": null,
     "groupId": null,
     "teamId": null,
+    "mainPower": {
+      "nationId": null,
+      "groupId": null,
+      "teamId": null
+    },
+    "subPower": null,
     "displayNumber": null,
     "appellation": "Sealed Floor",
     "position": "NONE",
-    "tagList": [],
+    "tagList": null,
     "itemUsage": null,
     "itemDesc": null,
     "itemObtainApproach": null,
     "isNotObtainable": false,
     "isSpChar": false,
     "maxPotentialLevel": 0,
-    "rarity": 0,
+    "rarity": "TIER_1",
     "profession": "TRAP",
     "subProfessionId": "notchar2",
     "trait": null,
@@ -56,7 +65,9 @@
               "frozenImmune": false,
               "levitateImmune": false,
               "disarmedCombatImmune": false,
-              "fearedImmune": false
+              "fearedImmune": false,
+              "palsyImmune": false,
+              "attractImmune": false
             }
           },
           {
@@ -85,23 +96,28 @@
               "frozenImmune": false,
               "levitateImmune": false,
               "disarmedCombatImmune": false,
-              "fearedImmune": false
+              "fearedImmune": false,
+              "palsyImmune": false,
+              "attractImmune": false
             }
           }
         ],
-        "evolveCost": []
+        "evolveCost": null
       }
     ],
-    "skills": [],
-    "displayTokenDict": {},
-    "talents": [],
-    "potentialRanks": [],
-    "favorKeyFrames": [],
-    "allSkillLvlup": []
+    "skills": null,
+    "displayTokenDict": null,
+    "talents": null,
+    "potentialRanks": null,
+    "favorKeyFrames": null,
+    "allSkillLvlup": null
   },
   "trap_017_wooden_broke": {
     "name": "破损的木桩",
     "description": null,
+    "sortIndex": 0,
+    "spTargetType": "NONE",
+    "spTargetId": null,
     "canUseGeneralPotentialItem": false,
     "canUseActivityPotentialItem": false,
     "potentialItemId": null,
@@ -110,17 +126,23 @@
     "nationId": null,
     "groupId": null,
     "teamId": null,
+    "mainPower": {
+      "nationId": null,
+      "groupId": null,
+      "teamId": null
+    },
+    "subPower": null,
     "displayNumber": null,
     "appellation": "Broken Stump",
     "position": "NONE",
-    "tagList": [],
+    "tagList": null,
     "itemUsage": null,
     "itemDesc": null,
     "itemObtainApproach": null,
     "isNotObtainable": false,
     "isSpChar": false,
     "maxPotentialLevel": 0,
-    "rarity": 0,
+    "rarity": "TIER_1",
     "profession": "TRAP",
     "subProfessionId": "notchar2",
     "trait": null,
@@ -156,7 +178,9 @@
               "frozenImmune": false,
               "levitateImmune": false,
               "disarmedCombatImmune": false,
-              "fearedImmune": false
+              "fearedImmune": false,
+              "palsyImmune": false,
+              "attractImmune": false
             }
           },
           {
@@ -185,23 +209,28 @@
               "frozenImmune": false,
               "levitateImmune": false,
               "disarmedCombatImmune": false,
-              "fearedImmune": false
+              "fearedImmune": false,
+              "palsyImmune": false,
+              "attractImmune": false
             }
           }
         ],
-        "evolveCost": []
+        "evolveCost": null
       }
     ],
-    "skills": [],
-    "displayTokenDict": {},
-    "talents": [],
-    "potentialRanks": [],
-    "favorKeyFrames": [],
-    "allSkillLvlup": []
+    "skills": null,
+    "displayTokenDict": null,
+    "talents": null,
+    "potentialRanks": null,
+    "favorKeyFrames": null,
+    "allSkillLvlup": null
   },
   "trap_005_sensor": {
     "name": "感应器",
     "description": null,
+    "sortIndex": 0,
+    "spTargetType": "NONE",
+    "spTargetId": null,
     "canUseGeneralPotentialItem": false,
     "canUseActivityPotentialItem": false,
     "potentialItemId": null,
@@ -210,17 +239,23 @@
     "nationId": null,
     "groupId": null,
     "teamId": null,
+    "mainPower": {
+      "nationId": null,
+      "groupId": null,
+      "teamId": null
+    },
+    "subPower": null,
     "displayNumber": null,
     "appellation": "Sensor",
     "position": "NONE",
-    "tagList": [],
+    "tagList": null,
     "itemUsage": null,
     "itemDesc": null,
     "itemObtainApproach": null,
     "isNotObtainable": false,
     "isSpChar": false,
     "maxPotentialLevel": 0,
-    "rarity": 0,
+    "rarity": "TIER_1",
     "profession": "TRAP",
     "subProfessionId": "notchar2",
     "trait": null,
@@ -256,7 +291,9 @@
               "frozenImmune": false,
               "levitateImmune": false,
               "disarmedCombatImmune": false,
-              "fearedImmune": false
+              "fearedImmune": false,
+              "palsyImmune": false,
+              "attractImmune": false
             }
           },
           {
@@ -285,11 +322,13 @@
               "frozenImmune": false,
               "levitateImmune": false,
               "disarmedCombatImmune": false,
-              "fearedImmune": false
+              "fearedImmune": false,
+              "palsyImmune": false,
+              "attractImmune": false
             }
           }
         ],
-        "evolveCost": []
+        "evolveCost": null
       }
     ],
     "skills": [
@@ -299,20 +338,23 @@
         "overrideTokenKey": null,
         "levelUpCostCond": [],
         "unlockCond": {
-          "phase": 0,
+          "phase": "PHASE_0",
           "level": 0
         }
       }
     ],
-    "displayTokenDict": {},
-    "talents": [],
-    "potentialRanks": [],
-    "favorKeyFrames": [],
-    "allSkillLvlup": []
+    "displayTokenDict": null,
+    "talents": null,
+    "potentialRanks": null,
+    "favorKeyFrames": null,
+    "allSkillLvlup": null
   },
   "trap_047_mandrablock": {
     "name": "封印的地面",
     "description": null,
+    "sortIndex": 0,
+    "spTargetType": "NONE",
+    "spTargetId": null,
     "canUseGeneralPotentialItem": false,
     "canUseActivityPotentialItem": false,
     "potentialItemId": null,
@@ -321,17 +363,23 @@
     "nationId": null,
     "groupId": null,
     "teamId": null,
+    "mainPower": {
+      "nationId": null,
+      "groupId": null,
+      "teamId": null
+    },
+    "subPower": null,
     "displayNumber": null,
     "appellation": "Sealed Floor",
     "position": "NONE",
-    "tagList": [],
+    "tagList": null,
     "itemUsage": null,
     "itemDesc": null,
     "itemObtainApproach": null,
     "isNotObtainable": false,
     "isSpChar": false,
     "maxPotentialLevel": 0,
-    "rarity": 0,
+    "rarity": "TIER_1",
     "profession": "TRAP",
     "subProfessionId": "notchar2",
     "trait": null,
@@ -367,7 +415,9 @@
               "frozenImmune": false,
               "levitateImmune": false,
               "disarmedCombatImmune": false,
-              "fearedImmune": false
+              "fearedImmune": false,
+              "palsyImmune": false,
+              "attractImmune": false
             }
           },
           {
@@ -396,18 +446,20 @@
               "frozenImmune": false,
               "levitateImmune": false,
               "disarmedCombatImmune": false,
-              "fearedImmune": false
+              "fearedImmune": false,
+              "palsyImmune": false,
+              "attractImmune": false
             }
           }
         ],
-        "evolveCost": []
+        "evolveCost": null
       }
     ],
-    "skills": [],
-    "displayTokenDict": {},
-    "talents": [],
-    "potentialRanks": [],
-    "favorKeyFrames": [],
-    "allSkillLvlup": []
+    "skills": null,
+    "displayTokenDict": null,
+    "talents": null,
+    "potentialRanks": null,
+    "favorKeyFrames": null,
+    "allSkillLvlup": null
   }
 }

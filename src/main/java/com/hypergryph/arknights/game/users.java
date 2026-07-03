@@ -20,54 +20,52 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping({"/user"})
 public class users {
     private static final Logger LOGGER = LogManager.getLogger();
-    public users() {}
+
+    public users() {
+    }
+
     @PostMapping(
             value = {"bindNickName"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject bindNickName(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request){
+    public JSONObject bindNickName(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/bindNickName");
-        if (!ArknightsApplication.enableServer){
+        if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
             result.put("statusCode", 400);
             result.put("error", "Bad Request");
             result.put("message", "server is close");
             return result;
-        }
-        else{
+        } else {
             String nickName = JsonBody.getString("nickName");
             List<Account> Accounts = userDao.queryAccountBySecret(secret);
-            if (Accounts.size() != 1){
+            if (Accounts.size() != 1) {
                 JSONObject result = new JSONObject(true);
                 result.put("result", 2);
                 result.put("error", "无法查询到此账户");
                 return result;
-            }
-            else{
-                Long uid = ((Account)Accounts.get(0)).getUid();
+            } else {
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("statusCode", 403);
                     UserSyncData.put("error", "Bad Request");
                     UserSyncData.put("message", "error");
                     return UserSyncData;
-                }
-                else if (nickName.length() > 8) {
+                } else if (nickName.length() > 8) {
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("result", 1);
                     return UserSyncData;
-                }
-                else if (nickName.indexOf("/") != -1) {
+                } else if (nickName.indexOf("/") != -1) {
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("result", 2);
                     return UserSyncData;
-                }
-                else {
+                } else {
                     UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
                     String nickNumber = String.format("%04d", userDao.queryNickName(nickName).size() + 1);
                     UserSyncData.getJSONObject("status").put("nickNumber", nickNumber);
@@ -113,9 +111,9 @@ public class users {
                 result.put("error", "无法查询到此账户");
                 return result;
             } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("statusCode", 403);
@@ -123,7 +121,7 @@ public class users {
                     UserSyncData.put("message", "error");
                     return UserSyncData;
                 } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
+                    UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
                     UserSyncData.getJSONObject("status").put("nickName", nickName);
                     UserSyncData.getJSONObject("inventory").put("renamingCard", UserSyncData.getJSONObject("inventory").getIntValue("renamingCard") - 1);
                     userDao.setUserData(uid, UserSyncData);
@@ -169,9 +167,9 @@ public class users {
                 result.put("error", "无法查询到此账户");
                 return result;
             } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("statusCode", 403);
@@ -179,7 +177,7 @@ public class users {
                     UserSyncData.put("message", "error");
                     return UserSyncData;
                 } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
+                    UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
                     JSONObject result;
                     if (UserSyncData.getJSONObject("status").getIntValue("androidDiamond") < count) {
                         result = new JSONObject(true);
@@ -233,9 +231,9 @@ public class users {
                 result.put("error", "无法查询到此账户");
                 return result;
             } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("statusCode", 403);
@@ -243,7 +241,7 @@ public class users {
                     UserSyncData.put("message", "error");
                     return UserSyncData;
                 } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
+                    UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
                     UserSyncData.getJSONObject("status").put("resume", resume);
                     userDao.setUserData(uid, UserSyncData);
                     JSONObject result = new JSONObject(true);
@@ -286,9 +284,9 @@ public class users {
                 result.put("error", "无法查询到此账户");
                 return result;
             } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("statusCode", 403);
@@ -296,7 +294,7 @@ public class users {
                     UserSyncData.put("message", "error");
                     return UserSyncData;
                 } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
+                    UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
                     UserSyncData.getJSONObject("status").put("secretary", UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)).getString("charId"));
                     UserSyncData.getJSONObject("status").put("secretarySkinId", skinId);
                     userDao.setUserData(uid, UserSyncData);
@@ -339,9 +337,9 @@ public class users {
                 result.put("error", "无法查询到此账户");
                 return result;
             } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("statusCode", 403);
@@ -349,8 +347,8 @@ public class users {
                     UserSyncData.put("message", "error");
                     return UserSyncData;
                 } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                    int nowTime = (int)((new Date()).getTime() / 1000L);
+                    UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
+                    int nowTime = (int) ((new Date()).getTime() / 1000L);
                     int addAp = (nowTime - UserSyncData.getJSONObject("status").getIntValue("lastApAddTime")) / 360;
                     if (UserSyncData.getJSONObject("status").getIntValue("ap") < UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
                         if (UserSyncData.getJSONObject("status").getIntValue("ap") + addAp >= UserSyncData.getJSONObject("status").getIntValue("maxAp")) {
@@ -412,9 +410,9 @@ public class users {
                 result.put("error", "无法查询到此账户");
                 return result;
             } else {
-                Long uid = ((Account)Accounts.get(0)).getUid();
+                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
-                if (((Account)Accounts.get(0)).getBan() == 1L) {
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
                     UserSyncData = new JSONObject(true);
                     UserSyncData.put("statusCode", 403);
@@ -422,7 +420,7 @@ public class users {
                     UserSyncData.put("message", "error");
                     return UserSyncData;
                 } else {
-                    UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
+                    UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
                     UserSyncData.getJSONObject("status").getJSONObject("avatar").put("id", id);
                     UserSyncData.getJSONObject("status").getJSONObject("avatar").put("type", type);
                     userDao.setUserData(uid, UserSyncData);
@@ -439,5 +437,25 @@ public class users {
                 }
             }
         }
+    }
+
+    @PostMapping(
+            value = {"/checkIn"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject checkIn(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        LOGGER.info("[/" + clientIp + "] 签到 /user/checkIn");
+        LOGGER.info("checkIn:" + JsonBody);
+        if (!ArknightsApplication.enableServer) {
+            response.setStatus(400);
+            JSONObject result = new JSONObject(true);
+            result.put("statusCode", 400);
+            result.put("error", "Bad Request");
+            result.put("message", "server is close");
+            return result;
+        }
+        return new JSONObject();
     }
 }

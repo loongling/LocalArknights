@@ -24,6 +24,15 @@
     "char_4136_phonor": [
       "char_4136_phonor"
     ],
+    "char_4188_confes": [
+      "char_4188_confes"
+    ],
+    "char_4227_gallus": [
+      "char_4227_gallus"
+    ],
+    "char_4215_buddy": [
+      "char_4215_buddy"
+    ],
     "char_502_nblade": [
       "char_502_nblade",
       "char_1029_yato2"
@@ -103,7 +112,8 @@
       "char_505_rcast"
     ],
     "char_278_orchid": [
-      "char_278_orchid"
+      "char_278_orchid",
+      "char_1048_orchd2"
     ],
     "char_141_nights": [
       "char_141_nights"
@@ -117,6 +127,9 @@
     "char_253_greyy": [
       "char_253_greyy",
       "char_1027_greyy2"
+    ],
+    "char_4051_akkord": [
+      "char_4051_akkord"
     ],
     "char_328_cammou": [
       "char_328_cammou"
@@ -179,6 +192,9 @@
     "char_452_bstalk": [
       "char_452_bstalk"
     ],
+    "char_4208_wintim": [
+      "char_4208_wintim"
+    ],
     "char_130_doberm": [
       "char_130_doberm"
     ],
@@ -218,6 +234,9 @@
     "char_491_humus": [
       "char_491_humus"
     ],
+    "char_445_wscoot": [
+      "char_445_wscoot"
+    ],
     "char_237_gravel": [
       "char_237_gravel"
     ],
@@ -244,7 +263,8 @@
       "char_605_cmedic"
     ],
     "char_181_flower": [
-      "char_181_flower"
+      "char_181_flower",
+      "char_1022_flwr2"
     ],
     "char_385_finlpp": [
       "char_385_finlpp"
@@ -288,6 +308,9 @@
     "char_484_robrta": [
       "char_484_robrta"
     ],
+    "char_616_pithst": [
+      "char_616_pithst"
+    ],
     "char_355_ethan": [
       "char_355_ethan"
     ],
@@ -310,7 +333,8 @@
       "char_4163_rosesa"
     ],
     "char_115_headbr": [
-      "char_115_headbr"
+      "char_115_headbr",
+      "char_1051_headb2"
     ],
     "char_102_texas": [
       "char_102_texas",
@@ -327,6 +351,9 @@
     ],
     "char_4023_rfalcn": [
       "char_4023_rfalcn"
+    ],
+    "char_4199_makiri": [
+      "char_4199_makiri"
     ],
     "char_261_sddrag": [
       "char_261_sddrag",
@@ -425,6 +452,9 @@
     "char_4126_fuze": [
       "char_4126_fuze"
     ],
+    "char_4166_varkis": [
+      "char_4166_varkis"
+    ],
     "char_274_astesi": [
       "char_274_astesi"
     ],
@@ -445,6 +475,15 @@
     ],
     "char_4131_odda": [
       "char_4131_odda"
+    ],
+    "char_4187_graceb": [
+      "char_4187_graceb"
+    ],
+    "char_4185_amoris": [
+      "char_4185_amoris"
+    ],
+    "char_394_hadiya": [
+      "char_394_hadiya"
     ],
     "char_129_bluep": [
       "char_129_bluep"
@@ -480,6 +519,12 @@
     "char_346_aosta": [
       "char_346_aosta"
     ],
+    "char_4203_kichi": [
+      "char_4203_kichi"
+    ],
+    "char_4213_skybx": [
+      "char_4213_skybx"
+    ],
     "char_002_amiya": [
       "char_002_amiya"
     ],
@@ -499,10 +544,12 @@
       "char_509_acast"
     ],
     "char_306_leizi": [
-      "char_306_leizi"
+      "char_306_leizi",
+      "char_1043_leizi2"
     ],
     "char_135_halo": [
-      "char_135_halo"
+      "char_135_halo",
+      "char_1047_halo2"
     ],
     "char_344_beewax": [
       "char_344_beewax"
@@ -512,6 +559,9 @@
     ],
     "char_341_sntlla": [
       "char_341_sntlla"
+    ],
+    "char_4031_liesel": [
+      "char_4031_liesel"
     ],
     "char_388_mint": [
       "char_388_mint"
@@ -546,6 +596,9 @@
     "char_4081_warmy": [
       "char_4081_warmy"
     ],
+    "char_4198_christ": [
+      "char_4198_christ"
+    ],
     "char_4164_tecno": [
       "char_4164_tecno"
     ],
@@ -570,6 +623,9 @@
     ],
     "char_510_amedic": [
       "char_510_amedic"
+    ],
+    "char_4196_reckpr": [
+      "char_4196_reckpr"
     ],
     "char_348_ceylon": [
       "char_348_ceylon"
@@ -600,6 +656,12 @@
     ],
     "char_4139_papyrs": [
       "char_4139_papyrs"
+    ],
+    "char_4224_turdus": [
+      "char_4224_turdus"
+    ],
+    "char_4222_taraxa": [
+      "char_4222_taraxa"
     ],
     "char_148_nearl": [
       "char_148_nearl",
@@ -644,6 +706,9 @@
     "char_163_hpsts": [
       "char_163_hpsts"
     ],
+    "char_4207_branch": [
+      "char_4207_branch"
+    ],
     "char_378_asbest": [
       "char_378_asbest"
     ],
@@ -677,6 +742,9 @@
     "char_4148_philae": [
       "char_4148_philae"
     ],
+    "char_4225_tanya": [
+      "char_4225_tanya"
+    ],
     "char_145_prove": [
       "char_145_prove"
     ],
@@ -698,8 +766,14 @@
     "char_4043_erato": [
       "char_4043_erato"
     ],
+    "char_4221_ju": [
+      "char_4221_ju"
+    ],
     "char_4104_coldst": [
       "char_4104_coldst"
+    ],
+    "char_4211_snhunt": [
+      "char_4211_snhunt"
     ],
     "char_4177_brigid": [
       "char_4177_brigid"
@@ -717,7 +791,8 @@
       "char_4105_almond"
     ],
     "char_174_slbell": [
-      "char_174_slbell"
+      "char_174_slbell",
+      "char_1046_sbell2"
     ],
     "char_254_vodfox": [
       "char_254_vodfox"
@@ -743,11 +818,17 @@
     "char_4162_cathy": [
       "char_4162_cathy"
     ],
+    "char_4178_alanna": [
+      "char_4178_alanna"
+    ],
     "char_101_sora": [
       "char_101_sora"
     ],
     "char_4045_heidi": [
       "char_4045_heidi"
+    ],
+    "char_4184_dolris": [
+      "char_4184_dolris"
     ],
     "char_343_tknogi": [
       "char_343_tknogi"
@@ -767,11 +848,17 @@
     "char_487_bobb": [
       "char_487_bobb"
     ],
+    "char_4223_botany": [
+      "char_4223_botany"
+    ],
     "char_215_mantic": [
       "char_215_mantic"
     ],
     "char_478_kirara": [
       "char_478_kirara"
+    ],
+    "char_4186_tmoris": [
+      "char_4186_tmoris"
     ],
     "char_241_panda": [
       "char_241_panda"
@@ -797,11 +884,18 @@
     "char_4124_iana": [
       "char_4124_iana"
     ],
+    "char_4183_mortis": [
+      "char_4183_mortis"
+    ],
     "char_4151_tinman": [
       "char_4151_tinman"
     ],
+    "char_4191_tippi": [
+      "char_4191_tippi"
+    ],
     "char_103_angel": [
-      "char_103_angel"
+      "char_103_angel",
+      "char_1041_angel2"
     ],
     "char_332_archet": [
       "char_332_archet"
@@ -820,6 +914,9 @@
     ],
     "char_430_fartth": [
       "char_430_fartth"
+    ],
+    "char_4193_lemuen": [
+      "char_4193_lemuen"
     ],
     "char_113_cqbw": [
       "char_113_cqbw",
@@ -871,6 +968,9 @@
     "char_249_mlyss": [
       "char_249_mlyss"
     ],
+    "char_4228_closur": [
+      "char_4228_closur"
+    ],
     "char_4087_ines": [
       "char_4087_ines"
     ],
@@ -917,8 +1017,14 @@
     "char_4046_ebnhlz": [
       "char_4046_ebnhlz"
     ],
+    "char_4226_veen": [
+      "char_4226_veen"
+    ],
     "char_4146_nymph": [
       "char_4146_nymph"
+    ],
+    "char_4204_mantra": [
+      "char_4204_mantra"
     ],
     "char_450_necras": [
       "char_450_necras"
@@ -938,8 +1044,14 @@
     "char_248_mgllan": [
       "char_248_mgllan"
     ],
+    "char_4195_radian": [
+      "char_4195_radian"
+    ],
     "char_4134_cetsyr": [
       "char_4134_cetsyr"
+    ],
+    "char_4202_haruka": [
+      "char_4202_haruka"
     ],
     "char_2023_ling": [
       "char_2023_ling"
@@ -947,11 +1059,15 @@
     "char_4072_ironmn": [
       "char_4072_ironmn"
     ],
+    "char_4212_nasti": [
+      "char_4212_nasti"
+    ],
     "char_245_cello": [
       "char_245_cello"
     ],
     "char_250_phatom": [
-      "char_250_phatom"
+      "char_250_phatom",
+      "char_1042_phatm2"
     ],
     "char_1502_crosly": [
       "char_1502_crosly"
@@ -983,6 +1099,9 @@
     "char_4123_ela": [
       "char_4123_ela"
     ],
+    "char_2027_wang": [
+      "char_2027_wang"
+    ],
     "char_147_shining": [
       "char_147_shining"
     ],
@@ -993,13 +1112,21 @@
       "char_179_cgbird"
     ],
     "char_003_kalts": [
-      "char_003_kalts"
+      "char_003_kalts",
+      "char_1052_kalts2"
     ],
     "char_4042_lumen": [
       "char_4042_lumen"
     ],
+    "char_4056_titi": [
+      "char_4056_titi"
+    ],
+    "char_4179_monstr": [
+      "char_4179_monstr"
+    ],
     "char_136_hsguma": [
-      "char_136_hsguma"
+      "char_136_hsguma",
+      "char_1044_hsgma2"
     ],
     "char_610_acfend": [
       "char_610_acfend"
@@ -1028,6 +1155,9 @@
     "char_4039_horn": [
       "char_4039_horn"
     ],
+    "char_4194_rmixer": [
+      "char_4194_rmixer"
+    ],
     "char_2026_yu": [
       "char_2026_yu"
     ],
@@ -1037,8 +1167,12 @@
     "char_2024_chyue": [
       "char_2024_chyue"
     ],
+    "char_4037_demetr": [
+      "char_4037_demetr"
+    ],
     "char_172_svrash": [
-      "char_172_svrash"
+      "char_172_svrash",
+      "char_1045_svash2"
     ],
     "char_293_thorns": [
       "char_293_thorns",
@@ -1046,6 +1180,12 @@
     ],
     "char_4082_qiubai": [
       "char_4082_qiubai"
+    ],
+    "char_4182_oblvns": [
+      "char_4182_oblvns"
+    ],
+    "char_617_sharp2": [
+      "char_617_sharp2"
     ],
     "char_4088_hodrer": [
       "char_4088_hodrer"
@@ -1058,7 +1198,8 @@
     ],
     "char_010_chen": [
       "char_010_chen",
-      "char_1013_chen2"
+      "char_1013_chen2",
+      "char_1050_chen3"
     ],
     "char_4009_irene": [
       "char_4009_irene"
@@ -1097,11 +1238,15 @@
     "char_4064_mlynar": [
       "char_4064_mlynar"
     ],
+    "char_4214_cairn": [
+      "char_4214_cairn"
+    ],
     "char_230_savage": [
       "char_230_savage"
     ],
     "char_282_catap": [
-      "char_282_catap"
+      "char_282_catap",
+      "char_1049_catap2"
     ],
     "char_283_midn": [
       "char_283_midn"
@@ -1129,7 +1274,7 @@
         "charId": "char_121_lava",
         "missionId": "mission_char_121_lava_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1151,7 +1296,7 @@
         "charId": "char_121_lava",
         "missionId": "mission_char_121_lava_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "55"
@@ -1175,7 +1320,7 @@
         "charId": "char_1011_lava2",
         "missionId": "mission_char_1011_lava2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1207,7 +1352,7 @@
         "charId": "char_1011_lava2",
         "missionId": "mission_char_1011_lava2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -1251,7 +1396,7 @@
         "charId": "char_263_skadi",
         "missionId": "mission_char_263_skadi_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1283,7 +1428,7 @@
         "charId": "char_263_skadi",
         "missionId": "mission_char_263_skadi_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "80"
@@ -1327,7 +1472,7 @@
         "charId": "char_1012_skadi2",
         "missionId": "mission_char_1012_skadi2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1359,7 +1504,7 @@
         "charId": "char_1012_skadi2",
         "missionId": "mission_char_1012_skadi2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -1403,7 +1548,7 @@
         "charId": "char_010_chen",
         "missionId": "mission_char_010_chen_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1435,7 +1580,7 @@
         "charId": "char_010_chen",
         "missionId": "mission_char_010_chen_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "80"
@@ -1479,7 +1624,7 @@
         "charId": "char_1013_chen2",
         "missionId": "mission_char_1013_chen2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1511,7 +1656,7 @@
         "charId": "char_1013_chen2",
         "missionId": "mission_char_1013_chen2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -1555,7 +1700,7 @@
         "charId": "char_148_nearl",
         "missionId": "mission_char_148_nearl_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1587,7 +1732,7 @@
         "charId": "char_148_nearl",
         "missionId": "mission_char_148_nearl_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "70"
@@ -1631,7 +1776,7 @@
         "charId": "char_1014_nearl2",
         "missionId": "mission_char_1014_nearl2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1663,7 +1808,7 @@
         "charId": "char_1014_nearl2",
         "missionId": "mission_char_1014_nearl2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -1707,7 +1852,7 @@
         "charId": "char_124_kroos",
         "missionId": "mission_char_124_kroos_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1729,7 +1874,7 @@
         "charId": "char_124_kroos",
         "missionId": "mission_char_124_kroos_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "55"
@@ -1753,7 +1898,7 @@
         "charId": "char_1021_kroos2",
         "missionId": "mission_char_1021_kroos2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1785,7 +1930,7 @@
         "charId": "char_1021_kroos2",
         "missionId": "mission_char_1021_kroos2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -1829,7 +1974,7 @@
         "charId": "char_143_ghost",
         "missionId": "mission_char_143_ghost_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1861,7 +2006,7 @@
         "charId": "char_143_ghost",
         "missionId": "mission_char_143_ghost_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "70"
@@ -1905,7 +2050,7 @@
         "charId": "char_1023_ghost2",
         "missionId": "mission_char_1023_ghost2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -1937,7 +2082,7 @@
         "charId": "char_1023_ghost2",
         "missionId": "mission_char_1023_ghost2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -1981,7 +2126,7 @@
         "charId": "char_120_hibisc",
         "missionId": "mission_char_120_hibisc_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -2003,7 +2148,7 @@
         "charId": "char_120_hibisc",
         "missionId": "mission_char_120_hibisc_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "55"
@@ -2027,7 +2172,7 @@
         "charId": "char_1024_hbisc2",
         "missionId": "mission_char_1024_hbisc2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -2059,7 +2204,7 @@
         "charId": "char_1024_hbisc2",
         "missionId": "mission_char_1024_hbisc2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -2103,7 +2248,7 @@
         "charId": "char_253_greyy",
         "missionId": "mission_char_253_greyy_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -2135,7 +2280,7 @@
         "charId": "char_253_greyy",
         "missionId": "mission_char_253_greyy_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "60"
@@ -2179,7 +2324,7 @@
         "charId": "char_1027_greyy2",
         "missionId": "mission_char_1027_greyy2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -2211,7 +2356,7 @@
         "charId": "char_1027_greyy2",
         "missionId": "mission_char_1027_greyy2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -2255,7 +2400,7 @@
         "charId": "char_187_ccheal",
         "missionId": "mission_char_187_ccheal_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -2287,7 +2432,7 @@
         "charId": "char_187_ccheal",
         "missionId": "mission_char_187_ccheal_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "60"
@@ -2331,7 +2476,7 @@
         "charId": "char_1026_gvial2",
         "missionId": "mission_char_1026_gvial2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -2363,7 +2508,7 @@
         "charId": "char_1026_gvial2",
         "missionId": "mission_char_1026_gvial2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -2407,7 +2552,7 @@
         "charId": "char_102_texas",
         "missionId": "mission_char_102_texas_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -2439,7 +2584,7 @@
         "charId": "char_102_texas",
         "missionId": "mission_char_102_texas_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "70"
@@ -2483,7 +2628,7 @@
         "charId": "char_1028_texas2",
         "missionId": "mission_char_1028_texas2_0",
         "sortId": 0,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "1",
           "1"
@@ -2515,7 +2660,7 @@
         "charId": "char_1028_texas2",
         "missionId": "mission_char_1028_texas2_1",
         "sortId": 1,
-        "condType": 1,
+        "condType": "EVOLVE_PHASE",
         "param": [
           "2",
           "1"
@@ -2566,5 +2711,155 @@
     "char_1027_greyy2": 1656993600,
     "char_1026_gvial2": 1660190400,
     "char_1028_texas2": 1667275200
+  },
+  "charIdMasterListMap": {
+    "char_4195_radian": [
+      "master_radian_1",
+      "master_radian_2",
+      "master_radian_3",
+      "master_radian_4",
+      "master_radian_5",
+      "master_radian_6"
+    ]
+  },
+  "charMasterDataMap": {
+    "master_radian_1": {
+      "charId": "char_4195_radian",
+      "masterId": "master_radian_1",
+      "sortId": 1,
+      "masterType": "SYSTEM",
+      "levelList": [
+        {
+          "level": 1,
+          "name": "后备精通 I",
+          "description": "解锁不期而遇“同心”事件“请电弧探路”选项",
+          "conditionDesc": "无需招募，培训至精英阶段一生效"
+        },
+        {
+          "level": 2,
+          "name": "后备精通 I",
+          "description": "解锁不期而遇“同心”事件“请电弧交涉”选项和传说“同心”事件“让电弧进入”选项",
+          "conditionDesc": "无需招募，培训至精英阶段二生效"
+        }
+      ]
+    },
+    "master_radian_2": {
+      "charId": "char_4195_radian",
+      "masterId": "master_radian_2",
+      "sortId": 2,
+      "masterType": "SYSTEM",
+      "levelList": [
+        {
+          "level": 1,
+          "name": "后备精通 II",
+          "description": "特勤分队效果提升",
+          "conditionDesc": "无需招募，培训至精英阶段二生效"
+        }
+      ]
+    },
+    "master_radian_3": {
+      "charId": "char_4195_radian",
+      "masterId": "master_radian_3",
+      "sortId": 3,
+      "masterType": "SYSTEM",
+      "levelList": [
+        {
+          "level": 1,
+          "name": "招募精通 I",
+          "description": "在【岁的界园志异】中，被招募时希望消耗-2",
+          "conditionDesc": "集成战略：岁的界园志异中招募时生效"
+        },
+        {
+          "level": 2,
+          "name": "招募精通 I",
+          "description": "在【岁的界园志异】中，被招募时希望消耗-4",
+          "conditionDesc": "集成战略：岁的界园志异中招募时生效"
+        },
+        {
+          "level": 3,
+          "name": "招募精通 I",
+          "description": "在【岁的界园志异】中，被招募时希望消耗-4，被进阶时希望消耗-2",
+          "conditionDesc": "集成战略：岁的界园志异中招募时生效"
+        }
+      ]
+    },
+    "master_radian_4": {
+      "charId": "char_4195_radian",
+      "masterId": "master_radian_4",
+      "sortId": 4,
+      "masterType": "SYSTEM",
+      "levelList": [
+        {
+          "level": 1,
+          "name": "招募精通 II",
+          "description": "在【岁的界园志异】中，被招募时，使队伍可留存招募券上限+1",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        },
+        {
+          "level": 2,
+          "name": "招募精通 II",
+          "description": "在【岁的界园志异】中，被招募时，使队伍可留存招募券上限+1，下次进入岁兽残识时剩余烛火+1",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        },
+        {
+          "level": 3,
+          "name": "招募精通 II",
+          "description": "在【岁的界园志异】中，被招募时，使队伍可留存招募券上限+1，护盾值+2，下次进入岁兽残识时剩余烛火+1并随机探索一个节点",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        }
+      ]
+    },
+    "master_radian_5": {
+      "charId": "char_4195_radian",
+      "masterId": "master_radian_5",
+      "sortId": 5,
+      "masterType": "SYSTEM",
+      "levelList": [
+        {
+          "level": 1,
+          "name": "战斗精通 I",
+          "description": "在【岁的界园志异】中，每到达新的一层，电弧依次获得下列效果：召唤物部署费用-9，召唤物可同时部署数量+1",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        },
+        {
+          "level": 2,
+          "name": "战斗精通 I",
+          "description": "在【岁的界园志异】中，每到达新的一层，电弧依次获得下列效果：召唤物部署费用-9，召唤物可同时部署数量+2，召唤物攻击速度+20",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        },
+        {
+          "level": 3,
+          "name": "战斗精通 I",
+          "description": "在【岁的界园志异】中，每到达新的一层，电弧依次获得下列效果：召唤物部署费用-9，召唤物可同时部署数量+2，召唤物攻击速度+35，召唤物不再消耗部署位",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        }
+      ]
+    },
+    "master_radian_6": {
+      "charId": "char_4195_radian",
+      "masterId": "master_radian_6",
+      "sortId": 6,
+      "masterType": "BATTLE",
+      "levelList": [
+        {
+          "level": 1,
+          "name": "战斗精通 II",
+          "description": "在【岁的界园志异】中，电弧和其召唤物生命值+20％",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        },
+        {
+          "level": 2,
+          "name": "战斗精通 II",
+          "description": "在【岁的界园志异】中，电弧和其召唤物生命值、防御力+25％",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        },
+        {
+          "level": 3,
+          "name": "战斗精通 II",
+          "description": "在【岁的界园志异】中，电弧和其召唤物生命值、防御力+30％，法术抗性+15",
+          "conditionDesc": "集成战略：岁的界园志异中招募后生效"
+        }
+      ]
+    }
   }
 }

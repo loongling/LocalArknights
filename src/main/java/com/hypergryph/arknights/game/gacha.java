@@ -55,7 +55,6 @@ public class gacha {
         JSONObject result = new JSONObject();
         JSONObject playerDataDelta = new JSONObject();
         JSONObject modified = new JSONObject();
-        modified.put("recruit", JSONObject.parseObject(account.getUser()).getJSONObject("recruit"));
         playerDataDelta.put("modified", modified);
         playerDataDelta.put("deleted", new JSONObject());
         result.put("playerDataDelta", playerDataDelta);
@@ -67,6 +66,7 @@ public class gacha {
     public JSONObject normalGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/normalGacha");
+        ArknightsApplication.LOGGER.info("normalG:" + jsonBody);
 
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -137,6 +137,7 @@ public class gacha {
     public JSONObject finishNormalGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/finishNormalGacha");
+        ArknightsApplication.LOGGER.info("finishNG:" + jsonBody);
 
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -185,6 +186,7 @@ public class gacha {
     public JSONObject getPoolDetail(@RequestBody JSONObject jsonBody, HttpServletResponse response) {
         String poolId = jsonBody.getString("poolId");
         String poolPath = "data/gacha/" + poolId + ".json";
+        ArknightsApplication.LOGGER.info("getPoolD:" + jsonBody);
 
 
         JSONObject poolData = IOTools.ReadJsonFile(poolPath);
@@ -200,6 +202,7 @@ public class gacha {
     public JSONObject advancedGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/advancedGacha");
+        ArknightsApplication.LOGGER.info("advanceG:" + jsonBody);
 
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -233,7 +236,7 @@ public class gacha {
         else{
             JSONObject normal = gacha.getJSONObject("normal");
             int cnt = normal.getJSONObject(poolId).getIntValue("cnt");
-            normal.getJSONObject(poolId).put("cnt", cnt - 1);
+            normal.getJSONObject(poolId).put("cnt", cnt + 1);
             userDao.setUserData(uid, userdata);
         }
 
@@ -427,7 +430,7 @@ public class gacha {
             new_skils.put("specializeLevel", 0);
             new_skils.put("completeUpgradeTime", -1);
 
-            if (skilsArray.getJSONObject(i).getJSONObject("unlockCond").getIntValue("phase") == 0) {
+            if (skilsArray.getJSONObject(i).getJSONObject("unlockCond").getString("phase").equals("PHASE_0")) {
                 new_skils.put("unlock", 1);
             } else {
                 new_skils.put("unlock", 0);
@@ -453,12 +456,15 @@ public class gacha {
         for (Object skillObj : charInfo.getJSONArray("skills")) {
             JSONObject skill = (JSONObject) skillObj;
             JSONObject newSkill = new JSONObject();
+            JSONObject unlockCond = skill.getJSONObject("unlockCond");
+
+            String phase = unlockCond != null ? unlockCond.getString("phase") : "";
+            int unlock = "PHASE_0".equals(phase) ? 1 : 0;
             newSkill.put("skillId", skill.getString("skillId"));
             newSkill.put("state", 0);
             newSkill.put("specializeLevel", 0);
             newSkill.put("completeUpgradeTime", -1);
-            newSkill.put("unlock",
-                    skill.getJSONObject("unlockCond").getIntValue("phase") == 0 ? 1 : 0);
+            newSkill.put("unlock", unlock);
             skills.add(newSkill);
         }
         charData.put("skills", skills);
@@ -558,7 +564,7 @@ public class gacha {
 
         JSONArray gachaResults = new JSONArray();
         JSONObject chars = userData.getJSONObject("troop").getJSONObject("chars");
-        JSONObject buildingChars = userData.getJSONObject("troop").getJSONObject("building").getJSONObject("chars");
+        JSONObject buildingChars = userData.getJSONObject("building").getJSONObject("chars");
         JSONArray availCharInfo = poolData.getJSONObject("detailInfo")
                 .getJSONObject("availCharInfo")
                 .getJSONArray("perAvailList");

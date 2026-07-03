@@ -55539,10 +55539,10 @@
   },
   "openServer": {
     "checkIn": {
-      "isAvailable": true
+      "isAvailable": false
     },
     "chainLogin": {
-      "isAvailable": true
+      "isAvailable": false
     },
     "fullOpen": {
       "isAvailable": true,
@@ -55682,52 +55682,64 @@
     "normal": {
       "slots": {
         "0": {
-          "durationInSec": -1,
-          "maxFinishTs": -1,
-          "realFinishTs": -1,
-          "selectTags": [],
-          "startTs": -1,
           "state": 1,
           "tags": [
             11,
+            2,
+            10,
+            19,
             14
-          ]
+          ],
+          "selectTags": [],
+          "startTs": -1,
+          "durationInSec": -1,
+          "maxFinishTs": -1,
+          "realFinishTs": -1
         },
         "1": {
-          "durationInSec": -1,
-          "maxFinishTs": -1,
-          "realFinishTs": -1,
-          "selectTags": [],
-          "startTs": -1,
           "state": 1,
           "tags": [
             11,
+            2,
+            10,
+            19,
             14
-          ]
+          ],
+          "selectTags": [],
+          "startTs": -1,
+          "durationInSec": -1,
+          "maxFinishTs": -1,
+          "realFinishTs": -1
         },
         "2": {
-          "durationInSec": -1,
-          "maxFinishTs": -1,
-          "realFinishTs": -1,
-          "selectTags": [],
-          "startTs": -1,
           "state": 1,
           "tags": [
             11,
+            2,
+            10,
+            19,
             14
-          ]
+          ],
+          "selectTags": [],
+          "startTs": -1,
+          "durationInSec": -1,
+          "maxFinishTs": -1,
+          "realFinishTs": -1
         },
         "3": {
-          "durationInSec": -1,
-          "maxFinishTs": -1,
-          "realFinishTs": -1,
-          "selectTags": [],
-          "startTs": -1,
           "state": 1,
           "tags": [
             11,
+            2,
+            10,
+            19,
             14
-          ]
+          ],
+          "selectTags": [],
+          "startTs": -1,
+          "durationInSec": -1,
+          "maxFinishTs": -1,
+          "realFinishTs": -1
         }
       }
     }

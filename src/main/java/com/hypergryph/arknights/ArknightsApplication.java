@@ -115,12 +115,12 @@ public class ArknightsApplication {
         }
 
         LOGGER.info("管理员密钥 " + serverConfig.getJSONObject("server").getString("GMKey"));
-        if (userDao.tableExists("account").size() == 0) {
+        if (userDao.tableExists("account").isEmpty()) {
             userDao.insertTable();
             LOGGER.info("玩家数据库不存在，已生成");
         }
 
-        if (userDao.tableExists("mail").size() == 0) {
+        if (userDao.tableExists("mail").isEmpty()) {
             mailDao.insertTable();
             LOGGER.info("邮件数据库不存在，已生成");
         }
