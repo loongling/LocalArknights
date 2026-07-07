@@ -238,8 +238,13 @@ public class account {
         }
     }
 
-    @PostMapping({"/syncPushMessage"})
-    public JSONObject SyncPushMessage() {
+    @PostMapping(
+            value = {"/syncPushMessage"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject SyncPushMessage(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        LOGGER.info("[/" + clientIp + "] /account/syncStatus");
         JSONObject json = new JSONObject();
         json.put("code", 200);
         json.put("msg", "OK");

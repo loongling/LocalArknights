@@ -455,6 +455,25 @@ public class users {
             result.put("error", "Bad Request");
             result.put("message", "server is close");
             return result;
+        } else {
+            List<Account> Accounts = userDao.queryAccountBySecret(secret);
+            if (Accounts.size() != 1) {
+                JSONObject result = new JSONObject(true);
+                result.put("result", 2);
+                result.put("error", "无法查询到此账户");
+                return result;
+            } else {
+                Long uid = ((Account) Accounts.get(0)).getUid();
+                JSONObject UserSyncData;
+                if (((Account) Accounts.get(0)).getBan() == 1L) {
+                    response.setStatus(500);
+                    UserSyncData = new JSONObject(true);
+                    UserSyncData.put("statusCode", 403);
+                    UserSyncData.put("error", "Bad Request");
+                    UserSyncData.put("message", "error");
+                    return UserSyncData;
+                }
+            }
         }
         return new JSONObject();
     }

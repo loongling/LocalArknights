@@ -1,5 +1,5 @@
-{
-	"goodList": [{
+[
+	{
 		"goodId": "CS_1_r1",
 		"slotId": 1,
 		"price": 6,
@@ -47,5 +47,5 @@
 		"doubleCount": 260,
 		"plusNum": 55,
 		"desc": "开采一箱源石"
-	}]
-}
+	}
+]

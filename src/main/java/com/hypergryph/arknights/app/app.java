@@ -66,7 +66,7 @@ public class app {
 
         // App 设定
         Map<String, Object> app = new HashMap<>();
-        app.put("alipayAppId", "");
+        app.put("alipayAppId", "whatareyoulookingabout");
         app.put("appAmount", 600);
         app.put("appName", "明日方舟");
         app.put("customerServiceUrl", "https://customer-service.hypergryph.com/ak?hg_token={hg_token}&source_from=sdk");
@@ -81,8 +81,8 @@ public class app {
         app.put("enableUnbindGrant", true);
         app.put("needAntiAddictionAlert", true);
         app.put("needShowName", false);
-        app.put("oneLoginAppId", "");
-        app.put("wechatAppId", "");
+        app.put("oneLoginAppId", "whatareyoulookingabout");
+        app.put("wechatAppId", "whatareyoulookingabout");
 
         // 组合 Data 数据
         Map<String, Object> data = new HashMap<>();

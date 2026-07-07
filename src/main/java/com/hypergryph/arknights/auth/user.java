@@ -210,7 +210,7 @@ public class user {
 
         // 构造返回数据
         Map<String, Object> data = new LinkedHashMap<>();
-        data.put("code", token);  // code 就是 token
+        data.put("code", token);
         data.put("uid", uid);
 
         Map<String, Object> response = new LinkedHashMap<>();

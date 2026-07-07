@@ -454,7 +454,14 @@ public class shop {
 
     @RequestMapping({"/getCashGoodList"})
     public JSONObject getCashGoodList() {
-        return ArknightsApplication.CashGoodList;
+        JSONObject result = new JSONObject();
+        JSONArray CashGoodList = ArknightsApplication.CashGoodList;
+        result.put("goodList", CashGoodList);
+        JSONObject playerDataDelta = new JSONObject();
+        playerDataDelta.put("modified", new JSONObject());
+        playerDataDelta.put("deleted", new JSONObject());
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
     }
 
     @RequestMapping({"/getGPGoodList"})

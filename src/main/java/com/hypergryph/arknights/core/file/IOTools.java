@@ -1,9 +1,13 @@
 package com.hypergryph.arknights.core.file;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.hypergryph.arknights.ArknightsApplication;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,6 +16,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class IOTools {
     public IOTools() {
@@ -72,6 +79,23 @@ public class IOTools {
             IOException e = var3;
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public  static JSONArray ReadJsonArray(String ArrayFilePath){
+        try {
+            // 读取文件内容
+            String content = new String(Files.readAllBytes(Paths.get(ArrayFilePath)), StandardCharsets.UTF_8);
+
+            // 解析为 JSONArray
+            return JSON.parseArray(content);
+
+        } catch (IOException e) {
+            ArknightsApplication.LOGGER.error("读取 JSON 数组文件失败: {}", ArrayFilePath, e);
+            return new JSONArray();  // 返回空数组
+        } catch (JSONException e) {
+            ArknightsApplication.LOGGER.error("解析 JSON 数组失败: {}", ArrayFilePath, e);
+            return new JSONArray();
         }
     }
 }

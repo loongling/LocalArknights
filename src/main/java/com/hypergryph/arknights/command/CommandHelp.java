@@ -41,22 +41,22 @@ public class CommandHelp extends CommandBase {
                 LOGGER.error("未知或不完整的命令 '" + args[1] + "'");
             }
             else {
-                LOGGER.info("§e------------------- §f命令帮助 §e-------------------");
-                LOGGER.info("§6描述: §f" + icommand.getCommandDescription());
-                LOGGER.info("§6使用方式: §f/" + icommand.getCommandName() + " " + icommand.getCommandUsage(sender));
-                LOGGER.info("§6例子: §f" + icommand.getCommandExample());
-                LOGGER.info("§6说明: §f" + icommand.getCommandExampleUsage());
+                LOGGER.info("------------------- 命令帮助 -------------------");
+                LOGGER.info("描述: " + icommand.getCommandDescription());
+                LOGGER.info("使用方式: " + icommand.getCommandName() + " " + icommand.getCommandUsage(sender));
+                LOGGER.info("例子: " + icommand.getCommandExample());
+                LOGGER.info("说明: " + icommand.getCommandExampleUsage());
             }
         }
         else {
-            LOGGER.info("§e------------------- §f帮助菜单 §e-------------------");
+            LOGGER.info("------------------- 帮助菜单 -------------------");
             map = this.getCommands();
             Iterator var4 = map.entrySet().iterator();
 
             while(var4.hasNext()) {
                 Map.Entry entry = (Map.Entry)var4.next();
                 ICommand icommand = (ICommand)map.get(entry.getKey());
-                LOGGER.info("§6/" + icommand.getCommandName() + " §f" + icommand.getCommandUsage(sender));
+                LOGGER.info("/" + icommand.getCommandName() + " " + icommand.getCommandUsage(sender));
             }
         }
     }

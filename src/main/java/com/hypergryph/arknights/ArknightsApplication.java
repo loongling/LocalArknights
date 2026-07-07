@@ -1,5 +1,6 @@
 package com.hypergryph.arknights;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.dao.mailDao;
@@ -50,7 +51,7 @@ public class ArknightsApplication {
     public static JSONObject charwordTable;
     public static JSONObject CrisisData;
     public static JSONObject CrisisV2Data;
-    public static JSONObject CashGoodList;
+    public static JSONArray CashGoodList;
     public static JSONObject GPGoodList;
     public static JSONObject LowGoodList;
     public static JSONObject HighGoodList;
@@ -240,7 +241,7 @@ public class ArknightsApplication {
         skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
         skinTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/skin_table.json").getJSONObject("charSkins");
         charwordTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/charword_table.json");
-        CashGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/CashGoodList.json");
+        CashGoodList = IOTools.ReadJsonArray(System.getProperty("user.dir") + "/data/shop/CashGoodList.json");
         GPGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/GPGoodList.json");
         normalGachaData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/normalGacha.json");
         LowGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/LowGoodList.json");
@@ -274,7 +275,7 @@ public class ArknightsApplication {
         charwordTable = new JSONObject();
         CrisisData = new JSONObject();
         CrisisV2Data = new JSONObject();
-        CashGoodList = new JSONObject();
+        CashGoodList = new JSONArray();
         GPGoodList = new JSONObject();
         LowGoodList = new JSONObject();
         HighGoodList = new JSONObject();

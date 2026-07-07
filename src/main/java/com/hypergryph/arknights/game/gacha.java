@@ -269,7 +269,7 @@ public class gacha {
 
         String poolId = jsonBody.getString("poolId");
         int useTkt = jsonBody.getIntValue("useTkt");
-        int diamondCost = poolId.startsWith("BOOT") ? 3800 : 6000;
+        int diamondCost = poolId.startsWith("BOOT") ? 380 : 600;
 
         return performAdvancedGacha(account, poolId, "tenGachaTicket", diamondCost, 10, useTkt, response);
     }
@@ -543,6 +543,7 @@ public class gacha {
         // 读取卡池数据
         String poolPath = "data/gacha/" + poolId + ".json";
         JSONObject poolData = IOTools.ReadJsonFile(poolPath);
+        ArknightsApplication.LOGGER.info("PoolData" + poolData);
         if (poolData == null) {
             poolData = IOTools.ReadJsonFile("data/gacha/DEFAULT.json");
             if (poolData == null) {
@@ -607,17 +608,28 @@ public class gacha {
         } else {
             result.put("gachaResultList", gachaResults);
         }
+        JSONObject gacha = userData.getJSONObject("gacha");
+        if(poolId.startsWith("BOOT")) {
+            int cnt = gacha.getJSONObject("newbee").getIntValue("cnt");
+            if(cnt - drawCount < 0){
+                return createErrorResponse(400, "新手池抽卡数不足");
+            }
+            else {
+                gacha.getJSONObject("newbee").put("cnt", gacha.getJSONObject("newbee").getIntValue("cnt") - drawCount);
+                userDao.setUserData(uid, userData);
+            }
+        }
 
         JSONObject playerDataDelta = new JSONObject();
         JSONObject modified = new JSONObject();
         modified.put("status", status);
         modified.put("troop", userData.getJSONObject("troop"));
         modified.put("inventory", userData.getJSONObject("inventory"));
-        modified.put("gacha", userData.getJSONObject("gacha"));
+        modified.put("gacha", gacha);
         playerDataDelta.put("modified", modified);
         playerDataDelta.put("deleted", new JSONObject());
         result.put("playerDataDelta", playerDataDelta);
-
+        ArknightsApplication.LOGGER.info("result" + result);
         return result;
     }
 
