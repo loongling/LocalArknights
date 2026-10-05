@@ -162,9 +162,10 @@ public class account {
             value = {"/syncStatus"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject SyncStatus(HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject SyncStatus(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/syncStatus");
+        LOGGER.info("SyncS" + JsonBody);
         String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -229,9 +230,7 @@ public class account {
                     playerDataDelta.put("deleted", new JSONObject(true));
                     result.put("playerDataDelta", playerDataDelta);
                     JSONObject result_announcement = new JSONObject(true);
-                    result_announcement.put("4", ArknightsApplication.serverConfig.getJSONObject("announce").getJSONObject("status"));
                     result.put("result", result_announcement);
-                    result.put("ts", ArknightsApplication.getTimestamp());
                     return result;
                 }
             }
@@ -245,9 +244,12 @@ public class account {
     public JSONObject SyncPushMessage(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/syncStatus");
-        JSONObject json = new JSONObject();
-        json.put("code", 200);
-        json.put("msg", "OK");
-        return json;
+        LOGGER.info("syncPM:" + JsonBody);
+        JSONObject result = new JSONObject();
+        JSONObject playerDataDelta = new JSONObject();
+        playerDataDelta.put("modified", new JSONObject());
+        playerDataDelta.put("deleted", new JSONObject());
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
     }
 }

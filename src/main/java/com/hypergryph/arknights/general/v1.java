@@ -15,8 +15,8 @@ public class v1 {
     public JSONObject serverTime(HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求服务器时间 /general/v1/server_time");
-        long UnixTime = System.currentTimeMillis() / 1000L;
-        boolean isHoliday = false;
+        long UnixTime = ArknightsApplication.getTimestamp();
+        boolean isHoliday = true;
 
         JSONObject data  = new JSONObject();
         data.put("isHoliday", isHoliday);

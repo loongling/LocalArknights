@@ -12,10 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/gacha")
@@ -30,9 +28,10 @@ public class gacha {
 
 
     @PostMapping("/syncNormalGacha")
-    public JSONObject syncNormalGacha(HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject syncNormalGacha(@RequestBody JSONObject JsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/syncNormalGacha");
+        ArknightsApplication.LOGGER.info("syncNG" + JsonBody);
 
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -274,7 +273,13 @@ public class gacha {
         return performAdvancedGacha(account, poolId, "tenGachaTicket", diamondCost, 10, useTkt, response);
     }
 
-    // ==================== 私有方法 ====================
+    @GetMapping("/activity")
+    public JSONObject activity(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /activity");
+        ArknightsApplication.LOGGER.info("/gache/activity:" + jsonBody);
+        return new JSONObject();
+    }
 
     private JSONObject createErrorResponse(int code, String message) {
         JSONObject result = new JSONObject();

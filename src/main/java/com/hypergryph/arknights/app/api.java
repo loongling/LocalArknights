@@ -35,7 +35,6 @@ public class api {
         String clientIp = ArknightsApplication.getIpAddr(request);
 
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求网关信息 /api/gate/meta/Windows");
-
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("preAnnounceId", "528");
         response.put("actived", true);
@@ -98,6 +97,8 @@ public class api {
         network.put("devsdk", hg_network.getBoolean("devsdk"));
         network.put("pkgIOS", hg_network.getString("pkgIOS"));
         network.put("configVer", server_network.getString("configVer"));
+        network.put("funcVer", server_network.getString("funcVer"));
+        network.put("secure", hg_network.getBoolean("secure"));
         return network;
     }
 }

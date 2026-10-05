@@ -30,23 +30,32 @@
 		"enableDiamondShop":true
 	},
 	"version":{
-		"Windows": {
-			"resVersion": "26-06-23-12-11-53_eec0f9",
-			"clientVersion": "2.7.41"
-		},
 		"android":{
-			"resVersion":"26-06-23-12-12-11_556baa",
-			"clientVersion":"2.7.41"
+			"resVersion":"26-09-22-07-47-20_6c71fa",
+			"clientVersion":"2.7.71"
 		},
 		"ios":{
-
-			"resVersion":"26-06-23-12-12-11_556baa",
-			"clientVersion":"1.7.01"
+			"resVersion":"26-09-22-07-30-06_f46fa7",
+			"clientVersion":"2.7.71"
+		},
+		"Windows":{
+			"resVersion":"26-09-22-07-42-22_40345d",
+			"clientVersion":"2.7.71"
+		},
+		"global": {
+			"resVersion": "26-01-13-09-42-53_63eee8",
+			"clientVersion": "32.6.21"
 		}
 	},
 	"assets":{
 		"enableRedirect":true,
-		"redirectUrl":"https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-06-23-12-11-53_eec0f9",
+		"cdnBase":"http://ak.hycdn.cn/assetbundle/official",
+		"redirectUrl":{
+			"Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-09-22-07-47-20_6c71fa",
+			"Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-09-22-07-42-22_40345d",
+			"ios": "https://ak.hycdn.cn/assetbundle/official/iOS/assets/26-09-22-07-30-06_f46fa7",
+			"global": ""
+		},
 		"localFiles":[]
 	},
 	"remote":{

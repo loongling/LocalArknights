@@ -21,6 +21,15 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
+import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.ContentCachingRequestWrapper;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -178,7 +187,24 @@ public class ArknightsApplication {
             return System.currentTimeMillis() / 1000L; // 返回当前时间戳（秒）
         }
 
-        // 定义支持的时间格式
+        try {
+            long timestamp = Long.parseLong(ts);
+            // 如果是秒级时间戳（10位）或毫秒级（13位）
+            if (timestamp > 0) {
+                if (timestamp > 9999999999L) {
+                    // 毫秒级时间戳（13位）
+                    LOGGER.info("使用毫秒时间戳: {}", timestamp);
+                    return timestamp / 1000L;
+                } else {
+                    // 秒级时间戳（10位）
+                    LOGGER.info("使用秒时间戳: {}", timestamp);
+                    return timestamp;
+                }
+            }
+        } catch (NumberFormatException ignored) {
+            // 不是纯数字，继续尝试解析为时间字符串
+        }
+
         List<String> timeFormats = List.of(
                 "yyyy/MM/dd HH:mm:ss",
                 "ddMMyyyy HH:mm:ss",
@@ -187,7 +213,6 @@ public class ArknightsApplication {
                 "yyyyMMdd HH:mm:ss"
         );
 
-        // 遍历尝试解析时间字符串
         for (String format : timeFormats) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
@@ -195,7 +220,6 @@ public class ArknightsApplication {
                 long unixTime = dt.atZone(ZoneId.systemDefault()).toEpochSecond(); // 转换为 Unix 时间戳（秒）
                 return unixTime == -1 ? System.currentTimeMillis() / 1000L : unixTime; // -1 时返回真实时间
             } catch (Exception ignored) {
-                // 解析失败则尝试下一个格式
             }
         }
         return System.currentTimeMillis() / 1000L;
@@ -205,6 +229,7 @@ public class ArknightsApplication {
         // 绑定 IP -> secret
         public static void addSecretForIP (String ip, String secret){
             IP_SECRET_MAP.put(ip, secret);
+            // 确认 secret在header里等待下一次更新修复
         }
 
     @Configuration
@@ -216,6 +241,25 @@ public class ArknightsApplication {
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
             registry.addInterceptor(requestLoggerInterceptor);
+        }
+
+        // 把所有请求包装成 ContentCachingRequestWrapper，使 afterCompletion 能读到 body
+        @Bean
+        public FilterRegistrationBean<OncePerRequestFilter> contentCachingFilter() {
+            OncePerRequestFilter filter = new OncePerRequestFilter() {
+                @Override
+                protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                    if (request instanceof ContentCachingRequestWrapper) {
+                        filterChain.doFilter(request, response);
+                    } else {
+                        filterChain.doFilter(new ContentCachingRequestWrapper(request), response);
+                    }
+                }
+            };
+            FilterRegistrationBean<OncePerRequestFilter> bean = new FilterRegistrationBean<>(filter);
+            bean.addUrlPatterns("/*");
+            bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+            return bean;
         }
     }
 

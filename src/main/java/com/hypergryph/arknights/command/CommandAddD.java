@@ -1,14 +1,12 @@
 package com.hypergryph.arknights.command;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-import java.util.Map;
+import java.util.List;;
 
 public class CommandAddD extends CommandBase {
     private static final Logger LOGGER = LogManager.getLogger();

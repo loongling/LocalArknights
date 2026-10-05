@@ -35,13 +35,18 @@ public class official {
     public ResponseEntity<FileSystemResource> getFile(@PathVariable("os") String os, @PathVariable("assetsHash") String assetsHash, @PathVariable("fileName") String fileName, HttpServletResponse response, HttpServletRequest request) throws IOException {
         String clientIp = ArknightsApplication.getIpAddr(request);
         Boolean redirect = ArknightsApplication.serverConfig.getJSONObject("assets").getBooleanValue("enableRedirect");
-        String redirectUrl = ArknightsApplication.serverConfig.getJSONObject("assets").getString("redirectUrl");
+        String cdnBase = ArknightsApplication.serverConfig.getJSONObject("assets").getString("cdnBase");
+        if (cdnBase == null || cdnBase.isEmpty()) {
+            cdnBase = "https://ak.hycdn.cn/assetbundle/official";
+        }
+        String redirectUrl = cdnBase + "/" + os + "/assets/" + assetsHash;
         String filePath = System.getProperty("user.dir") + "/assets/" + assetsHash + "/direct/";
         if (redirect) {
             filePath = System.getProperty("user.dir") + "/assets/" + assetsHash + "/redirect/";
             JSONArray localFiles = ArknightsApplication.serverConfig.getJSONObject("assets").getJSONArray("localFiles");
-            if (!localFiles.contains(fileName)) {
-                response.sendRedirect(redirectUrl + "/" + fileName);
+            if (localFiles == null || !localFiles.contains(fileName)) {
+                response.setStatus(307);
+                response.setHeader("Location", redirectUrl + "/" + fileName);
                 return null;
             }
         }
@@ -50,7 +55,11 @@ public class official {
         if (file.exists()) {
             return this.export(file);
         } else {
-            LOGGER.warn("正在下载 " + assetsHash + "/" + fileName);
+            LOGGER.warn("正在下载 " + assetsHash + "/" + fileName + " from " + redirectUrl + "/" + fileName);
+            File cacheDir = new File(filePath);
+            if (!cacheDir.exists()) {
+                cacheDir.mkdirs();
+            }
             HttpUtil.downloadFile(redirectUrl + "/" + fileName, filePath + fileName);
             file = new File(filePath, fileName);
             if (file.exists()) {

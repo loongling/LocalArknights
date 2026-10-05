@@ -25250,11 +25250,11 @@
     "squad": []
   },
   "checkIn": {
-    "canCheckIn": 1,
+    "canCheckIn": 0,
     "newbiePackage": {
       "open": false
     },
-    "showCount": 0,
+    "showCount": 9999,
 
     "longTermRecvRecord": {
       "signin_1": 1,

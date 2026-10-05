@@ -3,14 +3,19 @@ package com.hypergryph.arknights.core.decrypt;
 import com.alibaba.fastjson.JSONObject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.zip.ZipInputStream;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.DigestUtils;
 
 public class Utils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
+
     public Utils() {
     }
 
@@ -56,7 +61,7 @@ public class Utils {
             return Base64.getEncoder().encodeToString(encrypted);
         } catch (Exception var9) {
             e = var9;
-            System.out.println(e);
+            LOGGER.warn("aesEncrypt 失败", e);
             return null;
         }
     }
@@ -70,10 +75,18 @@ public class Utils {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             cipher.init(2, Key, Iv);
-            return JSONObject.parseObject(new String(cipher.doFinal(BattleData)));
+            byte[] dec = cipher.doFinal(BattleData);
+            int pad = dec[dec.length - 1] & 0xFF;
+            if (pad >= 1 && pad <= 16 && pad <= dec.length) {
+                boolean valid = true;
+                for (int i = 0; i < pad; i++) {
+                    if ((dec[dec.length - 1 - i] & 0xFF) != pad) { valid = false; break; }
+                }
+                if (valid) dec = Arrays.copyOf(dec, dec.length - pad);
+            }
+            return JSONObject.parseObject(new String(dec));
         } catch (Exception var7) {
-            Exception e = var7;
-            System.out.println(e);
+            LOGGER.warn("BattleData_decrypt 失败", var7);
             return null;
         }
     }
@@ -103,8 +116,7 @@ public class Utils {
             bis.close();
             return JSONObject.parseObject(new String(b, "UTF-8"));
         } catch (Exception var8) {
-            Exception ex = var8;
-            ex.printStackTrace();
+            LOGGER.warn("BattleReplay_decrypt 失败", var8);
             return null;
         }
     }
