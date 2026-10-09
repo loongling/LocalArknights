@@ -403,11 +403,11 @@ public class quest {
 
         for (int i = 0; i < displayDetailRewards.size(); i++) {
             JSONObject reward = displayDetailRewards.getJSONObject(i);
-            int dropType = reward.getIntValue("dropType");
+            String dropType = reward.getString("dropType");
             String reward_id = reward.getString("id");
             String reward_type = reward.getString("type");
 
-            if (dropType == 1 || dropType == 8) {
+            if (Boolean.parseBoolean(dropType = "ONCE")) {
                 handleFirstClearReward(UserSyncData, reward_id, reward_type, chars, troop);
                 JSONObject filteredReward = new JSONObject();
                 filteredReward.put("type", reward.getString("type"));

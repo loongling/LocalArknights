@@ -35,19 +35,9 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         String requestURI = request.getRequestURI();
-
         if (IGNORED_PATHS.stream().anyMatch(requestURI::startsWith)) {
             return;
         }
-
-        // [TEMP-DIAG] 打印所有请求头，确认客户端认证方式
-        java.util.Enumeration<String> hnames = request.getHeaderNames();
-        StringBuilder hdrs = new StringBuilder();
-        while (hnames.hasMoreElements()) {
-            String hn = hnames.nextElement();
-            hdrs.append(hn).append("=").append(request.getHeader(hn)).append(" | ");
-        }
-        LOGGER.info("[DIAG-HEADERS] " + request.getMethod() + " " + requestURI + " => " + hdrs);
 
         StringBuilder logMessage = new StringBuilder("----- HTTP Request -----")
                 .append("\nURL: ").append(requestURI)

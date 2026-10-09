@@ -48,16 +48,18 @@ public class api {
         logger.info("请求最新游戏信息: /api/game/get_latest");
         String platform = params.get("platform");
         String clientVersion = ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject(platform).getString("clientVersion");
+        String funcVer = ArknightsApplication.serverConfig.getString("clientFuncVer");
+        String file_path = ArknightsApplication.serverConfig.getString("file_path");
 
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("action", 0);
-        response.put("version", "69.0.0");
-        response.put("request_version", "69.0.0");
+        response.put("version", funcVer);
+        response.put("request_version", funcVer);
 
         Map<String, Object> pkg = new LinkedHashMap<>();
         pkg.put("packs", "[]");
         pkg.put("total_size", "0");
-        pkg.put("file_path", "https://ak.hycdn.cn/GzD1CpaWgmSq1wew/69.0/update/1/1/Windows/69.0.0_OCI5nGSI9gIFzxQn/files");
+        pkg.put("file_path", file_path);
         pkg.put("url", "");
         pkg.put("md5", "");
         pkg.put("package_size", "0");
@@ -72,17 +74,17 @@ public class api {
         return response;
     }
     @GetMapping("/remote_config/1/prod/default/Windows/remote_config")
-    public Map<String, Object> akSdkConfig() {
-        logger.info("请求 SDK 配置信息: /api/remote_config/1/prod/default/Windows/remote_config");
-
-        return new LinkedHashMap<>();
+    public Map<String, Object> akSdkConfig(HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求 SDK 配置信息: /api/remote_config/1/prod/default/Windows/remote_config");
+        return ArknightsApplication.serverConfig.getJSONObject("remote");
     }
     @RequestMapping("/remote_config/1/prod/default/Windows/network_config")
     public JSONObject NetworkConfig(HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /remote_config/1/prod/default/Win/network_config");
         JSONObject server_network = ArknightsApplication.serverConfig.getJSONObject("network");
-        JSONObject hg_network = server_network.getJSONObject("configs").getJSONObject("V070").getJSONObject("network");
+        JSONObject hg_network = server_network.getJSONObject("configs").getJSONObject(server_network.getString("funcVer")).getJSONObject("network");
         JSONObject network = new JSONObject(true);
         network.put("an", hg_network.getString("an"));
         network.put("as", hg_network.getString("as"));

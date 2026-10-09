@@ -110,10 +110,10 @@ public class u8 {
         JSONObject result = new JSONObject(true);
         JSONObject data = new JSONObject();
         JSONObject agreementUrl = new JSONObject();
-        agreementUrl.put("childrenPrivacy", "http://127.0.0.1:31416/protocol/plain/ak/children_privacy");
-        agreementUrl.put("privacy", "http://127.0.0.1:31416/protocol/plain/ak/privacy");
-        agreementUrl.put("service", "http://127.0.0.1:31416/protocol/plain/ak/service");
-        agreementUrl.put("updateOverview", "http://127.0.0.1:31416/protocol/plain/ak/overview_of_changes");
+        agreementUrl.put("childrenPrivacy", "http://127.0.0.1:10029/protocol/plain/ak/children_privacy");
+        agreementUrl.put("privacy", "http://127.0.0.1:10029/protocol/plain/ak/privacy");
+        agreementUrl.put("service", "http://127.0.0.1:10029/protocol/plain/ak/service");
+        agreementUrl.put("updateOverview", "http://127.0.0.1:10029/protocol/plain/ak/overview_of_changes");
         data.put("agreementUrl", agreementUrl);
         data.put("authorized", "true");
         data.put("isLatestUserAgreement", "true");
