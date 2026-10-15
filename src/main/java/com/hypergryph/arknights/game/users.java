@@ -1,7 +1,10 @@
 package com.hypergryph.arknights.game;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.hypergryph.arknights.ArknightsApplication;
+import com.hypergryph.arknights.core.dao.orderIdDao;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
 import java.util.Date;
@@ -476,5 +479,86 @@ public class users {
             }
         }
         return new JSONObject();
+    }
+
+    @PostMapping(
+            value = "/pay/order/v2/create/app_product",
+            produces = "application/json;charset=UTF-8"
+    )
+    public JSONObject createAppProduct(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        LOGGER.info("[/" + clientIp + "] /user/pay/order/v2/create/app_product");
+        LOGGER.info("createAppProduct:" + JsonBody);
+        String secret = JsonBody.getString("token");
+        JSONObject result = new JSONObject(true);
+        JSONObject data = new JSONObject();
+        JSONArray payment = new JSONArray();
+        JSONObject alipay = new JSONObject();
+        JSONObject wechat = new JSONObject();
+        String orderId = orderIdDao.queryOrderIdBtSecret(secret);
+        JSONObject order = orderIdDao.queryAllBySecret(secret);
+        int price = order.getInteger("price");
+        String productName = order.getString("product_name");
+        data.put("orderId", orderId);
+        data.put("amount", price);
+        data.put("productName", productName);
+        alipay.put("key", "alipay");
+        alipay.put("recommend", true);
+        alipay.put("discount", false);
+        wechat.put("key", "wechat");
+        wechat.put("recommend", false);
+        wechat.put("discount", false);
+        payment.add(alipay);
+        payment.add(wechat);
+        data.put("payment", payment);
+        data.put("displayMode", 0);
+        result.put("data", data);
+        result.put("msg", "ok");
+        result.put("status", 0);
+        result.put("type", "A");
+        return result;
+    }
+
+    @PostMapping(
+            value = "/pay/order/v2/create/app_product/alipay",
+            produces = "application/json;charset=UTF-8"
+    )
+    public JSONObject createBillByAlipay(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+
+        String qrCodeURL = "https://www.bilibili.com/video/BV1GJ411x7h7?vd_source=20f25237f2fb61a571818a58c8769fc9";
+        JSONObject result = new JSONObject();
+        JSONObject data = new JSONObject();
+        JSONObject extension = new JSONObject();
+        String orderId = orderIdDao.queryOrderIdBtSecret(JsonBody.getString("token"));
+        extension.put("qrCodeUrl", qrCodeURL);
+        data.put("extension", extension);
+        data.put("billOrderId", orderId);
+        data.put("expireTime", 600);
+        result.put("data", data);
+        result.put("msg", "ok");
+        result.put("status", 0);
+        result.put("type", "A");
+        return result;
+    }
+
+    @PostMapping(
+            value = "/pay/order/v2/create/app_product/wechat",
+            produces = "application/json;charset=UTF-8"
+    )
+    public JSONObject createBillByWeChat(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String qrCodeURL = "https://www.bilibili.com/video/BV1GJ411x7h7?vd_source=20f25237f2fb61a571818a58c8769fc9";
+        JSONObject result = new JSONObject();
+        JSONObject data = new JSONObject();
+        JSONObject extension = new JSONObject();
+        String orderId = orderIdDao.queryOrderIdBtSecret(JsonBody.getString("token"));
+        extension.put("qrCodeUrl", qrCodeURL);
+        data.put("extension", extension);
+        data.put("billOrderId", orderId);
+        data.put("expireTime", 600);
+        result.put("data", data);
+        result.put("msg", "ok");
+        result.put("status", 0);
+        result.put("type", "A");
+        return result;
     }
 }

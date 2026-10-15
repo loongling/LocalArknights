@@ -11,12 +11,16 @@
 	"timer": {
 		"set_server_time": "-1"
 	},
+	"pay": {
+		"cashDoubleCount": false,
+		"time": 3
+	},
 	"database":{
-		"host":"HSOT",
+		"host":"HOST",
 		"port":3306,
 		"dbname":"arknights",
 		"user":"ark",
-		"password":"PASSWD",
+		"password":"Passwd",
 		"extra":"useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
 	},
 	"roguelike":{
@@ -48,8 +52,8 @@
 		}
 	},
 	"assets":{
-		"enableRedirect":true,
-		"cdnBase":"http://ak.hycdn.cn/assetbundle/official",
+		"enableRedirect":false,
+		"cdnBase":"https://ak.hycdn.cn/assetbundle/official",
 		"redirectUrl":{
 			"Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-08-04-51-28-56071834",
 			"Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-08-04-48-58-88290222",
@@ -69,13 +73,13 @@
 		"showRecordNumber": false,
 		"enableNativeLicense": false
 	},
-	"clientFuncVer": "77.0.0",
+	"clientFuncVer": "78.0.0",
 	"file_path": "https://ak.hycdn.cn/GzD1CpaWgmSq1wew/77.0/update/1/1/Windows/77.0.0_o2Ri5AN2Z7XXjdtF/files",
 	"network":{
 		"configVer":"5",
-		"funcVer":"V077",
+		"funcVer":"V078",
 		"configs":{
-			"V077":{
+			"V078":{
 				"override":true,
 				"network":{
 					"devsdk": false,

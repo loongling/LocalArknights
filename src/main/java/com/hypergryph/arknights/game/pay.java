@@ -1,26 +1,224 @@
 package com.hypergryph.arknights.game;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSONArray;
 import com.hypergryph.arknights.ArknightsApplication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.hypergryph.arknights.core.dao.orderIdDao;
+import com.hypergryph.arknights.core.dao.userDao;
+import com.hypergryph.arknights.core.pojo.Account;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
+
+import static com.hypergryph.arknights.core.work.getProduct.getCashGood;
+import static com.hypergryph.arknights.core.work.getProduct.getProduct;
 
 @RestController
 @RequestMapping({"/pay"})
 public class pay {
+
+    @PostMapping(value = "/createOrder",
+            produces = "application/json;charset=UTF-8")
+    public JSONObject createOrder(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/createOrder");
+        ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
+        String phone = userDao.queryPhoneBySecret(secret);
+        String GoodId = JsonBody.getString("goodId");
+        int storeId = JsonBody.getInteger("storeId");
+        JSONObject product = getProduct(storeId);
+        JSONObject result = new JSONObject();
+        JSONObject extension = new JSONObject();
+        String orderId = ArknightsApplication.getTimestamp() + phone;
+        int price = product.getInteger("price");
+        String pName = product.getString("name");
+        String pDes = product.getString("desc");
+        long uid = userDao.queryUidBySecret(secret);
+        long create_time = ArknightsApplication.getTimestamp();
+        extension.put("appCode", "7318def77669979d");
+        extension.put("amount", price);
+        extension.put("productName", pName);
+        JSONObject ext2 = new JSONObject();
+        ext2.put("appStoreProductId", GoodId);
+        ext2.put("harmonyProductId", GoodId);
+        extension.put("uid", uid);
+        extension.put("outOrderId", orderId);
+        extension.put("ts", create_time);
+        ext2.put("platform", 2);
+        ext2.put("sign", "0cf6ed10808afa887cab5ab747e11e1e");
+        extension.put("extension", ext2);
+        result.put("orderId", orderId);
+        String ext_string = JSON.toJSONString(extension);
+        result.put("extension", ext_string);
+        result.put("result", 0);
+        result.put("alertMinor", 0);
+        JSONObject playerDataDelta = new JSONObject();
+        playerDataDelta.put("modified", new JSONObject());
+        playerDataDelta.put("deleted", new JSONObject());
+        result.put("playerDataDelta", playerDataDelta);
+        int times = 0;
+        orderIdDao.UpdateTable(secret, orderId, GoodId, storeId, price, pName, times, create_time);
+        return result;
+    };
+
+    @GetMapping("/order/v1/state")
+    public JSONObject getOrderState(@RequestParam("orderId") String orderId, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/order/v1/state");
+        JSONObject result = new JSONObject();
+        JSONObject data = new JSONObject();
+        JSONObject product = orderIdDao.queryAllBySecret(secret);
+        long createTime = product.getLong("create_at");
+        String productName  = product.getString("product_name");
+        int amount = product.getInteger("price");
+        data.put("productName", productName);
+        data.put("amount", amount);
+        data.put("createTime", createTime);
+        data.put("productType", 2);
+        data.put("appCode", "7318def77669979d");
+        data.put("orderId", orderId);
+        data.put("orderType", 0);
+        data.put("pc", 1);
+        result.put("data", data);
+        result.put("type", "A");
+        int time = ArknightsApplication.serverConfig.getJSONObject("pay").getInteger("time");
+        if (orderIdDao.checkTimes(secret) < time) {
+            result.put("status", 101);
+            result.put("msg", "未支付");
+            orderIdDao.updateTimes(secret);
+            return result;
+        }
+        result.put("status", 0);
+        result.put("msg", "已支付已回调");
+        return result;
+    }
+
+    @PostMapping(
+            value = "/confirmOrder",
+            produces = "application/json;charset=UTF-8"
+    )
+    public JSONObject confirmOrder(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/confirmOrder");
+        ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
+        String orderId = JsonBody.getString("orderId");
+        JSONObject result = new JSONObject();
+        int storeId = orderIdDao.queryStoreIdBtSecret(secret);
+        JSONObject product = getProduct(storeId);
+        String product_id = product.getString("product_id");
+        int productType = ArknightsApplication.resolveGoodType(product_id);
+        String GoodId = orderIdDao.queryGoodIdByOrderId(orderId);
+
+        if (!ArknightsApplication.enableServer) {
+            response.setStatus(400);
+            result.put("statusCode", 400);
+            result.put("error", "Bad Request");
+            result.put("message", "server is close");
+            return result;
+        }
+
+        List<Account> Accounts = userDao.queryAccountBySecret(secret);
+        if (Accounts.size() != 1) {
+            result.put("result", 2);
+            result.put("error", "无法查询到此账户");
+            return result;
+        }
+
+        Account account = Accounts.get(0);
+
+        if (account.getBan() == 1L) {
+            response.setStatus(500);
+            JSONObject banResult = new JSONObject(true);
+            banResult.put("statusCode", 403);
+            banResult.put("error", "Bad Request");
+            banResult.put("message", "error");
+            return banResult;
+        }
+
+        JSONObject user = JSON.parseObject(account.getUser());
+        JSONObject status = user.getJSONObject("status");
+        if (productType == 0) {
+            if(ArknightsApplication.serverConfig.getJSONObject("pay").getBooleanValue("cashDoubleCount")) {
+                JSONObject cash = getCashGood(product_id);
+                int amount = cash.getInteger("doubleCount");
+                JSONObject playerDataDelta = new JSONObject();
+                JSONObject modified = new JSONObject();
+                int android = status.getInteger("androidDiamond");
+                int ios = status.getInteger("iosDiamond");
+                status.put("androidDiamond", android + amount);
+                status.put("iosDiamond", ios + amount);
+                user.put("status", status);
+                userDao.setUserData(account.getUid(), user);
+                modified.put("status", status);
+                playerDataDelta.put("modified", modified);
+                playerDataDelta.put("deleted", new JSONObject());
+                result.put("playerDataDelta", playerDataDelta);
+                result.put("result", 0);
+                result.put("goodId", GoodId);
+                JSONObject receiveItems = new JSONObject();
+                JSONArray items = new JSONArray();
+                JSONObject receiveItem = new JSONObject();
+                receiveItem.put("id", 4002);
+                receiveItem.put("count", amount);
+                receiveItem.put("type", "DIAMOND");
+                items.add(receiveItem);
+                receiveItems.put("items", items);
+                result.put("receiveItems", receiveItems);
+                return result;
+            } else {
+                JSONObject cash = getCashGood(product_id);
+                int first = cash.getInteger("diamondNum");
+                int plusAmount = cash.getInteger("plusNum");
+                int amount = first + plusAmount;
+                JSONObject playerDataDelta = new JSONObject();
+                JSONObject modified = new JSONObject();
+                int android = status.getInteger("androidDiamond");
+                int ios = status.getInteger("iosDiamond");
+                status.put("androidDiamond", android + amount);
+                status.put("iosDiamond", ios + amount);
+                user.put("status", status);
+                userDao.setUserData(account.getUid(), user);
+                modified.put("status", status);
+                playerDataDelta.put("modified", modified);
+                playerDataDelta.put("deleted", new JSONObject());
+                result.put("playerDataDelta", playerDataDelta);
+                result.put("result", 0);
+                result.put("goodId", GoodId);
+                JSONObject receiveItems = new JSONObject();
+                JSONObject receiveItem = new JSONObject();
+                JSONArray items = new JSONArray();
+                receiveItem.put("id", 4002);
+                receiveItem.put("count", amount);
+                receiveItem.put("type", "DIAMOND");
+                items.add(receiveItem);
+                receiveItems.put("items", items);
+                result.put("receiveItems", receiveItems);
+                JSONArray orderIdList = new JSONArray();
+                orderIdList.add(orderIdDao.queryAllBySecret(secret).getString("order_id"));
+                result.put("orderIdList", orderIdList);
+                return result;
+            }
+        }
+        if (productType == 1) {
+            result.put("statusCode", 400);
+        }
+        return result;
+    }
+
     @PostMapping(
             value = "/getUnconfirmedOrderIdList",
             produces = "application/json;charset=UTF-8"
     )
     public Map<String, Object> getUnconfirmOrderId(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/getUnconfirmedOrderIdList");
         ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
 
@@ -28,6 +226,10 @@ public class pay {
 
         try {
             JSONArray orderIdArray = new JSONArray();
+            String orderId = orderIdDao.queryOrderIdBtSecret(secret);
+            if (orderId != null) {
+                orderIdArray.add(orderId);
+            }
             result.put("orderIdList", orderIdArray);
 
             // 4. 构建 pushMessage

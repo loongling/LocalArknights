@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.dao.mailDao;
+import com.hypergryph.arknights.core.dao.orderIdDao;
 import com.hypergryph.arknights.command.CommandManager;
 import com.hypergryph.arknights.command.ICommandSender;
 import com.hypergryph.arknights.core.file.IOTools;
@@ -135,6 +136,11 @@ public class ArknightsApplication {
             LOGGER.info("邮件数据库不存在，已生成");
         }
 
+        if(orderIdDao.tableExists("orders").isEmpty()) {
+            orderIdDao.insertTable();
+            LOGGER.info("订单数据库不存在，已生成");
+        }
+
         getTimestamp();
         LOGGER.info("服务端更新日志:");
         LOGGER.info("启动完成! 如果需要获取帮助,请输入 \"help\"");
@@ -229,8 +235,19 @@ public class ArknightsApplication {
         // 绑定 IP -> secret
         public static void addSecretForIP (String ip, String secret){
             IP_SECRET_MAP.put(ip, secret);
-            // 确认 secret在header里等待下一次更新修复
         }
+
+    public static int getCharRarity(String charId) {
+        String rarity = characterJson.getJSONObject(charId).getString("rarity");
+        return Integer.parseInt(rarity.substring(5)) - 1;
+    }
+
+    public static int resolveGoodType(String product_id){
+        if (product_id == null) return -1;
+        if (product_id.startsWith("CS")) return 0;
+        if (product_id.startsWith("GP")) return 1;
+        return -1;
+    }
 
     @Configuration
     public class WebConfig implements WebMvcConfigurer {
