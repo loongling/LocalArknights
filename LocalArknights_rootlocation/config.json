@@ -16,11 +16,11 @@
 		"time": 3
 	},
 	"database":{
-		"host":"HOST",
+		"host": "localhost",
 		"port":3306,
 		"dbname":"arknights",
 		"user":"ark",
-		"password":"Passwd",
+		"password":"arknights",
 		"extra":"useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
 	},
 	"roguelike":{

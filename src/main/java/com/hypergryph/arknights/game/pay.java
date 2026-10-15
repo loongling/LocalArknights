@@ -28,6 +28,10 @@ public class pay {
         String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/createOrder");
         ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
+        String check_orderId = orderIdDao.queryOrderIdBtSecret(secret);
+        if (check_orderId != null) {
+            orderIdDao.DelTable(check_orderId);
+        }
         String phone = userDao.queryPhoneBySecret(secret);
         String GoodId = JsonBody.getString("goodId");
         int storeId = JsonBody.getInteger("storeId");
@@ -171,6 +175,7 @@ public class pay {
                 items.add(receiveItem);
                 receiveItems.put("items", items);
                 result.put("receiveItems", receiveItems);
+                orderIdDao.DelTable(orderId);
                 return result;
             } else {
                 JSONObject cash = getCashGood(product_id);
@@ -203,6 +208,7 @@ public class pay {
                 JSONArray orderIdList = new JSONArray();
                 orderIdList.add(orderIdDao.queryAllBySecret(secret).getString("order_id"));
                 result.put("orderIdList", orderIdList);
+                orderIdDao.DelTable(orderId);
                 return result;
             }
         }
@@ -226,9 +232,10 @@ public class pay {
 
         try {
             JSONArray orderIdArray = new JSONArray();
-            String orderId = orderIdDao.queryOrderIdBtSecret(secret);
-            if (orderId != null) {
+            if (orderIdDao.queryOrderIdBtSecret(secret) != null) {
+                String orderId = orderIdDao.queryOrderIdBtSecret(secret);
                 orderIdArray.add(orderId);
+                orderIdDao.DelTable(orderId);
             }
             result.put("orderIdList", orderIdArray);
 

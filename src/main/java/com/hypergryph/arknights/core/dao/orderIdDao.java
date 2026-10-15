@@ -12,7 +12,8 @@ public class orderIdDao {
 
     public static String queryOrderIdBtSecret(String secret) {
         String sql = "SELECT order_id FROM orders WHERE secret = ?";
-        return ArknightsApplication.jdbcTemplate.queryForObject(sql, String.class, secret);
+        List<String> list = ArknightsApplication.jdbcTemplate.queryForList(sql, String.class, secret);
+        return list.isEmpty() ? null : list.get(0);
     }
 
     public static JSONObject queryAllBySecret(String secret) {
@@ -50,9 +51,9 @@ public class orderIdDao {
         return list.isEmpty() ? 0 : list.get(0);
     }
 
-    public static int DelTable(String secret) {
-        String sql = "DELETE FROM orders WHERE secret = ?";
-        return ArknightsApplication.jdbcTemplate.update(sql, secret);
+    public static int DelTable(String orderId) {
+        String sql = "DELETE FROM orders WHERE order_id = ?";
+        return ArknightsApplication.jdbcTemplate.update(sql, orderId);
     }
 
     public static int insertTable() {

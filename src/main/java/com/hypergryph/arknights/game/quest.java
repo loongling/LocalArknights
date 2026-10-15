@@ -767,37 +767,48 @@ public class quest {
 
     private void handleStageUnlock(JSONObject UserSyncData, String stageId, int completeState,
                                    JSONArray unlockStages, JSONArray unlockStagesObject, boolean firstClear) {
-        // 解锁后续关卡
-        if (mainStage.getJSONObject(stageId).getString("next") != null) {
-            String nextStageId = mainStage.getJSONObject(stageId).getString("next");
+        // 前置判空：stageId 在主关卡表和关卡表里必须存在
+        JSONObject mainStageObj = mainStage.getJSONObject(stageId);
+        JSONObject stageTableObj = stageTable.getJSONObject(stageId);
+        if (mainStageObj == null || stageTableObj == null) {
+            ArknightsApplication.LOGGER.warn("handleStageUnlock: stageId not found -> " + stageId);
+            return;
+        }
+
+        // ========== 1. 解锁后续关卡 ==========
+        String nextStageId = mainStageObj.getString("next");
+        if (nextStageId != null) {
             addStageUnlock(UserSyncData, stageId, nextStageId, unlockStages, unlockStagesObject);
-            ArknightsApplication.LOGGER.info("nextstageId" + nextStageId);
+
+            String mainStageProgress = UserSyncData.getJSONObject("status").getString("mainStageProgress");
+            String stageType = stageTableObj.getString("stageType");
+
             if (!nextStageId.equals(stageId)
-                    && (firstClear || stageId.equals(UserSyncData.getJSONObject("status").getString("mainStageProgress")))
-                    && (stageTable.getJSONObject(stageId).getString("stageType").equals("MAIN")
-                    || stageTable.getString("stageType").equals("SUB"))) {
+                    && (firstClear || stageId.equals(mainStageProgress))
+                    && ("main".equals(stageType) || "sub".equals(stageType))) {
                 UserSyncData.getJSONObject("status").put("mainStageProgress", nextStageId);
             }
         }
 
-        // 解锁支线关卡
-        if (mainStage.getJSONObject(stageId).getString("sub") != null) {
-            String subStageId = mainStage.getJSONObject(stageId).getString("sub");
+        // ========== 2. 解锁支线关卡 ==========
+        String subStageId = mainStageObj.getString("sub");
+        if (subStageId != null) {
             addStageUnlock(UserSyncData, stageId, subStageId, unlockStages, unlockStagesObject);
         }
 
-        // 三星通关解锁
+        // ========== 3. 三星通关解锁 ==========
         if (completeState == 3) {
-            if (mainStage.getJSONObject(stageId).getString("star") != null) {
-                String starStageId = mainStage.getJSONObject(stageId).getString("star");
+            String starStageId = mainStageObj.getString("star");
+            if (starStageId != null) {
                 addStageUnlock(UserSyncData, stageId, starStageId, unlockStages, unlockStagesObject);
             }
 
-            if (mainStage.getJSONObject(stageId).getString("hard") != null) {
-                String hardStageId = mainStage.getJSONObject(stageId).getString("hard");
+            String hardStageId = mainStageObj.getString("hard");
+            if (hardStageId != null) {
                 addStageUnlock(UserSyncData, stageId, hardStageId, unlockStages, unlockStagesObject);
             }
         }
+
         ArknightsApplication.LOGGER.info("UNLS:" + unlockStages);
         ArknightsApplication.LOGGER.info("UNLSO:" + unlockStagesObject);
     }

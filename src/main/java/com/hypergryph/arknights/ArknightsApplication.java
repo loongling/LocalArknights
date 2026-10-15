@@ -116,9 +116,9 @@ public class ArknightsApplication {
         }
 
         LOGGER.info("数据库版本 " + MysqlVersion);
-        LOGGER.info("服务端版本 0.2.9Alpha");
-        LOGGER.info("客户端版本 2.7.41Win");
-        LOGGER.info("构建时间 2026年7月2日15:40:00");
+        LOGGER.info("服务端版本 0.4.0 Alpha-fixed-1");
+        LOGGER.info("客户端版本 2.7.81Win");
+        LOGGER.info("构建时间 2026年10月15日 22:22:54");
         if (serverConfig.getJSONObject("server").getString("GMKey") == null) {
             serverConfig.getJSONObject("server").put("GMKey", randomPwd.getRandomPwd(64));
             IOTools.SaveJsonFile(System.getProperty("user.dir") + "/config.json", serverConfig);

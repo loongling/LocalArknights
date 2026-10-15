@@ -230,6 +230,19 @@ public class account {
                     playerDataDelta.put("deleted", new JSONObject(true));
                     result.put("playerDataDelta", playerDataDelta);
                     JSONObject result_announcement = new JSONObject(true);
+                    result_announcement.put("1", new JSONObject());
+                    result_announcement.put("2", new JSONObject());
+                    JSONObject four = new JSONObject(true);
+                    four.put("announcementVersion", 2526);
+                    four.put("announcementPopUpVersion", 3585);
+                    result_announcement.put("4", four);
+                    result_announcement.put("128", new JSONObject());
+                    result_announcement.put("512", new JSONObject());
+                    result_announcement.put("1024", new JSONObject());
+                    JSONObject twoH = new JSONObject(true);
+                    twoH.put("shop", new JSONArray());
+                    twoH.put("gacha", new JSONArray());
+                    result_announcement.put("2048", twoH);
                     result.put("result", result_announcement);
                     return result;
                 }
