@@ -34,6 +34,11 @@
           "nationId": "rim",
           "groupId": null,
           "teamId": null
+        },
+        {
+          "nationId": null,
+          "groupId": "babel",
+          "teamId": null
         }
       ],
       "displayNumber": "R001",
@@ -87,7 +92,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             },
             {
@@ -118,7 +125,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             }
           ],
@@ -157,7 +166,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             },
             {
@@ -188,7 +199,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             }
           ],
@@ -243,7 +256,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             },
             {
@@ -274,7 +289,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             }
           ],
@@ -668,7 +685,9 @@
             "disarmedCombatImmune": false,
             "fearedImmune": false,
             "palsyImmune": false,
-            "attractImmune": false
+            "attractImmune": false,
+            "teleportImmune": false,
+            "groundBoundImmune": false
           }
         },
         {
@@ -699,7 +718,9 @@
             "disarmedCombatImmune": false,
             "fearedImmune": false,
             "palsyImmune": false,
-            "attractImmune": false
+            "attractImmune": false,
+            "teleportImmune": false,
+            "groundBoundImmune": false
           }
         }
       ],
@@ -838,6 +859,11 @@
           "nationId": "rim",
           "groupId": null,
           "teamId": null
+        },
+        {
+          "nationId": null,
+          "groupId": "babel",
+          "teamId": null
         }
       ],
       "displayNumber": "R001",
@@ -911,7 +937,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             },
             {
@@ -942,7 +970,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             }
           ],
@@ -981,7 +1011,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             },
             {
@@ -1012,7 +1044,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             }
           ],
@@ -1067,7 +1101,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             },
             {
@@ -1098,7 +1134,9 @@
                 "disarmedCombatImmune": false,
                 "fearedImmune": false,
                 "palsyImmune": false,
-                "attractImmune": false
+                "attractImmune": false,
+                "teleportImmune": false,
+                "groundBoundImmune": false
               }
             }
           ],
@@ -1492,7 +1530,9 @@
             "disarmedCombatImmune": false,
             "fearedImmune": false,
             "palsyImmune": false,
-            "attractImmune": false
+            "attractImmune": false,
+            "teleportImmune": false,
+            "groundBoundImmune": false
           }
         },
         {
@@ -1523,7 +1563,9 @@
             "disarmedCombatImmune": false,
             "fearedImmune": false,
             "palsyImmune": false,
-            "attractImmune": false
+            "attractImmune": false,
+            "teleportImmune": false,
+            "groundBoundImmune": false
           }
         }
       ],

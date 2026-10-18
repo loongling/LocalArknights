@@ -11,6 +11,30 @@
 
 ## 如何部署本服务端?
 请阅读[操作指南](./HowToSetUp.md)
+
+## 配置文件
+### 可更改
+```
+"server"： {
+"http": //服务启动端口
+"enableServer": //是否允许玩家进入
+"GMKey": //管理员密钥
+},
+"timer": //设置虚假时间
+"pay": {
+"cashDoubleCount": //源石充值是否翻倍
+"time": //客户端询问次数(询问多少次后直接提示支付成功)
+},
+"database":{
+"host": //MySQL主机地址
+"port": //MySQL端口
+"dbname": //数据库名
+"user"://用户名
+"password"://密码
+},
+"network": //设置network配置，如果更改端口这里需要更改URL
+```
+
 ## 怎么启动/解决中文乱码问题
 请使用java17以上的java版本在CMD或Powershell中运行,MySQL(8.0以上)请自行准备,不要忘记改config.json中的设置
 
@@ -24,7 +48,7 @@ java -jar "hypergryph-0.4.0 Alpha-fixed-1.jar"
 ## 已知问题
    
 1. 社交系统  
-2. 商店系统(无法创建订单)  
+2. 商店系统  
 3. 肉鸽玩法  
 4. stage.json不完善  
 5. 可能有更多问题

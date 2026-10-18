@@ -6301,6 +6301,258 @@
       "limitParam": null
     },
     {
+      "gachaPoolId": "SINGLE_75_0_1",
+      "gachaIndex": 39,
+      "openTime": 1783638000,
+      "endTime": 1784836799,
+      "gachaPoolName": "确定性混沌",
+      "gachaPoolSummary": "结束于7月24日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "定向选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "SINGLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "DOUBLE_75_0_2",
+      "gachaIndex": 291,
+      "openTime": 1784145600,
+      "endTime": 1785355199,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于7月30日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "标准选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "DOUBLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "SINGLE_75_0_3",
+      "gachaIndex": 289,
+      "openTime": 1784534400,
+      "endTime": 1785700799,
+      "gachaPoolName": "永不落幕",
+      "gachaPoolSummary": "结束于8月3日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "定向选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "SINGLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "DOUBLE_75_0_4",
+      "gachaIndex": 290,
+      "openTime": 1785355200,
+      "endTime": 1786564799,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于8月13日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "标准选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "DOUBLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "DOUBLE_76_0_2",
+      "gachaIndex": 288,
+      "openTime": 1786564800,
+      "endTime": 1787774399,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于8月27日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "标准选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "DOUBLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "NORM_76_0_3",
+      "gachaIndex": 286,
+      "openTime": 1787040000,
+      "endTime": 1788206399,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于9月1日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": null,
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "NORMAL",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "DOUBLE_76_0_4",
+      "gachaIndex": 287,
+      "openTime": 1787774400,
+      "endTime": 1788983999,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于9月10日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "标准选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "DOUBLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "DOUBLE_77_0_2",
+      "gachaIndex": 285,
+      "openTime": 1788984000,
+      "endTime": 1790193599,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于9月24日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "标准选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "DOUBLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "DOUBLE_77_0_3",
+      "gachaIndex": 284,
+      "openTime": 1790193600,
+      "endTime": 1791403199,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于10月8日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "标准选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "DOUBLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "DOUBLE_77_0_5",
+      "gachaIndex": 283,
+      "openTime": 1791403200,
+      "endTime": 1792612799,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于10月22日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "标准选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "DOUBLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "SINGLE_78_0_1",
+      "gachaIndex": 39,
+      "openTime": 1791500400,
+      "endTime": 1792699199,
+      "gachaPoolName": "海渊巡游",
+      "gachaPoolSummary": "结束于10月23日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "定向选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "SINGLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "DOUBLE_78_0_2",
+      "gachaIndex": 282,
+      "openTime": 1792612800,
+      "endTime": 1793822399,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于11月5日 03:59",
+      "gachaPoolDetail": "-",
+      "guaranteeName": "标准选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "DOUBLE",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
       "gachaPoolId": "LIMITED_9_0_3",
       "gachaIndex": 10,
       "openTime": 1588316400,
@@ -6951,6 +7203,32 @@
       }
     },
     {
+      "gachaPoolId": "LIMITED_76_0_1",
+      "gachaIndex": 10,
+      "openTime": 1785538800,
+      "endTime": 1786737599,
+      "gachaPoolName": "车辙与风的归所",
+      "gachaPoolSummary": "结束于8月15日 03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": null,
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": "LMTGS_COIN_7601",
+      "CDPrimColor": "18ccb9",
+      "CDSecColor": "d43e2a",
+      "freeBackColor": "18ccb9",
+      "gachaRuleType": "LIMITED",
+      "dynMeta": null,
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": {
+        "freeCount": 300,
+        "hasFreeChar": true,
+        "limitedCharId": "char_1015_aglna2",
+        "version": 1
+      }
+    },
+    {
       "gachaPoolId": "LINKAGE_17_0_1",
       "gachaIndex": 20,
       "openTime": 1615262400,
@@ -7132,6 +7410,30 @@
       "linkageRuleId": "LINKAGE_LOOP6_NEW5",
       "linkageParam": {
         "guaranteeTarget6Char": "char_1029_yato2",
+        "loopTarget6Count": 120
+      },
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "LINKAGE_77_0_1",
+      "gachaIndex": 20,
+      "openTime": 1788476400,
+      "endTime": 1789675199,
+      "gachaPoolName": "石白深蓝之夜",
+      "gachaPoolSummary": "结束于9月18日03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": null,
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "LINKAGE",
+      "dynMeta": null,
+      "linkageRuleId": "LINKAGE_LOOP6_NEW5",
+      "linkageParam": {
+        "guaranteeTarget6Char": "char_4217_makoto",
         "loopTarget6Count": 120
       },
       "limitParam": null
@@ -10621,6 +10923,289 @@
       "limitParam": null
     },
     {
+      "gachaPoolId": "CLASSIC_DOUBLE_74_0_3",
+      "gachaIndex": 9914,
+      "openTime": 1783540800,
+      "endTime": 1784750399,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于7月23日 03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": "中坚选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "CLASSIC_DOUBLE",
+      "dynMeta": {
+        "main6RarityCharId": "char_248_mgllan",
+        "rare5CharList": [
+          "char_241_panda",
+          "char_215_mantic",
+          "char_279_excu"
+        ],
+        "scrollIndex": 8,
+        "sub6RarityCharId": "char_017_huang"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "CLASSIC_DOUBLE_75_0_1",
+      "gachaIndex": 9913,
+      "openTime": 1784750400,
+      "endTime": 1785959999,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于8月6日 03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": "中坚选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "CLASSIC_DOUBLE",
+      "dynMeta": {
+        "main6RarityCharId": "char_291_aglina",
+        "rare5CharList": [
+          "char_455_nothin",
+          "char_219_meteo",
+          "char_478_kirara"
+        ],
+        "scrollIndex": 8,
+        "sub6RarityCharId": "char_340_shwaz"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "CLASSIC_DOUBLE_76_0_1",
+      "gachaIndex": 9912,
+      "openTime": 1785960000,
+      "endTime": 1787169599,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于8月20日 03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": "中坚选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "CLASSIC_DOUBLE",
+      "dynMeta": {
+        "main6RarityCharId": "char_430_fartth",
+        "rare5CharList": [
+          "char_107_liskam",
+          "char_254_vodfox",
+          "char_173_slchan"
+        ],
+        "scrollIndex": 8,
+        "sub6RarityCharId": "char_416_zumama"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "FESCLASSIC_76_0_2",
+      "gachaIndex": 9911,
+      "openTime": 1787169600,
+      "endTime": 1788379199,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于9月3日 03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": null,
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "FESCLASSIC",
+      "dynMeta": {
+        "chooseRuleConst": "<color=#00a8ff>【中坚甄选】</color>期间，可在<color=#00a8ff>甄选范围内选择并锁定</color>本期出率提升的<color=#00a8ff>2名6★干员</color>和<color=#00a8ff>3名5★干员</color>。\n选定的过程中，可进一步配置<color=#00a8ff>1名6★干员</color>和<color=#00a8ff>1名5★干员</color>进入<color=#00a8ff>采购中心可供兑换</color>，且上述选定的干员将在<color=#ffd800>【高级凭证区】</color>和<color=#00a8ff>【通用凭证区】</color>供兑换。\n本次中坚甄选卡池期间，概率提升的干员选定后<color=#00a8ff>本周期内不可再度变更</color>。",
+        "homeDescConst": "中坚甄选可<color=#00a8ff>自由选择并锁定</color>本期概率提升干员！选定后本次寻访<color=#00a8ff>不可变更</color>。前10次寻访必定获得<color=#00a8ff>5★</color>以上干员！",
+        "pickUpPerCharPercent": {
+          "TIER_5": 0.1666625,
+          "TIER_6": 0.25
+        },
+        "rarityPickCharDict": {
+          "TIER_5": [
+            "char_115_headbr",
+            "char_106_franka",
+            "char_140_whitew",
+            "char_143_ghost",
+            "char_204_platnm",
+            "char_166_skfire",
+            "char_242_otter",
+            "char_144_red",
+            "char_201_moeshd",
+            "char_145_prove",
+            "char_158_milu",
+            "char_101_sora",
+            "char_308_swire",
+            "char_326_glacus",
+            "char_356_broca",
+            "char_226_hmau",
+            "char_378_asbest",
+            "char_343_tknogi",
+            "char_294_ayer",
+            "char_344_beewax",
+            "char_365_aprl",
+            "char_214_kafka",
+            "char_4016_kazema",
+            "char_4040_rockr"
+          ],
+          "TIER_6": [
+            "char_147_shining",
+            "char_188_helage",
+            "char_225_haak",
+            "char_2013_cerber",
+            "char_293_thorns",
+            "char_423_blemsh",
+            "char_362_saga",
+            "char_472_pasngr",
+            "char_426_billro",
+            "char_485_pallas",
+            "char_4039_horn",
+            "char_4046_ebnhlz"
+          ]
+        },
+        "scrollIndex": 8,
+        "star5ChooseRuleConst": "本期中坚甄选可从以下5★干员范围内自选<color=#00a8ff>3名干员</color>，使其<color=#00a8ff>合计出现概率占5★出率的50%</color>",
+        "star6ChooseRuleConst": "本期中坚甄选可从以下6★干员范围内自选<color=#00a8ff>2名干员</color>，使其<color=#00a8ff>合计出现概率占6★出率的50%</color>"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "CLASSIC_DOUBLE_76_0_3",
+      "gachaIndex": 9910,
+      "openTime": 1788379200,
+      "endTime": 1789588799,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于9月17日 03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": "中坚选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "CLASSIC_DOUBLE",
+      "dynMeta": {
+        "main6RarityCharId": "char_112_siege",
+        "rare5CharList": [
+          "char_346_aosta",
+          "char_128_plosis",
+          "char_148_nearl"
+        ],
+        "scrollIndex": 8,
+        "sub6RarityCharId": "char_358_lisa"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "CLASSIC_DOUBLE_77_0_1",
+      "gachaIndex": 9909,
+      "openTime": 1789588800,
+      "endTime": 1790798399,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于10月1日 03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": "中坚选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "CLASSIC_DOUBLE",
+      "dynMeta": {
+        "main6RarityCharId": "char_180_amgoat",
+        "rare5CharList": [
+          "char_174_slbell",
+          "char_261_sddrag",
+          "char_171_bldsk"
+        ],
+        "scrollIndex": 8,
+        "sub6RarityCharId": "char_222_bpipe"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "CLASSIC_DOUBLE_77_0_2",
+      "gachaIndex": 9908,
+      "openTime": 1790798400,
+      "endTime": 1792007999,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于10月15日 03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": "中坚选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "CLASSIC_DOUBLE",
+      "dynMeta": {
+        "main6RarityCharId": "char_206_gnosis",
+        "rare5CharList": [
+          "char_242_otter",
+          "char_306_leizi",
+          "char_201_moeshd"
+        ],
+        "scrollIndex": 8,
+        "sub6RarityCharId": "char_172_svrash"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "CLASSIC_DOUBLE_78_0_1",
+      "gachaIndex": 9907,
+      "openTime": 1792008000,
+      "endTime": 1793217599,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于10月29日03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": "中坚选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "CLASSIC_DOUBLE",
+      "dynMeta": {
+        "main6RarityCharId": "char_293_thorns",
+        "rare5CharList": [
+          "char_367_swllow",
+          "char_308_swire",
+          "char_365_aprl"
+        ],
+        "scrollIndex": 8,
+        "sub6RarityCharId": "char_003_kalts"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
       "gachaPoolId": "SPECIAL_54_0_5",
       "gachaIndex": 40,
       "openTime": 1727424000,
@@ -10971,6 +11556,51 @@
             "char_2012_typhon",
             "char_1040_blaze2",
             "char_4010_etlchi"
+          ]
+        },
+        "star5ChooseRule": "本期【定向甄选】可从以下5★干员范围内自选<@ga.SPGacha>3名干员</>，使其<@ga.SPGacha>合计出现概率占5★出率的60%</>",
+        "star6ChooseRule": "本期【定向甄选】可从以下6★干员范围内自选<@ga.SPGacha>3名干员</>，使其<@ga.SPGacha>合计出现概率占6★出率的100%</>"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "SPECIAL_77_0_4",
+      "gachaIndex": 40,
+      "openTime": 1790668800,
+      "endTime": 1791835199,
+      "gachaPoolName": "定向甄选",
+      "gachaPoolSummary": "结束于10月13日03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": null,
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "SPECIAL",
+      "dynMeta": {
+        "detailInfo": "<@ga.SPGacha>【定向甄选】</>期间，可在<@ga.SPGacha>本期干员范围内自由选择并锁定</>概率提升的<@ga.SPGacha>3名6★干员</>和<@ga.SPGacha>3名5★干员</>\n<@ga.SPGacha>一旦选定概率提升干员后，本期不可变更</>。",
+        "detailTitle": "定向甄选卡池介绍",
+        "homeIntroDesc": "定向甄选可在本期干员范围内<@ga.SPGacha>自由选择并锁定</>概率提升的<@ga.SPGacha>3名6★干员和3名5★干员</>！选定后本期寻访<@ga.SPGacha>不可变更</>。前10次寻访必定获得<@ga.SPGacha>5★</>以上干员！",
+        "rarityPickCharDict": {
+          "TIER_5": [
+            "char_4071_peper",
+            "char_4147_mitm",
+            "char_4052_surfer",
+            "char_4203_kichi",
+            "char_4214_cairn",
+            "char_4031_liesel"
+          ],
+          "TIER_6": [
+            "char_4179_monstr",
+            "char_1046_sbell2",
+            "char_4037_demetr",
+            "char_4204_mantra",
+            "char_4116_blkkgt",
+            "char_1040_blaze2"
           ]
         },
         "star5ChooseRule": "本期【定向甄选】可从以下5★干员范围内自选<@ga.SPGacha>3名干员</>，使其<@ga.SPGacha>合计出现概率占5★出率的60%</>",
@@ -11691,7 +12321,7 @@
       4
     ]
   },
-  "recruitDetail": "<@rc.title>公开招募说明</>\r\n\r\n<@rc.em>※稀有职业需求招募说明※</>\r\n<@rc.em>当职业需求包含高级资深干员，且招募时限为9小时时，招募必得6星干员</>\r\n<@rc.em>当职业需求包含资深干员同时不包含高级资深干员，且招募时限为9小时，则该次招募必得5星干员</>\r\n\r\n<@rc.subtitle>※全部可能出现的干员※</>\r\n<@rc.eml>绿色高亮的不可寻访干员，可以在此招募</>\r\n\r\n★\\n<@rc.eml>Lancet-2</> / <@rc.eml>Castle-3</> / <@rc.eml>THRM-EX</> / <@rc.eml>正义骑士号</> / <@rc.eml>Friston-3</> / <@rc.eml>PhonoR-0</> / <@rc.eml>CONFESS-47</> / <@rc.eml>GALLUS²</>\r\n--------------------\r\n★★\\n<@rc.eml>夜刀</> / <@rc.eml>黑角</> / <@rc.eml>巡林者</> / <@rc.eml>杜林</> / <@rc.eml>12F</>\r\n--------------------\r\n★★★\\n<@rc.eml>安德切尔</> / 芬 / 香草 / 翎羽 / 玫兰莎 / 米格鲁 / 克洛丝 / 炎熔 / 芙蓉 / 安赛尔 / 史都华德 / 梓兰 / 空爆 / 月见夜 / 泡普卡 / 斑点\r\n--------------------\r\n★★★★\\n<@rc.eml>艾丝黛尔</> / <@rc.eml>清流</> / 夜烟 / 远山 / 杰西卡 / 流星 / 白雪 / 清道夫 / 红豆 / 杜宾 / 缠丸 / 霜叶 / 慕斯 / 砾 / 暗索 / 末药 / 调香师 / 角峰 / 蛇屠箱 / 古米 / 地灵 / 阿消 / 猎蜂 / 格雷伊 / 苏苏洛 / 桃金娘 / 红云 / 梅 / 安比尔 / 宴 / 刻刀 / 波登可 / 卡达 / 孑 / 酸糖 / 芳汀 / 泡泡 / 杰克 / 松果 / 豆苗 / 深靛\r\n--------------------\r\n★★★★★\\n<@rc.eml>因陀罗</> / <@rc.eml>火神</> / 白面鸮 / 凛冬 / 德克萨斯 / 幽灵鲨 / 蓝毒 / 白金 / 陨星 / 梅尔 / 赫默 / 华法琳 / 临光 / 红 / 雷蛇 / 可颂 / 普罗旺斯 / 守林人 / 崖心 / 初雪 / 真理 / 狮蝎 / 食铁兽 / 夜魔 / 诗怀雅 / 格劳克斯 / 星极 / 送葬人 / 槐琥 / 灰喉 / 苇草 / 布洛卡 / 吽 / 惊蛰 / 慑砂 / 巫恋 / 极境 / 石棉 / 月禾 / 莱恩哈特 / 断崖 / 安哲拉 / 贾维 / 蜜蜡 / 燧石 / 四月 / 奥斯塔 / 絮雨 / 卡夫卡 / 爱丽丝 / 乌有 / 熔泉 / 赤冬 / 绮良\r\n--------------------\r\n★★★★★★\\n能天使 / 推进之王 / 伊芙利特 / 闪灵 / 夜莺 / 星熊 / 塞雷娅 / 银灰 / 斯卡蒂 / 陈 / 黑 / 赫拉格 / 麦哲伦 / 莫斯提马 / 煌 / 阿 / 刻俄柏 / 风笛 / 傀影 / 温蒂 / 早露 / 铃兰 / 棘刺 / 森蚺 / 史尔特尔 / 瑕光 / 泥岩 / 山 / 空弦 / 嵯峨 / 异客 / 凯尔希 / 卡涅利安 / 帕拉斯",
+  "recruitDetail": "<@rc.title>公开招募说明</>\r\n\r\n<@rc.em>※稀有职业需求招募说明※</>\r\n<@rc.em>当职业需求包含高级资深干员，且招募时限为9小时时，招募必得6星干员</>\r\n<@rc.em>当职业需求包含资深干员同时不包含高级资深干员，且招募时限为9小时，则该次招募必得5星干员</>\r\n\r\n<@rc.subtitle>※全部可能出现的干员※</>\r\n<@rc.eml>绿色高亮的不可寻访干员，可以在此招募</>\r\n\r\n★\\n<@rc.eml>Lancet-2</> / <@rc.eml>Castle-3</> / <@rc.eml>THRM-EX</> / <@rc.eml>正义骑士号</> / <@rc.eml>Friston-3</> / <@rc.eml>PhonoR-0</> / <@rc.eml>CONFESS-47</> / <@rc.eml>GALLUS²</>\r\n--------------------\r\n★★\\n<@rc.eml>夜刀</> / <@rc.eml>黑角</> / <@rc.eml>巡林者</> / <@rc.eml>杜林</> / <@rc.eml>12F</>\r\n--------------------\r\n★★★\\n<@rc.eml>安德切尔</> / 芬 / 香草 / 翎羽 / 玫兰莎 / 米格鲁 / 克洛丝 / 炎熔 / 芙蓉 / 安赛尔 / 史都华德 / 梓兰 / 空爆 / 月见夜 / 泡普卡 / 斑点\r\n--------------------\r\n★★★★\\n<@rc.eml>艾丝黛尔</> / <@rc.eml>清流</> / 夜烟 / 远山 / 杰西卡 / 流星 / 白雪 / 清道夫 / 红豆 / 杜宾 / 缠丸 / 霜叶 / 慕斯 / 砾 / 暗索 / 末药 / 调香师 / 角峰 / 蛇屠箱 / 古米 / 地灵 / 阿消 / 猎蜂 / 格雷伊 / 苏苏洛 / 桃金娘 / 红云 / 梅 / 安比尔 / 宴 / 刻刀 / 波登可 / 卡达 / 孑 / 酸糖 / 芳汀 / 泡泡 / 杰克 / 松果 / 豆苗 / 深靛\r\n--------------------\r\n★★★★★\\n<@rc.eml>因陀罗</> / <@rc.eml>火神</> / 白面鸮 / 凛冬 / 德克萨斯 / 幽灵鲨 / 蓝毒 / 白金 / 陨星 / 梅尔 / 赫默 / 华法琳 / 临光 / 红 / 雷蛇 / 可颂 / 普罗旺斯 / 守林人 / 崖心 / 初雪 / 真理 / 狮蝎 / 食铁兽 / 夜魔 / 诗怀雅 / 格劳克斯 / 星极 / 送葬人 / 槐琥 / 灰喉 / 苇草 / 布洛卡 / 吽 / 惊蛰 / 慑砂 / 巫恋 / 极境 / 石棉 / 月禾 / 莱恩哈特 / 断崖 / 安哲拉 / 贾维 / 蜜蜡 / 燧石 / 四月 / 奥斯塔 / 絮雨 / 卡夫卡 / 爱丽丝 / 乌有 / 熔泉 / 赤冬 / 绮良 / 羽毛笔\r\n--------------------\r\n★★★★★★\\n能天使 / 推进之王 / 伊芙利特 / 闪灵 / 夜莺 / 星熊 / 塞雷娅 / 银灰 / 斯卡蒂 / 陈 / 黑 / 赫拉格 / 麦哲伦 / 莫斯提马 / 煌 / 阿 / 刻俄柏 / 风笛 / 傀影 / 温蒂 / 早露 / 铃兰 / 棘刺 / 森蚺 / 史尔特尔 / 瑕光 / 泥岩 / 山 / 空弦 / 嵯峨 / 异客 / 凯尔希 / 卡涅利安 / 帕拉斯 / 水月",
   "showGachaLogEntry": true,
   "carousel": [
     {
@@ -14089,6 +14719,104 @@
       "spriteId": "picDouble_74_0_6"
     },
     {
+      "poolId": "SINGLE_75_0_1",
+      "index": 39,
+      "startTime": 1783638000,
+      "endTime": 1784836799,
+      "spriteId": "picSingle_75_0_1"
+    },
+    {
+      "poolId": "DOUBLE_75_0_2",
+      "index": 291,
+      "startTime": 1784145600,
+      "endTime": 1785355199,
+      "spriteId": "picDouble_75_0_2"
+    },
+    {
+      "poolId": "SINGLE_75_0_3",
+      "index": 289,
+      "startTime": 1784534400,
+      "endTime": 1785700799,
+      "spriteId": "picSingle_75_0_3"
+    },
+    {
+      "poolId": "DOUBLE_75_0_4",
+      "index": 290,
+      "startTime": 1785355200,
+      "endTime": 1786564799,
+      "spriteId": "picDouble_75_0_4"
+    },
+    {
+      "poolId": "LIMITED_76_0_1",
+      "index": 39,
+      "startTime": 1785538800,
+      "endTime": 1786737599,
+      "spriteId": "picLimited_76_0_1"
+    },
+    {
+      "poolId": "DOUBLE_76_0_2",
+      "index": 288,
+      "startTime": 1786564800,
+      "endTime": 1787774399,
+      "spriteId": "picDouble_76_0_2"
+    },
+    {
+      "poolId": "NORM_76_0_3",
+      "index": 286,
+      "startTime": 1787040000,
+      "endTime": 1788206399,
+      "spriteId": "picNorm_76_0_3"
+    },
+    {
+      "poolId": "DOUBLE_76_0_4",
+      "index": 287,
+      "startTime": 1787774400,
+      "endTime": 1788983999,
+      "spriteId": "picDouble_76_0_4"
+    },
+    {
+      "poolId": "LINKAGE_77_0_1",
+      "index": 39,
+      "startTime": 1788476400,
+      "endTime": 1789675199,
+      "spriteId": "picLinkage_77_0_1"
+    },
+    {
+      "poolId": "DOUBLE_77_0_2",
+      "index": 285,
+      "startTime": 1788984000,
+      "endTime": 1790193599,
+      "spriteId": "picDouble_77_0_2"
+    },
+    {
+      "poolId": "DOUBLE_77_0_3",
+      "index": 284,
+      "startTime": 1790193600,
+      "endTime": 1791403199,
+      "spriteId": "picDouble_77_0_3"
+    },
+    {
+      "poolId": "DOUBLE_77_0_5",
+      "index": 283,
+      "startTime": 1791403200,
+      "endTime": 1792612799,
+      "spriteId": "picDouble_77_0_5"
+    },
+    {
+      "poolId": "SINGLE_78_0_1",
+      "index": 39,
+      "startTime": 1791500400,
+      "endTime": 1792699199,
+      "spriteId": "picSingle_78_0_1"
+    },
+    {
+      "poolId": "DOUBLE_78_0_2",
+      "index": 282,
+      "startTime": 1792612800,
+      "endTime": 1793822399,
+      "spriteId": "picDouble_78_0_2"
+    },
+    {
       "poolId": "CLASSIC_ATTAIN_45_0_2",
       "index": 996,
       "startTime": 1703750400,
@@ -14260,6 +14988,12 @@
       "openTime": 1777590000,
       "endTime": 1778788799,
       "freeCount": 1
+    },
+    {
+      "poolId": "LIMITED_76_0_1",
+      "openTime": 1785538800,
+      "endTime": 1786737599,
+      "freeCount": 1
     }
   ],
   "limitTenGachaItem": [
@@ -14358,43 +15092,66 @@
     {
       "itemId": "LIMITED_TKT_GACHA_10_7301",
       "endTime": 1778788799
+    },
+    {
+      "itemId": "LIMITED_TKT_GACHA_10_7601",
+      "endTime": 1786737599
     }
   ],
-  "linkageTenGachaItem": [
+  "linkageGachaItem": [
     {
       "itemId": "LINKAGE_TKT_GACHA_10_1701",
       "endTime": 1616443199,
-      "gachaPoolId": "LINKAGE_17_0_1"
+      "gachaPoolId": "LINKAGE_17_0_1",
+      "isTen": true
     },
     {
       "itemId": "LINKAGE_TKT_GACHA_10_3601",
       "endTime": 1679342399,
-      "gachaPoolId": "LINKAGE_36_0_1"
+      "gachaPoolId": "LINKAGE_36_0_1",
+      "isTen": true
     },
     {
       "itemId": "LINKAGE_TKT_GACHA_10_3602",
       "endTime": 1679342399,
-      "gachaPoolId": "LINKAGE_36_0_1"
+      "gachaPoolId": "LINKAGE_36_0_1",
+      "isTen": true
     },
     {
       "itemId": "LINKAGE_TKT_GACHA_10_4801",
       "endTime": 1710964799,
-      "gachaPoolId": "LINKAGE_48_0_1"
+      "gachaPoolId": "LINKAGE_48_0_1",
+      "isTen": true
     },
     {
       "itemId": "LINKAGE_TKT_GACHA_10_5401",
       "endTime": 1726430399,
-      "gachaPoolId": "LINKAGE_54_0_1"
+      "gachaPoolId": "LINKAGE_54_0_1",
+      "isTen": true
     },
     {
       "itemId": "LINKAGE_TKT_GACHA_10_6501",
       "endTime": 1758139199,
-      "gachaPoolId": "LINKAGE_65_0_1"
+      "gachaPoolId": "LINKAGE_65_0_1",
+      "isTen": true
     },
     {
       "itemId": "LINKAGE_TKT_GACHA_10_7401",
       "endTime": 1781467199,
-      "gachaPoolId": "LINKAGE_74_0_1"
+      "gachaPoolId": "LINKAGE_74_0_1",
+      "isTen": true
+    },
+    {
+      "itemId": "LINKAGE_TKT_GACHA_10_7701",
+      "endTime": 1789675199,
+      "gachaPoolId": "LINKAGE_77_0_1",
+      "isTen": true
+    },
+    {
+      "itemId": "LINKAGE_TKT_GACHA_7701",
+      "endTime": 1789675199,
+      "gachaPoolId": "LINKAGE_77_0_1",
+      "isTen": false
     }
   ],
   "normalGachaItem": [
@@ -14457,6 +15214,30 @@
       "endTime": 1776715199,
       "gachaPoolId": "SINGLE_72_0_1",
       "isTen": true
+    },
+    {
+      "itemId": "SINGLE_75_0_1_GACHA",
+      "endTime": 1784836799,
+      "gachaPoolId": "SINGLE_75_0_1",
+      "isTen": false
+    },
+    {
+      "itemId": "SINGLE_75_0_1_GACHA_10",
+      "endTime": 1784836799,
+      "gachaPoolId": "SINGLE_75_0_1",
+      "isTen": true
+    },
+    {
+      "itemId": "SINGLE_78_0_1_GACHA",
+      "endTime": 1792699199,
+      "gachaPoolId": "SINGLE_78_0_1",
+      "isTen": false
+    },
+    {
+      "itemId": "SINGLE_78_0_1_GACHA_10",
+      "endTime": 1792699199,
+      "gachaPoolId": "SINGLE_78_0_1",
+      "isTen": true
     }
   ],
   "fesGachaPoolRelateItem": {
@@ -14511,6 +15292,10 @@
     "FESCLASSIC_73_0_1": {
       "rarityRank5ItemId": "classic_fes_pick_tier_5_7301",
       "rarityRank6ItemId": "classic_fes_pick_tier_6_7301"
+    },
+    "FESCLASSIC_76_0_2": {
+      "rarityRank5ItemId": "classic_fes_pick_tier_5_7601",
+      "rarityRank6ItemId": "classic_fes_pick_tier_6_7601"
     }
   },
   "dicRecruit6StarHint": {},

@@ -16,11 +16,11 @@
 		"time": 3
 	},
 	"database":{
-		"host": "localhost",
+		"host": "host",
 		"port":3306,
 		"dbname":"arknights",
 		"user":"ark",
-		"password":"arknights",
+		"password":"passwd",
 		"extra":"useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
 	},
 	"roguelike":{
@@ -35,30 +35,30 @@
 	},
 	"version":{
 		"android":{
-			"resVersion":"26-10-08-04-51-28-56071834",
+			"resVersion":"26-10-14-13-45-10-99469376",
 			"clientVersion":"2.7.81"
 		},
 		"ios":{
-			"resVersion":"26-10-08-04-42-09-43912705",
+			"resVersion":"26-10-14-13-39-00-86892447",
 			"clientVersion":"2.7.81"
 		},
 		"Windows":{
-			"resVersion":"26-10-08-04-48-58-88290222",
+			"resVersion":"26-10-14-13-44-12-52990322",
 			"clientVersion":"2.7.81"
 		},
 		"global": {
-			"resVersion": "26-01-13-09-42-53_63eee8",
-			"clientVersion": "32.6.21"
+			"resVersion": "26-10-03-16-06-39_0a6acf",
+			"clientVersion": "37.7.41"
 		}
 	},
 	"assets":{
-		"enableRedirect":false,
+		"enableRedirect": false,
 		"cdnBase":"https://ak.hycdn.cn/assetbundle/official",
 		"redirectUrl":{
-			"Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-08-04-51-28-56071834",
-			"Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-08-04-48-58-88290222",
-			"ios": "https://ak.hycdn.cn/assetbundle/official/iOS/assets/26-10-08-04-42-09-43912705",
-			"global": ""
+			"Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-14-13-45-10-99469376",
+			"Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-14-13-44-12-52990322",
+			"ios": "https://ak.hycdn.cn/assetbundle/official/IOS/assets/26-10-14-13-39-00-86892447",
+			"global": "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/26-10-03-16-06-39_0a6acf"
 		},
 		"localFiles":[]
 	},
@@ -73,8 +73,39 @@
 		"showRecordNumber": false,
 		"enableNativeLicense": false
 	},
+	"global_remote": {
+		"fapv2": 1
+	},
+	"YoStar_common": {
+
+	},
 	"clientFuncVer": "78.0.0",
 	"file_path": "https://ak.hycdn.cn/GzD1CpaWgmSq1wew/77.0/update/1/1/Windows/77.0.0_o2Ri5AN2Z7XXjdtF/files",
+	"global_net": {
+		"sign": "Rq9cFaYoHvWwdbr6ROQfLu70+F+2BF3+vEmnDLdPmacTFHXTyNC0SEeaHfl9W1/D86iJrxLRhs9puNaoK2ArOu6xNyeNf8IL45KxCjhseuGKDNwG65HdOYpGKIRvi8EitL9S3AoRtlsSeEV44D2Q7Y8c5gcfdMXkFXxBkYEa5wk=",
+		"configVer": "1",
+		"funcVer": "0V74",
+		"configs": {
+			"override": true,
+			"network": {
+				"V074": {
+					"gs": "http://127.0.0.1:10029",
+					"as": "http://127.0.0.1:10029",
+					"u8": "http://127.0.0.1:10029/u8",
+					"hu": "http://127.0.0.1:10029/assetbundle/official",
+					"hv": "http://127.0.0.1:10029/assetbundle/official/{0}/version",
+					"rc": "http://127.0.0.1:10029/config/prod/official/remote_config",
+					"an": "http://127.0.0.1:10029/announce/{0}/announcement.meta.json",
+					"prean": "https://ak-webview.arknights.global",
+					"sl": "https://www.arknights.global/terms_of_service",
+					"of": "https://www.arknights.global",
+					"pkgAd": "https://play.google.com/store/apps/details?id=com.YoStarEN.Arknights",
+					"pkgIOS": "https://apps.apple.com/us/app/id1464872022?mt=8",
+					"secure": false
+				}
+			}
+		}
+	},
 	"network":{
 		"configVer":"5",
 		"funcVer":"V078",

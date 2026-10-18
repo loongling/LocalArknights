@@ -2,7 +2,9 @@ package com.hypergryph.arknights.game;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.internal.bind.JsonAdapterAnnotationTypeAdapterFactory;
 import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.orderIdDao;
 import com.hypergryph.arknights.core.dao.userDao;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.hypergryph.arknights.ArknightsApplication.checkCheckInItemType;
+import static com.hypergryph.arknights.ArknightsApplication.checkIn;
 
 @RestController
 @RequestMapping({"/user"})
@@ -466,7 +471,6 @@ public class users {
                 result.put("error", "无法查询到此账户");
                 return result;
             } else {
-                Long uid = ((Account) Accounts.get(0)).getUid();
                 JSONObject UserSyncData;
                 if (((Account) Accounts.get(0)).getBan() == 1L) {
                     response.setStatus(500);
@@ -478,7 +482,281 @@ public class users {
                 }
             }
         }
-        return new JSONObject();
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        Account account = accounts.get(0);
+        JSONObject result = new JSONObject(true);
+        JSONObject playerDataDelta = new JSONObject(true);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject checkInU = userData.getJSONObject("checkIn");
+        int showCount = checkInU.getInteger("showCount");
+        showCount = showCount + 1;
+        JSONObject status = userData.getJSONObject("status");
+        JSONObject medal = userData.getJSONObject("medal");
+        JSONObject inventory = userData.getJSONObject("inventory");
+        JSONArray checkInHistory = checkInU.getJSONArray("checkInHistory");
+        JSONArray signInRewards = new JSONArray();
+        String checkInGroupId = checkInU.getString("checkInGroupId");
+        JSONArray checkInTable = checkIn.getJSONObject(checkInGroupId).getJSONArray("items");
+        long ts = ArknightsApplication.getTimestamp();
+        int n = checkInHistory.size() + 1;
+        JSONObject nextRecord = null;
+        if (checkInU != null && n >= 1 && n <= checkInTable.size()) {
+            nextRecord = checkInTable.getJSONObject(n - 1);
+        }
+        if (nextRecord == null || nextRecord.getString("itemType") == null) {
+            nextRecord = new JSONObject();
+            nextRecord.put("itemId", "4001");
+            nextRecord.put("itemType", "GOLD");
+            nextRecord.put("count", 2000);
+        }
+        String itemType = nextRecord.getString("itemType");
+        int type = checkCheckInItemType(itemType);
+        checkInHistory.add(0);
+        int medalC;
+        JSONObject medalCJ = new JSONObject();
+        if (showCount < 2001) {
+            medalC = 1;
+            JSONArray inner_1 = new JSONArray();
+            JSONArray inner_2 = new JSONArray();
+            JSONArray inner_3 = new JSONArray();
+            inner_1.add(showCount);
+            inner_2.add(showCount);
+            inner_3.add(showCount);
+            inner_1.add(360);
+            inner_2.add(1000);
+            inner_3.add(2000);
+            JSONArray val1 = new JSONArray();
+            JSONArray val2 = new JSONArray();
+            JSONArray val3 = new JSONArray();
+            val1.add(inner_1);
+            val2.add(inner_2);
+            val3.add(inner_3);
+            JSONObject medal_player_login_01 = new JSONObject();
+            JSONObject medal_player_login_02 = new JSONObject();
+            JSONObject medal_player_login_03 = new JSONObject();
+            medal_player_login_01.put("id", "medal_player_login_01");
+            medal_player_login_01.put("val", val1);
+            medal_player_login_01.put("fts", -1);
+            medal_player_login_01.put("rts", -1);
+            medal_player_login_02.put("id", "medal_player_login_02");
+            medal_player_login_02.put("val", val2);
+            medal_player_login_02.put("fts", -1);
+            medal_player_login_02.put("rts", -1);
+            medal_player_login_03.put("id", "medal_player_login_03");
+            medal_player_login_03.put("val", val3);
+            medal_player_login_03.put("fts", -1);
+            medal_player_login_03.put("rts", -1);
+            if (showCount < 360) {
+                medalCJ.put("medal_player_login_01", medal_player_login_01);
+                medalCJ.put("medal_player_login_02", medal_player_login_02);
+                medalCJ.put("medal_player_login_03", medal_player_login_03);
+            } else if (showCount == 360) {
+                medal_player_login_01.put("id", "medal_player_login_01");
+                medal_player_login_01.put("val", val1);
+                medal_player_login_01.put("fts", ts);
+                medal_player_login_01.put("rts", -1);
+                medalCJ.put("medal_player_login_01", medal_player_login_01);
+                medalCJ.put("medal_player_login_02", medal_player_login_02);
+                medalCJ.put("medal_player_login_03", medal_player_login_03);
+            } else if (showCount <= 999) {
+                medalCJ.put("medal_player_login_02", medal_player_login_02);
+                medalCJ.put("medal_player_login_03", medal_player_login_03);
+            } else if (showCount == 1000) {
+                medal_player_login_02.put("id", "medal_player_login_02");
+                medal_player_login_02.put("val", val2);
+                medal_player_login_02.put("fts", ts);
+                medal_player_login_02.put("rts", -1);
+                medalCJ.put("medal_player_login_02", medal_player_login_02);
+                medalCJ.put("medal_player_login_03", medal_player_login_03);
+            } else if (showCount <= 1999) {
+                medalCJ.put("medal_player_login_03", medal_player_login_03);
+            } else {
+                medal_player_login_03.put("id", "medal_player_login_03");
+                medal_player_login_03.put("val", val3);
+                medal_player_login_03.put("fts", ts);
+                medal_player_login_03.put("rts", -1);
+                medalCJ.put("medal_player_login_03", medal_player_login_03);
+            }
+        }
+        else {
+            medalC = 0;
+        }
+        userData.getJSONObject("checkIn").put("canCheckIn", 0);
+        userData.getJSONObject("checkIn").put("checkInHistory", checkInHistory);
+        userData.getJSONObject("checkIn").put("showCount", showCount);
+        JSONObject changedStatus = new JSONObject();
+        JSONObject changedSignIn = new JSONObject();
+        changedSignIn.put("canCheckIn", 0);
+        changedSignIn.put("checkInHistory", checkInHistory);
+        changedSignIn.put("showCount", showCount + 1);
+        String typeI = nextRecord.getString("itemType");
+        String itemId = nextRecord.getString("itemId");
+        int counts = Integer.parseInt(nextRecord.getString("count"));
+        JSONObject item = new JSONObject();
+        item.put("id", itemId);
+        item.put("type", typeI);
+        item.put("count", counts);
+        signInRewards.add(item);
+        result.put("signInRewards", signInRewards);
+        result.put("subscriptionRewards", new JSONArray());  //TODO 月卡检查
+        playerDataDelta.put("deleted", new JSONObject(true));
+        JSONObject modified = new JSONObject();
+        modified.put("checkIn", changedSignIn);
+        if (type == 1) {
+            int count = Integer.parseInt(nextRecord.getString("count"));
+            int money = status.getInteger("gold");
+            int total = money + count;
+            userData.getJSONObject("status").put("gold", total);
+            changedStatus.put("gold", total);
+            modified.put("status", changedStatus);
+            if (medalC == 0) {
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                userDao.setUserData(account.getUid(), userData);
+                return result;
+            }
+            else {
+                JSONObject medals = new JSONObject();
+                JSONObject medalM = new JSONObject();
+                medals.put("medals", medalCJ);
+                medalM.put("medal", medals);
+                modified.put("medal", medalM);
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                medal.put("medals", medalCJ);
+                userData.put("medal", medal);
+                userDao.setUserData(account.getUid(), userData);
+                return result;
+            }
+        } else if(type == 2) {
+            JSONObject inventoryU = new JSONObject();
+            if (inventory.getInteger(itemId) != null) {
+                int count = inventory.getInteger(itemId);
+                count = count + counts;
+                inventory.put(itemId, count);
+                userData.put("inventory", inventory);
+                inventoryU.put(itemId, count);
+            } else {
+                inventory.put(itemId, counts);
+                userData.put("inventory", inventory);
+                inventoryU.put(itemId, counts);
+            }
+            modified.put("inventory", inventoryU);
+            if (medalC == 0) {
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                userDao.setUserData(account.getUid(), userData);
+                return result;
+            }
+            else {
+                JSONObject medals = new JSONObject();
+                JSONObject medalM = new JSONObject();
+                medals.put("medals", medalCJ);
+                medalM.put("medal", medals);
+                modified.put("medal", medalM);
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                medal.put("medals", medalCJ);
+                userData.put("medal", medal);
+                userDao.setUserData(account.getUid(), userData);
+                return result;
+            }
+        } else if(type == 3) {
+            int solvedTKT = resolveTKT(typeI);
+            if(solvedTKT == 1) {
+                int count = status.getInteger("instantFinishTicket");
+                count = count + counts;
+                status.put("instantFinishTicket", count);
+                userData.put("status", status);
+                changedStatus.put("instantFinishTicket", count);
+                modified.put("status", changedStatus);
+            } else if(solvedTKT == 2) {
+                int count = status.getInteger("recruitLicense");
+                count = count + counts;
+                status.put("recruitLicense", count);
+                userData.put("status", status);
+                changedStatus.put("recruitLicense", count);
+            } else if(solvedTKT == 3) {
+                int count = status.getInteger("gachaTicket");
+                count = count + counts;
+                status.put("gachaTicket", count);
+                userData.put("status", status);
+                changedStatus.put("gachaTicket", count);
+            }
+            if (medalC == 0) {
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                userDao.setUserData(account.getUid(), userData);
+                return result;
+            }
+            else {
+                JSONObject medals = new JSONObject();
+                JSONObject medalM = new JSONObject();
+                medals.put("medals", medalCJ);
+                medalM.put("medal", medals);
+                modified.put("medal", medalM);
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                medal.put("medals", medalCJ);
+                userData.put("medal", medal);
+                userDao.setUserData(account.getUid(), userData);
+                return result;
+            }
+        } else if(type == 4) {
+            int solvedTKT = resolveTKT(typeI);
+            if(solvedTKT == 1) {
+                int count = status.getInteger("LGG_SHD");
+                count = count + counts;
+                status.put("LGG_SHD", count);
+                userData.put("status", status);
+                changedStatus.put("LGG_SHD", count);
+                modified.put("status", changedStatus);
+            } else if(solvedTKT == 2) {
+                int count = status.getInteger("HGG_SHD");
+                count = count + counts;
+                status.put("HGG_SHD", count);
+                userData.put("status", status);
+                changedStatus.put("HGG_SHD", count);
+                modified.put("status", changedStatus);
+            }
+            if (medalC == 0) {
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                userDao.setUserData(account.getUid(), userData);
+                return result;
+            }
+            else {
+                JSONObject medals = new JSONObject();
+                JSONObject medalM = new JSONObject();
+                medals.put("medals", medalCJ);
+                medalM.put("medal", medals);
+                modified.put("medal", medalM);
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                medal.put("medals", medalCJ);
+                userData.put("medal", medal);
+                userDao.setUserData(account.getUid(), userData);
+                return result;
+            }
+        }
+        return result;
+    }
+
+    private int resolveTKT(String TKT){
+        return switch (TKT) {
+            case "TKT_INST_FIN" -> 1;
+            case "TKT_RECRUIT" -> 2;
+            case "TKT_GACHA" -> 3;
+            default -> -1;
+        };
+    }
+
+    private int resolveSHD(String SHD){
+        return switch (SHD) {
+            case "LGG_SHD" -> 1;
+            case "HGG_SHD" -> 2;
+            default -> -1;
+        };
     }
 
     @PostMapping(

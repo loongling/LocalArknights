@@ -48,6 +48,9 @@ public class ArknightsApplication {
     public static JdbcTemplate jdbcTemplate = null;
     public static JSONObject serverConfig = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/config.json");
     public static boolean enableServer;
+    public static JSONObject checkIn;
+    public static JSONObject openServer;
+    public static JSONObject monthlyPass;
     public static JSONObject DefaultSyncData;
     public static JSONObject characterJson;
     public static JSONObject roguelikeTable;
@@ -116,9 +119,9 @@ public class ArknightsApplication {
         }
 
         LOGGER.info("数据库版本 " + MysqlVersion);
-        LOGGER.info("服务端版本 0.4.0 Alpha-fixed-1");
+        LOGGER.info("服务端版本 0.4.1 Alpha");
         LOGGER.info("客户端版本 2.7.81Win");
-        LOGGER.info("构建时间 2026年10月15日 22:22:54");
+        LOGGER.info("构建时间 2026年10月18日 18:38:50");
         if (serverConfig.getJSONObject("server").getString("GMKey") == null) {
             serverConfig.getJSONObject("server").put("GMKey", randomPwd.getRandomPwd(64));
             IOTools.SaveJsonFile(System.getProperty("user.dir") + "/config.json", serverConfig);
@@ -181,6 +184,24 @@ public class ArknightsApplication {
             Exception e = var4;
             e.printStackTrace();
             return "";
+        }
+    }
+
+    public static boolean checkCanCheckInToday(long ts) {
+        //TODO
+        return true;
+    }
+
+    public static int checkCheckInItemType(String item_type) {
+        if (item_type == null) {
+            return -1;
+        }
+        switch (item_type.trim().toUpperCase(java.util.Locale.ROOT)) {
+            case "GOLD": return 1;
+            case "CARD_EXP", "MATERIAL": return 2;
+            case "TKT_RECRUIT", "TKT_INST_FIN", "TKT_GACHA": return 3;
+            case "LGG_SHD", "HGG_SHD": return 4;
+            default: return -1;
         }
     }
 
@@ -292,6 +313,9 @@ public class ArknightsApplication {
         serverConfig = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/config.json");
         enableServer = serverConfig.getJSONObject("server").getBooleanValue("enableServer");
         LOGGER.info("载入游戏数据...");
+        checkIn = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel//checkin_table.json").getJSONObject("groups");
+        monthlyPass = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel//checkin_table.json").getJSONObject("monthlySubItem");
+        openServer = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel//open_server_table.json");
         DefaultSyncData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/defaultSyncData.json");
         characterJson = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/character_table.json");
         roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
@@ -324,6 +348,9 @@ public class ArknightsApplication {
     static {
         enableServer = serverConfig.getJSONObject("server").getBooleanValue("enableServer");
         DefaultSyncData = new JSONObject();
+        checkIn = new JSONObject();
+        monthlyPass = new JSONObject();
+        openServer = new JSONObject();
         characterJson = new JSONObject();
         roguelikeTable = new JSONObject();
         stageTable = new JSONObject();

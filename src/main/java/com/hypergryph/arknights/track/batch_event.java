@@ -15,7 +15,7 @@ public class batch_event {
         JSONObject result = new JSONObject(true);
         result.put("code", 200);
         result.put("msg", "ok");
-        result.put("next", 3600);
+        result.put("next", 360000);
         return result;
     }
 }

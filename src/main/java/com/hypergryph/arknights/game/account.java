@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.hypergryph.arknights.core.work.checkCanCheckIn.canCheckIn;
+import static com.hypergryph.arknights.core.work.checkNeedChangeGroup.needChange;
+import static com.hypergryph.arknights.core.work.checkNeedChangeGroup.nextGroupId;
+
 @RestController
 @RequestMapping({"/account"})
 public class account {
@@ -129,8 +133,19 @@ public class account {
         }
 
         Long ts = ArknightsApplication.getTimestamp();
+        Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
+        boolean canCheck = canCheckIn(lastLogin, ts);
+        if (canCheck) {
+            UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);
+        }
         UserSyncData.getJSONObject("status").put("lastOnlineTs", System.currentTimeMillis() / 1000L);
         UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
+        String id = UserSyncData.getJSONObject("checkIn").getString("checkInGroupId");
+        boolean needChange = needChange(lastLogin, ts);
+        if (needChange) {
+            String next_id = nextGroupId(id);
+            UserSyncData.getJSONObject("checkIn").put("checkInGroupId", next_id);
+        }
 
         try {
             userDao.setUserData(uid, UserSyncData);

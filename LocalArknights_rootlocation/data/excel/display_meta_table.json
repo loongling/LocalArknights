@@ -92,7 +92,7 @@
         "avatarIdSort": 5,
         "avatarIdDesc": "购买礼包获得\\n“导演的认可”",
         "avatarItemName": "“导演的认可”",
-        "avatarItemDesc": "有她在，你就不用担心节目的质量问题......吗？",
+        "avatarItemDesc": "有她在，你就不用担心节目的质量问题……吗？",
         "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
         "obtainApproach": "特殊方式获得",
         "dynAvatarId": null,
@@ -396,7 +396,7 @@
         "avatarIdSort": 24,
         "avatarIdDesc": "购买礼包获得\\n“骷髅与少女心”",
         "avatarItemName": "“骷髅与少女心”",
-        "avatarItemDesc": "W与酷洛米合拍的大头贴。W好像很喜欢酷洛米的粉色骷髅，但愿她没在打什么坏主意吧......",
+        "avatarItemDesc": "W与酷洛米合拍的大头贴。W好像很喜欢酷洛米的粉色骷髅，但愿她没在打什么坏主意吧……",
         "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
         "obtainApproach": "特殊方式获得",
         "dynAvatarId": null,
@@ -444,7 +444,7 @@
         "avatarIdSort": 27,
         "avatarIdDesc": "购买礼包获得\\n“浇灌磐蟹”",
         "avatarItemName": "“浇灌磐蟹”",
-        "avatarItemDesc": "“磐蟹磐蟹快长大，水里加点......生长魔法？”",
+        "avatarItemDesc": "“磐蟹磐蟹快长大，水里加点……生长魔法？”",
         "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
         "obtainApproach": "特殊方式获得",
         "dynAvatarId": null,
@@ -460,7 +460,7 @@
         "avatarIdSort": 28,
         "avatarIdDesc": "购买礼包获得\\n“惊骇盐风”",
         "avatarItemName": "“惊骇盐风”",
-        "avatarItemDesc": "“这里的海风中不只有咸味，还有恐怖的味道......！”",
+        "avatarItemDesc": "“这里的海风中不只有咸味，还有恐怖的味道……！”",
         "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
         "obtainApproach": "特殊方式获得",
         "dynAvatarId": null,
@@ -524,7 +524,7 @@
         "avatarIdSort": 32,
         "avatarIdDesc": "购买礼包获得\\n“这照片是你吗？”",
         "avatarItemName": "“这照片是你吗？”",
-        "avatarItemDesc": "“我知道他不是在问我本人......请再来一次，我会忍住的......”",
+        "avatarItemDesc": "“我知道他不是在问我本人……请再来一次，我会忍住的……”",
         "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
         "obtainApproach": "特殊方式获得",
         "dynAvatarId": null,
@@ -1098,7 +1098,7 @@
         "avatarIdSort": 66,
         "avatarIdDesc": "购买礼包获得\\n“米米子”",
         "avatarItemName": "“米米子”",
-        "avatarItemDesc": "“最受人喜爱的角色......不许加‘之一’。”",
+        "avatarItemDesc": "“最受人喜爱的角色……不许加‘之一’。”",
         "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
         "obtainApproach": "特殊方式获得",
         "dynAvatarId": null,
@@ -1208,7 +1208,7 @@
         "avatarIdSort": 71,
         "avatarIdDesc": "购买礼包获得\\n“闲游能天使”",
         "avatarItemName": "“闲游能天使”",
-        "avatarItemDesc": "“用爆炸能量烤苹果派能不能行得通啊......”",
+        "avatarItemDesc": "“用爆炸能量烤苹果派能不能行得通啊……”",
         "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
         "obtainApproach": "特殊方式获得",
         "dynAvatarId": null,
@@ -1305,6 +1305,248 @@
             "avatarId": "avatar_special_92",
             "descShowTs": 1777590000,
             "descHideTs": 1780613999
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_84",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1783065600,
+        "avatarLimit": true,
+        "avatarIdSort": 76,
+        "avatarIdDesc": "购买礼包获得\\n“坚忍玛恩纳”",
+        "avatarItemName": "“坚忍玛恩纳”",
+        "avatarItemDesc": "坚忍玛恩纳。他默默背负了所有，工作的重担、所行之事的后果、临光家。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_84",
+            "descShowTs": 1783065600,
+            "descHideTs": 1784836799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_85",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1783065600,
+        "avatarLimit": true,
+        "avatarIdSort": 77,
+        "avatarIdDesc": "购买礼包获得\\n“灼灼临光”",
+        "avatarItemName": "“灼灼临光”",
+        "avatarItemDesc": "灼灼临光。她一直坚守着她的正义，她正是骑士精神的化身。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_85",
+            "descShowTs": 1783065600,
+            "descHideTs": 1784836799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_86",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1783065600,
+        "avatarLimit": true,
+        "avatarIdSort": 78,
+        "avatarIdDesc": "购买礼包获得\\n“瑕光点点”",
+        "avatarItemName": "“瑕光点点”",
+        "avatarItemDesc": "瑕光点点。天真开朗的她向来都是临光家快乐的源泉。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_86",
+            "descShowTs": 1783065600,
+            "descHideTs": 1784836799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_87",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1783065600,
+        "avatarLimit": true,
+        "avatarIdSort": 79,
+        "avatarIdDesc": "购买礼包获得\\n“鞭刃佐菲娅”",
+        "avatarItemName": "“鞭刃佐菲娅”",
+        "avatarItemDesc": "鞭刃佐菲娅。临光家优雅又温柔的教官。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_87",
+            "descShowTs": 1783065600,
+            "descHideTs": 1784836799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_88",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1783065600,
+        "avatarLimit": true,
+        "avatarIdSort": 80,
+        "avatarIdDesc": "购买礼包获得\\n“赤沙娜仁图亚”",
+        "avatarItemName": "“赤沙娜仁图亚”",
+        "avatarItemDesc": "赤沙娜仁图亚。要么你从她要走的路上让开，要么她帮你让开。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_88",
+            "descShowTs": 1783065600,
+            "descHideTs": 1784836799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_89",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1783065600,
+        "avatarLimit": true,
+        "avatarIdSort": 81,
+        "avatarIdDesc": "购买礼包获得\\n“不言弃的格拉尼”",
+        "avatarItemName": "“不言弃的格拉尼”",
+        "avatarItemDesc": "不言弃的格拉尼。守护着城市和平的骑警，不惧艰险，笑脸和勇气就是她最好的武器。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_89",
+            "descShowTs": 1783065600,
+            "descHideTs": 1784836799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_90",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1783065600,
+        "avatarLimit": true,
+        "avatarIdSort": 82,
+        "avatarIdDesc": "购买礼包获得\\n“林间流星”",
+        "avatarItemName": "“林间流星”",
+        "avatarItemDesc": "林间流星。山间林中，时刻提防外来威胁、尽职尽责的守护者。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_90",
+            "descShowTs": 1783065600,
+            "descHideTs": 1784836799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_91",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1783065600,
+        "avatarLimit": true,
+        "avatarIdSort": 83,
+        "avatarIdDesc": "购买礼包获得\\n“空中大爆破”",
+        "avatarItemName": "“空中大爆破”",
+        "avatarItemDesc": "空中大爆破。她来了！砰！砰！乓！",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_91",
+            "descShowTs": 1783065600,
+            "descHideTs": 1784836799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_95",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1792137600,
+        "avatarLimit": true,
+        "avatarIdSort": 84,
+        "avatarIdDesc": "购买礼包获得\\n“探源开物”",
+        "avatarItemName": "“探源开物”",
+        "avatarItemDesc": "漫漫长河从古时流至今日，承接着人们每一次俯向大地时滴落的汗水。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_95",
+            "descShowTs": 1792137600,
+            "descHideTs": 1793908799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_96",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1792137600,
+        "avatarLimit": true,
+        "avatarIdSort": 85,
+        "avatarIdDesc": "购买礼包获得\\n“山海踏夜”",
+        "avatarItemName": "“山海踏夜”",
+        "avatarItemDesc": "天穹一片漆黑，她是大地上燃烧的火焰。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_96",
+            "descShowTs": 1792137600,
+            "descHideTs": 1793908799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_97",
+        "avatarType": "SPECIAL",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1792137600,
+        "avatarLimit": true,
+        "avatarIdSort": 86,
+        "avatarIdDesc": "购买礼包获得\\n“永乐长安”",
+        "avatarItemName": "“永乐长安”",
+        "avatarItemDesc": "光辉的宝石一如她满是笑意的眼眸，轻拂古卷，字里行间尽是智慧的余香。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_97",
+            "descShowTs": 1792137600,
+            "descHideTs": 1793908799
           }
         ]
       },
@@ -2054,7 +2296,7 @@
         "avatarIdSort": 47,
         "avatarIdDesc": "【绿野幻梦】记录修复\\n“绿野幻梦”",
         "avatarItemName": "“绿野幻梦”",
-        "avatarItemDesc": "数据，实验，科学......只为编织成美梦与家园。",
+        "avatarItemDesc": "数据，实验，科学……只为编织成美梦与家园。",
         "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
         "obtainApproach": "记录修复获得",
         "dynAvatarId": null,
@@ -2689,6 +2931,120 @@
         "limitDatas": null
       },
       {
+        "avatarId": "avatar_activity_SYS",
+        "avatarType": "ACTIVITY",
+        "avatarDesc": "【我们明日见】记录修复",
+        "isSecret": false,
+        "avatarStartTs": 1784491200,
+        "avatarLimit": false,
+        "avatarIdSort": 85,
+        "avatarIdDesc": "【我们明日见】记录修复\\n“我们明日见”",
+        "avatarItemName": "“我们明日见”",
+        "avatarItemDesc": "愿在时光的河流上，彼此的相会不是偶然。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "记录修复获得",
+        "dynAvatarId": null,
+        "limitDatas": null
+      },
+      {
+        "avatarId": "avatar_activity_AS",
+        "avatarType": "ACTIVITY",
+        "avatarDesc": "【太阳甩在身后】记录修复",
+        "isSecret": false,
+        "avatarStartTs": 1786737600,
+        "avatarLimit": false,
+        "avatarIdSort": 86,
+        "avatarIdDesc": "【太阳甩在身后】记录修复\\n“太阳甩在身后”",
+        "avatarItemName": "“太阳甩在身后”",
+        "avatarItemDesc": "立于黄沙之中，倾听历史的回声。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "记录修复获得",
+        "dynAvatarId": null,
+        "limitDatas": null
+      },
+      {
+        "avatarId": "avatar_special_93",
+        "avatarType": "ACTIVITY",
+        "avatarDesc": "夏日嘉年华特别活动中获得",
+        "isSecret": true,
+        "avatarStartTs": 1785538800,
+        "avatarLimit": true,
+        "avatarIdSort": 87,
+        "avatarIdDesc": "夏日嘉年华特别活动中获得\\n“酸橙记忆”",
+        "avatarItemName": "“酸橙记忆”",
+        "avatarItemDesc": "愿望实现的时候，总是在记忆中留下酸甜参半的味道。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "登录活动获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_93",
+            "descShowTs": 1785538800,
+            "descHideTs": 1788983999
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_special_94",
+        "avatarType": "ACTIVITY",
+        "avatarDesc": "此夜同行签到活动",
+        "isSecret": true,
+        "avatarStartTs": 1788476400,
+        "avatarLimit": true,
+        "avatarIdSort": 88,
+        "avatarIdDesc": "此夜同行签到活动\\n“弦月”",
+        "avatarItemName": "“弦月”",
+        "avatarItemDesc": "按下播放，闭上双眼，这夜色如水明亮。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "签到活动获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_special_94",
+            "descShowTs": 1788476400,
+            "descHideTs": 1789675199
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_activity_dp1",
+        "avatarType": "ACTIVITY",
+        "avatarDesc": "【逐影集趣】逐影之礼",
+        "isSecret": true,
+        "avatarStartTs": 1789891200,
+        "avatarLimit": true,
+        "avatarIdSort": 89,
+        "avatarIdDesc": "【逐影集趣】逐影之礼\\n“云在看着你”",
+        "avatarItemName": "“云在看着你”",
+        "avatarItemDesc": "麻烦告诉我，我们现在是在云里，还是在云外？",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "在逐影集趣活动中获得",
+        "dynAvatarId": null,
+        "limitDatas": [
+          {
+            "avatarId": "avatar_activity_dp1",
+            "descShowTs": 1789891200,
+            "descHideTs": 1790971199
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_activity_GO",
+        "avatarType": "ACTIVITY",
+        "avatarDesc": "【追迹日落以西】记录修复",
+        "isSecret": false,
+        "avatarStartTs": 1790668800,
+        "avatarLimit": false,
+        "avatarIdSort": 90,
+        "avatarIdDesc": "【追迹日落以西】记录修复\\n“追迹日落以西”",
+        "avatarItemName": "“追迹日落以西”",
+        "avatarItemDesc": "斜阳已去，朝阳将至。",
+        "avatarItemUsage": "用来彰显个性的图案，能够将之设置为头像。",
+        "obtainApproach": "记录修复获得",
+        "dynAvatarId": null,
+        "limitDatas": null
+      },
+      {
         "avatarId": "avatar_dyn_01",
         "avatarType": "DYNAMIC",
         "avatarDesc": "【累计签到】奖励",
@@ -2793,6 +3149,50 @@
             "avatarId": "avatar_dyn_06",
             "descShowTs": 1780268400,
             "descHideTs": 1782676799
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_dyn_07",
+        "avatarType": "DYNAMIC",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1788476400,
+        "avatarLimit": true,
+        "avatarIdSort": 7,
+        "avatarIdDesc": "购买礼包获得\\n“坠入清醒”",
+        "avatarItemName": "“坠入清醒”",
+        "avatarItemDesc": "思绪沉浮如水。",
+        "avatarItemUsage": "用来彰显个性的动态头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": "assets_avatar_dyn_07",
+        "limitDatas": [
+          {
+            "avatarId": "avatar_dyn_07",
+            "descShowTs": 1788476400,
+            "descHideTs": 1790279999
+          }
+        ]
+      },
+      {
+        "avatarId": "avatar_dyn_08",
+        "avatarType": "DYNAMIC",
+        "avatarDesc": "购买礼包获得",
+        "isSecret": true,
+        "avatarStartTs": 1788476400,
+        "avatarLimit": true,
+        "avatarIdSort": 8,
+        "avatarIdDesc": "购买礼包获得\\n“凝视映像”",
+        "avatarItemName": "“凝视映像”",
+        "avatarItemDesc": "回忆映照如一。",
+        "avatarItemUsage": "用来彰显个性的动态头像。",
+        "obtainApproach": "特殊方式获得",
+        "dynAvatarId": "assets_avatar_dyn_08",
+        "limitDatas": [
+          {
+            "avatarId": "avatar_dyn_08",
+            "descShowTs": 1788476400,
+            "descHideTs": 1790279999
           }
         ]
       },
@@ -3056,7 +3456,9 @@
           "avatar_dyn_03",
           "avatar_dyn_04",
           "avatar_dyn_05",
-          "avatar_dyn_06"
+          "avatar_dyn_06",
+          "avatar_dyn_07",
+          "avatar_dyn_08"
         ]
       },
       "SPECIAL": {
@@ -3138,7 +3540,18 @@
           "avatar_special_82",
           "avatar_special_83",
           "avatar_special_74",
-          "avatar_special_92"
+          "avatar_special_92",
+          "avatar_special_84",
+          "avatar_special_85",
+          "avatar_special_86",
+          "avatar_special_87",
+          "avatar_special_88",
+          "avatar_special_89",
+          "avatar_special_90",
+          "avatar_special_91",
+          "avatar_special_95",
+          "avatar_special_96",
+          "avatar_special_97"
         ]
       },
       "ACTIVITY": {
@@ -3229,7 +3642,13 @@
           "avatar_activity_ED3",
           "avatar_activity_XB2_1",
           "avatar_special_75",
-          "avatar_activity_BP"
+          "avatar_activity_BP",
+          "avatar_activity_SYS",
+          "avatar_activity_AS",
+          "avatar_special_93",
+          "avatar_special_94",
+          "avatar_activity_dp1",
+          "avatar_activity_GO"
         ]
       },
       "DEFAULT": {
@@ -3990,6 +4409,102 @@
           "[采购中心]中购买结营出猎组合包获得"
         ],
         "multiPicId": null
+      },
+      {
+        "bgId": "bg_little_pony_1",
+        "bgType": "BASE",
+        "bgSortId": 31,
+        "bgStartTime": 1783065600,
+        "isSecret": true,
+        "bgName": "金橡树图书馆",
+        "bgDes": "永远的小马镇，永远的家。",
+        "bgUsage": "一张照片，一段回忆，凝聚了泰拉大地的某个瞬间。",
+        "isMultiForm": false,
+        "changeRule": "NONE",
+        "multiFormList": [
+          {
+            "multiFormBgId": "bg_little_pony_1",
+            "sortId": 0,
+            "bgMusicId": "music_bg_little_pony"
+          }
+        ],
+        "obtainApproach": "礼包购买",
+        "unlockDesList": [
+          "[采购中心]中购买真挚友谊组合包获得"
+        ],
+        "multiPicId": null
+      },
+      {
+        "bgId": "bg_recalrune_2",
+        "bgType": "BASE",
+        "bgSortId": 32,
+        "bgStartTime": 1783638000,
+        "isSecret": false,
+        "bgName": "覆尘",
+        "bgDes": "过往的斗争都已归于尘土，追寻希望的征程却从未停止。",
+        "bgUsage": "一张照片，一段回忆，凝聚了泰拉大地的某个瞬间。",
+        "isMultiForm": false,
+        "changeRule": "NONE",
+        "multiFormList": [
+          {
+            "multiFormBgId": "bg_recalrune_2",
+            "sortId": 0,
+            "bgMusicId": "music_bg_recalrune2"
+          }
+        ],
+        "obtainApproach": "活动奖励",
+        "unlockDesList": [
+          "参与全息作战矩阵活动获得"
+        ],
+        "multiPicId": null
+      },
+      {
+        "bgId": "bg_p3r_1",
+        "bgType": "BASE",
+        "bgSortId": 33,
+        "bgStartTime": 1788476400,
+        "isSecret": true,
+        "bgName": "扬升",
+        "bgDes": "满目青蓝的陌生景象，深处隐约可见的机械结构。此处是何处？",
+        "bgUsage": "一张照片，一段回忆，凝聚了泰拉大地的某个瞬间。",
+        "isMultiForm": false,
+        "changeRule": "NONE",
+        "multiFormList": [
+          {
+            "multiFormBgId": "bg_p3r_1",
+            "sortId": 0,
+            "bgMusicId": "music_bg_p3r_1"
+          }
+        ],
+        "obtainApproach": "礼包购买",
+        "unlockDesList": [
+          "[采购中心]中购买幽蓝门扉组合包获得"
+        ],
+        "multiPicId": null
+      },
+      {
+        "bgId": "bg_redvelvet_1",
+        "bgType": "BASE",
+        "bgSortId": 34,
+        "bgStartTime": 1791500400,
+        "isSecret": true,
+        "bgName": "序幕",
+        "bgDes": "准备好面对幕布拉开时，投向舞台中央的一众目光。",
+        "bgUsage": "一张照片，一段回忆，凝聚了泰拉大地的某个瞬间。",
+        "isMultiForm": false,
+        "changeRule": "NONE",
+        "multiFormList": [
+          {
+            "multiFormBgId": "bg_redvelvet_1",
+            "sortId": 0,
+            "bgMusicId": "music_bg_redvelvet_1"
+          }
+        ],
+        "obtainApproach": "礼包购买",
+        "unlockDesList": [
+          "[采购中心]中购买剧场序幕组合包获得"
+        ],
+        "multiPicId": null
       }
     ],
     "backgroundGroupDatas": [
@@ -4154,6 +4669,26 @@
             "id": "bg_hunter_1",
             "groupType": "BASE",
             "sortId": 30
+          },
+          {
+            "id": "bg_little_pony_1",
+            "groupType": "BASE",
+            "sortId": 31
+          },
+          {
+            "id": "bg_recalrune_2",
+            "groupType": "BASE",
+            "sortId": 32
+          },
+          {
+            "id": "bg_p3r_1",
+            "groupType": "BASE",
+            "sortId": 33
+          },
+          {
+            "id": "bg_redvelvet_1",
+            "groupType": "BASE",
+            "sortId": 34
           }
         ]
       }
@@ -4398,7 +4933,7 @@
         "startTime": 1755158400,
         "isSecret": true,
         "tmName": "梦乡",
-        "tmDes": "身边的一切都飘浮起来......灯光也随着心情变化。在这里，什么都不用忧虑。",
+        "tmDes": "身边的一切都飘浮起来……灯光也随着心情变化。在这里，什么都不用忧虑。",
         "tmUsage": "在不变动功能的情况下，对PRTS界面进行了重新设计。",
         "isMultiForm": true,
         "changeRule": "TIME",
@@ -4580,6 +5115,84 @@
         "hideWhenLimit": true,
         "rarity": "TIER_6",
         "multiPicId": null
+      },
+      {
+        "id": "tm_rogue_6",
+        "type": "BASE",
+        "sortId": 17,
+        "startTime": 1788206400,
+        "isSecret": false,
+        "tmName": "幽脉",
+        "tmDes": "在未曾愈合的裂痕之后，渴望与愤恨依然在等待着重生。",
+        "tmUsage": "在不变动功能的情况下，对PRTS界面进行了重新设计。",
+        "isMultiForm": false,
+        "changeRule": "NONE",
+        "multiFormList": [
+          {
+            "multiFormTmId": "tm_rogue_6",
+            "sortId": 0
+          }
+        ],
+        "obtainApproach": "集成战略奖励",
+        "unlockDesList": [
+          "[集成战略]沉沦者的黑流树海奖励"
+        ],
+        "isLimitObtain": false,
+        "hideWhenLimit": false,
+        "rarity": "TIER_5",
+        "multiPicId": null
+      },
+      {
+        "id": "tm_p3r_1",
+        "type": "SPECIAL",
+        "sortId": 18,
+        "startTime": 1788476400,
+        "isSecret": true,
+        "tmName": "月满",
+        "tmDes": "时不我待。一切终将走向终结。",
+        "tmUsage": "在不变动功能的情况下，对PRTS界面进行了重新设计。",
+        "isMultiForm": false,
+        "changeRule": "NONE",
+        "multiFormList": [
+          {
+            "multiFormTmId": "tm_p3r_1",
+            "sortId": 0
+          }
+        ],
+        "obtainApproach": "采购中心组合包",
+        "unlockDesList": [
+          "[采购中心]中购买幽蓝门扉组合包获得"
+        ],
+        "isLimitObtain": true,
+        "hideWhenLimit": true,
+        "rarity": "TIER_6",
+        "multiPicId": null
+      },
+      {
+        "id": "tm_redvelvet_1",
+        "type": "SPECIAL",
+        "sortId": 19,
+        "startTime": 1791500400,
+        "isSecret": true,
+        "tmName": "剧目",
+        "tmDes": "台上台下，幕前幕后，所有故事，都化作聚光灯下的一场演出。",
+        "tmUsage": "在不变动功能的情况下，对PRTS界面进行了重新设计。",
+        "isMultiForm": false,
+        "changeRule": "NONE",
+        "multiFormList": [
+          {
+            "multiFormTmId": "tm_redvelvet_1",
+            "sortId": 0
+          }
+        ],
+        "obtainApproach": "采购中心组合包",
+        "unlockDesList": [
+          "[采购中心]中购买剧场序幕组合包获得"
+        ],
+        "isLimitObtain": true,
+        "hideWhenLimit": true,
+        "rarity": "TIER_6",
+        "multiPicId": null
       }
     ],
     "themeGroupDatas": [
@@ -4634,6 +5247,16 @@
             "id": "tm_hunter_1",
             "groupType": "SPECIAL",
             "sortId": 16
+          },
+          {
+            "id": "tm_p3r_1",
+            "groupType": "SPECIAL",
+            "sortId": 18
+          },
+          {
+            "id": "tm_redvelvet_1",
+            "groupType": "SPECIAL",
+            "sortId": 19
           }
         ]
       },
@@ -4681,6 +5304,11 @@
             "id": "tm_kaltsit_1",
             "groupType": "BASE",
             "sortId": 15
+          },
+          {
+            "id": "tm_rogue_6",
+            "groupType": "BASE",
+            "sortId": 17
           }
         ]
       }
@@ -4750,6 +5378,13 @@
             "endTime": 1737230399,
             "invalidObtainDesc": "暂无获取途径",
             "displayAfterEndTime": false
+          },
+          {
+            "limitInfoId": "bg_sui_1#2",
+            "startTime": 1792137600,
+            "endTime": 1793908799,
+            "invalidObtainDesc": "暂无获取途径",
+            "displayAfterEndTime": false
           }
         ]
       },
@@ -4760,6 +5395,13 @@
             "limitInfoId": "bg_volcano_1#1",
             "startTime": 1755158400,
             "endTime": 1756929599,
+            "invalidObtainDesc": "暂无获取途径",
+            "displayAfterEndTime": false
+          },
+          {
+            "limitInfoId": "bg_volcano_1#2",
+            "startTime": 1786176000,
+            "endTime": 1787947199,
             "invalidObtainDesc": "暂无获取途径",
             "displayAfterEndTime": false
           }
@@ -4796,6 +5438,42 @@
             "limitInfoId": "bg_hunter_1#1",
             "startTime": 1780268400,
             "endTime": 1782676799,
+            "invalidObtainDesc": "暂无获取途径",
+            "displayAfterEndTime": false
+          }
+        ]
+      },
+      "bg_little_pony_1": {
+        "bgId": "bg_little_pony_1",
+        "limitInfos": [
+          {
+            "limitInfoId": "bg_little_pony_1#1",
+            "startTime": 1783065600,
+            "endTime": 1784836799,
+            "invalidObtainDesc": "暂无获取途径",
+            "displayAfterEndTime": false
+          }
+        ]
+      },
+      "bg_p3r_1": {
+        "bgId": "bg_p3r_1",
+        "limitInfos": [
+          {
+            "limitInfoId": "bg_p3r_1#1",
+            "startTime": 1788476400,
+            "endTime": 1790279999,
+            "invalidObtainDesc": "暂无获取途径",
+            "displayAfterEndTime": false
+          }
+        ]
+      },
+      "bg_redvelvet_1": {
+        "bgId": "bg_redvelvet_1",
+        "limitInfos": [
+          {
+            "limitInfoId": "bg_redvelvet_1#1",
+            "startTime": 1791500400,
+            "endTime": 1793303999,
             "invalidObtainDesc": "暂无获取途径",
             "displayAfterEndTime": false
           }
@@ -4845,6 +5523,11 @@
             "startTime": 1735459200,
             "endTime": 1737230399,
             "invalidObtainDesc": "暂未开放获取途径"
+          },
+          {
+            "startTime": 1792137600,
+            "endTime": 1793908799,
+            "invalidObtainDesc": "暂未开放获取途径"
           }
         ]
       },
@@ -4864,6 +5547,11 @@
           {
             "startTime": 1755158400,
             "endTime": 1756929599,
+            "invalidObtainDesc": "暂未开放获取途径"
+          },
+          {
+            "startTime": 1786176000,
+            "endTime": 1787947199,
             "invalidObtainDesc": "暂未开放获取途径"
           }
         ]
@@ -4914,6 +5602,26 @@
           {
             "startTime": 1780268400,
             "endTime": 1782676799,
+            "invalidObtainDesc": "暂未开放获取途径"
+          }
+        ]
+      },
+      "tm_p3r_1": {
+        "id": "tm_p3r_1",
+        "limitInfos": [
+          {
+            "startTime": 1788476400,
+            "endTime": 1790279999,
+            "invalidObtainDesc": "暂未开放获取途径"
+          }
+        ]
+      },
+      "tm_redvelvet_1": {
+        "id": "tm_redvelvet_1",
+        "limitInfos": [
+          {
+            "startTime": 1791500400,
+            "endTime": 1793303999,
             "invalidObtainDesc": "暂未开放获取途径"
           }
         ]
@@ -5231,7 +5939,7 @@
         "themeName": "行者",
         "themeEnName": "The Pilgrim",
         "skinStartTime": 1721894400,
-        "skinDesc": "生命，岁月，历史......你不会遗忘，你始终如一。",
+        "skinDesc": "生命，岁月，历史……你不会遗忘，你始终如一。",
         "usageDesc": "在不变动功能的情况下，对prts进行了重新设计。",
         "skinApproach": "音律联觉礼包购买",
         "unlockConditionCnt": 1,
@@ -6243,13 +6951,137 @@
             "availEndTime": 1782676799
           }
         }
+      },
+      "nc_littlepony_1": {
+        "id": "nc_littlepony_1",
+        "name": "合照",
+        "type": "SPECIAL",
+        "isSecret": true,
+        "sortId": 32,
+        "isSpTheme": true,
+        "defaultShowDetail": false,
+        "themeName": "合照",
+        "themeEnName": "Besties Photo",
+        "skinStartTime": 1783065600,
+        "skinDesc": "将这一刻拍下来制成贴纸，一起装点朋友手账的第一页吧。三、二、一，茄——子！",
+        "usageDesc": "在不变动功能的情况下，对prts进行了重新设计。",
+        "skinApproach": "真挚友谊组合包",
+        "unlockConditionCnt": 1,
+        "unlockDescList": [
+          "在[采购中心]中购买真挚友谊组合包获得"
+        ],
+        "fixedModuleList": [
+          "module_background",
+          "module_collect",
+          "module_avatar",
+          "module_avatar_simple"
+        ],
+        "rarity": "TIER_6",
+        "skinTmplCnt": 3,
+        "canChangeTmpl": true,
+        "isTimeLimit": true,
+        "timeLimitInfoList": {
+          "nc_littlepony_1": {
+            "limitId": "nc_littlepony_1",
+            "id": "nc_littlepony_1",
+            "availStartTime": 1783065600,
+            "availEndTime": 1784836799
+          }
+        }
+      },
+      "nc_p3r_1": {
+        "id": "nc_p3r_1",
+        "name": "月落镜水",
+        "type": "DYNAMIC",
+        "isSecret": true,
+        "sortId": 33,
+        "isSpTheme": true,
+        "defaultShowDetail": false,
+        "themeName": "月落镜水",
+        "themeEnName": "Moonfall",
+        "skinStartTime": 1788476400,
+        "skinDesc": "落入彼端之月。",
+        "usageDesc": "在不变动功能的情况下，对prts进行了重新设计。",
+        "skinApproach": "潮湿镜像组合包",
+        "unlockConditionCnt": 1,
+        "unlockDescList": [
+          "在[采购中心]中购买潮湿镜像组合包获得"
+        ],
+        "fixedModuleList": [
+          "module_background",
+          "module_collect",
+          "module_avatar",
+          "module_avatar_simple"
+        ],
+        "rarity": "TIER_6",
+        "skinTmplCnt": 4,
+        "canChangeTmpl": true,
+        "isTimeLimit": true,
+        "timeLimitInfoList": {
+          "nc_p3r_1": {
+            "limitId": "nc_p3r_1",
+            "id": "nc_p3r_1",
+            "availStartTime": 1788476400,
+            "availEndTime": 1790279999
+          }
+        }
+      },
+      "nc_dp_1": {
+        "id": "nc_dp_1",
+        "name": "飘游",
+        "type": "BASE",
+        "isSecret": true,
+        "sortId": 34,
+        "isSpTheme": false,
+        "defaultShowDetail": true,
+        "themeName": "飘游",
+        "themeEnName": "Keep Floating",
+        "skinStartTime": 1789891200,
+        "skinDesc": "跟着粉嘟嘟的绒绒们，一起在欢乐的风中飘舞嬉闹吧！",
+        "usageDesc": "在不变动功能的情况下，对prts进行了重新设计。",
+        "skinApproach": "飘游之粉组合包",
+        "unlockConditionCnt": 1,
+        "unlockDescList": [
+          "在[采购中心]中购买飘游之粉组合包获得"
+        ],
+        "fixedModuleList": [
+          "module_background",
+          "module_illust",
+          "module_collect",
+          "module_avatar",
+          "module_avatar_simple"
+        ],
+        "rarity": "TIER_5",
+        "skinTmplCnt": 1,
+        "canChangeTmpl": false,
+        "isTimeLimit": true,
+        "timeLimitInfoList": {
+          "nc_dp_1": {
+            "limitId": "nc_dp_1",
+            "id": "nc_dp_1",
+            "availStartTime": 1789891200,
+            "availEndTime": 1791057599
+          }
+        }
       }
     },
     "skinGroupDatas": [
       {
+        "type": "DYNAMIC",
+        "title": "动态名片",
+        "sortId": 1,
+        "items": [
+          {
+            "id": "nc_p3r_1",
+            "groupType": "DYNAMIC",
+            "sortId": 33
+          }
+        ]
+      },
+      {
         "type": "SPECIAL",
         "title": "高阶名片",
-        "sortId": 1,
+        "sortId": 2,
         "items": [
           {
             "id": "nc_as2024_dreamer",
@@ -6340,13 +7172,18 @@
             "id": "nc_mh_1",
             "groupType": "SPECIAL",
             "sortId": 31
+          },
+          {
+            "id": "nc_littlepony_1",
+            "groupType": "SPECIAL",
+            "sortId": 32
           }
         ]
       },
       {
         "type": "BASE",
         "title": "基础名片",
-        "sortId": 2,
+        "sortId": 3,
         "items": [
           {
             "id": "nc_rhodes_default",
@@ -6412,6 +7249,11 @@
             "id": "nc_sandbox2_1",
             "groupType": "BASE",
             "sortId": 30
+          },
+          {
+            "id": "nc_dp_1",
+            "groupType": "BASE",
+            "sortId": 34
           }
         ]
       }
@@ -8087,6 +8929,24 @@
             "type": "VOUCHER_MGACHA"
           }
         ]
+      },
+      "mail_summer_2026_1": {
+        "id": "mail_summer_2026_1",
+        "type": "NORMAL",
+        "sortId": 92,
+        "displayReceiveTs": 1785556800,
+        "year": 0,
+        "dateDelta": -1,
+        "senderId": "char_1015_aglna2",
+        "title": "来自予愿安洁莉娜的快件",
+        "content": "博士，我正在从雷姆必拓回罗德岛的路上。这次外勤，我见到了难得一见的美景，遇到了许久不见的旧识，并且交到了三个很好很好的新朋友！\n我也正在给你写一封很长很长的信，信的内容......还没有写完，所以暂时保密！不过路上见到了这个实在太过可爱的背包，我忍不住，就买了下来快递给你，让它在我的信写完之前先一步去到你的身边......一定要等着我哦！",
+        "rewardList": [
+          {
+            "id": "randomMaterial_message4",
+            "count": 1,
+            "type": "VOUCHER_MGACHA"
+          }
+        ]
       }
     },
     "constData": {
@@ -8129,6 +8989,36 @@
         "senderId": "amiya_2025",
         "senderName": "阿米娅",
         "avatarId": "avatar_special_amiya_2025"
+      },
+      "amiya_school": {
+        "senderId": "amiya_school",
+        "senderName": "阿米娅",
+        "avatarId": "avatar_special_amiya_school"
+      },
+      "npc_356": {
+        "senderId": "npc_356",
+        "senderName": "“杰奥”",
+        "avatarId": "mail_npc_356"
+      },
+      "npc_2379": {
+        "senderId": "npc_2379",
+        "senderName": "裘里奥",
+        "avatarId": "mail_npc_2379"
+      },
+      "npc_2378": {
+        "senderId": "npc_2378",
+        "senderName": "吉阿达",
+        "avatarId": "mail_npc_2378"
+      },
+      "inside_realname": {
+        "senderId": "inside_realname",
+        "senderName": "里凯莱",
+        "avatarId": "mail_char_498_inside"
+      },
+      "forcer_realname": {
+        "senderId": "forcer_realname",
+        "senderName": "艾泽尔",
+        "avatarId": "mail_char_4036_forcer"
       }
     }
   },
@@ -8868,6 +9758,461 @@
         "sortId": 1065,
         "picId": "pic_foolwisdel_06_battle",
         "desc": null
+      },
+      "building_basic_01": {
+        "id": "building_basic_01",
+        "type": "BUILDING_ACTION",
+        "sortId": 1,
+        "picId": "pic_nice_work",
+        "desc": null
+      },
+      "building_basic_02": {
+        "id": "building_basic_02",
+        "type": "BUILDING_ACTION",
+        "sortId": 2,
+        "picId": "pic_bye",
+        "desc": null
+      },
+      "building_basic_03": {
+        "id": "building_basic_03",
+        "type": "BUILDING_ACTION",
+        "sortId": 3,
+        "picId": "pic_poke",
+        "desc": null
+      },
+      "building_basic_04": {
+        "id": "building_basic_04",
+        "type": "BUILDING_ACTION",
+        "sortId": 4,
+        "picId": "pic_very_soon",
+        "desc": null
+      },
+      "building_basic_05": {
+        "id": "building_basic_05",
+        "type": "BUILDING_ACTION",
+        "sortId": 5,
+        "picId": "pic_distrust",
+        "desc": null
+      },
+      "building_slug_hello": {
+        "id": "building_slug_hello",
+        "type": "BUILDING_ACTION",
+        "sortId": 1001,
+        "picId": "pic_hello",
+        "desc": null
+      },
+      "building_slug_nice_work": {
+        "id": "building_slug_nice_work",
+        "type": "BUILDING_ACTION",
+        "sortId": 1002,
+        "picId": "pic_nice_work",
+        "desc": null
+      },
+      "building_slug_thanks": {
+        "id": "building_slug_thanks",
+        "type": "BUILDING_ACTION",
+        "sortId": 1003,
+        "picId": "pic_thanks",
+        "desc": null
+      },
+      "building_slug_bye": {
+        "id": "building_slug_bye",
+        "type": "BUILDING_ACTION",
+        "sortId": 1004,
+        "picId": "pic_bye",
+        "desc": null
+      },
+      "building_slug_sorry": {
+        "id": "building_slug_sorry",
+        "type": "BUILDING_ACTION",
+        "sortId": 1005,
+        "picId": "pic_sorry",
+        "desc": null
+      },
+      "building_slug_exchange": {
+        "id": "building_slug_exchange",
+        "type": "BUILDING_ACTION",
+        "sortId": 1006,
+        "picId": "pic_exchange",
+        "desc": null
+      },
+      "building_slug_coming": {
+        "id": "building_slug_coming",
+        "type": "BUILDING_ACTION",
+        "sortId": 1007,
+        "picId": "pic_coming",
+        "desc": null
+      },
+      "building_slug_hurry": {
+        "id": "building_slug_hurry",
+        "type": "BUILDING_ACTION",
+        "sortId": 1008,
+        "picId": "pic_hurry",
+        "desc": null
+      },
+      "building_slug_very_soon": {
+        "id": "building_slug_very_soon",
+        "type": "BUILDING_ACTION",
+        "sortId": 1009,
+        "picId": "pic_very_soon",
+        "desc": null
+      },
+      "building_slug_distrust": {
+        "id": "building_slug_distrust",
+        "type": "BUILDING_ACTION",
+        "sortId": 1010,
+        "picId": "pic_distrust",
+        "desc": null
+      },
+      "building_slug_ufirst": {
+        "id": "building_slug_ufirst",
+        "type": "BUILDING_ACTION",
+        "sortId": 1011,
+        "picId": "pic_ufirst",
+        "desc": null
+      },
+      "building_slug_mefirst": {
+        "id": "building_slug_mefirst",
+        "type": "BUILDING_ACTION",
+        "sortId": 1012,
+        "picId": "pic_mefirst",
+        "desc": null
+      },
+      "building_fooldoctor_01": {
+        "id": "building_fooldoctor_01",
+        "type": "BUILDING_ACTION",
+        "sortId": 1020,
+        "picId": "pic_fooldoctor_01_battle",
+        "desc": null
+      },
+      "building_fooldoctor_02": {
+        "id": "building_fooldoctor_02",
+        "type": "BUILDING_ACTION",
+        "sortId": 1021,
+        "picId": "pic_fooldoctor_02_battle",
+        "desc": null
+      },
+      "building_fooldoctor_03": {
+        "id": "building_fooldoctor_03",
+        "type": "BUILDING_ACTION",
+        "sortId": 1022,
+        "picId": "pic_fooldoctor_04_battle",
+        "desc": null
+      },
+      "building_fooldoctor_04": {
+        "id": "building_fooldoctor_04",
+        "type": "BUILDING_ACTION",
+        "sortId": 1023,
+        "picId": "pic_fooldoctor_05_battle",
+        "desc": null
+      },
+      "building_fooldoctor_05": {
+        "id": "building_fooldoctor_05",
+        "type": "BUILDING_ACTION",
+        "sortId": 1024,
+        "picId": "pic_fooldoctor_06_battle",
+        "desc": null
+      },
+      "building_fooldoctor_06": {
+        "id": "building_fooldoctor_06",
+        "type": "BUILDING_ACTION",
+        "sortId": 1025,
+        "picId": "pic_fooldoctor_08_battle",
+        "desc": null
+      },
+      "building_foolamiya_01": {
+        "id": "building_foolamiya_01",
+        "type": "BUILDING_ACTION",
+        "sortId": 1040,
+        "picId": "pic_foolamiya_01_battle",
+        "desc": null
+      },
+      "building_foolamiya_02": {
+        "id": "building_foolamiya_02",
+        "type": "BUILDING_ACTION",
+        "sortId": 1041,
+        "picId": "pic_foolamiya_02_battle",
+        "desc": null
+      },
+      "building_foolamiya_03": {
+        "id": "building_foolamiya_03",
+        "type": "BUILDING_ACTION",
+        "sortId": 1042,
+        "picId": "pic_foolamiya_03_battle",
+        "desc": null
+      },
+      "building_foolamiya_04": {
+        "id": "building_foolamiya_04",
+        "type": "BUILDING_ACTION",
+        "sortId": 1043,
+        "picId": "pic_foolamiya_04_battle",
+        "desc": null
+      },
+      "building_foolamiya_05": {
+        "id": "building_foolamiya_05",
+        "type": "BUILDING_ACTION",
+        "sortId": 1044,
+        "picId": "pic_foolamiya_05_battle",
+        "desc": null
+      },
+      "building_foolamiya_06": {
+        "id": "building_foolamiya_06",
+        "type": "BUILDING_ACTION",
+        "sortId": 1045,
+        "picId": "pic_foolamiya_06_battle",
+        "desc": null
+      },
+      "building_foolwisdel_01": {
+        "id": "building_foolwisdel_01",
+        "type": "BUILDING_ACTION",
+        "sortId": 1060,
+        "picId": "pic_foolwisdel_01_battle",
+        "desc": null
+      },
+      "building_foolwisdel_02": {
+        "id": "building_foolwisdel_02",
+        "type": "BUILDING_ACTION",
+        "sortId": 1061,
+        "picId": "pic_foolwisdel_02_battle",
+        "desc": null
+      },
+      "building_foolwisdel_03": {
+        "id": "building_foolwisdel_03",
+        "type": "BUILDING_ACTION",
+        "sortId": 1062,
+        "picId": "pic_foolwisdel_03_battle",
+        "desc": null
+      },
+      "building_foolwisdel_04": {
+        "id": "building_foolwisdel_04",
+        "type": "BUILDING_ACTION",
+        "sortId": 1063,
+        "picId": "pic_foolwisdel_04_battle",
+        "desc": null
+      },
+      "building_foolwisdel_05": {
+        "id": "building_foolwisdel_05",
+        "type": "BUILDING_ACTION",
+        "sortId": 1064,
+        "picId": "pic_foolwisdel_05_battle",
+        "desc": null
+      },
+      "building_foolwisdel_06": {
+        "id": "building_foolwisdel_06",
+        "type": "BUILDING_ACTION",
+        "sortId": 1065,
+        "picId": "pic_foolwisdel_06_battle",
+        "desc": null
+      },
+      "arkhub_room_basic_1": {
+        "id": "arkhub_room_basic_1",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1001,
+        "picId": "pic_pet_cat",
+        "desc": null
+      },
+      "arkhub_room_basic_2": {
+        "id": "arkhub_room_basic_2",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1002,
+        "picId": "pic_glamour",
+        "desc": null
+      },
+      "arkhub_room_basic_3": {
+        "id": "arkhub_room_basic_3",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1003,
+        "picId": "pic_peek",
+        "desc": null
+      },
+      "arkhub_room_basic_4": {
+        "id": "arkhub_room_basic_4",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1004,
+        "picId": "pic_left",
+        "desc": null
+      },
+      "arkhub_room_basic_5": {
+        "id": "arkhub_room_basic_5",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1005,
+        "picId": "pic_right",
+        "desc": null
+      },
+      "arkhub_room_basic_6": {
+        "id": "arkhub_room_basic_6",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1006,
+        "picId": "pic_battle",
+        "desc": null
+      },
+      "arkhub_slug_nice_work": {
+        "id": "arkhub_slug_nice_work",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1007,
+        "picId": "pic_nice_work",
+        "desc": null
+      },
+      "arkhub_slug_thanks": {
+        "id": "arkhub_slug_thanks",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1008,
+        "picId": "pic_thanks",
+        "desc": null
+      },
+      "arkhub_slug_sorry": {
+        "id": "arkhub_slug_sorry",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1009,
+        "picId": "pic_sorry",
+        "desc": null
+      },
+      "arkhub_slug_bye": {
+        "id": "arkhub_slug_bye",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1010,
+        "picId": "pic_bye",
+        "desc": null
+      },
+      "arkhub_slug_distrust": {
+        "id": "arkhub_slug_distrust",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1011,
+        "picId": "pic_distrust",
+        "desc": null
+      },
+      "arkhub_slug_very_soon": {
+        "id": "arkhub_slug_very_soon",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1012,
+        "picId": "pic_very_soon",
+        "desc": null
+      },
+      "arkhub_room_fooldoctor_01": {
+        "id": "arkhub_room_fooldoctor_01",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1013,
+        "picId": "pic_fooldoctor_01_battle",
+        "desc": null
+      },
+      "arkhub_room_fooldoctor_02": {
+        "id": "arkhub_room_fooldoctor_02",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1014,
+        "picId": "pic_fooldoctor_02_battle",
+        "desc": null
+      },
+      "arkhub_room_fooldoctor_03": {
+        "id": "arkhub_room_fooldoctor_03",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1015,
+        "picId": "pic_fooldoctor_04_battle",
+        "desc": null
+      },
+      "arkhub_room_fooldoctor_04": {
+        "id": "arkhub_room_fooldoctor_04",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1016,
+        "picId": "pic_fooldoctor_05_battle",
+        "desc": null
+      },
+      "arkhub_room_fooldoctor_05": {
+        "id": "arkhub_room_fooldoctor_05",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1017,
+        "picId": "pic_fooldoctor_06_battle",
+        "desc": null
+      },
+      "arkhub_room_fooldoctor_06": {
+        "id": "arkhub_room_fooldoctor_06",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1018,
+        "picId": "pic_fooldoctor_08_battle",
+        "desc": null
+      },
+      "arkhub_room_foolamiya_01": {
+        "id": "arkhub_room_foolamiya_01",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1019,
+        "picId": "pic_foolamiya_01_battle",
+        "desc": null
+      },
+      "arkhub_room_foolamiya_02": {
+        "id": "arkhub_room_foolamiya_02",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1020,
+        "picId": "pic_foolamiya_02_battle",
+        "desc": null
+      },
+      "arkhub_room_foolamiya_03": {
+        "id": "arkhub_room_foolamiya_03",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1021,
+        "picId": "pic_foolamiya_03_battle",
+        "desc": null
+      },
+      "arkhub_room_foolamiya_04": {
+        "id": "arkhub_room_foolamiya_04",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1022,
+        "picId": "pic_foolamiya_04_battle",
+        "desc": null
+      },
+      "arkhub_room_foolamiya_05": {
+        "id": "arkhub_room_foolamiya_05",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1023,
+        "picId": "pic_foolamiya_05_battle",
+        "desc": null
+      },
+      "arkhub_room_foolamiya_06": {
+        "id": "arkhub_room_foolamiya_06",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1024,
+        "picId": "pic_foolamiya_06_battle",
+        "desc": null
+      },
+      "arkhub_room_foolwisdel_01": {
+        "id": "arkhub_room_foolwisdel_01",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1025,
+        "picId": "pic_foolwisdel_01_battle",
+        "desc": null
+      },
+      "arkhub_room_foolwisdel_02": {
+        "id": "arkhub_room_foolwisdel_02",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1026,
+        "picId": "pic_foolwisdel_02_battle",
+        "desc": null
+      },
+      "arkhub_room_foolwisdel_03": {
+        "id": "arkhub_room_foolwisdel_03",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1027,
+        "picId": "pic_foolwisdel_03_battle",
+        "desc": null
+      },
+      "arkhub_room_foolwisdel_04": {
+        "id": "arkhub_room_foolwisdel_04",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1028,
+        "picId": "pic_foolwisdel_04_battle",
+        "desc": null
+      },
+      "arkhub_room_foolwisdel_05": {
+        "id": "arkhub_room_foolwisdel_05",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1029,
+        "picId": "pic_foolwisdel_05_battle",
+        "desc": null
+      },
+      "arkhub_room_foolwisdel_06": {
+        "id": "arkhub_room_foolwisdel_06",
+        "type": "ARKHUB_ROOM",
+        "sortId": 1030,
+        "picId": "pic_foolwisdel_06_battle",
+        "desc": null
       }
     },
     "emoticonThemeDataDict": {
@@ -8931,7 +10276,25 @@
         "slug_duel_battle_sorry",
         "slug_duel_battle_bye",
         "slug_duel_battle_distrust",
-        "slug_duel_battle_very_soon"
+        "slug_duel_battle_very_soon",
+        "arkhub_slug_nice_work",
+        "arkhub_slug_thanks",
+        "arkhub_slug_sorry",
+        "arkhub_slug_bye",
+        "arkhub_slug_distrust",
+        "arkhub_slug_very_soon",
+        "building_slug_hello",
+        "building_slug_nice_work",
+        "building_slug_thanks",
+        "building_slug_bye",
+        "building_slug_sorry",
+        "building_slug_exchange",
+        "building_slug_coming",
+        "building_slug_hurry",
+        "building_slug_very_soon",
+        "building_slug_distrust",
+        "building_slug_ufirst",
+        "building_slug_mefirst"
       ],
       "emticon_duel_basic": [
         "duel_battle_right",
@@ -8985,7 +10348,19 @@
         "duel_battle_fooldoctor_03",
         "duel_battle_fooldoctor_04",
         "duel_battle_fooldoctor_05",
-        "duel_battle_fooldoctor_06"
+        "duel_battle_fooldoctor_06",
+        "arkhub_room_fooldoctor_01",
+        "arkhub_room_fooldoctor_02",
+        "arkhub_room_fooldoctor_03",
+        "arkhub_room_fooldoctor_04",
+        "arkhub_room_fooldoctor_05",
+        "arkhub_room_fooldoctor_06",
+        "building_fooldoctor_01",
+        "building_fooldoctor_02",
+        "building_fooldoctor_03",
+        "building_fooldoctor_04",
+        "building_fooldoctor_05",
+        "building_fooldoctor_06"
       ],
       "emoticon_foolsday_amiya": [
         "autochess_battle_foolamiya_01",
@@ -8999,7 +10374,19 @@
         "duel_battle_foolamiya_03",
         "duel_battle_foolamiya_04",
         "duel_battle_foolamiya_05",
-        "duel_battle_foolamiya_06"
+        "duel_battle_foolamiya_06",
+        "arkhub_room_foolamiya_01",
+        "arkhub_room_foolamiya_02",
+        "arkhub_room_foolamiya_03",
+        "arkhub_room_foolamiya_04",
+        "arkhub_room_foolamiya_05",
+        "arkhub_room_foolamiya_06",
+        "building_foolamiya_01",
+        "building_foolamiya_02",
+        "building_foolamiya_03",
+        "building_foolamiya_04",
+        "building_foolamiya_05",
+        "building_foolamiya_06"
       ],
       "emoticon_foolsday_wisdel": [
         "autochess_battle_foolwisdel_01",
@@ -9013,7 +10400,693 @@
         "duel_battle_foolwisdel_03",
         "duel_battle_foolwisdel_04",
         "duel_battle_foolwisdel_05",
-        "duel_battle_foolwisdel_06"
+        "duel_battle_foolwisdel_06",
+        "arkhub_room_foolwisdel_01",
+        "arkhub_room_foolwisdel_02",
+        "arkhub_room_foolwisdel_03",
+        "arkhub_room_foolwisdel_04",
+        "arkhub_room_foolwisdel_05",
+        "arkhub_room_foolwisdel_06",
+        "building_foolwisdel_01",
+        "building_foolwisdel_02",
+        "building_foolwisdel_03",
+        "building_foolwisdel_04",
+        "building_foolwisdel_05",
+        "building_foolwisdel_06"
+      ],
+      "emoticon_building_basic": [
+        "building_basic_01",
+        "building_basic_02",
+        "building_basic_03",
+        "building_basic_04",
+        "building_basic_05"
+      ],
+      "emoticon_arkhub_basic": [
+        "arkhub_room_basic_1",
+        "arkhub_room_basic_2",
+        "arkhub_room_basic_3",
+        "arkhub_room_basic_4",
+        "arkhub_room_basic_5",
+        "arkhub_room_basic_6"
+      ]
+    },
+    "emoticonThemeTypeDict": {
+      "emoticon_originium_slug": {
+        "itemId": "emoticon_originium_slug",
+        "sortId": 1001,
+        "isBasic": false,
+        "isDyn": false,
+        "picSceneList": [
+          "ACTMULTIV3_ROOM",
+          "ACTMULTIV3_PICK",
+          "ACTMULTIV3_BATTLE",
+          "ENEMYDUEL_BATTLE",
+          "AUTOCHESS_ROOM",
+          "AUTOCHESS_BATTLE",
+          "BUILDING_ACTION",
+          "ARKHUB_ROOM"
+        ]
+      },
+      "emoticon_foolsday_doctor": {
+        "itemId": "emoticon_foolsday_doctor",
+        "sortId": 1002,
+        "isBasic": false,
+        "isDyn": false,
+        "picSceneList": [
+          "ACTMULTIV3_ROOM",
+          "ACTMULTIV3_PICK",
+          "ACTMULTIV3_BATTLE",
+          "ENEMYDUEL_BATTLE",
+          "AUTOCHESS_ROOM",
+          "AUTOCHESS_BATTLE",
+          "BUILDING_ACTION",
+          "ARKHUB_ROOM"
+        ]
+      },
+      "emoticon_foolsday_amiya": {
+        "itemId": "emoticon_foolsday_amiya",
+        "sortId": 1003,
+        "isBasic": false,
+        "isDyn": false,
+        "picSceneList": [
+          "ACTMULTIV3_ROOM",
+          "ACTMULTIV3_PICK",
+          "ACTMULTIV3_BATTLE",
+          "ENEMYDUEL_BATTLE",
+          "AUTOCHESS_ROOM",
+          "AUTOCHESS_BATTLE",
+          "BUILDING_ACTION",
+          "ARKHUB_ROOM"
+        ]
+      },
+      "emoticon_foolsday_wisdel": {
+        "itemId": "emoticon_foolsday_wisdel",
+        "sortId": 1004,
+        "isBasic": false,
+        "isDyn": false,
+        "picSceneList": [
+          "ACTMULTIV3_ROOM",
+          "ACTMULTIV3_PICK",
+          "ACTMULTIV3_BATTLE",
+          "ENEMYDUEL_BATTLE",
+          "AUTOCHESS_ROOM",
+          "AUTOCHESS_BATTLE",
+          "BUILDING_ACTION",
+          "ARKHUB_ROOM"
+        ]
+      },
+      "emoticon_basic": {
+        "itemId": "emoticon_basic",
+        "sortId": 100000,
+        "isBasic": true,
+        "isDyn": false,
+        "picSceneList": [
+          "ACTMULTIV3_ROOM",
+          "ACTMULTIV3_PICK",
+          "ACTMULTIV3_BATTLE"
+        ]
+      },
+      "emticon_duel_basic": {
+        "itemId": "emticon_duel_basic",
+        "sortId": 100000,
+        "isBasic": true,
+        "isDyn": false,
+        "picSceneList": [
+          "ENEMYDUEL_BATTLE"
+        ]
+      },
+      "emoticon_autochess_basic": {
+        "itemId": "emoticon_autochess_basic",
+        "sortId": 100000,
+        "isBasic": true,
+        "isDyn": false,
+        "picSceneList": [
+          "AUTOCHESS_ROOM",
+          "AUTOCHESS_BATTLE"
+        ]
+      },
+      "emoticon_autochess_basic_2": {
+        "itemId": "emoticon_autochess_basic_2",
+        "sortId": 100001,
+        "isBasic": true,
+        "isDyn": false,
+        "picSceneList": [
+          "AUTOCHESS_ROOM",
+          "AUTOCHESS_BATTLE"
+        ]
+      },
+      "emoticon_building_basic": {
+        "itemId": "emoticon_building_basic",
+        "sortId": 100000,
+        "isBasic": true,
+        "isDyn": true,
+        "picSceneList": [
+          "BUILDING_ACTION"
+        ]
+      },
+      "emoticon_arkhub_basic": {
+        "itemId": "emoticon_arkhub_basic",
+        "sortId": 100000,
+        "isBasic": true,
+        "isDyn": false,
+        "picSceneList": [
+          "ARKHUB_ROOM"
+        ]
+      }
+    },
+    "emoticonThemeReverseDict": {
+      "multiv3_room_hello": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_nice_work": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_thanks": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_bye": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_sorry": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_exchange_project": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_exchange_mode": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_coming": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_hurry": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_room_very_soon": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_hello": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_nice_work": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_thanks": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_sorry": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_coming": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_distrust": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_ufirst": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_mefirst": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_hurry": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_pick_very_soon": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_battle_nice_work": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_battle_thanks": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "multiv3_battle_sorry": [
+        "emoticon_basic",
+        "emoticon_originium_slug"
+      ],
+      "slug_autochess_battle_nice_work": [
+        "emoticon_originium_slug"
+      ],
+      "slug_autochess_battle_thanks": [
+        "emoticon_originium_slug"
+      ],
+      "slug_autochess_battle_sorry": [
+        "emoticon_originium_slug"
+      ],
+      "slug_autochess_battle_bye": [
+        "emoticon_originium_slug"
+      ],
+      "slug_autochess_battle_distrust": [
+        "emoticon_originium_slug"
+      ],
+      "slug_autochess_battle_very_soon": [
+        "emoticon_originium_slug"
+      ],
+      "slug_duel_battle_nice_work": [
+        "emoticon_originium_slug"
+      ],
+      "slug_duel_battle_thanks": [
+        "emoticon_originium_slug"
+      ],
+      "slug_duel_battle_sorry": [
+        "emoticon_originium_slug"
+      ],
+      "slug_duel_battle_bye": [
+        "emoticon_originium_slug"
+      ],
+      "slug_duel_battle_distrust": [
+        "emoticon_originium_slug"
+      ],
+      "slug_duel_battle_very_soon": [
+        "emoticon_originium_slug"
+      ],
+      "arkhub_slug_nice_work": [
+        "emoticon_originium_slug"
+      ],
+      "arkhub_slug_thanks": [
+        "emoticon_originium_slug"
+      ],
+      "arkhub_slug_sorry": [
+        "emoticon_originium_slug"
+      ],
+      "arkhub_slug_bye": [
+        "emoticon_originium_slug"
+      ],
+      "arkhub_slug_distrust": [
+        "emoticon_originium_slug"
+      ],
+      "arkhub_slug_very_soon": [
+        "emoticon_originium_slug"
+      ],
+      "duel_battle_right": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_left": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_hello": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_happy": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_think": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_sad": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_what": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_clown": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_wronged": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_shock": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_pray": [
+        "emticon_duel_basic"
+      ],
+      "duel_battle_busk": [
+        "emticon_duel_basic"
+      ],
+      "autochess_room_hello": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_thanks": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_happy": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_question": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_sorry": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_scared": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_thinking": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_waiting": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_nice_cooperate": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_room_working": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_battle_happy": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_battle_scared": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_battle_sorry": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_battle_thanks": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_battle_thinking": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_battle_nice_cooperate": [
+        "emoticon_autochess_basic"
+      ],
+      "autochess_battle_noproblem": [
+        "emoticon_autochess_basic_2"
+      ],
+      "autochess_battle_respect": [
+        "emoticon_autochess_basic_2"
+      ],
+      "autochess_battle_call": [
+        "emoticon_autochess_basic_2"
+      ],
+      "autochess_battle_playingcool": [
+        "emoticon_autochess_basic_2"
+      ],
+      "autochess_battle_sad": [
+        "emoticon_autochess_basic_2"
+      ],
+      "autochess_battle_dying": [
+        "emoticon_autochess_basic_2"
+      ],
+      "autochess_battle_fooldoctor_01": [
+        "emoticon_foolsday_doctor"
+      ],
+      "autochess_battle_fooldoctor_02": [
+        "emoticon_foolsday_doctor"
+      ],
+      "autochess_battle_fooldoctor_03": [
+        "emoticon_foolsday_doctor"
+      ],
+      "autochess_battle_fooldoctor_04": [
+        "emoticon_foolsday_doctor"
+      ],
+      "autochess_battle_fooldoctor_05": [
+        "emoticon_foolsday_doctor"
+      ],
+      "autochess_battle_fooldoctor_06": [
+        "emoticon_foolsday_doctor"
+      ],
+      "duel_battle_fooldoctor_01": [
+        "emoticon_foolsday_doctor"
+      ],
+      "duel_battle_fooldoctor_02": [
+        "emoticon_foolsday_doctor"
+      ],
+      "duel_battle_fooldoctor_03": [
+        "emoticon_foolsday_doctor"
+      ],
+      "duel_battle_fooldoctor_04": [
+        "emoticon_foolsday_doctor"
+      ],
+      "duel_battle_fooldoctor_05": [
+        "emoticon_foolsday_doctor"
+      ],
+      "duel_battle_fooldoctor_06": [
+        "emoticon_foolsday_doctor"
+      ],
+      "arkhub_room_fooldoctor_01": [
+        "emoticon_foolsday_doctor"
+      ],
+      "arkhub_room_fooldoctor_02": [
+        "emoticon_foolsday_doctor"
+      ],
+      "arkhub_room_fooldoctor_03": [
+        "emoticon_foolsday_doctor"
+      ],
+      "arkhub_room_fooldoctor_04": [
+        "emoticon_foolsday_doctor"
+      ],
+      "arkhub_room_fooldoctor_05": [
+        "emoticon_foolsday_doctor"
+      ],
+      "arkhub_room_fooldoctor_06": [
+        "emoticon_foolsday_doctor"
+      ],
+      "autochess_battle_foolamiya_01": [
+        "emoticon_foolsday_amiya"
+      ],
+      "autochess_battle_foolamiya_02": [
+        "emoticon_foolsday_amiya"
+      ],
+      "autochess_battle_foolamiya_03": [
+        "emoticon_foolsday_amiya"
+      ],
+      "autochess_battle_foolamiya_04": [
+        "emoticon_foolsday_amiya"
+      ],
+      "autochess_battle_foolamiya_05": [
+        "emoticon_foolsday_amiya"
+      ],
+      "autochess_battle_foolamiya_06": [
+        "emoticon_foolsday_amiya"
+      ],
+      "duel_battle_foolamiya_01": [
+        "emoticon_foolsday_amiya"
+      ],
+      "duel_battle_foolamiya_02": [
+        "emoticon_foolsday_amiya"
+      ],
+      "duel_battle_foolamiya_03": [
+        "emoticon_foolsday_amiya"
+      ],
+      "duel_battle_foolamiya_04": [
+        "emoticon_foolsday_amiya"
+      ],
+      "duel_battle_foolamiya_05": [
+        "emoticon_foolsday_amiya"
+      ],
+      "duel_battle_foolamiya_06": [
+        "emoticon_foolsday_amiya"
+      ],
+      "arkhub_room_foolamiya_01": [
+        "emoticon_foolsday_amiya"
+      ],
+      "arkhub_room_foolamiya_02": [
+        "emoticon_foolsday_amiya"
+      ],
+      "arkhub_room_foolamiya_03": [
+        "emoticon_foolsday_amiya"
+      ],
+      "arkhub_room_foolamiya_04": [
+        "emoticon_foolsday_amiya"
+      ],
+      "arkhub_room_foolamiya_05": [
+        "emoticon_foolsday_amiya"
+      ],
+      "arkhub_room_foolamiya_06": [
+        "emoticon_foolsday_amiya"
+      ],
+      "autochess_battle_foolwisdel_01": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "autochess_battle_foolwisdel_02": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "autochess_battle_foolwisdel_03": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "autochess_battle_foolwisdel_04": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "autochess_battle_foolwisdel_05": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "autochess_battle_foolwisdel_06": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "duel_battle_foolwisdel_01": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "duel_battle_foolwisdel_02": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "duel_battle_foolwisdel_03": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "duel_battle_foolwisdel_04": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "duel_battle_foolwisdel_05": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "duel_battle_foolwisdel_06": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "arkhub_room_foolwisdel_01": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "arkhub_room_foolwisdel_02": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "arkhub_room_foolwisdel_03": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "arkhub_room_foolwisdel_04": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "arkhub_room_foolwisdel_05": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "arkhub_room_foolwisdel_06": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "building_basic_01": [
+        "emoticon_building_basic"
+      ],
+      "building_basic_02": [
+        "emoticon_building_basic"
+      ],
+      "building_basic_03": [
+        "emoticon_building_basic"
+      ],
+      "building_basic_04": [
+        "emoticon_building_basic"
+      ],
+      "building_basic_05": [
+        "emoticon_building_basic"
+      ],
+      "building_slug_hello": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_nice_work": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_thanks": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_bye": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_sorry": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_exchange": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_coming": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_hurry": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_very_soon": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_distrust": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_ufirst": [
+        "emoticon_originium_slug"
+      ],
+      "building_slug_mefirst": [
+        "emoticon_originium_slug"
+      ],
+      "building_fooldoctor_01": [
+        "emoticon_foolsday_doctor"
+      ],
+      "building_fooldoctor_02": [
+        "emoticon_foolsday_doctor"
+      ],
+      "building_fooldoctor_03": [
+        "emoticon_foolsday_doctor"
+      ],
+      "building_fooldoctor_04": [
+        "emoticon_foolsday_doctor"
+      ],
+      "building_fooldoctor_05": [
+        "emoticon_foolsday_doctor"
+      ],
+      "building_fooldoctor_06": [
+        "emoticon_foolsday_doctor"
+      ],
+      "building_foolamiya_01": [
+        "emoticon_foolsday_amiya"
+      ],
+      "building_foolamiya_02": [
+        "emoticon_foolsday_amiya"
+      ],
+      "building_foolamiya_03": [
+        "emoticon_foolsday_amiya"
+      ],
+      "building_foolamiya_04": [
+        "emoticon_foolsday_amiya"
+      ],
+      "building_foolamiya_05": [
+        "emoticon_foolsday_amiya"
+      ],
+      "building_foolamiya_06": [
+        "emoticon_foolsday_amiya"
+      ],
+      "building_foolwisdel_01": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "building_foolwisdel_02": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "building_foolwisdel_03": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "building_foolwisdel_04": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "building_foolwisdel_05": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "building_foolwisdel_06": [
+        "emoticon_foolsday_wisdel"
+      ],
+      "arkhub_room_basic_1": [
+        "emoticon_arkhub_basic"
+      ],
+      "arkhub_room_basic_2": [
+        "emoticon_arkhub_basic"
+      ],
+      "arkhub_room_basic_3": [
+        "emoticon_arkhub_basic"
+      ],
+      "arkhub_room_basic_4": [
+        "emoticon_arkhub_basic"
+      ],
+      "arkhub_room_basic_5": [
+        "emoticon_arkhub_basic"
+      ],
+      "arkhub_room_basic_6": [
+        "emoticon_arkhub_basic"
       ]
     }
   },
@@ -10044,7 +12117,7 @@
         "funcType": "BATTLE",
         "keyEffectGroup": "BATTLE",
         "isHidden": false,
-        "relatedActType": "ENUM",
+        "relatedActTypes": [],
         "gameModeTag": null,
         "sortId": 1,
         "startTs": -1,
@@ -10092,7 +12165,7 @@
         "funcType": "NORMAL",
         "keyEffectGroup": "OUT_BATTLE",
         "isHidden": false,
-        "relatedActType": "ENUM",
+        "relatedActTypes": [],
         "gameModeTag": null,
         "sortId": 2,
         "startTs": -1,
@@ -10112,7 +12185,7 @@
         "funcType": "NORMAL",
         "keyEffectGroup": "ALL",
         "isHidden": true,
-        "relatedActType": "ENUM",
+        "relatedActTypes": [],
         "gameModeTag": null,
         "sortId": 3,
         "startTs": -1,
@@ -10144,6 +12217,13 @@
             "canBeSet": false,
             "defaultKeyId": "bannedRightArrow",
             "sortId": 4
+          },
+          {
+            "funcId": "mouse",
+            "funcName": "鼠标左键",
+            "canBeSet": false,
+            "defaultKeyId": "mouseLeft",
+            "sortId": 5
           }
         ]
       },
@@ -10153,7 +12233,9 @@
         "funcType": "BATTLE",
         "keyEffectGroup": "BATTLE",
         "isHidden": false,
-        "relatedActType": "AUTOCHESS_SEASON",
+        "relatedActTypes": [
+          "AUTOCHESS_SEASON"
+        ],
         "gameModeTag": "autochess",
         "sortId": 4,
         "startTs": 1773475200,
@@ -10206,6 +12288,93 @@
             "canBeSet": true,
             "defaultKeyId": "alphaW",
             "sortId": 7
+          }
+        ]
+      },
+      "arkvent": {
+        "groupId": "arkvent",
+        "name": "移动操控",
+        "funcType": "NORMAL",
+        "keyEffectGroup": "ARKVENT",
+        "isHidden": false,
+        "relatedActTypes": [
+          "ARK_HUB",
+          "TYPE_ACT53SIDE"
+        ],
+        "gameModeTag": null,
+        "sortId": 5,
+        "startTs": 1785538800,
+        "itemList": [
+          {
+            "funcId": "arkventMoveForward",
+            "funcName": "向前移动",
+            "canBeSet": true,
+            "defaultKeyId": "alphaW",
+            "sortId": 1
+          },
+          {
+            "funcId": "arkventMoveBackward",
+            "funcName": "向后移动",
+            "canBeSet": true,
+            "defaultKeyId": "alphaS",
+            "sortId": 2
+          },
+          {
+            "funcId": "arkventMoveToLeft",
+            "funcName": "向左移动",
+            "canBeSet": true,
+            "defaultKeyId": "alphaA",
+            "sortId": 3
+          },
+          {
+            "funcId": "arkventMoveToRight",
+            "funcName": "向右移动",
+            "canBeSet": true,
+            "defaultKeyId": "alphaD",
+            "sortId": 4
+          },
+          {
+            "funcId": "arkventInteract",
+            "funcName": "交互",
+            "canBeSet": true,
+            "defaultKeyId": "alphaF",
+            "sortId": 5
+          },
+          {
+            "funcId": "arkventSwitchSpeed",
+            "funcName": "切换移速",
+            "canBeSet": true,
+            "defaultKeyId": "keyShift",
+            "sortId": 6
+          }
+        ]
+      },
+      "pixelMap": {
+        "groupId": "pixelMap",
+        "name": "画像册",
+        "funcType": "NORMAL",
+        "keyEffectGroup": "OUT_BATTLE",
+        "isHidden": false,
+        "relatedActTypes": [
+          "ARK_HUB"
+        ],
+        "gameModeTag": null,
+        "sortId": 6,
+        "startTs": 1786176000,
+        "itemList": [
+          {
+            "funcId": "pixelMapPreviousStep",
+            "funcName": "撤销",
+            "canBeSet": true,
+            "defaultKeyId": "alphaZ",
+            "sortId": 1
+          },
+          {
+            "funcId": "pixelMapNextStep",
+            "funcName": "恢复",
+            "canBeSet": true,
+            "defaultKeyId": "alphaY",
+            "sortId": 2
           }
         ]
       }
@@ -10403,6 +12572,53 @@
   ],
   "artGalleryCollectData": {
     "collectionSets": {
+      "collect_rogue6": {
+        "setId": "collect_rogue6",
+        "setName": "黑流树海主题套组",
+        "setType": "ROGUE",
+        "sortId": 7501,
+        "startTime": 1792137600,
+        "completeTime": 1801425600,
+        "items": [
+          {
+            "itemId": "tm_rogue_6",
+            "itemType": "HOME_THEME",
+            "collectionSetId": "collect_rogue6",
+            "sortId": 3
+          },
+          {
+            "itemId": "char_1027_greyy2@wild#12",
+            "itemType": "CHAR_SKIN",
+            "collectionSetId": "collect_rogue6",
+            "sortId": 1
+          }
+        ],
+        "displayMaxCount": 5,
+        "missionList": {
+          "collect_rogue6_mission1": {
+            "missionId": "collect_rogue6_mission1",
+            "requireItemCount": 1,
+            "rewardList": [
+              {
+                "id": "leaf_rogue6",
+                "count": 1,
+                "type": "MAGAZINE_LEAF"
+              }
+            ]
+          },
+          "collect_rogue6_mission2": {
+            "missionId": "collect_rogue6_mission2",
+            "requireItemCount": 2,
+            "rewardList": [
+              {
+                "id": "itempack_stickers_rog6",
+                "count": 1,
+                "type": "ITEM_PACK"
+              }
+            ]
+          }
+        }
+      },
       "collect_rogue5": {
         "setId": "collect_rogue5",
         "setName": "界园志异主题套组",
@@ -10856,6 +13072,7 @@
         "typeFilterSelectIcon": "setType_rogue",
         "typeFilterUnselectIcon": "setType_rogue_unselect",
         "setIdList": [
+          "collect_rogue6",
           "collect_rogue5",
           "collect_rogue4",
           "collect_rogue3",
@@ -10898,11 +13115,12 @@
         "templateId": "temp_leaf_default",
         "templateStartTime": 1770678000,
         "templateColor": "#0098dc",
+        "templateColor2": "#1d1d1d",
         "skinDefaultPos": {
           "x": 289.313629,
           "y": -85.942154
         },
-        "skinDefaultScale": 0.983968,
+        "skinDefaultScale": 0.940788,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -10924,11 +13142,12 @@
         "templateId": "temp_leaf_default2",
         "templateStartTime": 1770678000,
         "templateColor": "#2421c2",
+        "templateColor2": "#7d7d7d",
         "skinDefaultPos": {
           "x": 330.462372,
           "y": -213.542267
         },
-        "skinDefaultScale": 1.18325,
+        "skinDefaultScale": 1.131324,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -10950,11 +13169,12 @@
         "templateId": "temp_leaf_rogue1",
         "templateStartTime": 1770678000,
         "templateColor": "#841b1b",
+        "templateColor2": "#1d1d1d",
         "skinDefaultPos": {
           "x": 296.761047,
           "y": -150.048828
         },
-        "skinDefaultScale": 1.307637,
+        "skinDefaultScale": 0.86612,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -10976,11 +13196,12 @@
         "templateId": "temp_leaf_rogue2",
         "templateStartTime": 1770678000,
         "templateColor": "#7be09e",
+        "templateColor2": "#1d1d1d",
         "skinDefaultPos": {
           "x": -349.869781,
           "y": -27.734367
         },
-        "skinDefaultScale": 0.951446,
+        "skinDefaultScale": 0.747148,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -11002,11 +13223,12 @@
         "templateId": "temp_leaf_rogue3",
         "templateStartTime": 1770678000,
         "templateColor": "#00acc1",
+        "templateColor2": "#1d1d1d",
         "skinDefaultPos": {
           "x": 339.813507,
-          "y": -50.0
+          "y": 5.792526
         },
-        "skinDefaultScale": 0.773323,
+        "skinDefaultScale": 0.7,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -11028,11 +13250,12 @@
         "templateId": "temp_leaf_rogue4",
         "templateStartTime": 1770678000,
         "templateColor": "#7d1008",
+        "templateColor2": "#1d1d1d",
         "skinDefaultPos": {
           "x": 202.560638,
           "y": 10.556747
         },
-        "skinDefaultScale": 0.898263,
+        "skinDefaultScale": 0.7,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -11054,11 +13277,12 @@
         "templateId": "temp_leaf_rogue5",
         "templateStartTime": 1770678000,
         "templateColor": "#fb689f",
+        "templateColor2": "#1d1d1d",
         "skinDefaultPos": {
           "x": 158.36763,
           "y": -144.361542
         },
-        "skinDefaultScale": 1.676656,
+        "skinDefaultScale": 0.838328,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -11080,11 +13304,12 @@
         "templateId": "temp_leaf_sandbox1",
         "templateStartTime": 1770678000,
         "templateColor": "#e4e23a",
+        "templateColor2": "#8f8f8f",
         "skinDefaultPos": {
           "x": 346.210602,
           "y": -21.028648
         },
-        "skinDefaultScale": 0.670639,
+        "skinDefaultScale": 0.7,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -11106,11 +13331,66 @@
         "templateId": "temp_leaf_sandbox2",
         "templateStartTime": 1778832000,
         "templateColor": "#e9ff51",
+        "templateColor2": "#8f8f8f",
         "skinDefaultPos": {
           "x": 316.405121,
-          "y": -150.0
+          "y": 54.838051
         },
-        "skinDefaultScale": 0.835965,
+        "skinDefaultScale": 0.7,
+        "leafDecorMaxNumMap": {
+          "HOME_THEME": 2,
+          "HOME_BACKGROUND": 1,
+          "NAME_CARD_SKIN": 2,
+          "PLAYER_AVATAR": 3,
+          "STICKER": 5
+        }
+      },
+      "leaf_act5unique": {
+        "leafId": "leaf_act5unique",
+        "leafType": "DEFAULT",
+        "sortId": 10,
+        "startTime": 1785538800,
+        "name": "页面/清爽节拍",
+        "desc": "随波浮动，动人曲目。",
+        "usage": "形艺特辑的页面设计，可用于版面编辑。",
+        "approach": "夏日嘉年华特别活动获得",
+        "rarity": "TIER_5",
+        "templateId": null,
+        "templateStartTime": 0,
+        "templateColor": null,
+        "templateColor2": null,
+        "skinDefaultPos": {
+          "x": 154.546326,
+          "y": -135.133606
+        },
+        "skinDefaultScale": 0.849756,
+        "leafDecorMaxNumMap": {
+          "HOME_THEME": 2,
+          "HOME_BACKGROUND": 1,
+          "NAME_CARD_SKIN": 2,
+          "PLAYER_AVATAR": 3,
+          "STICKER": 5
+        }
+      },
+      "leaf_rogue6": {
+        "leafId": "leaf_rogue6",
+        "leafType": "ROGUE",
+        "sortId": 11,
+        "startTime": 1792137600,
+        "name": "页面/树海实录",
+        "desc": "沉沦之处，生灵溯游。",
+        "usage": "形艺特辑的页面设计，可用于版面编辑。",
+        "approach": "收集黑流树海主题套组获得",
+        "rarity": "TIER_5",
+        "templateId": null,
+        "templateStartTime": 0,
+        "templateColor": null,
+        "templateColor2": null,
+        "skinDefaultPos": {
+          "x": 248.007996,
+          "y": -356.709167
+        },
+        "skinDefaultScale": 1.1,
         "leafDecorMaxNumMap": {
           "HOME_THEME": 2,
           "HOME_BACKGROUND": 1,
@@ -12007,6 +14287,76 @@
         "usage": "形艺特辑专用特辑收藏贴，可用于版面编辑。",
         "approach": "收集重启锚点主题套组获得",
         "rarity": "TIER_5"
+      },
+      "sticker_act5unique_1": {
+        "id": "sticker_act5unique_1",
+        "name": "收藏贴/闪耀",
+        "stickerType": "DEFAULT",
+        "sortId": 21,
+        "desc": "为特辑增添个性元素，展现独到美学理解。",
+        "usage": "形艺特辑专用特辑收藏贴，可用于版面编辑。",
+        "approach": "夏日嘉年华特别活动获得",
+        "rarity": "TIER_5"
+      },
+      "sticker_act5unique_2": {
+        "id": "sticker_act5unique_2",
+        "name": "收藏贴/双耳",
+        "stickerType": "DEFAULT",
+        "sortId": 22,
+        "desc": "为特辑增添个性元素，展现独到美学理解。",
+        "usage": "形艺特辑专用特辑收藏贴，可用于版面编辑。",
+        "approach": "夏日嘉年华特别活动获得",
+        "rarity": "TIER_5"
+      },
+      "sticker_act5unique_3": {
+        "id": "sticker_act5unique_3",
+        "name": "收藏贴/墨镜",
+        "stickerType": "DEFAULT",
+        "sortId": 23,
+        "desc": "为特辑增添个性元素，展现独到美学理解。",
+        "usage": "形艺特辑专用特辑收藏贴，可用于版面编辑。",
+        "approach": "夏日嘉年华特别活动获得",
+        "rarity": "TIER_5"
+      },
+      "sticker_act5unique_4": {
+        "id": "sticker_act5unique_4",
+        "name": "收藏贴/轮廓",
+        "stickerType": "DEFAULT",
+        "sortId": 24,
+        "desc": "为特辑增添个性元素，展现独到美学理解。",
+        "usage": "形艺特辑专用特辑收藏贴，可用于版面编辑。",
+        "approach": "夏日嘉年华特别活动获得",
+        "rarity": "TIER_5"
+      },
+      "sticker_school_1": {
+        "id": "sticker_school_1",
+        "name": "收藏贴/学成",
+        "stickerType": "DEFAULT",
+        "sortId": 25,
+        "desc": "为特辑增添个性元素，展现独到美学理解。",
+        "usage": "形艺特辑专用特辑收藏贴，可用于版面编辑。",
+        "approach": "特殊活动获得",
+        "rarity": "TIER_5"
+      },
+      "sticker_rog_6_1": {
+        "id": "sticker_rog_6_1",
+        "name": "收藏贴/争斗",
+        "stickerType": "ROGUE",
+        "sortId": 26,
+        "desc": "为特辑增添个性元素，展现独到美学理解。",
+        "usage": "形艺特辑专用特辑收藏贴，可用于版面编辑。",
+        "approach": "收集黑流树海主题套组获得",
+        "rarity": "TIER_5"
+      },
+      "sticker_rog_6_2": {
+        "id": "sticker_rog_6_2",
+        "name": "收藏贴/饥饿",
+        "stickerType": "ROGUE",
+        "sortId": 27,
+        "desc": "为特辑增添个性元素，展现独到美学理解。",
+        "usage": "形艺特辑专用特辑收藏贴，可用于版面编辑。",
+        "approach": "收集黑流树海主题套组获得",
+        "rarity": "TIER_5"
       }
     }
   },
@@ -12035,5 +14385,59 @@
         "messageMinHeight": 220.0
       }
     ]
+  },
+  "pixelMapData": {
+    "paramMap": {
+      "pixelMap1": {
+        "width": 24,
+        "height": 24,
+        "initColor": "ffffff",
+        "htmlColors": [
+          "222222",
+          "b4b4b4",
+          "eae7df",
+          "ffffff",
+          "d32f36",
+          "9c0a00",
+          "d60c4a",
+          "e6968d",
+          "fe9875",
+          "f7d0c0",
+          "fcefea",
+          "fbf6e8",
+          "dcd2c8",
+          "e2ceab",
+          "d56322",
+          "d48c42",
+          "f29900",
+          "f9c933",
+          "fce499",
+          "b3b47a",
+          "c2da72",
+          "6c6e00",
+          "b19155",
+          "a98f74",
+          "aa9228",
+          "3f2b12",
+          "74491f",
+          "534658",
+          "2a2446",
+          "394599",
+          "5a459d",
+          "baa3d7",
+          "b6bcdf",
+          "a9acbe",
+          "63abb9",
+          "b4d2dc",
+          "91d8e6",
+          "47aea0",
+          "b6d3c8",
+          "273864"
+        ]
+      }
+    },
+    "constData": {
+      "uidWaterMark": true
+    }
   }
 }

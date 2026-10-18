@@ -877,7 +877,7 @@
   "reMax": 100.0,
   "diamondToShdRate": 180,
   "requestSameFriendCD": 14400,
-  "baseMaxFriendNum": 90,
+  "baseMaxFriendNum": 115,
   "maxStarFriendNum": 5,
   "maxSquadAssistDisplayNum": 9,
   "friendStarEditTrackTs": 1756958400,
@@ -978,6 +978,8 @@
     "ro4.get": "<color=#28bfe5>{0}</color>",
     "ro5.lose": "<color=#FF6E6E>{0}</color>",
     "ro5.get": "<color=#28bfe5>{0}</color>",
+    "ro6.get": "<color=#38d0d4>{0}</color>",
+    "ro6.lose": "<color=#d13464>{0}</color>",
     "rc.title": "<color=#FFFFFF>{0}</color>",
     "rc.subtitle": "<color=#FFC90E>{0}</color>",
     "rc.em": "<color=#FF7F27>{0}</color>",
@@ -1013,6 +1015,9 @@
     "autochess.gray": "<color=#777777>{0}</color>",
     "autochess.dgreen": "<color=#40B196>{0}</color>",
     "vecbreakv2.highlight": "<color=#d8741a>{0}</color>",
+    "dp.level.dis": "<color=#909090>{0}</color>",
+    "dp.level.rich": "<color=#4970ff>{0}</color>",
+    "dp.level.raid": "<color=#ff1f1f>{0}</color>",
     "duel.ping.low": "<color=#7fa826>{0}</color>",
     "duel.ping.medium": "<color=#ec7a00>{0}</color>",
     "duel.ping.high": "<color=#ff3d3d>{0}</color>",
@@ -1073,6 +1078,7 @@
     "lv.pycitem": "<color=#D14631>{0}</color>",
     "lv.pyctx": "<color=#1B1B1B>{0}</color>",
     "lv.pycfs": "<color=#D14631>{0}</color>",
+    "arkodcact53side.lv": "<color=#2FA29B>{0}</color>",
     "vc.text": "<color=#898989>{0}</color>",
     "vc.endtime": "<color=#ff0327>{0}</color>",
     "firework.animal": "<color=#0098dc>{0}</color>",
@@ -1101,7 +1107,7 @@
   "commonPotentialLvlUpCount": 4,
   "weeklyOverrideDesc": "",
   "voucherDiv": 5,
-  "recruitPoolVersion": 22,
+  "recruitPoolVersion": 23,
   "v006RecruitTimeStep1Refresh": 1577172600,
   "v006RecruitTimeStep2Check": 1577154600,
   "v006RecruitTimeStep2Flush": 1577649600,
@@ -1203,7 +1209,7 @@
     "ba.buffres": {
       "termId": "ba.buffres",
       "termName": "抵抗",
-      "description": "<$ba.stun>晕眩</>、<$ba.cold>寒冷</>、<$ba.frozen>冻结</>等异常状态的持续时间减半，<$ba.palsy>麻痹</>等效果每5秒流失1层（同名效果不叠加）"
+      "description": "<$ba.stun>晕眩</>、<$ba.cold>寒冷</>、<$ba.frozen>冻结</>、<$ba.fear>恐惧</>、<$ba.attract>诱导</>等异常状态的持续时间减半；<$ba.palsy>麻痹</>等状态每5秒流失1层（同名效果不叠加）"
     },
     "ba.invisible": {
       "termId": "ba.invisible",
@@ -1293,7 +1299,7 @@
     "ba.dt.element": {
       "termId": "ba.dt.element",
       "termName": "元素损伤",
-      "description": "包括<$ba.dt.neural>神经损伤</>、<$ba.dt.erosion>侵蚀损伤</>、<$ba.dt.burning>灼燃损伤</>、<$ba.dt.apoptosis>凋亡损伤</>"
+      "description": "包括<$ba.dt.neural>神经损伤</>、<$ba.dt.erosion>侵蚀损伤</>、<$ba.dt.burning>灼燃损伤</>、<$ba.dt.apoptosis>凋亡损伤</>、<$ba.dt.rampage>狂躁损伤</>"
     },
     "ba.overdrive": {
       "termId": "ba.overdrive",
@@ -1484,6 +1490,31 @@
       "termId": "ba.magicarcane",
       "termName": "术法充盈",
       "description": "造成的法术伤害提升（同名效果取最高）"
+    },
+    "ba.triggereffect": {
+      "termId": "ba.triggereffect",
+      "termName": "触发型效果",
+      "description": "施加于敌方/友方单位的一次性减益/增益效果，该效果仅在满足特定条件时触发"
+    },
+    "ba.dt.rampage": {
+      "termId": "ba.dt.rampage",
+      "termName": "狂躁损伤",
+      "description": "狂躁损伤累计至1000时，15秒内攻击速度+50，但每秒受到100点真实伤害（每次攻击时提升50，最多600）"
+    },
+    "ba.groundbind": {
+      "termId": "ba.groundbind",
+      "termName": "缚地",
+      "description": "目标变为地面单位，无法移动；使部分近地悬浮敌人掉落；对重量大于3的单位持续时间减半"
+    },
+    "ba.airprotect": {
+      "termId": "ba.airprotect",
+      "termName": "对空庇护",
+      "description": "受到来自空中的物理和法术伤害降低相应比例（同名效果取最高）"
+    },
+    "ba.sees": {
+      "termId": "ba.sees",
+      "termName": "S.E.E.S.",
+      "description": "包括结城理、埃癸斯、岳羽由加莉、虎狼丸"
     },
     "cc.bd_A_1": {
       "termId": "cc.bd_A_1",
@@ -1713,7 +1744,7 @@
     "cc.g.elite": {
       "termId": "cc.g.elite",
       "termName": "精英干员",
-      "description": "包含以下干员\n迷迭香、煌、逻各斯、烛煌、电弧、真言"
+      "description": "包含以下干员\n迷迭香、煌、逻各斯、烛煌、电弧、真言、机械师"
     },
     "cc.c.abyssal2_1": {
       "termId": "cc.c.abyssal2_1",
@@ -1818,7 +1849,7 @@
     "cc.tag.op": {
       "termId": "cc.tag.op",
       "termName": "作业平台",
-      "description": "包含以下干员\r\nLancet-2、Castle-3、THRM-EX、正义骑士号、Friston-3、PhonoR-0、CONFESS-47、GALLUS²"
+      "description": "包含以下干员\nLancet-2、Castle-3、THRM-EX、正义骑士号、Friston-3、PhonoR-0、CONFESS-47、GALLUS²"
     },
     "cc.tag.knight": {
       "termId": "cc.tag.knight",
@@ -1889,16 +1920,21 @@
       "termId": "cc.bd_wang_2",
       "termName": "实地",
       "description": "由以下干员的基建技能提供\n望\n每有一间制造站，实地+1"
+    },
+    "cc.tag.sees": {
+      "termId": "cc.tag.sees",
+      "termName": "S.E.E.S.",
+      "description": "包含以下干员\n结城理、埃癸斯、岳羽由加莉、虎狼丸"
     }
   },
   "storyReviewUnlockItemLackTip": "事相碎片数量不足，请前往采购凭证区或活动期间商店获取",
-  "dataVersion": "74.6.0",
-  "resPrefVersion": "74d0d0",
+  "dataVersion": "78.2.0",
+  "resPrefVersion": "78d2d0",
   "announceWebBusType": "ak_announcement",
   "videoPlayerWebBusType": "ak_video_player",
   "gachaLogBusType": "ak_gacha_log",
   "defaultMinMultipleBattleTimes": 1,
-  "defaultMaxMultipleBattleTimes": 6,
+  "defaultMaxMultipleBattleTimes": 10,
   "multipleActionOpen": true,
   "subProfessionDamageTypePairs": {
     "notchar1": "NONE",
@@ -1975,7 +2011,8 @@
     "counsellor": "PHYSICAL",
     "mercenary": "PHYSICAL",
     "skybreaker": "PHYSICAL",
-    "watchman": "HEAL"
+    "watchman": "HEAL",
+    "supportiveranger": "PHYSICAL"
   },
   "classicProtectChar": [
     "char_252_bibeak",
@@ -2000,5 +2037,7 @@
     "defaultReaderLinespace": 10,
     "defaultReaderBackgroundAlpha": 75,
     "defaultNameReaderFontsize": 0
-  }
+  },
+  "friendAddUidLimit": 100,
+  "friendUrlFormat": "https://ak.hypergryph.com/special/friend-funnel/?uid={0}&nickName={1}&nickNum={2}&skinId={3}&skinTmpl={4}&avatarId={5}"
 }

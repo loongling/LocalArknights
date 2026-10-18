@@ -19542,130 +19542,36 @@
       "currentIndex": null
     },
     "medals": {
-      "medal_rogue_4_04": {
-        "id": "medal_rogue_4_04",
-        "fts": -1,
-        "rts": -1,
-        "val": []
-      },
-      "medal_sandbox_2_03": {
-        "id": "medal_sandbox_2_03",
+      "medal_player_login_01": {
+        "id": "medal_player_login_01",
         "fts": -1,
         "rts": -1,
         "val": [
           [
-            1,
-            5
+            0,
+            360
           ]
         ]
       },
-      "medal_player_charnum_01": {
-        "id": "medal_player_charnum_01",
+      "medal_player_login_02": {
+        "id": "medal_player_login_02",
         "fts": -1,
         "rts": -1,
         "val": [
           [
-            4,
-            30
+            0,
+            1000
           ]
         ]
       },
-      "medal_player_charnum_02": {
-        "id": "medal_player_charnum_02",
+      "medal_player_login_03": {
+        "id": "medal_player_login_03",
         "fts": -1,
         "rts": -1,
         "val": [
           [
-            4,
-            60
-          ]
-        ]
-      },
-      "medal_player_charnum_03": {
-        "id": "medal_player_charnum_03",
-        "fts": -1,
-        "rts": -1,
-        "val": [
-          [
-            4,
-            90
-          ]
-        ]
-      },
-      "medal_player_charnum_04": {
-        "id": "medal_player_charnum_04",
-        "fts": -1,
-        "rts": -1,
-        "val": [
-          [
-            4,
-            130
-          ]
-        ]
-      },
-      "medal_player_charnum_05": {
-        "id": "medal_player_charnum_05",
-        "fts": -1,
-        "rts": -1,
-        "val": [
-          [
-            4,
-            160
-          ]
-        ]
-      },
-      "medal_player_charnum_06": {
-        "id": "medal_player_charnum_06",
-        "fts": -1,
-        "rts": -1,
-        "val": [
-          [
-            4,
-            200
-          ]
-        ]
-      },
-      "medal_player_charnum_07": {
-        "id": "medal_player_charnum_07",
-        "fts": -1,
-        "rts": -1,
-        "val": [
-          [
-            4,
-            250
-          ]
-        ]
-      },
-      "medal_player_charnum_08": {
-        "id": "medal_player_charnum_08",
-        "fts": -1,
-        "rts": -1,
-        "val": [
-          [
-            4,
-            300
-          ]
-        ]
-      },
-      "medal_player_charnum_09": {
-        "id": "medal_player_charnum_09",
-        "fts": -1,
-        "rts": -1,
-        "val": [
-          [
-            4,
-            350
-          ]
-        ]
-      },
-      "medal_player_charnum_10": {
-        "id": "medal_player_charnum_10",
-        "fts": -1,
-        "rts": -1,
-        "val": [
-          [
-            4,
-            400
+            0,
+            2000
           ]
         ]
       }
@@ -21528,11 +21434,7 @@
     "gold": 10000,
     "flags": {
       "init": 1,
-      "obt/guide/l0-0/0_home_ui": 1,
-      "obt/guide/beg/1a_guide_1to2": 1,
-      "obt/guide/beg/1b_guide_1to2": 1,
-      "obt/guide/beg/2_guide_to_home": 1,
-      "obt/guide/beg/0_welcome_to_guide": 1
+      "obt/guide/l0-0/0_home_ui": 1
     },
     "level": 1,
     "maxAp": 157,
@@ -21552,10 +21454,10 @@
     "socialPoint": 0,
     "classicShard": 0,
     "diamondShard": 500,
-    "lastOnlineTs": 1792073935,
+    "lastOnlineTs": 1792220400,
     "apLimitUpFlag": 0,
     "lastApAddTime": 1791599176,
-    "lastRefreshTs": 1792073935,
+    "lastRefreshTs": 1792220400,
     "androidDiamond": 0,
     "friendNumLimit": 115,
     "practiceTicket": 999,
@@ -21583,7 +21485,8 @@
       "checkInHistory": []
     },
     "checkInGroupId": "signin98",
-    "checkInHistory": [],
+    "checkInHistory": [
+    ],
     "newbieChooseGP": {
       "NpOne_nc_7": {
         "stopSale": 1792785599
@@ -61584,7 +61487,7 @@
       "history": [
         1
       ],
-      "isAvailable": false
+      "isAvailable": true
     },
     "fullOpen": {
       "today": false,
@@ -61598,7 +61501,7 @@
       ],
       "nowIndex": 0,
       "finalReward": 0,
-      "isAvailable": false
+      "isAvailable": true
     }
   },
   "campaignsV2": {

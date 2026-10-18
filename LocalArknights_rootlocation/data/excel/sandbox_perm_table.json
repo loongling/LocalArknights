@@ -131530,8 +131530,8 @@
           },
           "quest_stage26_1": {
             "taskId": "quest_stage26_1",
-            "taskBaseDesc": "击败所有异质源石虫",
-            "taskDesc": "击败所有异质源石虫（<color=#ffa200>{0}</color>/{1}）",
+            "taskBaseDesc": "击败所有异质源石虫·α",
+            "taskDesc": "击败所有异质源石虫·α（<color=#ffa200>{0}</color>/{1}）",
             "taskLevel": 2,
             "difficulty": "NORMAL",
             "taskType": "KILL_ENEMY_FILTER_BY_LEVELTYPE",
@@ -131552,8 +131552,8 @@
           },
           "quest_stage26_2": {
             "taskId": "quest_stage26_2",
-            "taskBaseDesc": "击败所有暴走食人花",
-            "taskDesc": "击败所有暴走食人花（<color=#ffa200>{0}</color>/{1}）",
+            "taskBaseDesc": "击败所有暴走食虫花",
+            "taskDesc": "击败所有暴走食虫花（<color=#ffa200>{0}</color>/{1}）",
             "taskLevel": 2,
             "difficulty": "NORMAL",
             "taskType": "KILL_ENEMY_FILTER_BY_LEVELTYPE",
