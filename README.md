@@ -1,7 +1,7 @@
 # ArknightsServer
 这是一个明日方舟本地服务端,对应的客户端是CN 2.7.81 Windows,该服务端理论上支持多人游戏,但仅仅支持单IP登录，如果多人在同一公网IP下登录可能会覆盖其他人的secret导致他人同步SyncData时读取的最新登录人的账户数据,本仓库不提供将数据代理到本地的方法,请自行解决 
 
-# 在完成checkIn端口修复前请大家不要修改syncData中的canCheckIn
+# 在完成新手签到端口修复前请大家不要修改syncData中openServer的isAvailable
 
 # 更新日志
 请阅读[更新日志](./Update.md)
