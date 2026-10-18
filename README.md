@@ -42,10 +42,10 @@
 请使用java17以上的java版本在CMD或Powershell中运行,MySQL(8.0以上)请自行准备,不要忘记改config.json中的设置
 
 1、首先运行 `chcp 65001`  
-2、在项目根目录运行`java -jar hypergryph-1.9.3.jar`
+2、在项目根目录运行`hypergryph-0.4.1 Alhpa.jar`
 ```bash
 chcp 65001
-java -jar "hypergryph-0.4.0 Alpha-fixed-1.jar"
+java -jar "hypergryph-0.4.1 Alhpa.jar"
 ```
 
 ## 已知问题
