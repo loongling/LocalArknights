@@ -283,4 +283,27 @@ public class user {
         jsonObject.put("type", "A");
         return jsonObject;
     }
+
+    @PostMapping(
+            value = {"/forget_password"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject forgetPassword(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /user/forget_password");
+        JSONObject result = new JSONObject(true);
+        String secret = JsonBody.getString("secret");
+        if(userDao.queryUidBySecret(secret) <= 0) {
+            result.put("result", 1);
+            result.put("msg", "error");
+            return result;
+        }
+        String password = JsonBody.getString("password");
+        String cyprtPassword = DigestUtils.md5DigestAsHex((password + Key).getBytes());
+        userDao.resetPassword(secret, cyprtPassword);
+        result.put("result", 0);
+        result.put("msg", "OK");
+        result.put("type", "A");
+        return result;
+    }
 }

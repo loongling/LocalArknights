@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+	<meta name="color-scheme" content="only light">
+	<meta http-equiv="Cache-Control" content="no-store">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1">
+	<meta name="description" content="用户登录">
+	<title>登录 - 用户中心</title>
+	<style>
+		:root {
+			--bg: #f5f6f8;
+			--card: #ffffff;
+			--text: #2b2b2b;
+			--text-sub: #7a7f87;
+			--primary: #23a3d6;
+			--primary-dark: #1b86b3;
+			--danger: #e5484d;
+			--border: #e6e8eb;
+			--radius: 12px;
+		}
+
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+
+		body {
+			font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+			background: var(--bg);
+			color: var(--text);
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 16px;
+		}
+
+		.login-card {
+			width: 100%;
+			max-width: 400px;
+			background: var(--card);
+			border-radius: var(--radius);
+			box-shadow: 0 4px 24px rgba(0, 0, 0, .08);
+			padding: 40px 32px;
+		}
+
+		.logo {
+			text-align: center;
+			font-size: 40px;
+			margin-bottom: 8px;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 20px;
+			font-weight: 600;
+			margin-bottom: 28px;
+		}
+
+		.field {
+			margin-bottom: 16px;
+		}
+
+		.field label {
+			display: block;
+			font-size: 13px;
+			color: var(--text-sub);
+			margin-bottom: 6px;
+		}
+
+		.field input {
+			width: 100%;
+			padding: 11px 14px;
+			font-size: 14px;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			outline: none;
+			transition: border-color .2s;
+		}
+
+		.field input:focus {
+			border-color: var(--primary);
+		}
+
+		.error-msg {
+			display: none;
+			font-size: 13px;
+			color: var(--danger);
+			margin-bottom: 12px;
+		}
+
+		.submit-btn {
+			width: 100%;
+			padding: 12px;
+			font-size: 15px;
+			color: #fff;
+			background: var(--primary);
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background .2s;
+		}
+
+		.submit-btn:hover { background: var(--primary-dark); }
+		.submit-btn:disabled { background: #b9d8e8; cursor: not-allowed; }
+
+		.tips {
+			margin-top: 20px;
+			text-align: center;
+			font-size: 12px;
+			color: var(--text-sub);
+		}
+
+		/* 协议弹窗 */
+		.modal-mask {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, .45);
+			z-index: 100;
+			align-items: center;
+			justify-content: center;
+			padding: 16px;
+		}
+		.modal-mask.show { display: flex; }
+
+		.modal {
+			width: 100%;
+			max-width: 420px;
+			max-height: 80vh;
+			background: #fff;
+			border-radius: 12px;
+			padding: 24px;
+			display: flex;
+			flex-direction: column;
+		}
+		.modal h3 { font-size: 16px; text-align: center; margin-bottom: 14px; }
+		.modal-body {
+			flex: 1;
+			overflow-y: auto;
+			font-size: 13px;
+			color: var(--text-sub);
+			line-height: 1.7;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 14px;
+			margin-bottom: 18px;
+		}
+		.modal-body h4 { font-size: 14px; color: var(--text); margin: 12px 0 6px; }
+		.modal-body h4:first-child { margin-top: 0; }
+		.modal-btns { display: flex; gap: 12px; }
+		.modal-btns button {
+			flex: 1;
+			padding: 10px;
+			font-size: 14px;
+			border-radius: 8px;
+			cursor: pointer;
+			border: 1px solid var(--border);
+			background: #fff;
+			color: var(--text-sub);
+		}
+		.modal-btns .agree {
+			background: var(--primary);
+			border-color: var(--primary);
+			color: #fff;
+		}
+		.modal-btns .agree:hover { background: var(--primary-dark); }
+
+		.forget-link {
+			display: block;
+			text-align: right;
+			font-size: 12px;
+			color: var(--primary);
+			text-decoration: none;
+			margin-bottom: 14px;
+		}
+
+		.register-link {
+			display: block;
+			margin-top: 16px;
+			text-align: center;
+			font-size: 13px;
+			color: var(--primary);
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="login-card">
+		<div class="logo">🎮</div>
+		<h1>账号登录</h1>
+
+		<div class="error-msg" id="errorMsg"></div>
+
+		<form id="loginForm">
+			<div class="field">
+				<label for="phone">手机号</label>
+				<input type="tel" id="phone" name="phone" placeholder="请输入手机号" maxlength="11" required>
+			</div>
+			<div class="field">
+				<label for="password">密码</label>
+				<input type="password" id="password" name="password" placeholder="请输入密码" required>
+			</div>
+			<button type="submit" class="submit-btn" id="submitBtn">登 录</button>
+		</form>
+
+		<a class="register-link" href="register.html">没有账号？立即注册</a>
+
+		<p class="tips">登录即代表同意《用户协议》与《隐私政策》</p>
+	</div>
+
+	<!-- 用户协议 & 隐私政策 弹窗 -->
+	<div class="modal-mask" id="agreementMask">
+		<div class="modal">
+			<h3>服务协议及隐私保护</h3>
+			<div class="modal-body">
+				<h4>一、用户协议</h4>
+				<p>欢迎您使用LocalArknights。在登录及使用本服务前，请您务必仔细阅读并充分理解本协议各条款，其中包括免除或者限制我们责任的条款、对您权利进行限制的条款等。</p>
+				<p>1. 妥善保管账号及密码；</p>
+				<p>2. 本项目为开源项目；</p>
+				<p>3. 您在使用本服务过程中应遵守国家法律法规及社会公序良俗。</p>
+				<p>4. 本项目不会主动获取您的任何数据！如果您从第三方获取本项目，本项目开发者LoongLing(https://github.com/loongling)不负任何责任。</p>
+				<h4>二、隐私政策</h4>
+				<p>我们高度重视您的个人信息保护。本政策将向您说明我们如何收集、使用、存储与保护您的个人信息，以及您可以如何管理这些信息。</p>
+				<p>1. 所有数据仅在您本地处理(或您决定连接的服务器)；</p>
+				<p>2. 您的密码将以加密形式存储；</p>
+				<p>3. 本项目不会主动获取您的任何数据！如果您从第三方获取本项目，本项目开发者LoongLing(https://github.com/loongling)不负任何责任。</p>
+				<p>点击"同意并登录"即表示您已阅读并同意上述全部条款。</p>
+			</div>
+			<div class="modal-btns">
+				<button type="button" onclick="disagreeAgreement()">不同意</button>
+				<button type="button" class="agree" onclick="agreeAndLogin()">同意并登录</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const API_URL = "http://127.0.0.1:10029/user/auth/v1/token_by_phone_password";
+		const GRANT_URL = "http://127.0.0.1:10029/user/oauth2/v2/grant";
+		let pendingLogin = false;
+
+		document.getElementById("loginForm").addEventListener("submit", async function (e) {
+			e.preventDefault();
+
+			const phone = document.getElementById("phone").value.trim();
+			const password = document.getElementById("password").value;
+			const errorMsg = document.getElementById("errorMsg");
+			const submitBtn = document.getElementById("submitBtn");
+
+			errorMsg.style.display = "none";
+
+			if (!/^1\d{10}$/.test(phone)) {
+				showError("请输入正确的 11 位手机号");
+				return;
+			}
+			if (!password) {
+				showError("请输入密码");
+				return;
+			}
+
+			// 先弹出协议，同意后才真正提交
+			pendingLogin = true;
+			document.getElementById("agreementMask").classList.add("show");
+		});
+
+		async function doLogin(phone, password) {
+			const submitBtn = document.getElementById("submitBtn");
+			submitBtn.disabled = true;
+			submitBtn.textContent = "登录中…";
+
+			try {
+				const resp = await fetch(API_URL, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ phone: phone, password: password })
+				});
+
+				const result = await resp.json();
+
+				if (result.status === 0 && result.data && result.data.token) {
+					const token = result.data.token;
+
+					// 第二步：用 token 换取授权 code 和 uid
+					const grantResp = await fetch(GRANT_URL, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ token: token })
+					});
+					const grantResult = await grantResp.json();
+
+					if (grantResult.status === 0 && grantResult.data && grantResult.data.code) {
+						localStorage.setItem("token", token);
+						localStorage.setItem("code", grantResult.data.code);
+						localStorage.setItem("uid", grantResult.data.uid);
+						localStorage.setItem("phone", phone);
+						window.location.href = "user-center.html";
+					} else {
+						showError(grantResult.msg || "授权失败，请稍后重试");
+					}
+				} else {
+					showError(result.msg || "登录失败，请稍后重试");
+				}
+			} catch (err) {
+				showError("网络错误，无法连接服务器");
+			} finally {
+				submitBtn.disabled = false;
+				submitBtn.textContent = "登 录";
+			}
+		}
+
+		function agreeAndLogin() {
+			document.getElementById("agreementMask").classList.remove("show");
+			const phone = document.getElementById("phone").value.trim();
+			const password = document.getElementById("password").value;
+			doLogin(phone, password);
+		}
+
+		function disagreeAgreement() {
+			document.getElementById("agreementMask").classList.remove("show");
+			pendingLogin = false;
+		}
+
+		function showError(msg) {
+			const errorMsg = document.getElementById("errorMsg");
+			errorMsg.textContent = msg;
+			errorMsg.style.display = "block";
+		}
+	</script>
+</body>
+
+</html>

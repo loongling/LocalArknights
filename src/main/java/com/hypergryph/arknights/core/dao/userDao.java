@@ -82,6 +82,12 @@ public class userDao {
         return ArknightsApplication.jdbcTemplate.update(sql, params);
     }
 
+    public static int resetPassword(String secret, String password) {
+        String sql = "UPDATE account SET `password` = ? WHERE `secret` = ?";
+        Object[] params = new Object[]{password, secret};
+        return ArknightsApplication.jdbcTemplate.update(sql, params);
+    }
+
     public static int setAssistCharListData(Long uid, JSONObject assistCharList) {
         String sql = "UPDATE account SET assistCharList = ? WHERE uid = ?";
         Object[] params = new Object[]{JSON.toJSONString(assistCharList, new SerializerFeature[]{SerializerFeature.WriteMapNullValue}), uid};

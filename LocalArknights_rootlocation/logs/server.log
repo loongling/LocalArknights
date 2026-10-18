@@ -13100,3 +13100,1720 @@ Method: GET
 URL: /test/changeGroup
 Method: GET
 ------------------------
+2026-10-18 19:09:24 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 13432 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-0.4.1 Alhpa.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-10-18 19:09:24 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-10-18 19:09:25 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-10-18 19:09:25 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:09:25 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:09:25 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-18 19:09:25 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-10-18 19:09:25 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-18 19:09:25 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 780 ms
+2026-10-18 19:09:25 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:09:25 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:09:25 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-10-18 19:09:25 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.405 seconds (JVM running for 2.087)
+2026-10-18 19:09:25 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-10-18 19:09:25 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-10-18 19:09:28 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2551ms
+2026-10-18 19:09:28 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-10-18 19:09:33 [main] ERROR com.hypergryph.arknights.ArknightsApplication - 无法连接至Mysql数据库
+2026-10-18 19:10:29 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 27884 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-0.4.1 Alhpa.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-10-18 19:10:29 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-10-18 19:10:30 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-10-18 19:10:30 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:10:30 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:10:30 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-18 19:10:30 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-10-18 19:10:30 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-18 19:10:30 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 757 ms
+2026-10-18 19:10:30 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:10:30 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:10:30 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-10-18 19:10:31 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.338 seconds (JVM running for 2.023)
+2026-10-18 19:10:31 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-10-18 19:10:31 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-10-18 19:10:33 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2464ms
+2026-10-18 19:10:33 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-10-18 19:10:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.4.8
+2026-10-18 19:10:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 0.4.1 Alpha
+2026-10-18 19:10:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本 2.7.81Win
+2026-10-18 19:10:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月18日 18:38:50
+2026-10-18 19:10:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 $Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h
+2026-10-18 19:10:36 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-18 19:10:36 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-18 19:10:36 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-10-18 19:10:36 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.app.api - 请求最新游戏信息: /api/game/get_latest
+2026-10-18 19:10:36 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/game/get_latest
+Method: GET
+Params: appcode=GzD1CpaWgmSq1wew&channel=1&version=78.0.0&platform=Windows&sub_channel=1&source=game
+------------------------
+2026-10-18 19:10:36 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /remote_config/1/prod/default/Win/network_config
+2026-10-18 19:10:36 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/remote_config/1/prod/default/Windows/network_config
+Method: GET
+------------------------
+2026-10-18 19:10:36 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求 SDK 配置信息: /api/remote_config/1/prod/default/Windows/remote_config
+2026-10-18 19:10:36 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/remote_config/1/prod/default/Windows/remote_config
+Method: GET
+------------------------
+2026-10-18 19:10:36 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /app/v1/config
+2026-10-18 19:10:36 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /app/v1/config
+Method: GET
+Params: appCode=7318def77669979d&platform=2
+------------------------
+2026-10-18 19:10:36 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求服务器时间 /general/v1/server_time
+2026-10-18 19:10:36 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /general/v1/server_time
+Method: GET
+------------------------
+2026-10-18 19:10:36 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /config/prod/official/Windows/version
+2026-10-18 19:10:36 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /config/prod/official/Windows/version
+Method: GET
+------------------------
+2026-10-18 19:10:37 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /ipv6
+Method: GET
+------------------------
+2026-10-18 19:10:37 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-10-18 19:10:37 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-10-18 19:10:39 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:10:41 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求网关信息 /api/gate/meta/Windows
+2026-10-18 19:10:41 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/gate/meta/Windows
+Method: GET
+Params: sign=1792321841%20216458449%20396524
+------------------------
+2026-10-18 19:10:45 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求网关信息 /api/gate/meta/Windows
+2026-10-18 19:10:45 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/gate/meta/Windows
+Method: GET
+Params: sign=1792321845%20216458449%20875907
+------------------------
+2026-10-18 19:10:51 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - 请求用户信息: /user/info/v1/basic?token=cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:10:52 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:10:53 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/info/v1/basic
+Method: GET
+Params: token=cfbf53c6f8dbed6f699f6aa324615f9f
+------------------------
+2026-10-18 19:10:53 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 19:10:54 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:10:55 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:10:55 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 19:10:55 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{
+    "appCode": "7318def77669979d",
+    "token": "cfbf53c6f8dbed6f699f6aa324615f9f",
+    "type": 0
+}
+
+------------------------
+2026-10-18 19:10:56 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /user/v1/getToken
+2026-10-18 19:10:56 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - Received JSON: {"deviceId2":"","extension":"{\"code\":\"cfbf53c6f8dbed6f699f6aa324615f9f\",\"type\":1,\"isSuc\":true}","deviceId3":"","worldId":"1","appId":"1","subChannel":"1","sign":"56f42bd0f737f309af9643cefa791597a9fbb12a","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","channelId":"1","platform":2}
+2026-10-18 19:11:02 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /u8/user/v1/getToken
+Method: POST
+Body:
+{"appId":"1","channelId":"1","extension":"{\"code\":\"cfbf53c6f8dbed6f699f6aa324615f9f\",\"type\":1,\"isSuc\":true}","worldId":"1","platform":2,"subChannel":"1","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","deviceId2":"","deviceId3":"","sign":"56f42bd0f737f309af9643cefa791597a9fbb12a"}
+------------------------
+2026-10-18 19:11:02 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /u8/pay/getAllProductList
+Method: POST
+------------------------
+2026-10-18 19:11:02 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/login
+2026-10-18 19:11:02 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - Received JSON: {"uid":"10000003","deviceId2":"","udtVersion":"78.0.0","deviceId3":"","networkVersion":"5","assetsVersion":"26-10-14-13-44-12-52990322","clientVersion":"2.7.81","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","platform":2,"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+2026-10-18 19:11:09 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:11:14 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/login
+Method: POST
+Body:
+{"uid":"10000003","token":"cfbf53c6f8dbed6f699f6aa324615f9f","assetsVersion":"26-10-14-13-44-12-52990322","clientVersion":"2.7.81","platform":2,"deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","deviceId2":"","deviceId3":"","networkVersion":"5","udtVersion":"78.0.0"}
+------------------------
+2026-10-18 19:11:14 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncData
+2026-10-18 19:11:22 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:11:24 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:11:39 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:11:45 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncData
+2026-10-18 19:11:48 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - 用户数据同步成功, UID: 10000003
+2026-10-18 19:11:48 [http-nio-10029-exec-3] ERROR com.hypergryph.arknights.GlobalExceptionHandler - [/10.192.10.108] 处理 /account/syncData 时异常: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:348) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.flushByteBuffer(OutputBuffer.java:777) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.append(OutputBuffer.java:680) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:383) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:361) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:97) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.util.StreamUtils$NonClosingOutputStream.write(StreamUtils.java:287) ~[spring-core-5.3.31.jar!/:5.3.31]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator._flushBuffer(UTF8JsonGenerator.java:2171) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator._verifyValueWrite(UTF8JsonGenerator.java:1170) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.writeNull(UTF8JsonGenerator.java:1127) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.NullSerializer.serialize(NullSerializer.java:30) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.SerializerProvider.defaultSerializeNull(SerializerProvider.java:1236) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:801) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:400) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ObjectWriter$Prefetch.serialize(ObjectWriter.java:1514) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1007) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:456) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:183) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at com.hypergryph.arknights.ArknightsApplication$WebConfig$1.doFilterInternal(ArknightsApplication.java:293) ~[classes!/:?]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+	Suppressed: org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+		at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:348) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.flushByteBuffer(OutputBuffer.java:777) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.append(OutputBuffer.java:680) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:383) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:361) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:97) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.util.StreamUtils$NonClosingOutputStream.write(StreamUtils.java:287) ~[spring-core-5.3.31.jar!/:5.3.31]
+		at com.fasterxml.jackson.core.json.UTF8JsonGenerator._flushBuffer(UTF8JsonGenerator.java:2171) ~[jackson-core-2.13.5.jar!/:2.13.5]
+		at com.fasterxml.jackson.core.json.UTF8JsonGenerator.close(UTF8JsonGenerator.java:1214) ~[jackson-core-2.13.5.jar!/:2.13.5]
+		at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:460) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:183) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at javax.servlet.http.HttpServlet.service(HttpServlet.java:555) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at javax.servlet.http.HttpServlet.service(HttpServlet.java:623) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at com.hypergryph.arknights.ArknightsApplication$WebConfig$1.doFilterInternal(ArknightsApplication.java:293) ~[classes!/:?]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+	Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+		at sun.nio.ch.SocketDispatcher.write0(Native Method) ~[?:?]
+		at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54) ~[?:?]
+		at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:137) ~[?:?]
+		at sun.nio.ch.IOUtil.write(IOUtil.java:102) ~[?:?]
+		at sun.nio.ch.IOUtil.write(IOUtil.java:58) ~[?:?]
+		at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:542) ~[?:?]
+		at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:136) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1431) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:775) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.SocketWrapperBase.writeBlocking(SocketWrapperBase.java:600) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.SocketWrapperBase.write(SocketWrapperBase.java:544) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.doWrite(Http11OutputBuffer.java:540) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:110) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.http11.Http11OutputBuffer.doWrite(Http11OutputBuffer.java:193) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.Response.doWrite(Response.java:606) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:335) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		... 61 more
+Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at sun.nio.ch.SocketDispatcher.write0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54) ~[?:?]
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:137) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:102) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:58) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:542) ~[?:?]
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:136) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1431) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:775) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.writeBlocking(SocketWrapperBase.java:600) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.write(SocketWrapperBase.java:544) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.doWrite(Http11OutputBuffer.java:540) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:112) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11OutputBuffer.doWrite(Http11OutputBuffer.java:193) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.Response.doWrite(Response.java:606) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:335) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	... 100 more
+2026-10-18 19:11:48 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Failure in @ExceptionHandler com.hypergryph.arknights.GlobalExceptionHandler#handleAny(HttpServletRequest, HttpServletResponse, Exception)
+org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:348) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.flushByteBuffer(OutputBuffer.java:777) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.append(OutputBuffer.java:680) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:383) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:361) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:97) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.util.StreamUtils$NonClosingOutputStream.write(StreamUtils.java:287) ~[spring-core-5.3.31.jar!/:5.3.31]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator._flushBuffer(UTF8JsonGenerator.java:2171) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.flush(UTF8JsonGenerator.java:1184) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1009) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:456) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:183) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.doResolveHandlerMethodException(ExceptionHandlerExceptionResolver.java:428) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodExceptionResolver.doResolveException(AbstractHandlerMethodExceptionResolver.java:75) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:142) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1332) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1143) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at com.hypergryph.arknights.ArknightsApplication$WebConfig$1.doFilterInternal(ArknightsApplication.java:293) ~[classes!/:?]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at sun.nio.ch.SocketDispatcher.write0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54) ~[?:?]
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:137) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:102) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:58) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:542) ~[?:?]
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:136) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1431) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:775) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.writeBlocking(SocketWrapperBase.java:600) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.write(SocketWrapperBase.java:544) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.doWrite(Http11OutputBuffer.java:540) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:110) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11OutputBuffer.doWrite(Http11OutputBuffer.java:193) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.Response.doWrite(Response.java:606) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:335) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	... 65 more
+2026-10-18 19:11:48 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncData
+Method: POST
+------------------------
+2026-10-18 19:11:52 [http-nio-10029-exec-10] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:11:54 [http-nio-10029-exec-9] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:12:09 [http-nio-10029-exec-5] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:12:19 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - 用户数据同步成功, UID: 10000003
+2026-10-18 19:12:19 [http-nio-10029-exec-1] ERROR com.hypergryph.arknights.GlobalExceptionHandler - [/10.192.10.108] 处理 /account/syncData 时异常: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:348) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.flushByteBuffer(OutputBuffer.java:777) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.append(OutputBuffer.java:680) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:383) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:361) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:97) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.util.StreamUtils$NonClosingOutputStream.write(StreamUtils.java:287) ~[spring-core-5.3.31.jar!/:5.3.31]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator._flushBuffer(UTF8JsonGenerator.java:2171) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator._verifyValueWrite(UTF8JsonGenerator.java:1170) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.writeNull(UTF8JsonGenerator.java:1127) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.NullSerializer.serialize(NullSerializer.java:30) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.SerializerProvider.defaultSerializeNull(SerializerProvider.java:1236) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:801) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:400) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ObjectWriter$Prefetch.serialize(ObjectWriter.java:1514) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1007) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:456) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:183) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at com.hypergryph.arknights.ArknightsApplication$WebConfig$1.doFilterInternal(ArknightsApplication.java:293) ~[classes!/:?]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+	Suppressed: org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+		at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:348) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.flushByteBuffer(OutputBuffer.java:777) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.append(OutputBuffer.java:680) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:383) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:361) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:97) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.util.StreamUtils$NonClosingOutputStream.write(StreamUtils.java:287) ~[spring-core-5.3.31.jar!/:5.3.31]
+		at com.fasterxml.jackson.core.json.UTF8JsonGenerator._flushBuffer(UTF8JsonGenerator.java:2171) ~[jackson-core-2.13.5.jar!/:2.13.5]
+		at com.fasterxml.jackson.core.json.UTF8JsonGenerator.close(UTF8JsonGenerator.java:1214) ~[jackson-core-2.13.5.jar!/:2.13.5]
+		at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:460) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:183) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at javax.servlet.http.HttpServlet.service(HttpServlet.java:555) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+		at javax.servlet.http.HttpServlet.service(HttpServlet.java:623) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at com.hypergryph.arknights.ArknightsApplication$WebConfig$1.doFilterInternal(ArknightsApplication.java:293) ~[classes!/:?]
+		at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+	Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+		at sun.nio.ch.SocketDispatcher.write0(Native Method) ~[?:?]
+		at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54) ~[?:?]
+		at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:137) ~[?:?]
+		at sun.nio.ch.IOUtil.write(IOUtil.java:102) ~[?:?]
+		at sun.nio.ch.IOUtil.write(IOUtil.java:58) ~[?:?]
+		at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:542) ~[?:?]
+		at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:136) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1431) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:775) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.SocketWrapperBase.writeBlocking(SocketWrapperBase.java:600) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.tomcat.util.net.SocketWrapperBase.write(SocketWrapperBase.java:544) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.doWrite(Http11OutputBuffer.java:540) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:110) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.http11.Http11OutputBuffer.doWrite(Http11OutputBuffer.java:193) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.coyote.Response.doWrite(Response.java:606) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:335) ~[tomcat-embed-core-9.0.83.jar!/:?]
+		... 61 more
+Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at sun.nio.ch.SocketDispatcher.write0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54) ~[?:?]
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:137) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:102) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:58) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:542) ~[?:?]
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:136) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1431) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:775) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.writeBlocking(SocketWrapperBase.java:600) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.write(SocketWrapperBase.java:544) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.doWrite(Http11OutputBuffer.java:540) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:112) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11OutputBuffer.doWrite(Http11OutputBuffer.java:193) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.Response.doWrite(Response.java:606) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:335) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	... 100 more
+2026-10-18 19:12:19 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Failure in @ExceptionHandler com.hypergryph.arknights.GlobalExceptionHandler#handleAny(HttpServletRequest, HttpServletResponse, Exception)
+org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:348) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.flushByteBuffer(OutputBuffer.java:777) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.append(OutputBuffer.java:680) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.writeBytes(OutputBuffer.java:383) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.write(OutputBuffer.java:361) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.CoyoteOutputStream.write(CoyoteOutputStream.java:97) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.util.StreamUtils$NonClosingOutputStream.write(StreamUtils.java:287) ~[spring-core-5.3.31.jar!/:5.3.31]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator._flushBuffer(UTF8JsonGenerator.java:2171) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.flush(UTF8JsonGenerator.java:1184) ~[jackson-core-2.13.5.jar!/:2.13.5]
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1009) ~[jackson-databind-2.13.5.jar!/:2.13.5]
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:456) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:183) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.doResolveHandlerMethodException(ExceptionHandlerExceptionResolver.java:428) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodExceptionResolver.doResolveException(AbstractHandlerMethodExceptionResolver.java:75) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:142) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1332) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1143) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:555) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.31.jar!/:5.3.31]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at com.hypergryph.arknights.ArknightsApplication$WebConfig$1.doFilterInternal(ArknightsApplication.java:293) ~[classes!/:?]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.31.jar!/:5.3.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at sun.nio.ch.SocketDispatcher.write0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54) ~[?:?]
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:137) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:102) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:58) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:542) ~[?:?]
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:136) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1431) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:775) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.writeBlocking(SocketWrapperBase.java:600) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.tomcat.util.net.SocketWrapperBase.write(SocketWrapperBase.java:544) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.doWrite(Http11OutputBuffer.java:540) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.doWrite(ChunkedOutputFilter.java:110) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.http11.Http11OutputBuffer.doWrite(Http11OutputBuffer.java:193) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.coyote.Response.doWrite(Response.java:606) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	at org.apache.catalina.connector.OutputBuffer.realWriteBytes(OutputBuffer.java:335) ~[tomcat-embed-core-9.0.83.jar!/:?]
+	... 65 more
+2026-10-18 19:12:19 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncData
+Method: POST
+------------------------
+2026-10-18 19:12:22 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:12:22 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求网关信息 /api/gate/meta/Windows
+2026-10-18 19:12:22 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/gate/meta/Windows
+Method: GET
+Params: sign=1792321942%20216458449%20382854
+------------------------
+2026-10-18 19:12:22 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /user/online/v1/loginout
+2026-10-18 19:12:22 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/online/v1/loginout
+Method: POST
+Body:
+{
+    "appCode": "7318def77669979d",
+    "token": "cfbf53c6f8dbed6f699f6aa324615f9f",
+    "type": 0
+}
+
+------------------------
+2026-10-18 19:12:23 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - 请求用户信息: /user/info/v1/basic?token=cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:12:23 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /user/online/v1/loginout
+2026-10-18 19:12:23 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/online/v1/loginout
+Method: POST
+Body:
+{
+    "appCode": "7318def77669979d",
+    "token": "cfbf53c6f8dbed6f699f6aa324615f9f",
+    "type": 0
+}
+
+------------------------
+2026-10-18 19:12:24 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:12:35 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/info/v1/basic
+Method: GET
+Params: token=cfbf53c6f8dbed6f699f6aa324615f9f
+------------------------
+2026-10-18 19:12:40 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:12:52 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:12:55 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:13:07 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求网关信息 /api/gate/meta/Windows
+2026-10-18 19:13:07 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/gate/meta/Windows
+Method: GET
+Params: sign=1792321987%20216458449%20153179
+------------------------
+2026-10-18 19:13:10 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:13:12 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - 请求用户信息: /user/info/v1/basic?token=cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:13:14 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/info/v1/basic
+Method: GET
+Params: token=cfbf53c6f8dbed6f699f6aa324615f9f
+------------------------
+2026-10-18 19:13:14 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 19:13:16 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:13:16 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 19:13:16 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{
+    "appCode": "7318def77669979d",
+    "token": "cfbf53c6f8dbed6f699f6aa324615f9f",
+    "type": 0
+}
+
+------------------------
+2026-10-18 19:13:17 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /user/v1/getToken
+2026-10-18 19:13:17 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - Received JSON: {"deviceId2":"","extension":"{\"code\":\"cfbf53c6f8dbed6f699f6aa324615f9f\",\"type\":1,\"isSuc\":true}","deviceId3":"","worldId":"1","appId":"1","subChannel":"1","sign":"56f42bd0f737f309af9643cefa791597a9fbb12a","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","channelId":"1","platform":2}
+2026-10-18 19:13:18 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /u8/user/v1/getToken
+Method: POST
+Body:
+{"appId":"1","channelId":"1","extension":"{\"code\":\"cfbf53c6f8dbed6f699f6aa324615f9f\",\"type\":1,\"isSuc\":true}","worldId":"1","platform":2,"subChannel":"1","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","deviceId2":"","deviceId3":"","sign":"56f42bd0f737f309af9643cefa791597a9fbb12a"}
+------------------------
+2026-10-18 19:13:18 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /u8/pay/getAllProductList
+Method: POST
+------------------------
+2026-10-18 19:13:18 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/login
+2026-10-18 19:13:18 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.game.account - Received JSON: {"uid":"10000003","deviceId2":"","udtVersion":"78.0.0","deviceId3":"","networkVersion":"5","assetsVersion":"26-10-14-13-44-12-52990322","clientVersion":"2.7.81","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","platform":2,"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+2026-10-18 19:13:19 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/login
+Method: POST
+Body:
+{"uid":"10000003","token":"cfbf53c6f8dbed6f699f6aa324615f9f","assetsVersion":"26-10-14-13-44-12-52990322","clientVersion":"2.7.81","platform":2,"deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","deviceId2":"","deviceId3":"","networkVersion":"5","udtVersion":"78.0.0"}
+------------------------
+2026-10-18 19:13:19 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncData
+2026-10-18 19:13:23 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:13:23 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - 用户数据同步成功, UID: 10000003
+2026-10-18 19:13:23 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncData
+Method: POST
+------------------------
+2026-10-18 19:13:24 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /pay/getUnconfirmedOrderIdList
+2026-10-18 19:13:24 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - Received JSON: {}
+2026-10-18 19:13:24 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - Response: {"orderIdList":[],"pushMessage":[{"path":"flushAlerts","payload":{"data":"{\"loop\":3,\"majorVersion\":\"369\",\"content\":\"Welcome to Local Arknights!这是一个开源项目,如果你为它付费了,那你一定被骗了\"}"}}],"playerDataDelta":{"deleted":{},"modified":{}}}
+2026-10-18 19:13:24 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /pay/getUnconfirmedOrderIdList
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:13:25 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:13:25 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求用户协议 /u8/user/info/v2/agreement_version
+2026-10-18 19:13:25 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /u8/user/info/v2/agreement_version
+Method: GET
+Params: token=cfbf53c6f8dbed6f699f6aa324615f9f
+------------------------
+2026-10-18 19:13:25 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /user/online/v1/loginout
+2026-10-18 19:13:25 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/online/v1/loginout
+Method: POST
+Body:
+{
+    "appCode": "7318def77669979d",
+    "token": "cfbf53c6f8dbed6f699f6aa324615f9f",
+    "type": 1
+}
+
+------------------------
+2026-10-18 19:13:27 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:13:27 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.game.account - SyncS{"params":{"16":{"goodIdMap":{"LS":[],"HS":[],"ES":[],"CASH":["clmsRoom_2026"],"GP":["GP_Once_503","GP_Once_250","GP_Once_502","GP_Once_500","GP_Once_501","GP_Once_499","GP_Once_498","GP_Once_497","GP_Once_491","GP_Once_492","GP_Once_493","GP_Once_494","GP_Once_495","GP_Once_496","GP_Condition_1","GP_Condition_5","GP_Condition_4","GP_Condition_2","GP_Condition_6","GP_Once_438","GP_NpOne_nc_7_NpOne_nc_7_v1","GP_Once_106","GP_Once_207","GP_mCard_1"],"SOCIAL":[],"CLASSIC":[]}}},"modules":3807}
+2026-10-18 19:13:30 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncStatus
+Method: POST
+Body:
+{"modules":3807,"params":{"16":{"goodIdMap":{"LS":[],"HS":[],"ES":[],"CASH":["clmsRoom_2026"],"GP":["GP_Once_503","GP_Once_250","GP_Once_502","GP_Once_500","GP_Once_501","GP_Once_499","GP_Once_498","GP_Once_497","GP_Once_491","GP_Once_492","GP_Once_493","GP_Once_494","GP_Once_495","GP_Once_496","GP_Condition_1","GP_Condition_5","GP_Condition_4","GP_Condition_2","GP_Condition_6","GP_Once_438","GP_NpOne_nc_7_NpOne_nc_7_v1","GP_Once_106","GP_Once_207","GP_mCard_1"],"SOCIAL":[],"CLASSIC":[]}}}}
+------------------------
+2026-10-18 19:13:40 [http-nio-10029-exec-10] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:13:43 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:13:43 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - SyncS{"params":{},"modules":3719}
+2026-10-18 19:13:48 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncStatus
+Method: POST
+Body:
+{"modules":3719,"params":{}}
+------------------------
+2026-10-18 19:13:50 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /gacha/syncNormalGacha
+2026-10-18 19:13:50 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - syncNG{}
+2026-10-18 19:13:52 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /gacha/syncNormalGacha
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:13:53 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:13:53 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:13:53 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - SyncS{"params":{},"modules":3719}
+2026-10-18 19:13:55 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:13:56 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncStatus
+Method: POST
+Body:
+{"modules":3719,"params":{}}
+------------------------
+2026-10-18 19:14:10 [http-nio-10029-exec-5] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:14:23 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:14:25 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:14:41 [http-nio-10029-exec-5] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:14:53 [http-nio-10029-exec-10] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:14:56 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:14:56 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:14:56 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:14:56 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:15:06 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:15:06 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:15:06 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:15:11 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:15:16 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:15:16 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:15:16 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:15:23 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:15:26 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:15:26 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:15:26 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:15:26 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:15:37 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:15:37 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:15:37 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:15:41 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:15:47 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:15:47 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:15:47 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:15:54 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:15:56 [http-nio-10029-exec-9] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:15:57 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:15:57 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:15:57 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:16:07 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:16:07 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:16:07 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:16:11 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:20:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 36132 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-0.4.1 Alhpa.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-10-18 19:20:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-10-18 19:20:45 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-10-18 19:20:45 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:20:45 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:20:45 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-18 19:20:45 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-10-18 19:20:46 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-18 19:20:46 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 774 ms
+2026-10-18 19:20:46 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:20:46 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:20:46 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-10-18 19:20:46 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.374 seconds (JVM running for 2.084)
+2026-10-18 19:20:46 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-10-18 19:20:46 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-10-18 19:20:48 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2391ms
+2026-10-18 19:20:48 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-10-18 19:20:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.4.8
+2026-10-18 19:20:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 0.4.1 Alpha
+2026-10-18 19:20:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本 2.7.81Win
+2026-10-18 19:20:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月18日 18:38:50
+2026-10-18 19:20:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 $Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h
+2026-10-18 19:20:53 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-10-18 19:20:53 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-10-18 19:21:45 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-18 19:21:45 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-18 19:21:45 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-10-18 19:21:45 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:21:45 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:21:46 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.app.api - 请求最新游戏信息: /api/game/get_latest
+2026-10-18 19:21:46 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/game/get_latest
+Method: GET
+Params: appcode=GzD1CpaWgmSq1wew&channel=1&version=78.0.0&platform=Windows&sub_channel=1&source=game
+------------------------
+2026-10-18 19:21:46 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /remote_config/1/prod/default/Win/network_config
+2026-10-18 19:21:46 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/remote_config/1/prod/default/Windows/network_config
+Method: GET
+------------------------
+2026-10-18 19:21:46 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求 SDK 配置信息: /api/remote_config/1/prod/default/Windows/remote_config
+2026-10-18 19:21:46 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/remote_config/1/prod/default/Windows/remote_config
+Method: GET
+------------------------
+2026-10-18 19:21:46 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /app/v1/config
+2026-10-18 19:21:46 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /app/v1/config
+Method: GET
+Params: appCode=7318def77669979d&platform=2
+------------------------
+2026-10-18 19:21:46 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求服务器时间 /general/v1/server_time
+2026-10-18 19:21:46 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /general/v1/server_time
+Method: GET
+------------------------
+2026-10-18 19:21:46 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /config/prod/official/Windows/version
+2026-10-18 19:21:46 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /config/prod/official/Windows/version
+Method: GET
+------------------------
+2026-10-18 19:21:46 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /ipv6
+Method: GET
+------------------------
+2026-10-18 19:22:00 [http-nio-10029-exec-5] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:22:15 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:22:15 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:22:19 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求网关信息 /api/gate/meta/Windows
+2026-10-18 19:22:19 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/gate/meta/Windows
+Method: GET
+Params: sign=1792322539%20216458449%20892692
+------------------------
+2026-10-18 19:22:30 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - 请求用户信息: /user/info/v1/basic?token=cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:22:30 [http-nio-10029-exec-9] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:22:31 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/info/v1/basic
+Method: GET
+Params: token=cfbf53c6f8dbed6f699f6aa324615f9f
+------------------------
+2026-10-18 19:22:31 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 19:22:33 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:22:33 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 19:22:33 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{
+    "appCode": "7318def77669979d",
+    "token": "cfbf53c6f8dbed6f699f6aa324615f9f",
+    "type": 0
+}
+
+------------------------
+2026-10-18 19:22:35 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /user/v1/getToken
+2026-10-18 19:22:35 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - Received JSON: {"deviceId2":"","extension":"{\"code\":\"cfbf53c6f8dbed6f699f6aa324615f9f\",\"type\":1,\"isSuc\":true}","deviceId3":"","worldId":"1","appId":"1","subChannel":"1","sign":"56f42bd0f737f309af9643cefa791597a9fbb12a","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","channelId":"1","platform":2}
+2026-10-18 19:22:37 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /u8/user/v1/getToken
+Method: POST
+Body:
+{"appId":"1","channelId":"1","extension":"{\"code\":\"cfbf53c6f8dbed6f699f6aa324615f9f\",\"type\":1,\"isSuc\":true}","worldId":"1","platform":2,"subChannel":"1","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","deviceId2":"","deviceId3":"","sign":"56f42bd0f737f309af9643cefa791597a9fbb12a"}
+------------------------
+2026-10-18 19:22:37 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /u8/pay/getAllProductList
+Method: POST
+------------------------
+2026-10-18 19:22:37 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/login
+2026-10-18 19:22:37 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - Received JSON: {"uid":"10000003","deviceId2":"","udtVersion":"78.0.0","deviceId3":"","networkVersion":"5","assetsVersion":"26-10-14-13-44-12-52990322","clientVersion":"2.7.81","deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","platform":2,"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+2026-10-18 19:22:38 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/login
+Method: POST
+Body:
+{"uid":"10000003","token":"cfbf53c6f8dbed6f699f6aa324615f9f","assetsVersion":"26-10-14-13-44-12-52990322","clientVersion":"2.7.81","platform":2,"deviceId":"c7ee25ec951dd0ce81fc4eb217f480b53bcb6761","deviceId2":"","deviceId3":"","networkVersion":"5","udtVersion":"78.0.0"}
+------------------------
+2026-10-18 19:22:38 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncData
+2026-10-18 19:22:42 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.game.account - 用户数据同步成功, UID: 10000003
+2026-10-18 19:22:42 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncData
+Method: POST
+------------------------
+2026-10-18 19:22:43 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /pay/getUnconfirmedOrderIdList
+2026-10-18 19:22:43 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - Received JSON: {}
+2026-10-18 19:22:44 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - Response: {"orderIdList":[],"pushMessage":[{"path":"flushAlerts","payload":{"data":"{\"loop\":3,\"majorVersion\":\"369\",\"content\":\"Welcome to Local Arknights!这是一个开源项目,如果你为它付费了,那你一定被骗了\"}"}}],"playerDataDelta":{"deleted":{},"modified":{}}}
+2026-10-18 19:22:44 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /pay/getUnconfirmedOrderIdList
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:22:44 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] 请求用户协议 /u8/user/info/v2/agreement_version
+2026-10-18 19:22:44 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /u8/user/info/v2/agreement_version
+Method: GET
+Params: token=cfbf53c6f8dbed6f699f6aa324615f9f
+------------------------
+2026-10-18 19:22:44 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.192.10.108] /user/online/v1/loginout
+2026-10-18 19:22:44 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/online/v1/loginout
+Method: POST
+Body:
+{
+    "appCode": "7318def77669979d",
+    "token": "cfbf53c6f8dbed6f699f6aa324615f9f",
+    "type": 1
+}
+
+------------------------
+2026-10-18 19:22:45 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:22:45 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:22:46 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:22:46 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - SyncS{"params":{"16":{"goodIdMap":{"LS":[],"HS":[],"ES":[],"CASH":["clmsRoom_2026"],"GP":["GP_Once_503","GP_Once_250","GP_Once_502","GP_Once_500","GP_Once_501","GP_Once_499","GP_Once_498","GP_Once_497","GP_Once_491","GP_Once_492","GP_Once_493","GP_Once_494","GP_Once_495","GP_Once_496","GP_Condition_1","GP_Condition_5","GP_Condition_4","GP_Condition_2","GP_Condition_6","GP_Once_438","GP_NpOne_nc_7_NpOne_nc_7_v1","GP_Once_106","GP_Once_207","GP_mCard_1"],"SOCIAL":[],"CLASSIC":[]}}},"modules":3807}
+2026-10-18 19:22:51 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncStatus
+Method: POST
+Body:
+{"modules":3807,"params":{"16":{"goodIdMap":{"LS":[],"HS":[],"ES":[],"CASH":["clmsRoom_2026"],"GP":["GP_Once_503","GP_Once_250","GP_Once_502","GP_Once_500","GP_Once_501","GP_Once_499","GP_Once_498","GP_Once_497","GP_Once_491","GP_Once_492","GP_Once_493","GP_Once_494","GP_Once_495","GP_Once_496","GP_Condition_1","GP_Condition_5","GP_Condition_4","GP_Condition_2","GP_Condition_6","GP_Once_438","GP_NpOne_nc_7_NpOne_nc_7_v1","GP_Once_106","GP_Once_207","GP_mCard_1"],"SOCIAL":[],"CLASSIC":[]}}}}
+------------------------
+2026-10-18 19:23:00 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:23:15 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:23:15 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:23:30 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:23:46 [http-nio-10029-exec-9] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:23:46 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:23:51 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:23:51 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:23:51 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:24:01 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:24:01 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:24:01 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:24:01 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:24:11 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:24:11 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:24:11 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:24:16 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:24:16 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:24:20 [http-nio-10029-exec-10] WARN  org.springframework.web.servlet.PageNotFound - No mapping for GET /pcSdk/userInfo
+2026-10-18 19:24:20 [http-nio-10029-exec-10] WARN  com.hypergryph.arknights.GlobalExceptionHandler - [/10.192.10.108] 404 未匹配路由: GET /pcSdk/userInfo
+2026-10-18 19:24:21 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:24:21 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:24:21 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:24:31 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:24:31 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:24:31 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:24:31 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:24:41 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:24:41 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:24:41 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:24:46 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:24:46 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:24:51 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:24:51 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:24:51 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:25:01 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:25:01 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:25:01 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:25:01 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:25:11 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:25:11 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:25:11 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:25:14 [http-nio-10029-exec-9] WARN  org.springframework.web.servlet.PageNotFound - No mapping for GET /pcSdk/userInfo
+2026-10-18 19:25:14 [http-nio-10029-exec-9] WARN  com.hypergryph.arknights.GlobalExceptionHandler - [/10.192.10.108] 404 未匹配路由: GET /pcSdk/userInfo
+2026-10-18 19:25:16 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:25:17 [http-nio-10029-exec-5] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:25:21 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:25:21 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:25:21 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:25:31 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:25:31 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:25:31 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:25:32 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:25:41 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:25:41 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:25:41 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:25:46 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:25:47 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:25:52 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:25:52 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:25:52 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:26:02 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:26:02 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:26:02 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:26:02 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:26:12 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:26:12 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:26:12 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:26:17 [http-nio-10029-exec-9] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:26:17 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:26:22 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:26:22 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:26:22 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:26:32 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:26:32 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:26:32 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:26:32 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:26:35 [http-nio-10029-exec-10] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /setting/friendPrivate
+2026-10-18 19:26:35 [http-nio-10029-exec-10] WARN  com.hypergryph.arknights.GlobalExceptionHandler - [/10.192.10.108] 未实现的游戏接口(返回空增量): POST /setting/friendPrivate
+2026-10-18 19:26:45 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:26:45 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:26:45 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:26:47 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:26:47 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:26:55 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:26:55 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:26:55 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:27:01 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:27:01 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.game.account - SyncS{"params":{},"modules":3719}
+2026-10-18 19:27:02 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:27:06 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncStatus
+Method: POST
+Body:
+{"modules":3719,"params":{}}
+------------------------
+2026-10-18 19:27:16 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:27:16 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:27:16 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:27:17 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:27:18 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:27:26 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:27:26 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:27:26 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:27:33 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:27:36 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - [/10.192.10.108] /account/syncStatus
+2026-10-18 19:27:36 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-18 19:27:36 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncPushMessage
+Method: POST
+Body:
+{}
+------------------------
+2026-10-18 19:27:45 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for GET /pcSdk/userInfo
+2026-10-18 19:27:45 [http-nio-10029-exec-7] WARN  com.hypergryph.arknights.GlobalExceptionHandler - [/10.192.10.108] 404 未匹配路由: GET /pcSdk/userInfo
+2026-10-18 19:46:07 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: OPTIONS
+------------------------
+2026-10-18 19:46:17 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 40144 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-0.4.1 Alhpa.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-10-18 19:46:17 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-10-18 19:46:17 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-10-18 19:46:18 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:46:18 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:46:18 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-18 19:46:18 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-10-18 19:46:18 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-18 19:46:18 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 751 ms
+2026-10-18 19:46:18 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:46:18 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:46:18 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-10-18 19:46:18 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.392 seconds (JVM running for 2.05)
+2026-10-18 19:46:18 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-10-18 19:46:18 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-10-18 19:46:20 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-18 19:46:20 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-18 19:46:20 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-10-18 19:46:20 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: OPTIONS
+------------------------
+2026-10-18 19:46:20 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2390ms
+2026-10-18 19:46:20 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-10-18 19:46:21 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: OPTIONS
+------------------------
+2026-10-18 19:46:22 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.4.8
+2026-10-18 19:46:22 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 0.4.1 Alpha
+2026-10-18 19:46:22 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本 2.7.81Win
+2026-10-18 19:46:22 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月18日 18:38:50
+2026-10-18 19:46:22 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 $Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h
+2026-10-18 19:46:27 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-10-18 19:46:27 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-10-18 19:47:14 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: OPTIONS
+------------------------
+2026-10-18 19:47:19 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: OPTIONS
+------------------------
+2026-10-18 19:49:05 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: OPTIONS
+------------------------
+2026-10-18 19:53:46 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 11620 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-0.4.1 Alhpa.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-10-18 19:53:46 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-10-18 19:53:46 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-10-18 19:53:46 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:53:46 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:53:46 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-18 19:53:46 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-10-18 19:53:46 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-18 19:53:46 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 739 ms
+2026-10-18 19:53:47 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-10-18 19:53:47 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-10-18 19:53:47 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-10-18 19:53:47 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.323 seconds (JVM running for 1.992)
+2026-10-18 19:53:47 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-10-18 19:53:47 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-10-18 19:53:49 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2234ms
+2026-10-18 19:53:49 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-10-18 19:53:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.4.8
+2026-10-18 19:53:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 0.4.1 Alpha
+2026-10-18 19:53:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本 2.7.81Win
+2026-10-18 19:53:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月18日 18:38:50
+2026-10-18 19:53:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 $Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h
+2026-10-18 19:53:51 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-10-18 19:53:51 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-10-18 19:53:52 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-18 19:53:52 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-18 19:53:52 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 14 ms
+2026-10-18 19:53:53 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 19:53:53 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ArkNightsLoongling001"}
+------------------------
+2026-10-18 19:53:53 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 19:53:54 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:53:54 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 19:53:54 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 19:57:06 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 19:57:07 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ArkNightsLoongling001"}
+------------------------
+2026-10-18 19:57:07 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 19:57:07 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 19:57:07 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 19:57:07 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 19:58:37 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
+2026-10-18 19:58:37 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:58:38 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.app.api - 请求最新游戏信息: /api/game/get_latest
+2026-10-18 19:58:38 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/game/get_latest
+Method: GET
+Params: appcode=GzD1CpaWgmSq1wew&channel=1&version=78.0.0&platform=Windows&sub_channel=1&source=game
+------------------------
+2026-10-18 19:58:38 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /remote_config/1/prod/default/Win/network_config
+2026-10-18 19:58:38 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/remote_config/1/prod/default/Windows/network_config
+Method: GET
+------------------------
+2026-10-18 19:58:38 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 请求 SDK 配置信息: /api/remote_config/1/prod/default/Windows/remote_config
+2026-10-18 19:58:38 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/remote_config/1/prod/default/Windows/remote_config
+Method: GET
+------------------------
+2026-10-18 19:58:38 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /app/v1/config
+2026-10-18 19:58:38 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /app/v1/config
+Method: GET
+Params: appCode=7318def77669979d&platform=2
+------------------------
+2026-10-18 19:58:38 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 请求服务器时间 /general/v1/server_time
+2026-10-18 19:58:38 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /general/v1/server_time
+Method: GET
+------------------------
+2026-10-18 19:58:38 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /config/prod/official/Windows/version
+2026-10-18 19:58:38 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /config/prod/official/Windows/version
+Method: GET
+------------------------
+2026-10-18 19:58:39 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /ipv6
+Method: GET
+------------------------
+2026-10-18 19:58:49 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 请求网关信息 /api/gate/meta/Windows
+2026-10-18 19:58:49 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/gate/meta/Windows
+Method: GET
+Params: sign=1792324729%20216458449%20159114
+------------------------
+2026-10-18 19:58:52 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
+2026-10-18 19:59:04 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 请求网关信息 /api/gate/meta/Windows
+2026-10-18 19:59:04 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/gate/meta/Windows
+Method: GET
+Params: sign=1792324744%20216458449%20577913
+------------------------
+2026-10-18 20:15:31 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 20:15:33 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"/forget_password"}
+------------------------
+2026-10-18 20:15:43 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 20:15:44 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ArkNightsLoongling001"}
+------------------------
+2026-10-18 20:15:44 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 20:15:45 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 20:15:45 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 20:15:45 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 20:15:59 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /user/forget_password
+2026-10-18 20:15:59 [http-nio-10029-exec-7] WARN  com.hypergryph.arknights.GlobalExceptionHandler - [/10.100.193.62] 404 未匹配路由: POST /user/forget_password
+2026-10-18 20:16:41 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 37880 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-0.4.1 Alhpa.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-10-18 20:16:41 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-10-18 20:16:42 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-10-18 20:16:42 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-10-18 20:16:42 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-10-18 20:16:42 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-18 20:16:42 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-10-18 20:16:42 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-18 20:16:42 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 727 ms
+2026-10-18 20:16:42 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-10-18 20:16:42 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-10-18 20:16:42 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-10-18 20:16:42 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.289 seconds (JVM running for 1.949)
+2026-10-18 20:16:42 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-10-18 20:16:42 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-10-18 20:16:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2269ms
+2026-10-18 20:16:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-10-18 20:16:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.4.8
+2026-10-18 20:16:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 0.4.1 Alpha
+2026-10-18 20:16:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本 2.7.81Win
+2026-10-18 20:16:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月18日 18:38:50
+2026-10-18 20:16:45 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 $Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h
+2026-10-18 20:16:47 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-10-18 20:16:47 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-10-18 20:16:55 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-18 20:16:55 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-18 20:16:55 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-10-18 20:16:55 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /user/forget_password
+2026-10-18 20:16:56 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/forget_password
+Method: POST
+Body:
+{"secret":"cfbf53c6f8dbed6f699f6aa324615f9f","password":"ljx120312"}
+------------------------
+2026-10-18 20:17:07 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 20:17:08 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ljx120312"}
+------------------------
+2026-10-18 20:17:08 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 20:17:09 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 20:17:09 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 20:17:09 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 20:18:13 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 20:18:13 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ljx120312"}
+------------------------
+2026-10-18 20:18:13 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 20:18:14 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 20:18:14 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 20:18:14 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 20:18:30 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 20:18:31 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ljx120312"}
+------------------------
+2026-10-18 20:18:31 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 20:18:32 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 20:18:32 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 20:18:32 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 20:21:27 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 20:21:29 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ljx120312"}
+------------------------
+2026-10-18 20:21:29 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 20:21:30 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 20:21:30 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 20:21:30 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 20:30:35 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 20:30:36 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ljx120312"}
+------------------------
+2026-10-18 20:30:36 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 20:30:37 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 20:30:37 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 20:30:37 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 20:34:00 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] 用户登录 /auth/v1/token_by_phone_password
+2026-10-18 20:34:01 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/auth/v1/token_by_phone_password
+Method: POST
+Body:
+{"phone":"18280458922","password":"ljx120312"}
+------------------------
+2026-10-18 20:34:01 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 20:34:03 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - token: cfbf53c6f8dbed6f699f6aa324615f9f
+2026-10-18 20:34:03 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=cfbf53c6f8dbed6f699f6aa324615f9f, uid=10000003}, type=A}
+2026-10-18 20:34:03 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"cfbf53c6f8dbed6f699f6aa324615f9f"}
+------------------------
+2026-10-18 20:45:02 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /user/register
+2026-10-18 20:45:04 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/register
+Method: POST
+Body:
+{"account":"18881451812","password":"120312","smsCode":"000000"}
+------------------------
+2026-10-18 20:47:44 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /user/register
+2026-10-18 20:47:45 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/register
+Method: POST
+Body:
+{"account":"18881451812","password":"120312","smsCode":"000000"}
+------------------------
+2026-10-18 20:49:48 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 6340 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-0.4.1 Alhpa.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-10-18 20:49:48 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-10-18 20:49:49 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-10-18 20:49:49 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-10-18 20:49:49 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-10-18 20:49:49 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-18 20:49:49 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-10-18 20:49:49 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-18 20:49:49 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 729 ms
+2026-10-18 20:49:50 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-10-18 20:49:50 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-10-18 20:49:50 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-10-18 20:49:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.286 seconds (JVM running for 1.954)
+2026-10-18 20:49:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-10-18 20:49:50 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-10-18 20:49:52 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2416ms
+2026-10-18 20:49:52 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-10-18 20:49:52 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.4.8
+2026-10-18 20:49:52 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 0.4.1 Alpha
+2026-10-18 20:49:52 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本 2.7.81Win
+2026-10-18 20:49:52 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月18日 18:38:50
+2026-10-18 20:49:52 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 $Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h
+2026-10-18 20:49:55 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-10-18 20:49:55 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-10-18 20:50:10 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-18 20:50:10 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-18 20:50:10 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-10-18 20:50:10 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /user/register
+2026-10-18 20:50:11 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/register
+Method: POST
+Body:
+{"account":"10000000002","password":"120312","smsCode":"000000"}
+------------------------
+2026-10-18 20:50:11 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - 请求 OAuth 授权: /oauth2/v2/grant
+2026-10-18 20:50:11 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - token: 5ed51febe66d12ec9d6d12410c4c61ba
+2026-10-18 20:50:11 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - response: {status=0, msg=OK, data={code=5ed51febe66d12ec9d6d12410c4c61ba, uid=10000004}, type=A}
+2026-10-18 20:50:11 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /user/oauth2/v2/grant
+Method: POST
+Body:
+{"token":"5ed51febe66d12ec9d6d12410c4c61ba"}
+------------------------

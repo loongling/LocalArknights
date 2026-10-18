@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+	<meta name="color-scheme" content="only light">
+	<meta http-equiv="Cache-Control" content="no-store">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1">
+	<meta name="description" content="注册账号">
+	<title>注册账号 - 用户中心</title>
+	<style>
+		:root {
+			--bg: #f5f6f8;
+			--card: #ffffff;
+			--text: #2b2b2b;
+			--text-sub: #7a7f87;
+			--primary: #23a3d6;
+			--primary-dark: #1b86b3;
+			--danger: #e5484d;
+			--border: #e6e8eb;
+			--radius: 12px;
+		}
+
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+
+		body {
+			font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+			background: var(--bg);
+			color: var(--text);
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 16px;
+		}
+
+		.card {
+			width: 100%;
+			max-width: 400px;
+			background: var(--card);
+			border-radius: var(--radius);
+			box-shadow: 0 4px 24px rgba(0, 0, 0, .08);
+			padding: 40px 32px;
+		}
+
+		.logo { text-align: center; font-size: 40px; margin-bottom: 8px; }
+		h1 { text-align: center; font-size: 20px; font-weight: 600; margin-bottom: 28px; }
+
+		.field { margin-bottom: 16px; }
+		.field label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 6px; }
+		.field input {
+			width: 100%;
+			padding: 11px 14px;
+			font-size: 14px;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			outline: none;
+			transition: border-color .2s;
+		}
+		.field input:focus { border-color: var(--primary); }
+
+		.msg { display: none; font-size: 13px; color: var(--danger); margin-bottom: 12px; }
+
+		.submit-btn {
+			width: 100%;
+			padding: 12px;
+			font-size: 15px;
+			color: #fff;
+			background: var(--primary);
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background .2s;
+		}
+		.submit-btn:hover { background: var(--primary-dark); }
+		.submit-btn:disabled { background: #b9d8e8; cursor: not-allowed; }
+
+		.back-link {
+			display: block;
+			margin-top: 20px;
+			text-align: center;
+			font-size: 13px;
+			color: var(--primary);
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="card">
+		<div class="logo">📝</div>
+		<h1>注册账号</h1>
+
+		<div class="msg" id="msg"></div>
+
+		<form id="registerForm">
+			<div class="field">
+				<label for="phone">手机号</label>
+				<input type="tel" id="phone" name="phone" placeholder="请输入手机号" maxlength="11" required>
+			</div>
+			<div class="field">
+				<label for="smsCode">短信验证码</label>
+				<input type="text" id="smsCode" name="smsCode" placeholder="请输入验证码（暂不校验）">
+			</div>
+			<div class="field">
+				<label for="password">密码</label>
+				<input type="password" id="password" name="password" placeholder="请设置密码" required>
+			</div>
+			<div class="field">
+				<label for="password2">确认密码</label>
+				<input type="password" id="password2" name="password2" placeholder="请再次输入密码" required>
+			</div>
+			<button type="submit" class="submit-btn" id="submitBtn">注 册</button>
+		</form>
+
+		<a class="back-link" href="login.html">已有账号？返回登录</a>
+	</div>
+
+	<script>
+		const REGISTER_URL = "http://127.0.0.1:10029/user/register";
+		const GRANT_URL = "http://127.0.0.1:10029/user/oauth2/v2/grant";
+
+		document.getElementById("registerForm").addEventListener("submit", async function (e) {
+			e.preventDefault();
+
+			const phone = document.getElementById("phone").value.trim();
+			const smsCode = document.getElementById("smsCode").value.trim();
+			const password = document.getElementById("password").value;
+			const password2 = document.getElementById("password2").value;
+			const submitBtn = document.getElementById("submitBtn");
+
+			hideMsg();
+
+			if (!/^1\d{10}$/.test(phone)) { showMsg("请输入正确的 11 位手机号"); return; }
+			if (!password) { showMsg("请设置密码"); return; }
+			if (password !== password2) { showMsg("两次输入的密码不一致"); return; }
+
+			submitBtn.disabled = true;
+			submitBtn.textContent = "注册中…";
+
+			try {
+				// 第一步：注册
+				const resp = await fetch(REGISTER_URL, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						account: phone,
+						password: password,
+						smsCode: smsCode || "000000"
+					})
+				});
+				const result = await resp.json();
+
+				if (result.result !== 0 || !result.token) {
+					showMsg(result.errMsg || result.msg || "注册失败，请稍后重试");
+					return;
+				}
+
+				// 第二步：注册接口直接返回 token，调 grant 换 code / uid
+				const grantResp = await fetch(GRANT_URL, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ token: result.token })
+				});
+				const grantResult = await grantResp.json();
+
+				if (grantResult.status === 0 && grantResult.data && grantResult.data.code) {
+					localStorage.setItem("token", result.token);
+					localStorage.setItem("code", grantResult.data.code);
+					localStorage.setItem("uid", grantResult.data.uid);
+					localStorage.setItem("phone", phone);
+					window.location.href = "user-center.html";
+				} else {
+					// 注册成功但授权失败：token 已拿到，先存起来引导去登录页
+					alert("注册成功！请使用新账号登录");
+					window.location.href = "login.html";
+				}
+			} catch (err) {
+				showMsg("网络错误，无法连接服务器");
+			} finally {
+				submitBtn.disabled = false;
+				submitBtn.textContent = "注 册";
+			}
+		});
+
+		function showMsg(text) {
+			const msg = document.getElementById("msg");
+			msg.textContent = text;
+			msg.style.display = "block";
+		}
+
+		function hideMsg() {
+			const msg = document.getElementById("msg");
+			msg.style.display = "none";
+		}
+	</script>
+</body>
+
+</html>
