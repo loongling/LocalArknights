@@ -494,6 +494,8 @@ public class users {
         JSONObject medal = userData.getJSONObject("medal");
         JSONObject inventory = userData.getJSONObject("inventory");
         JSONArray checkInHistory = checkInU.getJSONArray("checkInHistory");
+        int checkInRewardIndex = checkInU.getInteger("checkInRewardIndex");
+        checkInRewardIndex = checkInRewardIndex + 1;
         JSONArray signInRewards = new JSONArray();
         String checkInGroupId = checkInU.getString("checkInGroupId");
         JSONArray checkInTable = checkIn.getJSONObject(checkInGroupId).getJSONArray("items");
@@ -584,6 +586,7 @@ public class users {
         userData.getJSONObject("checkIn").put("canCheckIn", 0);
         userData.getJSONObject("checkIn").put("checkInHistory", checkInHistory);
         userData.getJSONObject("checkIn").put("showCount", showCount);
+        userData.getJSONObject("checkIn").put("checkInRewardIndex", checkInRewardIndex);
         JSONObject changedStatus = new JSONObject();
         JSONObject changedSignIn = new JSONObject();
         changedSignIn.put("canCheckIn", 0);

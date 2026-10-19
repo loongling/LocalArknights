@@ -2623,11 +2623,7 @@
     "apLimitUpFlag": 0,
     "uid": "",
     "flags": {
-      "init": 1,
-      "obt/guide/beg/0_welcome_to_guide": 1,
-      "obt/guide/beg/1a_guide_1to2": 1,
-      "obt/guide/beg/1b_guide_1to2": 1,
-      "obt/guide/beg/2_guide_to_home": 1
+      "init": 1
     },
     "ap": 157,
     "maxAp": 157,
@@ -2661,7 +2657,7 @@
         "name": "第一编队",
         "slots": [
           {
-            "charInstId": 4,
+            "charInstId": 2,
             "skillIndex": 0
           },
           {
