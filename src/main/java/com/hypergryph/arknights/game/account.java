@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.hypergryph.arknights.core.work.checkActLogin.needAddIndex;
+import static com.hypergryph.arknights.core.work.checkActLogin.needResetIndex;
 import static com.hypergryph.arknights.core.work.checkCanCheckIn.canCheckIn;
 import static com.hypergryph.arknights.core.work.checkNeedChangeGroup.needChange;
 import static com.hypergryph.arknights.core.work.checkNeedChangeGroup.nextGroupId;
@@ -65,9 +67,10 @@ public class account {
                 return result;
             } else {
                 if (((Account) Accounts.get(0)).getUser().equals("{}")) {
-                    ArknightsApplication.DefaultSyncData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
-                    ArknightsApplication.DefaultSyncData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
-                    userDao.setUserData(uid, ArknightsApplication.DefaultSyncData);
+                    JSONObject userData = ArknightsApplication.DefaultSyncData;
+                    userData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
+                    userData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
+                    userDao.setUserData(uid, userData);
                 }
                 ArknightsApplication.addSecretForIP(clientIp, secret);
                 Map<String, Object> data = new LinkedHashMap<>();
@@ -134,7 +137,26 @@ public class account {
 
         Long ts = ArknightsApplication.getTimestamp();
         Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
+        int index = UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getInteger("nowIndex");
+        JSONArray history = UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history");
+        boolean indexAdd = needAddIndex(lastLogin, index, history);
+        boolean resetIndex = needResetIndex(lastLogin);
         boolean canCheck = canCheckIn(lastLogin, ts);
+        if (canCheck) {
+            if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getBoolean("isAvailable")) {
+                if (indexAdd) {
+                    UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").put("nowIndex", index + 1);
+                    UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").add(1);
+                } else {
+                    if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history") == null || UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").isEmpty()) {
+                        UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").add(1);
+                    }
+                }
+                if (resetIndex) {
+                    UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").put("nowIndex", 0);
+                }
+            }
+        }
         if (canCheck) {
             UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);
         }

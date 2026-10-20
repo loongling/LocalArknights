@@ -227,18 +227,30 @@ public class gacha {
         JSONObject userdata = JSON.parseObject(account.getUser());
         JSONObject gacha = userdata.getJSONObject("gacha");
         Long uid = account.getUid();
+        JSONObject defaultGacha = new JSONObject();
+        int cntD = 1;
+        int maxCnt = 10;
+        int rarity = 4;
+        boolean avail = true;
+        defaultGacha.put("rarity", rarity);
+        defaultGacha.put("maxCnt", maxCnt);
+        defaultGacha.put("avail", avail);
+        defaultGacha.put("cnt", cntD);
         if (poolId.startsWith("BOOT")){
             int cnt = gacha.getJSONObject("newbee").getIntValue("cnt");
             gacha.getJSONObject("newbee").put("cnt", cnt -1);
             userDao.setUserData(uid, userdata);
         }
-        else{
-            JSONObject normal = gacha.getJSONObject("normal");
-            int cnt = normal.getJSONObject(poolId).getIntValue("cnt");
-            normal.getJSONObject(poolId).put("cnt", cnt + 1);
-            userDao.setUserData(uid, userdata);
-        }
 
+        else if(poolId.startsWith("CLASSIC")){
+            gacha.getJSONObject("fesClassic").put(poolId, defaultGacha);
+            userdata.put("gacha", gacha);
+            userDao.setUserData(uid, userdata);
+        } else if(poolId.startsWith("NORM")){
+            gacha.getJSONObject("normal").put(poolId, defaultGacha);
+            userdata.put("gacha", gacha);
+            userDao.setUserData(uid, userdata);
+        } else if(poolId.startsWith("GACHA")){}
         return performAdvancedGacha(account, poolId, "gachaTicket", diamondCost, 1, useTkt, response);
     }
 

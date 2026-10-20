@@ -706,15 +706,15 @@ public class users {
                 return result;
             }
         } else if(type == 4) {
-            int solvedTKT = resolveTKT(typeI);
-            if(solvedTKT == 1) {
+            int solvedSHD = resolveSHD(typeI);
+            if(solvedSHD == 1) {
                 int count = status.getInteger("LGG_SHD");
                 count = count + counts;
                 status.put("LGG_SHD", count);
                 userData.put("status", status);
                 changedStatus.put("LGG_SHD", count);
                 modified.put("status", changedStatus);
-            } else if(solvedTKT == 2) {
+            } else if(solvedSHD == 2) {
                 int count = status.getInteger("HGG_SHD");
                 count = count + counts;
                 status.put("HGG_SHD", count);

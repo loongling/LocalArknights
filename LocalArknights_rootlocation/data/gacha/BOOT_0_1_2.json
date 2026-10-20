@@ -121,5 +121,11 @@
                 "param": "<@ga.nbGacha>【新人特惠寻访】</>中，每次寻访的价格低于<@ga.adGacha>【标准寻访】</>，能够获得的干员为特别指定，如上所列。"
             }
         ]
+    },
+    "gachaObjGroupType": 0,
+    "hasRateUp": false,
+    "playerDataDelta": {
+        "modified": {},
+        "deleted": {}
     }
 }

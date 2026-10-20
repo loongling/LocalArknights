@@ -16,7 +16,7 @@
 		"time": 3
 	},
 	"database":{
-		"host": "Host",
+		"host": "10.60.116.201",
 		"port":3306,
 		"dbname":"arknights",
 		"user":"ark",

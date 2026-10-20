@@ -237,5 +237,11 @@
                 "param": "【跨年欢庆·相逢】寻访为<@attainGa.desc>【跨年欢庆寻访】</>系列寻访。\n在<@attainGa.desc>【跨年欢庆寻访】</>系列寻访中，首次获得的6星干员必定为可出现的干员中未获得过的6星干员。如果可出现的6星干员均已获得，则首次获得的6星干员为可出现的6星干员中的一位。\n在<@attainGa.desc>【跨年欢庆寻访】</>中，如果连续<@attainGa.desc2>50</>次没有获得6星干员，则下一次获得6星干员的概率将从原本<@attainGa.desc2>2%</>提升至<@attainGa.desc2>4%</>，如果该次还没有寻访到6星干员，则下一次寻访获得6星的概率由<@attainGa.desc2>4%</>提升到<@attainGa.desc2>6%</>。依此类推，每次提高<@attainGa.desc2>2%</>获得6星干员的概率，直至达到<@attainGa.desc2>100%</>时必定获得6星干员。\n在任意两个不同的<@attainGa.desc>【跨年欢庆寻访】</>中，没有获得6星干员的累计次数不会累计，该次数会因为<@attainGa.desc>【跨年欢庆寻访】</>的结束而清零。因为累计次数而增加的获得概率，不会应用于接下来任意一次<@attainGa.desc>【跨年欢庆寻访】</>。\n<@attainGa.desc>【跨年欢庆寻访】</>中，没有获得6星干员的抽取次数不会累计/应用到其他任意寻访，与其他任意寻访的已有累计次数互不影响。\n<@attainGa.attention>【注意】</>任何时候在任意一个<@attainGa.desc>【跨年欢庆寻访】</>中获得6星干员，下一次在<@attainGa.desc>【跨年欢庆寻访】</>中获得6星干员的概率将恢复到<@attainGa.desc2>2%</>。"
             }
         ]
+    },
+    "gachaObjGroupType": 0,
+    "hasRateUp": false,
+    "playerDataDelta": {
+        "modified": {},
+        "deleted": {}
     }
 }

@@ -141,8 +141,14 @@
                 "gachaObject": "TEXT",
                 "type": 5,
                 "imageType": 0,
-                "param": "在所有\u003C@ga.adGacha\u003E【标准寻访】\u003C/\u003E中，如果连续\u003C@ga.percent\u003E50\u003C/\u003E次没有获得6星干员，则下一次获得6星干员的概率将从原本的\u003C@ga.percent\u003E2%\u003C/\u003E提升至\u003C@ga.percent\u003E4%\u003C/\u003E。如果该次还没有寻访到6星干员，则下一次寻访获得6星的概率由\u003C@ga.percent\u003E4%\u003C/\u003E提升到\u003C@ga.percent\u003E6%\u003C/\u003E。依此类推，每次提高\u003C@ga.percent\u003E2%\u003C/\u003E获得6星干员的概率，直至达到\u003C@ga.percent\u003E100%\u003C/\u003E时必定获得6星干员。\n在任何一个\u003C@ga.adGacha\u003E【标准寻访】\u003C/\u003E中，没有获得6星干员时，都会累积次数，该次数不会因为\u003C@ga.adGacha\u003E【标准寻访】\u003C/\u003E的结束而清零。因为累积次数而增加的获得概率，也会应用于接下来任意一次\u003C@ga.adGacha\u003E【标准寻访】\u003C/\u003E。\n\u003C@ga.attention\u003E【注意】\u003C/\u003E任何时候在任意一个\u003C@ga.adGacha\u003E【标准寻访】\u003C/\u003E中获得6星干员，后续在\u003C@ga.adGacha\u003E【标准寻访】\u003C/\u003E中获得6星干员的概率将恢复到\u003C@ga.percent\u003E2%\u003C/\u003E。"
+                "param": "在所有<@ga.adGacha>【标准寻访】</>中，如果连续<@ga.percent>50</>次没有获得6星干员，则下一次获得6星干员的概率将从原本的<@ga.percent>2%</>提升至<@ga.percent>4%</>。如果该次还没有寻访到6星干员，则下一次寻访获得6星的概率由<@ga.percent>4%</>提升到<@ga.percent>6%</>。依此类推，每次提高<@ga.percent>2%</>获得6星干员的概率，直至达到<@ga.percent>100%</>时必定获得6星干员。\n在任何一个<@ga.adGacha>【标准寻访】</>中，没有获得6星干员时，都会累积次数，该次数不会因为<@ga.adGacha>【标准寻访】</>的结束而清零。因为累积次数而增加的获得概率，也会应用于接下来任意一次<@ga.adGacha>【标准寻访】</>。\n<@ga.attention>【注意】</>任何时候在任意一个<@ga.adGacha>【标准寻访】</>中获得6星干员，后续在<@ga.adGacha>【标准寻访】</>中获得6星干员的概率将恢复到<@ga.percent>2%</>。"
             }
         ]
+    },
+    "gachaObjGroupType": 0,
+    "hasRateUp": false,
+    "playerDataDelta": {
+        "modified": {},
+        "deleted": {}
     }
 }

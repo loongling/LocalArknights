@@ -2632,11 +2632,11 @@
     "diamondShard": 500,
     "gold": 10000,
     "practiceTicket": 999,
-    "lastRefreshTs": 1791599176,
-    "lastApAddTime": 1791599176,
+    "lastRefreshTs": 0,
+    "lastApAddTime": 0,
     "mainStageProgress": "main_00-01",
-    "registerTs": 1791599176,
-    "lastOnlineTs": 1791599176,
+    "registerTs": 0,
+    "lastOnlineTs": 0,
     "serverName": "泰拉",
     "avatarId": "0",
     "avatar": {},
@@ -59045,7 +59045,7 @@
     "yCrisisV2Ss": ""
   },
   "checkIn": {
-    "canCheckIn": 0,
+    "canCheckIn": 1,
     "checkInGroupId": "signin98",
     "checkInRewardIndex": 0,
     "checkInHistory": [],
@@ -59065,16 +59065,14 @@
   },
   "openServer": {
     "checkIn": {
-      "isAvailable": false,
+      "isAvailable": true,
       "history": [
-        1
       ]
     },
     "chainLogin": {
-      "isAvailable": false,
+      "isAvailable": true,
       "nowIndex": 0,
       "history": [
-        1
       ],
       "finalReward": 0
     },

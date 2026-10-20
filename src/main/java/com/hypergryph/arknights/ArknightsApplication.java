@@ -199,8 +199,10 @@ public class ArknightsApplication {
         switch (item_type.trim().toUpperCase(java.util.Locale.ROOT)) {
             case "GOLD": return 1;
             case "CARD_EXP", "MATERIAL": return 2;
-            case "TKT_RECRUIT", "TKT_INST_FIN", "TKT_GACHA": return 3;
+            case "TKT_RECRUIT", "TKT_INST_FIN", "TKT_GACHA", "CLASSIC_TKT_GACHA_10": return 3;
             case "LGG_SHD", "HGG_SHD": return 4;
+            case "VOUCHER_PICK", "OPTIONAL_VOUCHER_PICK", "MATERIAL_ISSUE_VOUCHER", "VOUCHER_LEVELMAX_5", "VOUCHER_ELITE_II_5": return 5;
+            case "DIAMOND": return 6;
             default: return -1;
         }
     }
@@ -313,9 +315,9 @@ public class ArknightsApplication {
         serverConfig = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/config.json");
         enableServer = serverConfig.getJSONObject("server").getBooleanValue("enableServer");
         LOGGER.info("载入游戏数据...");
-        checkIn = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel//checkin_table.json").getJSONObject("groups");
-        monthlyPass = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel//checkin_table.json").getJSONObject("monthlySubItem");
-        openServer = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel//open_server_table.json");
+        checkIn = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/checkin_table.json").getJSONObject("groups");
+        monthlyPass = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/checkin_table.json").getJSONObject("monthlySubItem");
+        openServer = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/open_server_table.json");
         DefaultSyncData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/defaultSyncData.json");
         characterJson = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/character_table.json");
         roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
