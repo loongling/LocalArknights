@@ -21391,22 +21391,22 @@
     "character": {
       "char_503_rang": {
         "count": 1,
-        "charInstId": 4,
+        "charInstId": 503,
         "classicCount": 0
       },
       "char_002_amiya": {
         "count": 1,
-        "charInstId": 1,
+        "charInstId": 2,
         "classicCount": 0
       },
       "char_500_noirc": {
         "count": 1,
-        "charInstId": 3,
+        "charInstId": 500,
         "classicCount": 0
       },
       "char_502_nblade": {
         "count": 1,
-        "charInstId": 2,
+        "charInstId": 502,
         "classicCount": 0
       }
     }
@@ -21450,10 +21450,10 @@
     "nickNumber": "0001",
     "registerTs": 1791599176,
     "serverName": "泰拉",
-    "gachaTicket": 0,
+    "gachaTicket": 1,
     "socialPoint": 0,
     "classicShard": 0,
-    "diamondShard": 500,
+    "diamondShard": 9999999,
     "lastOnlineTs": 1792381130,
     "apLimitUpFlag": 0,
     "lastApAddTime": 1791599176,
@@ -21462,7 +21462,7 @@
     "friendNumLimit": 115,
     "practiceTicket": 999,
     "recruitLicense": 0,
-    "tenGachaTicket": 0,
+    "tenGachaTicket": 1,
     "secretarySkinId": "char_002_amiya#1",
     "buyApRemainTimes": 10,
     "mainStageProgress": "main_00-01",
@@ -61491,7 +61491,7 @@
       "history": [
         1
       ],
-      "isAvailable": false
+      "isAvailable": true
     },
     "fullOpen": {
       "today": false,
@@ -61505,7 +61505,7 @@
       ],
       "nowIndex": 0,
       "finalReward": 0,
-      "isAvailable": false
+      "isAvailable": true
     }
   },
   "campaignsV2": {

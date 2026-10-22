@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hypergryph</groupId>
     <artifactId>hypergryph</artifactId>
-    <version>0.4.1.1 Alpha-fixed-1</version>
+    <version>v0.4.3.1 Alpha</version>
     <name>hypergryph</name>
     <packaging>jar</packaging>
     <description>Arknights LocalServer</description>

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.hypergryph.arknights.core.work.checkAccount.checkAccount;
+import static com.hypergryph.arknights.core.work.checkAccount.createError;
 import static com.hypergryph.arknights.core.work.checkActLogin.needAddIndex;
 import static com.hypergryph.arknights.core.work.checkActLogin.needResetIndex;
 import static com.hypergryph.arknights.core.work.checkCanCheckIn.canCheckIn;
@@ -42,20 +44,10 @@ public class account {
         String assetsVersion = JsonBody.getString("assetsVersion");
         String clientVersion = JsonBody.getString("clientVersion");
         List<Account> Accounts = userDao.queryAccountBySecret(secret);
-        if (Accounts.size() != 1) {
-            JSONObject result = new JSONObject(true);
-            result.put("result", 2);
-            result.put("error", "无法查询到此账户");
-            return result;
-        } else {
+        if (checkAccount(secret)) {
             Long uid = ((Account) Accounts.get(0)).getUid();
             JSONObject result;
-            if (((Account) Accounts.get(0)).getBan() == 1L) {
-                result = new JSONObject(true);
-                result.put("result", 1);
-                result.put("error", "您已被此服务器封禁");
-                return result;
-            } else if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("clientVersion"))) {
+            if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("clientVersion"))) {
                 result = new JSONObject(true);
                 result.put("result", 2);
                 result.put("error", "客户端版本需要更新");
@@ -85,6 +77,10 @@ public class account {
                 return result;
             }
         }
+        else {
+            createError(secret, response);
+        }
+        return new JSONObject(true);
     }
 
     @PostMapping(
@@ -97,95 +93,93 @@ public class account {
         LOGGER.info("[/" + clientIp + "] /account/syncData");
         String secret = ArknightsApplication.getSecretByIP(clientIp);
         long uid = userDao.queryUidBySecret(secret);
-        // **检查服务器状态**
-        if (!ArknightsApplication.enableServer) {
-            response.setStatus(400);
-            return createErrorResponse(400, "server is close");
-        }
-
-        if (secret == null) {
-            LOGGER.warn("请求失败");
-            return createErrorResponse(2, "请先登录");
-        }
-
-        // **查询数据库**
-        List<Account> accounts = userDao.queryAccountBySecret(secret);
-        if (accounts.size() != 1) {
-            LOGGER.warn("数据库找不到 `secret`: " + secret);
-            return createErrorResponse(2, "无法查询到此账户");
-        }
-
-        // **获取用户数据**
-        Account user = accounts.get(0);
-        if (user.getBan() == 1L) {
-            LOGGER.warn("用户被封禁, UID: " + uid);
-            response.setStatus(403);
-            return createErrorResponse(403, "error");
-        }
-
-        // **解析用户数据**
-        JSONObject UserSyncData;
-        try {
-            UserSyncData = JSONObject.parseObject(user.getUser());
-            if (UserSyncData == null) {
-                throw new Exception("解析用户数据失败");
+        if (checkAccount(secret)) {
+            // **查询数据库**
+            List<Account> accounts = userDao.queryAccountBySecret(secret);
+            // **获取用户数据**
+            Account user = accounts.get(0);
+            // **解析用户数据**
+            JSONObject UserSyncData;
+            try {
+                UserSyncData = JSONObject.parseObject(user.getUser());
+                if (UserSyncData == null) {
+                    throw new Exception("解析用户数据失败");
+                }
+            } catch (Exception e) {
+                LOGGER.error("解析用户数据失败, UID: " + uid, e);
+                return createErrorResponse(2, "用户数据损坏");
             }
-        } catch (Exception e) {
-            LOGGER.error("解析用户数据失败, UID: " + uid, e);
-            return createErrorResponse(2, "用户数据损坏");
-        }
 
-        Long ts = ArknightsApplication.getTimestamp();
-        Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
-        int index = UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getInteger("nowIndex");
-        JSONArray history = UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history");
-        boolean indexAdd = needAddIndex(lastLogin, index, history);
-        boolean resetIndex = needResetIndex(lastLogin);
-        boolean canCheck = canCheckIn(lastLogin, ts);
-        if (canCheck) {
-            if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getBoolean("isAvailable")) {
-                if (indexAdd) {
-                    UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").put("nowIndex", index + 1);
-                    UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").add(1);
-                } else {
-                    if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history") == null || UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").isEmpty()) {
+            Long ts = ArknightsApplication.getTimestamp();
+            Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
+            ;
+            boolean canCheck = canCheckIn(lastLogin, ts);
+            if (canCheck) {
+                if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getBoolean("isAvailable")) {
+                    int index = UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getInteger("nowIndex");
+                    JSONArray history = UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history");
+                    boolean indexAdd = needAddIndex(lastLogin, index, history);
+                    boolean resetIndex = needResetIndex(lastLogin);
+                    if (indexAdd) {
+                        UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").put("nowIndex", index + 1);
                         UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").add(1);
+                    } else {
+                        if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history") == null || UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").isEmpty()) {
+                            UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").add(1);
+                        }
+                    }
+                    if (resetIndex) {
+                        UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").put("nowIndex", 0);
                     }
                 }
-                if (resetIndex) {
-                    UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").put("nowIndex", 0);
+                if (UserSyncData.getJSONObject("openServer").getJSONObject("checkIn").getBoolean("isAvailable")) {
+                    JSONArray history = UserSyncData.getJSONObject("openServer").getJSONObject("checkIn").getJSONArray("history");
+                    boolean hasOne = false;
+                    if (history != null) {
+                        for (int i = 0; i < history.size(); i++) {
+                            Integer v = history.getInteger(i);
+                            if (v != null && v == 1) {
+                                hasOne = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!hasOne) {
+                        UserSyncData.getJSONObject("openServer").getJSONObject("checkIn").getJSONArray("history").add(1);
+                    }
                 }
             }
-        }
-        if (canCheck) {
-            UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);
-        }
-        UserSyncData.getJSONObject("status").put("lastOnlineTs", System.currentTimeMillis() / 1000L);
-        UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
-        String id = UserSyncData.getJSONObject("checkIn").getString("checkInGroupId");
-        boolean needChange = needChange(lastLogin, ts);
-        if (needChange) {
-            String next_id = nextGroupId(id);
-            UserSyncData.getJSONObject("checkIn").put("checkInGroupId", next_id);
-        }
+            if (canCheck) {
+                UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);
+            }
+            UserSyncData.getJSONObject("status").put("lastOnlineTs", System.currentTimeMillis() / 1000L);
+            UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
+            String id = UserSyncData.getJSONObject("checkIn").getString("checkInGroupId");
+            boolean needChange = needChange(lastLogin, ts);
+            if (needChange) {
+                String next_id = nextGroupId(id);
+                UserSyncData.getJSONObject("checkIn").put("checkInGroupId", next_id);
+            }
 
-        try {
-            userDao.setUserData(uid, UserSyncData);
-        } catch (Exception e) {
-            LOGGER.error("写入用户数据失败, UID: " + uid, e);
-            return createErrorResponse(2, "数据存储失败");
-        }
+            try {
+                userDao.setUserData(uid, UserSyncData);
+            } catch (Exception e) {
+                LOGGER.error("写入用户数据失败, UID: " + uid, e);
+                return createErrorResponse(2, "数据存储失败");
+            }
 
-        JSONObject result = new JSONObject(true);
-        JSONObject playerDataDelta = new JSONObject(true);
-        playerDataDelta.put("deleted", new JSONObject(true));  // 空对象而非null
-        playerDataDelta.put("modified", new JSONObject(true)); // 空对象而非null
-        result.put("playerDataDelta", playerDataDelta);
-        result.put("result", 0);
-        result.put("ts", ts);
-        result.put("user", UserSyncData);
-        LOGGER.info("用户数据同步成功, UID: " + uid);
-        return result;
+            JSONObject result = new JSONObject(true);
+            JSONObject playerDataDelta = new JSONObject(true);
+            playerDataDelta.put("deleted", new JSONObject(true));  // 空对象而非null
+            playerDataDelta.put("modified", new JSONObject(true)); // 空对象而非null
+            result.put("playerDataDelta", playerDataDelta);
+            result.put("result", 0);
+            result.put("ts", ts);
+            result.put("user", UserSyncData);
+            LOGGER.info("用户数据同步成功, UID: " + uid);
+            return result;
+        }
+        return new JSONObject();
     }
 
     private JSONObject createErrorResponse(int code, String message) {

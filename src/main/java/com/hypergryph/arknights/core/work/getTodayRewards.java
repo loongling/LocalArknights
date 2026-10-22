@@ -15,7 +15,13 @@ public class getTodayRewards {
             Object obj = chainLogInReward.get(idx);
             return (obj instanceof JSONObject) ? (JSONObject) obj : null;
         } else if (type == 2) {
-            return new JSONObject();
+            JSONArray checkInReward = ArknightsApplication.openServer.getJSONObject("dataMap").getJSONObject("openseverTaskGroup2").getJSONArray("checkInData");
+            if (checkInReward == null || checkInReward.isEmpty()) {
+                return null;
+            }
+            int idx = (index >= checkInReward.size()) ? 0 : index;
+            Object obj = checkInReward.get(idx);
+            return (obj instanceof JSONObject) ? (JSONObject) obj : null;
         }
         return new JSONObject();
     }

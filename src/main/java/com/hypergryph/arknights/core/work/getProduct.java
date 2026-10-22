@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
 
+import java.util.Objects;
+
 public class getProduct {
     public static JSONObject getProduct(int storeId) {
         JSONObject obj = ArknightsApplication.AllProductList;
@@ -40,6 +42,28 @@ public class getProduct {
             JSONObject item = list.getJSONObject(i);
             String goodId = item.getString("goodId");
             if (goodId != null && (goodId.equals(productId) || goodId.startsWith(productId + "_"))) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public static JSONObject getLevelGood(String id) {
+        JSONArray array = ArknightsApplication.GPGoodList.getJSONArray("levelGP");
+        for (int i = 0; i < array.size(); i++) {
+            JSONObject item = array.getJSONObject(i);
+            if (Objects.equals(id, item.getString("goodId"))) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public static JSONObject oneTimeGood(String id) {
+        JSONArray array = ArknightsApplication.GPGoodList.getJSONArray("oneTimeGP");
+        for (int i = 0; i < array.size(); i++) {
+            JSONObject item = array.getJSONObject(i);
+            if (Objects.equals(id, item.getString("goodId"))) {
                 return item;
             }
         }

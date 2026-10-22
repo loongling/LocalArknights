@@ -119,7 +119,7 @@ public class ArknightsApplication {
         }
 
         LOGGER.info("数据库版本 " + MysqlVersion);
-        LOGGER.info("服务端版本 0.4.1.1 Alpha-fixed-1");
+        LOGGER.info("服务端版本 0.4.3.1 Alpha");
         LOGGER.info("客户端版本 2.7.81Win");
         LOGGER.info("构建时间 2026年10月19日 12:00:00");
         if (serverConfig.getJSONObject("server").getString("GMKey") == null) {
@@ -187,24 +187,25 @@ public class ArknightsApplication {
         }
     }
 
-    public static boolean checkCanCheckInToday(long ts) {
-        //TODO
-        return true;
-    }
-
     public static int checkCheckInItemType(String item_type) {
         if (item_type == null) {
             return -1;
         }
-        switch (item_type.trim().toUpperCase(java.util.Locale.ROOT)) {
-            case "GOLD": return 1;
-            case "CARD_EXP", "MATERIAL": return 2;
-            case "TKT_RECRUIT", "TKT_INST_FIN", "TKT_GACHA", "CLASSIC_TKT_GACHA_10": return 3;
-            case "LGG_SHD", "HGG_SHD": return 4;
-            case "VOUCHER_PICK", "OPTIONAL_VOUCHER_PICK", "MATERIAL_ISSUE_VOUCHER", "VOUCHER_LEVELMAX_5", "VOUCHER_ELITE_II_5": return 5;
-            case "DIAMOND": return 6;
-            default: return -1;
-        }
+        return switch (item_type.trim().toUpperCase(Locale.ROOT)) {
+            case "GOLD" -> 1;
+            case "CARD_EXP", "MATERIAL" -> 2;
+            case "TKT_RECRUIT", "TKT_INST_FIN", "TKT_GACHA", "CLASSIC_TKT_GACHA_10", "TKT_GACHA_10",
+                 "EXCLUSIVE_TKT_GACHA", "EXCLUSIVE_TKT_GACHA_10" -> 3;
+            case "LGG_SHD", "HGG_SHD" -> 4;
+            case "VOUCHER_PICK", "OPTIONAL_VOUCHER_PICK", "MATERIAL_ISSUE_VOUCHER", "VOUCHER_LEVELMAX_5",
+                 "VOUCHER_ELITE_II_5", "VOUCHER_ELITE_II_4", "VOUCHER_ELITE_II_6", "RENAMING_CARD", "AP_SUPPLY" -> 5;
+            case "DIAMOND" -> 6;
+            case "CHAR" -> 7;
+            case "MCARD_VOUCHER" -> 8;
+            case "HOME_THEME", "HOME_BACKGROUND", "PLAYER_AVATAR"-> 9;
+            case "DIAMOND_SHD" -> 10;
+            default -> -1;
+        };
     }
 
     public static long getTimestamp() {
@@ -252,7 +253,7 @@ public class ArknightsApplication {
             }
         }
         return System.currentTimeMillis() / 1000L;
-    };
+    }
         public static final ConcurrentHashMap<String, String> IP_SECRET_MAP = new ConcurrentHashMap<>();
 
         // 绑定 IP -> secret
@@ -270,6 +271,13 @@ public class ArknightsApplication {
         if (product_id.startsWith("CS")) return 0;
         if (product_id.startsWith("GP")) return 1;
         return -1;
+    }
+
+    public static int getCharPhase(String phase) {
+        if (phase.startsWith("PHASE_")) {
+            return Integer.parseInt(phase.substring(6));
+        }
+        return Integer.parseInt(phase);
     }
 
     @Configuration

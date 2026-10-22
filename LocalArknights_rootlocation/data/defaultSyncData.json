@@ -2941,22 +2941,22 @@
   "dexNav": {
     "character": {
       "char_002_amiya": {
-        "charInstId": 1,
-        "count": 1,
-        "classicCount": 0
-      },
-      "char_502_nblade": {
         "charInstId": 2,
         "count": 1,
         "classicCount": 0
       },
+      "char_502_nblade": {
+        "charInstId": 502,
+        "count": 1,
+        "classicCount": 0
+      },
       "char_500_noirc": {
-        "charInstId": 3,
+        "charInstId": 500,
         "count": 1,
         "classicCount": 0
       },
       "char_503_rang": {
-        "charInstId": 4,
+        "charInstId": 503,
         "count": 1,
         "classicCount": 0
       }
@@ -2999,7 +2999,7 @@
       }
     },
     "chars": {
-      "1": {
+      "2": {
         "charId": "char_002_amiya",
         "lastApAddTime": 1791599176,
         "ap": 8640000,
@@ -3023,7 +3023,7 @@
         "workTime": 0,
         "privateRooms": []
       },
-      "2": {
+      "502": {
         "charId": "char_502_nblade",
         "lastApAddTime": 1791599176,
         "ap": 8640000,
@@ -3047,7 +3047,7 @@
         "workTime": 0,
         "privateRooms": []
       },
-      "3": {
+      "500": {
         "charId": "char_500_noirc",
         "lastApAddTime": 1791599176,
         "ap": 8640000,
@@ -3071,7 +3071,7 @@
         "workTime": 0,
         "privateRooms": []
       },
-      "4": {
+      "503": {
         "charId": "char_503_rang",
         "lastApAddTime": 1791599176,
         "ap": 8640000,

@@ -130,4 +130,41 @@ public class testAPI {
         }
         return result;
     }
+
+    @GetMapping("/checkInAct")
+    public JSONObject nextDayActCheckIn(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String sk = request.getHeader("SK");
+        JSONObject result = new JSONObject();
+        if (sk == null) {
+            response.setStatus(400);
+            result.put("status", "400");
+            result.put("msg", "Auth Failed");
+        } else  if(!sk.equals(ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey"))) {
+            response.setStatus(400);
+            result.put("status", "400");
+            result.put("msg", "Auth Failed");
+        }
+        else  {
+            long uid = JsonBody.getLong("uid");
+            List<Account> accounts = userDao.queryAccountByUid(uid);
+            Account user = accounts.get(0);
+            JSONObject UserSyncData;
+            try {
+                UserSyncData = JSONObject.parseObject(user.getUser());
+                if (UserSyncData == null) {
+                    throw new Exception("解析用户数据失败");
+                }
+            } catch (Exception e) {
+                LOGGER.error("解析用户数据失败, UID: " + uid, e);
+                return new JSONObject();
+            }
+            UserSyncData.getJSONObject("openServer").getJSONObject("checkIn").getJSONArray("history").add(1);
+            result.put("status", "200");
+            result.put("msg", "ok");
+            result.put("uid", uid);
+            userDao.setUserData(uid, UserSyncData);
+            return  result;
+        }
+        return result;
+    }
 }

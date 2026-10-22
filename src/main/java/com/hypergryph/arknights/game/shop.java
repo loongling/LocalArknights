@@ -70,9 +70,10 @@ public class shop {
             value = {"/buySkinGood"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buySkinGood(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buySkinGood(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buySkinGood");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
@@ -127,9 +128,10 @@ public class shop {
             value = {"/buyLowGood"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buyLowGood(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buyLowGood(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyLowGood");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
@@ -198,9 +200,10 @@ public class shop {
             value = {"/buyHighGood"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buyHighGood(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buyHighGood(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyHighGood");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
@@ -269,9 +272,10 @@ public class shop {
             value = {"/buyExtraGood"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buyExtraGood(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buyExtraGood(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyExtraGood");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
@@ -340,9 +344,10 @@ public class shop {
             value = {"/decomposePotentialItem"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject decomposePotentialItem(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject decomposePotentialItem(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/decomposePotentialItem");
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);

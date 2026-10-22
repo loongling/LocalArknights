@@ -222,9 +222,13 @@ public class quest {
 
         // 10. 首次通关奖励
         boolean FirstClear = checkFirstClear(UserSyncData, stageId);
+        JSONObject recruit = new JSONObject();
         JSONObject charGet = null;
         if (FirstClear) {
             charGet = handleFirstClearRewards(UserSyncData, stageId, chars, troop, firstReward);
+            if (stageId.equals("main_00-02") ) {
+                recruit = handleNormalGachaUnlock(UserSyncData, uid);
+            }
         }
 
         // 11. 关卡解锁
@@ -251,6 +255,7 @@ public class quest {
 
         // 15. 构建玩家数据变更
         JSONObject playerDataDelta = buildPlayerDataDelta(UserSyncData, unlockStagesObject, stageId, troop);
+        playerDataDelta.getJSONObject("modified").put("recruit", recruit);
         result.put("playerDataDelta", playerDataDelta);
         UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("completeTimes", UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("completeTimes") + 1);
 
@@ -262,6 +267,14 @@ public class quest {
     }
 
     // ========== 辅助方法实现 ==========
+    private JSONObject handleNormalGachaUnlock(JSONObject UserSyncData,long uid) {
+        UserSyncData.getJSONObject("recruit").getJSONObject("normal").getJSONObject("slots").getJSONObject("0").put("state", 1);
+        UserSyncData.getJSONObject("recruit").getJSONObject("normal").getJSONObject("slots").getJSONObject("1").put("state", 1);
+        JSONObject recruit = UserSyncData.getJSONObject("recruit");
+        userDao.setUserData(uid, UserSyncData);
+        return  recruit;
+    }
+
     private int resolveDropType(String dropType) {
         return switch (dropType) {
             case "ONCE" -> 1;

@@ -7,6 +7,8 @@ import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.file.IOTools;
 import com.hypergryph.arknights.core.pojo.Account;
+
+import java.sql.PseudoColumnUsage;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.*;
+
+import static com.hypergryph.arknights.core.work.checkAccount.checkAccount;
+import static com.hypergryph.arknights.core.work.checkAccount.createError;
+import static com.hypergryph.arknights.core.work.consumableNumberG.getInnerNumber;
+import static com.hypergryph.arknights.core.work.consumableNumberG.getInnerObject;
+import static com.hypergryph.arknights.core.work.processArray.handleTenGachaCould;
+import static com.hypergryph.arknights.core.work.processArray.handleTenGachaItem;
 
 @RestController
 @RequestMapping("/gacha")
@@ -32,33 +41,27 @@ public class gacha {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/syncNormalGacha");
         ArknightsApplication.LOGGER.info("syncNG" + JsonBody);
-
-        if (!ArknightsApplication.enableServer) {
-            response.setStatus(400);
-            return createErrorResponse(400, "服务器维护中");
-        }
-
         String secret = ArknightsApplication.getSecretByIP(clientIp);
-        List<Account> accounts = userDao.queryAccountBySecret(secret);
-        if (accounts.size() != 1) {
-            response.setStatus(401);
-            return createErrorResponse(2, "账户验证失败");
+
+        if (checkAccount(secret)) {
+            List<Account> accounts = userDao.queryAccountBySecret(secret);
+
+            Account account = accounts.get(0);
+            JSONObject userData = JSONObject.parseObject(account.getUser());
+            JSONObject result = new JSONObject();
+            JSONObject playerDataDelta = new JSONObject();
+            JSONObject modified = new JSONObject();
+            modified.put("recruit", userData.get("recruit"));
+            playerDataDelta.put("modified", modified);
+            playerDataDelta.put("deleted", new JSONObject());
+            result.put("playerDataDelta", playerDataDelta);
+            return result;
+        }
+        else {
+            createError(secret, response);
         }
 
-        Account account = accounts.get(0);
-        if (account.getBan() == 1L) {
-            response.setStatus(403);
-            return createErrorResponse(403, "账号已被封禁");
-        }
-
-        JSONObject result = new JSONObject();
-        JSONObject playerDataDelta = new JSONObject();
-        JSONObject modified = new JSONObject();
-        playerDataDelta.put("modified", modified);
-        playerDataDelta.put("deleted", new JSONObject());
-        result.put("playerDataDelta", playerDataDelta);
-
-        return result;
+        return new JSONObject();
     }
 
     @PostMapping("/normalGacha")
@@ -66,70 +69,64 @@ public class gacha {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/normalGacha");
         ArknightsApplication.LOGGER.info("normalG:" + jsonBody);
-
-        if (!ArknightsApplication.enableServer) {
-            response.setStatus(400);
-            return createErrorResponse(400, "服务器维护中");
-        }
-
         String secret = ArknightsApplication.getSecretByIP(clientIp);
-        List<Account> accounts = userDao.queryAccountBySecret(secret);
-        if (accounts.size() != 1) {
-            response.setStatus(401);
-            return createErrorResponse(2, "账户验证失败");
+
+        if (checkAccount(secret)) {
+            List<Account> accounts = userDao.queryAccountBySecret(secret);
+            Account account = accounts.get(0);
+
+            // 获取请求参数
+            int slotId = jsonBody.getIntValue("slotId");
+            JSONArray tagList = jsonBody.getJSONArray("tagList");
+            int duration = jsonBody.getIntValue("duration");
+            int specialTagId = jsonBody.getIntValue("specialTagId");
+
+            // 读取用户数据
+            JSONObject userData = JSONObject.parseObject(account.getUser());
+            JSONObject recruitSlot = userData.getJSONObject("recruit")
+                    .getJSONObject("normal")
+                    .getJSONObject("slots")
+                    .getJSONObject(String.valueOf(slotId));
+
+            // 检查招募许可
+            int recruitLicense = userData.getJSONObject("status").getIntValue("recruitLicense");
+            if (recruitLicense <= 0) {
+                response.setStatus(400);
+                return createErrorResponse(400, "招募许可不足");
+            }
+
+            // 更新招募信息
+            long currentTime = System.currentTimeMillis() / 1000;
+            recruitSlot.put("state", 2);
+            recruitSlot.put("selectTags", createSelectTags(tagList));
+            recruitSlot.put("startTs", currentTime);
+            recruitSlot.put("durationInSec", duration);
+            recruitSlot.put("maxFinishTs", currentTime + duration);
+            recruitSlot.put("realFinishTs", currentTime + duration);
+            recruitSlot.put("specialTagId", specialTagId);
+
+            // 更新招募许可数量
+            userData.getJSONObject("status").put("recruitLicense", recruitLicense - 1);
+
+            // 保存用户数据
+            userDao.setUserData(account.getUid(), userData);
+
+            // 构建响应
+            JSONObject result = new JSONObject();
+            JSONObject playerDataDelta = new JSONObject();
+            JSONObject modified = new JSONObject();
+            modified.put("recruit", userData.getJSONObject("recruit"));
+            modified.put("status", userData.getJSONObject("status"));
+            playerDataDelta.put("modified", modified);
+            playerDataDelta.put("deleted", new JSONObject());
+            result.put("playerDataDelta", playerDataDelta);
+
+            return result;
         }
-
-        Account account = accounts.get(0);
-        if (account.getBan() == 1L) {
-            response.setStatus(403);
-            return createErrorResponse(403, "账号已被封禁");
+        else {
+            createError(secret, response);
         }
-
-        // 获取请求参数
-        int slotId = jsonBody.getIntValue("slotId");
-        JSONArray tagList = jsonBody.getJSONArray("tagList");
-        int duration = jsonBody.getIntValue("duration");
-
-        // 读取用户数据
-        JSONObject userData = JSONObject.parseObject(account.getUser());
-        JSONObject recruitSlot = userData.getJSONObject("recruit")
-                .getJSONObject("normal")
-                .getJSONObject("slots")
-                .getJSONObject(String.valueOf(slotId));
-
-        // 检查招募许可
-        int recruitLicense = userData.getJSONObject("status").getIntValue("recruitLicense");
-        if (recruitLicense <= 0) {
-            response.setStatus(400);
-            return createErrorResponse(400, "招募许可不足");
-        }
-
-        // 更新招募信息
-        long currentTime = System.currentTimeMillis() / 1000;
-        recruitSlot.put("state", 2);
-        recruitSlot.put("selectTags", createSelectTags(tagList));
-        recruitSlot.put("startTs", currentTime);
-        recruitSlot.put("durationInSec", duration);
-        recruitSlot.put("maxFinishTs", currentTime + duration);
-        recruitSlot.put("realFinishTs", currentTime + duration);
-
-        // 更新招募许可数量
-        userData.getJSONObject("status").put("recruitLicense", recruitLicense - 1);
-
-        // 保存用户数据
-        userDao.setUserData(account.getUid(), userData);
-
-        // 构建响应
-        JSONObject result = new JSONObject();
-        JSONObject playerDataDelta = new JSONObject();
-        JSONObject modified = new JSONObject();
-        modified.put("recruit", userData.getJSONObject("recruit"));
-        modified.put("status", userData.getJSONObject("status"));
-        playerDataDelta.put("modified", modified);
-        playerDataDelta.put("deleted", new JSONObject());
-        result.put("playerDataDelta", playerDataDelta);
-
-        return result;
+        return null;
     }
 
     @PostMapping("/finishNormalGacha")
@@ -236,6 +233,10 @@ public class gacha {
         defaultGacha.put("maxCnt", maxCnt);
         defaultGacha.put("avail", avail);
         defaultGacha.put("cnt", cntD);
+        String itemId = "gachaTicket";
+        if (jsonBody.getString("itemId") != null) {
+            itemId = jsonBody.getString("itemId");
+        }
         if (poolId.startsWith("BOOT")){
             int cnt = gacha.getJSONObject("newbee").getIntValue("cnt");
             gacha.getJSONObject("newbee").put("cnt", cnt -1);
@@ -251,7 +252,7 @@ public class gacha {
             userdata.put("gacha", gacha);
             userDao.setUserData(uid, userdata);
         } else if(poolId.startsWith("GACHA")){}
-        return performAdvancedGacha(account, poolId, "gachaTicket", diamondCost, 1, useTkt, response);
+        return performAdvancedGacha(account, poolId, itemId, diamondCost, 1, useTkt, response, new JSONArray());
     }
 
     @PostMapping("/tenAdvancedGacha")
@@ -280,9 +281,10 @@ public class gacha {
 
         String poolId = jsonBody.getString("poolId");
         int useTkt = jsonBody.getIntValue("useTkt");
+        JSONArray itemList = jsonBody.getJSONArray("itemList");
         int diamondCost = poolId.startsWith("BOOT") ? 380 : 600;
 
-        return performAdvancedGacha(account, poolId, "tenGachaTicket", diamondCost, 10, useTkt, response);
+        return performAdvancedGacha(account, poolId, "tenGachaTicket", diamondCost, 10, useTkt, response, itemList);
     }
 
     @GetMapping("/activity")
@@ -296,7 +298,8 @@ public class gacha {
     private JSONObject createErrorResponse(int code, String message) {
         JSONObject result = new JSONObject();
         result.put("result", code);
-        result.put("error", message);
+        result.put("msg", message);
+        result.put("message", "server error");
         return result;
     }
 
@@ -504,7 +507,6 @@ public class gacha {
         buildingChar.put("roomSlotId", "");
         buildingChar.put("index", -1);
         buildingChar.put("changeScale", 0);
-
         JSONObject bubble = new JSONObject();
         JSONObject normal = new JSONObject();
         normal.put("add", -1);
@@ -542,18 +544,32 @@ public class gacha {
     private JSONObject performAdvancedGacha(Account account, String poolId,
                                             String ticketType, int diamondCost,
                                             int drawCount, int useTkt,
-                                            HttpServletResponse response) {
+                                            HttpServletResponse response, JSONArray itemList) {
         JSONObject userData = JSONObject.parseObject(account.getUser());
         JSONObject status = userData.getJSONObject("status");
 
-        // 验证资源
-        if (useTkt == 1 || useTkt == 2) {
-            if (status.getIntValue(ticketType) < drawCount) {
-                return createErrorResponse(400, "寻访凭证不足");
+        if (drawCount == 1) {
+            if (useTkt == 1 || useTkt == 2) {
+                if (status.getIntValue(ticketType) < drawCount) {
+                    return createErrorResponse(5771, "gacha_tkt_state_error");
+                }
+            } else if (useTkt == 4) {
+                JSONObject TKT = userData.getJSONObject("consumable").getJSONObject(ticketType);
+                JSONObject A = getInnerObject(TKT);
+                if (A.getInteger("count") < drawCount) {
+                    return createErrorResponse(5771, "gacha_tkt_state_error");
+                }
             }
-        } else {
-            if (status.getIntValue("diamondShard") < diamondCost * drawCount) {
-                return createErrorResponse(400, "合成玉不足");
+            else {
+                if (status.getIntValue("diamondShard") < diamondCost * drawCount) {
+                    return createErrorResponse(5647, "not enough diamond shard");
+                }
+            }
+        }
+        else if (drawCount == 10) {
+            ArknightsApplication.LOGGER.info("10抽");
+            if (!handleTenGachaCould(itemList, userData)){
+                return createErrorResponse(5771, "gacha_tkt_state_error");
             }
         }
 
@@ -604,14 +620,33 @@ public class gacha {
 
         // 保存保底数据
         exGachaData.put(gachaType, gachaCount);
-        userDao.setUserData(uid, UserSyncData);
 
         // 扣除资源
-        if (useTkt == 1 || useTkt == 2) {
-            status.put(ticketType, status.getIntValue(ticketType) - drawCount);
-        } else {
-            status.put("diamondShard", status.getIntValue("diamondShard") - diamondCost * drawCount);
+        if (drawCount == 1) {
+            if (useTkt == 1 || useTkt == 2) {
+                status.put(ticketType, status.getIntValue(ticketType) - drawCount);
+            }
+            else if (useTkt == 4) {
+                JSONObject TKT = userData.getJSONObject("consumable").getJSONObject(ticketType);
+                JSONObject A = getInnerObject(TKT);
+                JSONObject TKY = new JSONObject();
+                int me = getInnerNumber(TKT);
+                int o_count = A.getIntValue("count");
+                A.put("count", o_count - 1);
+                TKY.put(String.valueOf(me), A);
+                userData.getJSONObject("consumable").put(ticketType, TKY);
+            }
+            else {
+                status.put("diamondShard", status.getIntValue("diamondShard") - diamondCost * drawCount);
+            }
         }
+        else if(drawCount == 10) {
+            userData = handleTenGachaItem(itemList, userData);
+        }
+
+        //处理 dexNav
+        JSONObject dexNav0 = performDexNav(gachaResults, userData);
+        JSONObject dexNav = dexNav0.getJSONObject("dexNav");
 
         // 保存用户数据
         userDao.setUserData(account.getUid(), userData);
@@ -642,7 +677,9 @@ public class gacha {
         modified.put("status", status);
         modified.put("troop", userData.getJSONObject("troop"));
         modified.put("inventory", userData.getJSONObject("inventory"));
+        modified.put("consumable", userData.getJSONObject("consumable"));
         modified.put("gacha", gacha);
+        modified.put("dexNav", dexNav);
         playerDataDelta.put("modified", modified);
         playerDataDelta.put("deleted", new JSONObject());
         result.put("playerDataDelta", playerDataDelta);
@@ -803,6 +840,44 @@ public class gacha {
         result.put("isNew", isNew ? 1 : 0);
         result.put("itemGet", itemGet);
 
+        return result;
+    }
+
+    private JSONObject performDexNav(JSONArray gachaResultList,JSONObject userData) {
+        JSONObject result = new JSONObject();
+        JSONObject dexNav = new JSONObject();
+        JSONObject character = new JSONObject();
+        JSONObject id = new JSONObject();
+        JSONObject add = new JSONObject();
+        if (gachaResultList != null && !gachaResultList.isEmpty()) {
+            for (int i = 0; i < gachaResultList.size(); i++) {
+                if (gachaResultList.get(i) instanceof JSONObject item) {
+                    String charId = item.getString("charId");
+                    int isNew = item.getIntValue("isNew");
+                    int charInstId  = item.getIntValue("charInstId");
+                    if  (isNew == 1) {
+                        add.put("count", 1);
+                        add.put("charInstId", charInstId);
+                        add.put("classicCount", 0);
+                        id.put(charId, add);
+                        character.put("character", id);
+                        dexNav.put("dexNav", character);
+                        userData.getJSONObject("dexNav").getJSONObject("character").put(charId, add);
+                        result.put("dexNav", dexNav);
+                    } else if (isNew == 0) {
+                        int count = userData.getJSONObject("dexNav").getJSONObject("character").getJSONObject(charId).getIntValue("count");
+                        add.put("count", count);
+                        add.put("charInstId", charInstId);
+                        add.put("classicCount", 0);
+                        id.put(charId, add);
+                        character.put("character", id);
+                        dexNav.put("dexNav", character);
+                        userData.getJSONObject("dexNav").getJSONObject("character").getJSONObject(charId).put("count", count + 1);
+                        result.put("dexNav", dexNav);
+                    }
+                }
+            }
+        }
         return result;
     }
 }
