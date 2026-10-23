@@ -571,8 +571,9 @@ public class charBuild {
             value = {"/evolveChar"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject EvolveChar(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject EvolveChar(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/evolveChar");
         int charInstId = JsonBody.getIntValue("charInstId");
         int destEvolvePhase = JsonBody.getIntValue("destEvolvePhase");
@@ -597,7 +598,7 @@ public class charBuild {
                 JSONObject chars = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId));
                 JSONObject inventory = new JSONObject(true);
                 String charid = chars.getString("charId");
-                int rarity = ArknightsApplication.characterJson.getJSONObject(String.valueOf(charid)).getIntValue("rarity");
+                int rarity = getCharRarity(charid);
                 JSONArray phases = ArknightsApplication.characterJson.getJSONObject(String.valueOf(charid)).getJSONArray("phases");
                 JSONArray skills = ArknightsApplication.characterJson.getJSONObject(String.valueOf(charid)).getJSONArray("skills");
 
@@ -684,8 +685,9 @@ public class charBuild {
             value = {"/changeCharSkin"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject ChangeCharSkin(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject ChangeCharSkin(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/changeCharSkin");
         int charInstId = JsonBody.getIntValue("charInstId");
         String skinId = JsonBody.getString("skinId");
@@ -729,8 +731,9 @@ public class charBuild {
             value = {"/setCharVoiceLan"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject setCharVoiceLan(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject setCharVoiceLan(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/setCharVoiceLan");
         JSONArray charList = JsonBody.getJSONArray("charList");
         String voiceLan = JsonBody.getString("voiceLan");
@@ -776,8 +779,9 @@ public class charBuild {
             value = {"/batchSetCharVoiceLan"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject batchSetCharVoiceLan(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject batchSetCharVoiceLan(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/batchSetCharVoiceLan");
         String voiceLan = JsonBody.getString("voiceLan");
         List<Account> Accounts = userDao.queryAccountBySecret(secret);
@@ -835,8 +839,9 @@ public class charBuild {
             value = {"/unlockEquipment"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject unlockEquipment(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject unlockEquipment(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/unlockEquipment");
         int charInstId = JsonBody.getIntValue("charInstId");
         String templateId = JsonBody.getString("templateId");
@@ -881,8 +886,9 @@ public class charBuild {
             value = {"/setEquipment"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject setEquipment(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject setEquipment(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/setEquipment");
         int charInstId = JsonBody.getIntValue("charInstId");
         String templateId = JsonBody.getString("templateId");
@@ -927,8 +933,9 @@ public class charBuild {
             value = {"/addonStory/unlock"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject addonStoryUnlock(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject addonStoryUnlock(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/addonStory/unlock");
         String charId = JsonBody.getString("charId");
         String storyId = JsonBody.getString("storyId");
@@ -994,8 +1001,9 @@ public class charBuild {
             value = {"/addonStage/battleStart"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject addonStageBattleStart(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject addonStageBattleStart(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/addonStage/battleStart");
         String charId = JsonBody.getString("charId");
         String stageId = JsonBody.getString("stageId");
@@ -1073,8 +1081,9 @@ public class charBuild {
             value = {"/addonStage/battleFinish"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject addonStageBattleFinish(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject addonStageBattleFinish(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = JsonBody.getString("secret");
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/addonStage/battleFinish");
         List<Account> Accounts = userDao.queryAccountBySecret(secret);
         if (Accounts.size() != 1) {
@@ -1175,8 +1184,9 @@ public class charBuild {
             value = {"/changeCharTemplate"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject changeCharTemplate(@RequestHeader("secret") String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject changeCharTemplate(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/changeCharTemplate");
         int charInstId = JsonBody.getIntValue("charInstId");
         String templateId = JsonBody.getString("templateId");

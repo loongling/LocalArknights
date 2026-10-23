@@ -19548,7 +19548,7 @@
         "rts": -1,
         "val": [
           [
-            2,
+            3,
             360
           ]
         ]
@@ -19559,7 +19559,7 @@
         "rts": -1,
         "val": [
           [
-            2,
+            3,
             1000
           ]
         ]
@@ -19570,7 +19570,7 @@
         "rts": -1,
         "val": [
           [
-            2,
+            3,
             2000
           ]
         ]
@@ -20149,7 +20149,7 @@
           },
           {
             "state": 0,
-            "unlock": 0,
+            "unlock": 1,
             "skillId": "skchr_amiya_2",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
@@ -20165,7 +20165,7 @@
         "gainTime": 1791599176,
         "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
-        "evolvePhase": 0,
+        "evolvePhase": 1,
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
@@ -21431,7 +21431,7 @@
     "ap": 157,
     "exp": 0,
     "uid": 10000003,
-    "gold": 12000,
+    "gold": 111095281,
     "flags": {
       "init": 1,
       "obt/guide/l0-0/0_home_ui": 1
@@ -21454,14 +21454,14 @@
     "socialPoint": 0,
     "classicShard": 0,
     "diamondShard": 9999999,
-    "lastOnlineTs": 1792381130,
+    "lastOnlineTs": 1792677477,
     "apLimitUpFlag": 0,
     "lastApAddTime": 1791599176,
-    "lastRefreshTs": 1792381130,
+    "lastRefreshTs": 1792677477,
     "androidDiamond": 0,
     "friendNumLimit": 115,
     "practiceTicket": 999,
-    "recruitLicense": 0,
+    "recruitLicense": 2,
     "tenGachaTicket": 1,
     "secretarySkinId": "char_002_amiya#1",
     "buyApRemainTimes": 10,
@@ -21475,7 +21475,7 @@
   },
   "ticket": {},
   "checkIn": {
-    "showCount": 2,
+    "showCount": 3,
     "canCheckIn": 0,
     "newbiePackage": {
       "open": false,
@@ -21487,6 +21487,7 @@
     "checkInGroupId": "signin98",
     "checkInHistory": [
       0,
+      0,
       0
     ],
     "newbieChooseGP": {
@@ -21494,7 +21495,7 @@
         "stopSale": 1792785599
       }
     },
-    "checkInRewardIndex": 2
+    "checkInRewardIndex": 3
   },
   "deepSea": {
     "logs": {},
@@ -61141,7 +61142,13 @@
     "selected": "tm_rhodes_day"
   },
   "inventory": {
-    "2001": 10
+    "2001": 8,
+    "2004": 99988,
+    "3251": 9997,
+    "3252": 1000,
+    "30042": 1996,
+    "30061": 2000,
+    "30062": 1996
   },
   "pushFlags": {
     "status": 1791599176,
@@ -61485,11 +61492,18 @@
     },
     "selected": "bg_rhodes_day"
   },
-  "consumable": {},
+  "consumable": {
+    "voucher_elite_II_5": {
+      "0": {
+        "ts": -1,
+        "count": 2
+      }
+    }
+  },
   "openServer": {
     "checkIn": {
       "history": [
-        1
+        0
       ],
       "isAvailable": true
     },
@@ -61501,7 +61515,8 @@
     },
     "chainLogin": {
       "history": [
-        1
+        0,
+        0
       ],
       "nowIndex": 0,
       "finalReward": 0,
