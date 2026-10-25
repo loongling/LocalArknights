@@ -35,24 +35,32 @@
 	},
 	"version":{
 		"android":{
-			"resVersion":"26-10-14-13-45-10-99469376",
+			"resVersion":"26-10-22-14-02-11-51447808",
 			"clientVersion":"2.7.81"
 		},
 		"ios":{
-			"resVersion":"26-10-14-13-39-00-86892447",
+			"resVersion":"26-10-22-13-48-45-09041897",
 			"clientVersion":"2.7.81"
 		},
 		"Windows":{
-			"resVersion":"26-10-14-13-44-12-52990322",
+			"resVersion":"26-10-22-13-56-52-86025105",
 			"clientVersion":"2.7.81"
 		},
-		"global": {
+		"global_Android": {
 			"resVersion": "26-10-03-16-06-39_0a6acf",
 			"clientVersion": "37.7.41"
+		},
+		"global_Windows": {
+			"resVersion":"26-09-30-10-39-59_597fcc",
+			"clientVersion":"37.7.41"
+		},
+		"global_IOS": {
+			"resVersion":"26-10-04-21-10-59_abd9cb",
+			"clientVersion":"37.7.41"
 		}
 	},
 	"assets":{
-		"enableRedirect": false,
+		"enableRedirect": true,
 		"cdnBase":"https://ak.hycdn.cn/assetbundle/official",
 		"redirectUrl":{
 			"Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-14-13-45-10-99469376",

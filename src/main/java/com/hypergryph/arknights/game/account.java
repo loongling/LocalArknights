@@ -112,7 +112,6 @@ public class account {
 
             Long ts = ArknightsApplication.getTimestamp();
             Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
-            ;
             boolean canCheck = canCheckIn(lastLogin, ts);
             if (canCheck) {
                 if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getBoolean("isAvailable")) {
@@ -246,11 +245,23 @@ public class account {
                         UserSyncData.getJSONObject("pushFlags").put("hasFriendRequest", 1);
                     }
 
+                    JSONObject modified = new JSONObject(true);
+
+                    if (canCheckIn(UserSyncData.getJSONObject("status").getLong("lastOnlineTs"), ArknightsApplication.getTimestamp())) {
+                        Long ts = ArknightsApplication.getTimestamp();
+                        Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
+                        boolean canCheck = canCheckIn(lastLogin, ts);
+                        if (canCheck) {
+                            UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);
+                            JSONObject checkIn = new JSONObject(true);
+                            checkIn.put("canCheckIn", 1);
+                            modified.put("checkIn", checkIn);
+                        }
+                    }
                     userDao.setMailsData(uid, listMailBox);
                     userDao.setUserData(uid, UserSyncData);
                     JSONObject result = new JSONObject(true);
                     JSONObject playerDataDelta = new JSONObject(true);
-                    JSONObject modified = new JSONObject(true);
                     modified.put("status", UserSyncData.getJSONObject("status"));
                     modified.put("gacha", UserSyncData.getJSONObject("gacha"));
                     modified.put("inventory", UserSyncData.getJSONObject("inventory"));

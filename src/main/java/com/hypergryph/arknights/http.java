@@ -2,38 +2,48 @@ package com.hypergryph.arknights;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class http {
-    int ServerPort;
-    int HttpPort;
+    private final int serverPort;
+    private final int httpPort;
 
     public http() {
-        this.ServerPort = ArknightsApplication.serverConfig.getJSONObject("server").getIntValue("https");
-        this.HttpPort = ArknightsApplication.serverConfig.getJSONObject("server").getIntValue("http");
+        this.serverPort = ArknightsApplication.serverConfig.getJSONObject("server").getIntValue("https");
+        this.httpPort = ArknightsApplication.serverConfig.getJSONObject("server").getIntValue("http");
     }
 
     @Bean
     public TomcatServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
+            @Override
             protected void postProcessContext(Context context) {
             }
         };
-        tomcat.addAdditionalTomcatConnectors(new Connector[]{this.initiateHttpConnector()});
+
+        tomcat.addConnectorCustomizers(http::allowBracketChars);
+
+        Connector httpConnector = initiateHttpConnector();
+        allowBracketChars(httpConnector);
+        tomcat.addAdditionalTomcatConnectors(httpConnector);
+
         return tomcat;
     }
 
     private Connector initiateHttpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
-        connector.setPort(this.HttpPort);
-        connector.setRedirectPort(this.ServerPort);
+        connector.setPort(this.httpPort);
+        connector.setRedirectPort(this.serverPort);
         connector.setSecure(true);
         return connector;
+    }
+
+    private static void allowBracketChars(Connector connector) {
+        connector.setProperty("relaxedPathChars", "[,]");
+        connector.setProperty("relaxedQueryChars", "[,]");
     }
 }

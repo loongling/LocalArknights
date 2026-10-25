@@ -2,6 +2,7 @@ package com.hypergryph.arknights.core.work;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class checkCanCheckIn {
@@ -35,6 +36,13 @@ public class checkCanCheckIn {
                 .atTime(RESET_HOUR, 0)
                 .atZone(ZONE)
                 .toEpochSecond();
+    }
+
+    public static long getTomorrow4Am() {
+        LocalDateTime tomorrow4Am = LocalDate.now(ZONE)
+                .plusDays(1)
+                .atTime(4, 0, 0);
+        return tomorrow4Am.atZone(ZONE).toEpochSecond();
     }
 
     public static long remainSeconds(long now) {

@@ -1,7 +1,7 @@
 {
   "stages": {
     "main_00-01": {
-      "stageType": "MAIN",
+      "stageType": "MAIN"
       "difficulty": "NORMAL",
       "performanceStageFlag": "NORMAL_STAGE",
       "diffGroup": "NONE",
