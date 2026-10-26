@@ -4,8 +4,6 @@
 ## 如何在外部修改密码和注册？
 双击项目根目录的 `login.html` 在网页里完成
 
-# 在完成新手签到端口修复前请大家不要修改syncData中openServer的isAvailable
-
 # 更新日志
 请阅读[更新日志](./Update.md)
 
@@ -42,10 +40,10 @@
 请使用java17以上的java版本在CMD或Powershell中运行,MySQL(8.0以上)请自行准备,不要忘记改config.json中的设置
 
 1、首先运行 `chcp 65001`  
-2、在项目根目录运行`hypergryph-0.4.1.1 Alpha-fixed-1.jar`
+2、在项目根目录运行`hypergryph-0.4.4.0 Alpha.jar`
 ```bash
 chcp 65001
-java -jar "hypergryph-0.4.1.1 Alpha-fixed-1.jar"
+java -jar "hypergryph-0.4.4.0 Alpha.jar"
 ```
 
 ## 已知问题

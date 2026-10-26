@@ -43,7 +43,6 @@ public class prod {
         content.put("funcVer", server_network.getString("funcVer"));
         content.put("configs", configs);
         network.put("content", content.toJSONString());
-        network.put("type", "A");
         return network;
     }
     @RequestMapping({"/official/Android/version"})

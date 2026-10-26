@@ -1,0 +1,1648 @@
+{
+  "Code": 200,
+  "Data": {
+    "CodeList": [
+      {
+        "Code": 100150,
+        "Value": "Incorrect UID or Transfer Code",
+        "Type": "toast"
+      },
+      {
+        "Code": 100100,
+        "Value": "The device has been restricted.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100131,
+        "Value": "The account has been in the cooling-off period for account deletion now.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100130,
+        "Value": "The account has been banned.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100140,
+        "Value": "Login failed, please try again.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100141,
+        "Value": "The Yostar account is currently in the cooling-off period for account deletion.",
+        "Type": "none"
+      },
+      {
+        "Code": 0,
+        "Value": "Succeed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100120,
+        "Value": "Login failed. Please check your network and try again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100160,
+        "Value": "You have set your birth date and it can't be changed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100161,
+        "Value": "The birth date can't be later than today.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100133,
+        "Value": "Login or payment are not allowed because you do not meet the minimum age requirement.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100132,
+        "Value": "Login canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": -1,
+        "Value": "Unknown Error.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100110,
+        "Value": "Login failed, please try again.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200519,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200320,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200602,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100226,
+        "Value": "Logging in, please wait.",
+        "Type": "toast"
+      },
+      {
+        "Code": 500301,
+        "Value": "Item ID of the game has existed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100180,
+        "Value": "No bindings found. Unable to unbind.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100813,
+        "Value": "PGS Parameter configuration Error",
+        "Type": "toast"
+      },
+      {
+        "Code": 500401,
+        "Value": "Field format is incorrect.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200617,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 600310,
+        "Value": "A maximum of 500 allowlist accounts per application.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100162,
+        "Value": "Account deleted. Transfer code login is unavailable.",
+        "Type": "none"
+      },
+      {
+        "Code": 100225,
+        "Value": "Login authorization canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400214,
+        "Value": "This account does not exist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100235,
+        "Value": "Account deletion is not available.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200509,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200150,
+        "Value": "Could not verify this purchase.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200224,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 400139,
+        "Value": "Data verification has expired. Please try again.",
+        "Type": "toast"
+      },
+      {
+        "Code": 902404,
+        "Value": "This error code does not exist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400300,
+        "Value": "This account has completed its migration and cannot be migrated again",
+        "Type": "pop"
+      },
+      {
+        "Code": 200253,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200161,
+        "Value": "Order refund failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200209,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200181,
+        "Value": "Pending offline payment.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200180,
+        "Value": "Payment succeeded. Now packing.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200615,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400218,
+        "Value": "Binding failed. The Yostar account hasn't been bound to a third-party account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200218,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100240,
+        "Value": "Apple authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200236,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100814,
+        "Value": "PGS Parameter configuration Error",
+        "Type": "toast"
+      },
+      {
+        "Code": 200244,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200350,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200604,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200229,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 300100,
+        "Value": "Failed to share.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200610,
+        "Value": "Please upgrade ONE store payment and try again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200247,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200141,
+        "Value": "Order creation failed: Purchase currency is not supported",
+        "Type": "pop"
+      },
+      {
+        "Code": 300204,
+        "Value": "Client version outdated.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200618,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200130,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200340,
+        "Value": "Payment canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200240,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 300203,
+        "Value": "Channel does not exist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100232,
+        "Value": "The account is not deleted. Unable to recover.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400147,
+        "Value": "Failed to process due to abnormal Yostar account status.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100400,
+        "Value": "System error. Please contact Customer Service.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200170,
+        "Value": "Illegal purchase request.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200504,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100223,
+        "Value": "Google authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100710,
+        "Value": "Graphic verification has been enabled, please restart the app to verify",
+        "Type": "toast"
+      },
+      {
+        "Code": 100243,
+        "Value": "Apple authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100306,
+        "Value": "Invalid Yostar account format.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200242,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100244,
+        "Value": "Apple authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200400,
+        "Value": "Payment failed. Steam account status is abnormal.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200518,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200612,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200330,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100803,
+        "Value": "Questionnaire has expired. Please reissue.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200300,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 301000,
+        "Value": "Notification permissions are not enabled.",
+        "Type": "none"
+      },
+      {
+        "Code": 200505,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200502,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 600000,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200506,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200301,
+        "Value": "An error occrred in Amazon Pay",
+        "Type": "pop"
+      },
+      {
+        "Code": 200246,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 400217,
+        "Value": "Binding failed. There're abnormal activities with your account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100403,
+        "Value": "The login has expired, please log in again.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100502,
+        "Value": "You're not in the Allowlist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100222,
+        "Value": "TW authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 201182,
+        "Value": "This payment method is unavailable.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200249,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 300205,
+        "Value": "Item requested doesn't exist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 110110,
+        "Value": "Login failed, 2.X SDK service unavailable",
+        "Type": "pop"
+      },
+      {
+        "Code": 100600,
+        "Value": "Interface parameter error. Invoke failed",
+        "Type": "none"
+      },
+      {
+        "Code": 200154,
+        "Value": "Could not verify this purchase.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200500,
+        "Value": "Payment canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100811,
+        "Value": "PGS Parameter configuration Error",
+        "Type": "toast"
+      },
+      {
+        "Code": 200153,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400145,
+        "Value": "Authorization failed. Please try again.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200219,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 300103,
+        "Value": "Sharing cancelled",
+        "Type": "none"
+      },
+      {
+        "Code": 200251,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200507,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100401,
+        "Value": "Please try again after logging in.",
+        "Type": "toast"
+      },
+      {
+        "Code": 110404,
+        "Value": "SDK migration function is not enabled. No migration URL is configured for the project",
+        "Type": "pop"
+      },
+      {
+        "Code": 200501,
+        "Value": "Please upgrade Samsung Pay and try again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 902001,
+        "Value": "This error code has existed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200508,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 300101,
+        "Value": "Sorry, sharing is currently not available.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100700,
+        "Value": "Sorry, you do not have access to the test server.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200605,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100241,
+        "Value": "Login authorization canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200310,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100711,
+        "Value": "Graphic verification failed, please try again",
+        "Type": "toast"
+      },
+      {
+        "Code": 200608,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400310,
+        "Value": "Account migration failed. This user already exists.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400136,
+        "Value": "Your nickname is being reviewed. Please try again later.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200514,
+        "Value": "Please log in to Samsung Pay and try again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200217,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200513,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200613,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100220,
+        "Value": "Login authorization canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": 600320,
+        "Value": "Products paid manually cannot be refunded.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200620,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100233,
+        "Value": "The account has been in the cooling-off period for account deletion now.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400140,
+        "Value": "Recovery email can't be the same as Primary email. Please enter a new one.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400130,
+        "Value": "This Yostar account has been banned.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200606,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200162,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200261,
+        "Value": "An error occrred in Amazon Pay",
+        "Type": "pop"
+      },
+      {
+        "Code": 100311,
+        "Value": "Verification failed, please try again",
+        "Type": "toast"
+      },
+      {
+        "Code": 500305,
+        "Value": "Item synchronization failed. The field format is incorrect",
+        "Type": "toast"
+      },
+      {
+        "Code": 200160,
+        "Value": "Illegal purchase request.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100230,
+        "Value": "Initialization failed, please try again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200225,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100305,
+        "Value": "Current email address has been banned.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200607,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200159,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200205,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100601,
+        "Value": "PID is invalid",
+        "Type": "none"
+      },
+      {
+        "Code": 100910,
+        "Value": "The account does not exist.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200512,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200233,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200237,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200190,
+        "Value": "Could not verify this purchase.",
+        "Type": "pop"
+      },
+      {
+        "Code": 300202,
+        "Value": "The game is offline.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200611,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100429,
+        "Value": "Too many codes sent, please try again later.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200614,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200515,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200110,
+        "Value": "Monthly spending limits exceeded. Unable to create a new order.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100801,
+        "Value": "Questionnaire request failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200163,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200281,
+        "Value": "An error occrred in Amazon Pay",
+        "Type": "pop"
+      },
+      {
+        "Code": 400202,
+        "Value": "Already bound. Unable to bind repeatedly.",
+        "Type": "toast"
+      },
+      {
+        "Code": 101401,
+        "Value": "Steam authorization failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 301001,
+        "Value": "Failed to create local notification.",
+        "Type": "none"
+      },
+      {
+        "Code": 200510,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100245,
+        "Value": "Apple authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200351,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 500302,
+        "Value": "Item ID of the store has existed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100213,
+        "Value": "Unable to unbind. Please bind your account to at least one third-party account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100202,
+        "Value": "Already bound. Unable to bind repeatedly.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100201,
+        "Value": "The user account has been bound to another third-party account. Please unbind first.",
+        "Type": "pop"
+      },
+      {
+        "Code": 600140,
+        "Value": "Failed to match SDKUID.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400400,
+        "Value": "Account migration failed. Please contact Customer Service.",
+        "Type": "pop"
+      },
+      {
+        "Code": 500306,
+        "Value": "Item synchronization failed. There are duplicate data",
+        "Type": "toast"
+      },
+      {
+        "Code": 400201,
+        "Value": "Binding failed. The Yostar account has been bound to another third-party account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200601,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 101235,
+        "Value": "The Yostar account and the game account are both in the deletion cooling-off period.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200204,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200157,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200231,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200203,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 101234,
+        "Value": "The Yostar account is in the cooling-off period for account deletion.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200158,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 201145,
+        "Value": "Steam payment failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200517,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 300209,
+        "Value": "API invoke failed. The text moderation function has not been enabled",
+        "Type": "pop"
+      },
+      {
+        "Code": 200226,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 110130,
+        "Value": "Login failed, please try again",
+        "Type": "toast"
+      },
+      {
+        "Code": 400138,
+        "Value": "The game account has been bound to another Google Play Games account, and the Google Play Games account currently logged in has also been bound to another game account.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200429,
+        "Value": "Apple's rate limit exceeded, retry attempts ongoing",
+        "Type": "toast"
+      },
+      {
+        "Code": 901001,
+        "Value": "This application has existed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400216,
+        "Value": "Binding failed. This account has been bound to another Yostar account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 500403,
+        "Value": "Failed to match SDKUID.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200156,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200214,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 400900,
+        "Value": "Binding failed. This Yostar account does not exist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200370,
+        "Value": "Order created. Unable to create it again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100900,
+        "Value": "The user is detected as a new user.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200201,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100228,
+        "Value": "The account has been deleted. Login failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200260,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400219,
+        "Value": "It's not allowed that Yostar ID is only bound to a PGS account.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200280,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200245,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 201235,
+        "Value": "Steam payment timed out.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200227,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200152,
+        "Value": "Order already completed. Please do not submit repeatedly.",
+        "Type": "pop"
+      },
+      {
+        "Code": 201236,
+        "Value": "Payment canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200220,
+        "Value": "Payment failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400144,
+        "Value": "This Yostar account has not been bound to a user account and cannot change its binding",
+        "Type": "toast"
+      },
+      {
+        "Code": 200213,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200401,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 300200,
+        "Value": "The game does not exist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200252,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100308,
+        "Value": "Refreshing too frequently, please try again later.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400146,
+        "Value": "Failed to bind. The Yostar account and the user are on different servers.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200151,
+        "Value": "Could not verify this purchase.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200380,
+        "Value": "Please confirm the agreement(s) first.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400132,
+        "Value": "Please bind an email address before unbinding your account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100500,
+        "Value": "System error. Please contact Customer Service.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100902,
+        "Value": "New Guest account login on American server and Korean server.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200600,
+        "Value": "Payment canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400134,
+        "Value": "Unbinding failed. This account is not authorized or has been unbound repeatedly.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400320,
+        "Value": "Account migration failed. This account has already migrated.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200360,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 500402,
+        "Value": "Duplicate data exists.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200200,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 600900,
+        "Value": "The maximum number of tags has been reached.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200230,
+        "Value": "Payment canceled.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200215,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200223,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100221,
+        "Value": "FB authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400133,
+        "Value": "Unable to unbind email.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100901,
+        "Value": "The user is detected as an already existing user.",
+        "Type": "toast"
+      },
+      {
+        "Code": 300404,
+        "Value": "Web authorization unavailable. Please add to the allowlist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 300102,
+        "Value": "The app is not installed in this device.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100190,
+        "Value": "Account verification failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400215,
+        "Value": "Binding failed. The Yostar account has been bound with another in-game account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200270,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200603,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400131,
+        "Value": "Invalid nickname. Please re-enter.",
+        "Type": "toast"
+      },
+      {
+        "Code": 300201,
+        "Value": "The game is under maintenance.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200208,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100320,
+        "Value": "Please use files with a maximum size of 5MB.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200212,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200243,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 500304,
+        "Value": "Item synchronization failed. Required fields have not been completed",
+        "Type": "toast"
+      },
+      {
+        "Code": 200239,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100404,
+        "Value": "Network error. Please connect again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100303,
+        "Value": "The verification code is incorrect.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200164,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200271,
+        "Value": "An error occrred in Amazon Pay",
+        "Type": "pop"
+      },
+      {
+        "Code": 400135,
+        "Value": "Your nickname contains invalid characters. Please enter a new one.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100310,
+        "Value": "Verification failed, please try again",
+        "Type": "toast"
+      },
+      {
+        "Code": 200232,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100812,
+        "Value": "PGS Parameter configuration Error",
+        "Type": "toast"
+      },
+      {
+        "Code": 200235,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 600230,
+        "Value": "Refund failed for this order.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200511,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 600200,
+        "Value": "Refund failed. This order does not needs a refund.",
+        "Type": "pop"
+      },
+      {
+        "Code": 500400,
+        "Value": "Required fields are not completed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 600220,
+        "Value": "Partial refunds are not available for this order.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200228,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200207,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200516,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100802,
+        "Value": "Questionnaire ID does not exist.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400137,
+        "Value": "Guest account can't be bound to PGS.",
+        "Type": "toast"
+      },
+      {
+        "Code": 500303,
+        "Value": "Item synchronization failed. Batch import is busy",
+        "Type": "toast"
+      },
+      {
+        "Code": 600130,
+        "Value": "Failed to match SDK order ID.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200100,
+        "Value": "Please set your birth date and try again.",
+        "Type": "none"
+      },
+      {
+        "Code": 600300,
+        "Value": "A maximum of 2000 test accounts per application.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200120,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200621,
+        "Value": "Please upgrade ONE store payment and try again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400200,
+        "Value": "Binding failed. This account has been bound to another Yostar account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 201232,
+        "Value": "This device does not support Apple Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200221,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 100200,
+        "Value": "The third-party account provided has been bound to another user account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 600210,
+        "Value": "Refunds are not available for this order.",
+        "Type": "pop"
+      },
+      {
+        "Code": 600120,
+        "Value": "Duplicate data exists.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200248,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200250,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100242,
+        "Value": "Apple authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 100302,
+        "Value": "Too many codes sent, please try again later.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200222,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200155,
+        "Value": "Payment failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200211,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200619,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100227,
+        "Value": "Google authorization failed.",
+        "Type": "toast"
+      },
+      {
+        "Code": 200210,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200216,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200609,
+        "Value": "Please log in to ONE store and try again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200206,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200238,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 500101,
+        "Value": "Order failed. This order has been refunded.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200202,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 600100,
+        "Value": "Tag does not exist.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200241,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 200616,
+        "Value": "An error occurred in ONE store payment.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200290,
+        "Value": "An error occurred in Google Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200503,
+        "Value": "An error occurred in Samsung Pay.",
+        "Type": "pop"
+      },
+      {
+        "Code": 600110,
+        "Value": "Duplicate data exists.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400142,
+        "Value": "User cancelled the authorization",
+        "Type": "toast"
+      },
+      {
+        "Code": 100236,
+        "Value": "This login method is not available.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100246,
+        "Value": "Current client doesn't support Sign in with Apple.",
+        "Type": "pop"
+      },
+      {
+        "Code": 500300,
+        "Value": "Item synchronization failed. The item does not exist",
+        "Type": "toast"
+      },
+      {
+        "Code": 200234,
+        "Value": "0",
+        "Type": "pop"
+      },
+      {
+        "Code": 400213,
+        "Value": "Unbinding failed. Please bind the Yostar account to at least one third-party account.",
+        "Type": "pop"
+      },
+      {
+        "Code": 400141,
+        "Value": "Query failed. Abnormality occurred in Text Moderation Interface.",
+        "Type": "toast"
+      },
+      {
+        "Code": 400143,
+        "Value": "This email address is currently bound as a recovery email and cannot be set as the primary email",
+        "Type": "toast"
+      },
+      {
+        "Code": 101600,
+        "Value": "This feature is not supported",
+        "Type": "toast"
+      },
+      {
+        "Code": 101601,
+        "Value": "Failed to set birth date",
+        "Type": "pop"
+      },
+      {
+        "Code": 100210,
+        "Value": "User does not exist",
+        "Type": "pop"
+      },
+      {
+        "Code": 200165,
+        "Value": "Order creation failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 101603,
+        "Value": "Aihelp is not enabled",
+        "Type": "toast"
+      },
+      {
+        "Code": 101602,
+        "Value": "Manual detection is not enabled",
+        "Type": "pop"
+      },
+      {
+        "Code": 101604,
+        "Value": "The window is closed",
+        "Type": "toast"
+      },
+      {
+        "Code": 100920,
+        "Value": "This device ID has been flagged as abnormal. Please register your account via alternative methods.",
+        "Type": "pop"
+      },
+      {
+        "Code": 201183,
+        "Value": "Failed to retrieve the payment address",
+        "Type": "pop"
+      },
+      {
+        "Code": 200900,
+        "Value": "MyCard transaction failed.",
+        "Type": "pop"
+      },
+      {
+        "Code": 100930,
+        "Value": "Device abnormality detected. Please contact customer service.",
+        "Type": "pop"
+      },
+      {
+        "Code": 110220,
+        "Value": "The account has been deleted and cannot be migrated.",
+        "Type": "pop"
+      },
+      {
+        "Code": 101605,
+        "Value": "An exception has occurred in the email client.",
+        "Type": "none"
+      },
+      {
+        "Code": 110201,
+        "Value": "Migration timed out. Please try again.",
+        "Type": "pop"
+      },
+      {
+        "Code": 110200,
+        "Value": "An account exists in the 2.x version but has not been migrated to the 4.x version. The migration process is required.",
+        "Type": "none"
+      },
+      {
+        "Code": 110210,
+        "Value": "An account exists in the 2.x version, and a guest account has been migrated in the 4.x version. The process for linking the third-party account is required.",
+        "Type": "none"
+      },
+      {
+        "Code": 400148,
+        "Value": "Could not find a matching session for this request.",
+        "Type": "pop"
+      },
+      {
+        "Code": 101940,
+        "Value": "You cannot log in with a guest account. Please use another method.",
+        "Type": "pop"
+      },
+      {
+        "Code": 200390,
+        "Value": "Google Pay transaction failed",
+        "Type": "pop"
+      },
+      {
+        "Code": 400330,
+        "Value": "Migration failed. Invalid email format",
+        "Type": "toast"
+      },
+      {
+        "Code": 200321,
+        "Value": "Google service network error",
+        "Type": "pop"
+      },
+      {
+        "Code": 200166,
+        "Value": "PingPong order creation failed: %s",
+        "Type": "pop"
+      },
+      {
+        "Code": 100422,
+        "Value": "Invalid PID in client request parameters",
+        "Type": "pop"
+      },
+      {
+        "Code": 101608,
+        "Value": "PGS account not signed in",
+        "Type": "toast"
+      },
+      {
+        "Code": 200111,
+        "Value": "The amount for a single top-up exceeds the limit",
+        "Type": "toast"
+      },
+      {
+        "Code": 101606,
+        "Value": "Failed to obtain achievement",
+        "Type": "toast"
+      },
+      {
+        "Code": 101607,
+        "Value": "Unknown achievement ID",
+        "Type": "toast"
+      },
+      {
+        "Code": 201450,
+        "Value": "Your order has been created. Please complete the payment before it expires",
+        "Type": "toast"
+      }
+    ]
+  },
+  "Msg": "OK"
+}

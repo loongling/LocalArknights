@@ -1,0 +1,11 @@
+{
+  "sign":"Rq9cFaYoHvWwdbr6ROQfLu70+F+2BF3+vEmnDLdPmacTFHXTyNC0SEeaHfl9W1/D86iJrxLRhs9puNaoK2ArOu6xNyeNf8IL45KxCjhseuGKDNwG65HdOYpGKIRvi8EitL9S3AoRtlsSeEV44D2Q7Y8c5gcfdMXkFXxBkYEa5wk=",
+  "content":
+  {"configVer":"1",
+    "funcVer":"V074","configs":{"V074":{"override":true,"network":{"gs":"https://gs.arknights.global:8443","as":"https://as.arknights.global","u8":"https://as.arknights.global/u8","hu":"https://ark-us-static-online.yo-star.com/assetbundle/official","hv":"https://ark-us-static-online.yo-star.com/assetbundle/official/{0}/version","rc":"https://ak-conf.arknights.global/config/prod/official/remote_config","an":"https://ark-us-static-online.yo-star.com/announce/{0}/announcement.meta.json","prean":"https://ak-webview.arknights.global","sl":"https://www.arknights.global/terms_of_service","of":"https://www.arknights.global","pkgAd":"https://play.google.com/store/apps/details?id=com.YoStarEN.Arknights","pkgIOS":"https://apps.apple.com/us/app/id1464872022?mt=8","secure":false}}}}",
+}
+{
+  "sign": "Rq9cFaYoHvWwdbr6ROQfLu70+F+2BF3+vEmnDLdPmacTFHXTyNC0SEeaHfl9W1/D86iJrxLRhs9puNaoK2ArOu6xNyeNf8IL45KxCjhseuGKDNwG65HdOYpGKIRvi8EitL9S3AoRtlsSeEV44D2Q7Y8c5gcfdMXkFXxBkYEa5wk=",
+  "content": "{"configVer":"1","funcVer":"0V74","configs":{"V074":{"override":true,"network":{"gs":"http://127.0.0.1:10029","as":"http://127.0.0.1:10029","u8":"http://127.0.0.1:10029/u8","hu":"http://127.0.0.1:10029/assetbundle/official","hv":"http://127.0.0.1:10029/assetbundle/official/{0}/version","rc":"http://127.0.0.1:10029/config/prod/official/remote_config","an":"http://127.0.0.1:10029/announce/{0}/announcement.meta.json","prean":"https://ak-webview.arknights.global","sl":"https://www.arknights.global/terms_of_service","of":"https://www.arknights.global","pkgAd":"https://play.google.com/store/apps/details?id=com.YoStarEN.Arknights","pkgIOS":"https://apps.apple.com/us/app/id1464872022?mt=8","secure":false}}}}",
+  "type": "A"
+}
