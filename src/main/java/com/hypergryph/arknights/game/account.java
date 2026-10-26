@@ -160,6 +160,25 @@ public class account {
                 UserSyncData.getJSONObject("checkIn").put("checkInGroupId", next_id);
             }
 
+            JSONArray missionBecame = com.hypergryph.arknights.core.function.MissionHelper
+                    .refreshActiveMissions(UserSyncData);
+            if (!missionBecame.isEmpty()) {
+                LOGGER.info("[MissionHelper] syncData 自愈任务: " + missionBecame.toJSONString());
+            }
+
+            try {
+                com.hypergryph.arknights.game.building.grantTutorialKit(UserSyncData);
+            } catch (Exception ignored) {
+            }
+
+            try {
+                int fixedRooms = com.hypergryph.arknights.game.building.repairAutoRooms(UserSyncData);
+                if (fixedRooms > 0) {
+                    LOGGER.info("[building] syncData 修复自动房间槽 {} 个", fixedRooms);
+                }
+            } catch (Exception ignored) {
+            }
+
             try {
                 userDao.setUserData(uid, UserSyncData);
             } catch (Exception e) {

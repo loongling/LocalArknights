@@ -61,7 +61,6 @@ public class official {
         File dir = new File(baseDir);
         File file = new File(dir, fileName);
 
-        // ---- 先保证文件在本地 ----
         if (!file.exists() || file.length() == 0) {
             if (!dir.exists() && !dir.mkdirs()) {
                 response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value());

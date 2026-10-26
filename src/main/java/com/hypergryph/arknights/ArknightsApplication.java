@@ -77,6 +77,7 @@ public class ArknightsApplication {
     public static JSONObject AllProductList;
     public static JSONObject unlockActivity;
     public static JSONObject buildingData;
+    public static JSONObject storyTable;
     public static CommandManager ConsoleCommandManager;
     public static ICommandSender Sender;
 
@@ -119,7 +120,7 @@ public class ArknightsApplication {
         }
 
         LOGGER.info("数据库版本 " + MysqlVersion);
-        LOGGER.info("服务端版本 0.4.3.1 Alpha");
+        LOGGER.info("服务端版本 v0.4.4.0 Alpha");
         LOGGER.info("客户端版本 2.7.81Win");
         LOGGER.info("构建时间 2026年10月19日 12:00:00");
         if (serverConfig.getJSONObject("server").getString("GMKey") == null) {
@@ -280,6 +281,22 @@ public class ArknightsApplication {
         return Integer.parseInt(phase);
     }
 
+    public static int getMissionId(String mission) {
+        if (mission.startsWith("main_")) {
+            return Integer.parseInt(mission.substring(5));
+        }
+        else if (mission.startsWith("sub_")) {
+            return Integer.parseInt(mission.substring(4));
+        }
+        else if (mission.startsWith("guide_")) {
+            return Integer.parseInt(mission.substring(6));
+        }
+        else if (mission.startsWith("daily_")) {
+            return Integer.parseInt(mission.substring(6));
+        }
+        return Integer.parseInt(mission);
+    }
+
     @Configuration
     public class WebConfig implements WebMvcConfigurer {
 
@@ -328,6 +345,7 @@ public class ArknightsApplication {
         openServer = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/open_server_table.json");
         DefaultSyncData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/defaultSyncData.json");
         characterJson = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/character_table.json");
+        storyTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/story_table.json");
         roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
         stageTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/stage_table.json").getJSONObject("stages");
         itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json").getJSONObject("items");
@@ -386,6 +404,7 @@ public class ArknightsApplication {
         AllProductList = new JSONObject();
         unlockActivity = new JSONObject();
         buildingData = new JSONObject();
+        storyTable = new JSONObject();
         ConsoleCommandManager = new CommandManager();
         Sender = () -> {
             return "Console";

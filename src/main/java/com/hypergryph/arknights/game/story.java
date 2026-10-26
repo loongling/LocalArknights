@@ -1,5 +1,6 @@
 package com.hypergryph.arknights.game;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
@@ -54,11 +55,31 @@ public class story {
                 } else {
                     UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
                     UserSyncData.getJSONObject("status").getJSONObject("flags").put(storyId, 1);
+                    JSONObject status = new JSONObject(true);
+                    if (ArknightsApplication.storyTable.getJSONObject(storyId).getInteger("setProgress") != -1) {
+                        int setProgress = ArknightsApplication.storyTable.getJSONObject(storyId).getInteger("setProgress");
+                        UserSyncData.getJSONObject("status").put("progress", setProgress);
+                        status.put("progress", setProgress);
+                    }
+                    String kitGranted = null;
+                    try {
+                        kitGranted = com.hypergryph.arknights.game.building.grantTutorialKit(UserSyncData);
+                    } catch (Exception ignored) {
+                    }
                     userDao.setUserData(uid, UserSyncData);
                     JSONObject result = new JSONObject(true);
+                    result.put("result", 0);
+                    result.put("items", new JSONArray());
                     JSONObject playerDataDelta = new JSONObject(true);
                     JSONObject modified = new JSONObject(true);
-                    modified.put("status", UserSyncData.getJSONObject("status"));
+                    JSONObject flag = UserSyncData.getJSONObject("status").getJSONObject("flags");
+                    status.put("flags", flag);
+                    modified.put("status", status);
+                    modified.put("mission", UserSyncData.getJSONObject("mission"));
+                    // 本次刚发了教程材料，把 inventory 一起下发，客户端才能立刻看到
+                    if (kitGranted != null && !"skip".equals(kitGranted)) {
+                        modified.put("inventory", UserSyncData.getJSONObject("inventory"));
+                    }
                     playerDataDelta.put("modified", modified);
                     playerDataDelta.put("deleted", new JSONObject(true));
                     result.put("playerDataDelta", playerDataDelta);

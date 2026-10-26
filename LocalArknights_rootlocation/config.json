@@ -28,7 +28,10 @@
 	},
 	"battle":{
 		"dropRate":1,
-		"debug":false
+		"debug":true
+	},
+	"basement": {
+		"produceSpeed": 1000
 	},
 	"shop":{
 		"enableDiamondShop":true

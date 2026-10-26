@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.decrypt.Utils;
+import com.hypergryph.arknights.core.function.MissionHelper;
 import com.hypergryph.arknights.core.pojo.Account;
 import com.hypergryph.arknights.core.pojo.SearchAssistCharList;
 import com.hypergryph.arknights.core.pojo.UserInfo;
@@ -220,6 +221,13 @@ public class quest {
         // 9. 战斗成功处理
         updateStageState(UserSyncData, stageId, completeState);
 
+        int missionCompleteTimes = UserSyncData.getJSONObject("dungeon")
+                .getJSONObject("stages").getJSONObject(stageId).getIntValue("completeTimes") + 1;
+        JSONArray touchedMissions = MissionHelper.onStageCleared(UserSyncData, stageId, missionCompleteTimes);
+        if (!touchedMissions.isEmpty()) {
+            ArknightsApplication.LOGGER.info("[MissionHelper] 本次达成任务: " + touchedMissions.toJSONString());
+        }
+
         // 10. 首次通关奖励
         boolean FirstClear = checkFirstClear(UserSyncData, stageId);
         JSONObject recruit = new JSONObject();
@@ -256,6 +264,13 @@ public class quest {
         // 15. 构建玩家数据变更
         JSONObject playerDataDelta = buildPlayerDataDelta(UserSyncData, unlockStagesObject, stageId, troop);
         playerDataDelta.getJSONObject("modified").put("recruit", recruit);
+        if (stageId.equals("main_00-10")) {
+            playerDataDelta.getJSONObject("modified").put("checkIn", UserSyncData.getJSONObject("checkIn").getJSONObject("newbiePackage"));
+        }
+        // 15.1 任务有变化时把 mission 一起下发（buildPlayerDataDelta 不含 mission）
+        if (!touchedMissions.isEmpty()) {
+            playerDataDelta.getJSONObject("modified").put("mission", UserSyncData.getJSONObject("mission"));
+        }
         result.put("playerDataDelta", playerDataDelta);
         UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("completeTimes", UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("completeTimes") + 1);
 
@@ -790,6 +805,7 @@ public class quest {
 
         // ========== 1. 解锁后续关卡 ==========
         String nextStageId = mainStageObj.getString("next");
+        String subStageId = mainStageObj.getString("sub");
         if (nextStageId != null) {
             addStageUnlock(UserSyncData, stageId, nextStageId, unlockStages, unlockStagesObject);
 
@@ -798,13 +814,17 @@ public class quest {
 
             if (!nextStageId.equals(stageId)
                     && (firstClear || stageId.equals(mainStageProgress))
-                    && ("main".equals(stageType) || "sub".equals(stageType))) {
+                    && ("MAIN".equals(stageType) || "SUB".equals(stageType))) {
                 UserSyncData.getJSONObject("status").put("mainStageProgress", nextStageId);
             }
         }
+        if (stageId.equals("main_00-10")) {
+            UserSyncData.getJSONObject("checkIn").getJSONObject("newbiePackage").put("open", true);
+            UserSyncData.getJSONObject("checkIn").getJSONObject("newbiePackage").put("finish", ArknightsApplication.getTimestamp() + 1209600);
+            UserSyncData.getJSONObject("checkIn").getJSONObject("newbiePackage").put("stopSale", ArknightsApplication.getTimestamp() + 1209600);
+        }
 
         // ========== 2. 解锁支线关卡 ==========
-        String subStageId = mainStageObj.getString("sub");
         if (subStageId != null) {
             addStageUnlock(UserSyncData, stageId, subStageId, unlockStages, unlockStagesObject);
         }

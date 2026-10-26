@@ -3277,7 +3277,7 @@
       "limitParam": null
     },
     {
-      "gachaPoolId": "NORM_34_0_2",
+      "gachaPoolId": "NORM_34_0_4",
       "gachaIndex": 466,
       "openTime": 1672862400,
       "endTime": 1674071999,
@@ -10350,7 +10350,7 @@
       "limitParam": null
     },
     {
-      "gachaPoolId": "CLASSIC_DOUBLE_67_0_2",
+      "gachaPoolId": "CLASSIC_DOUBLE_68_0_1",
       "gachaIndex": 9929,
       "openTime": 1765396800,
       "endTime": 1766606399,
@@ -11200,6 +11200,36 @@
         ],
         "scrollIndex": 8,
         "sub6RarityCharId": "char_003_kalts"
+      },
+      "linkageRuleId": null,
+      "linkageParam": null,
+      "limitParam": null
+    },
+    {
+      "gachaPoolId": "CLASSIC_DOUBLE_78_0_2",
+      "gachaIndex": 9906,
+      "openTime": 1793217600,
+      "endTime": 1794427199,
+      "gachaPoolName": "适合多种场合的强力干员",
+      "gachaPoolSummary": "结束于11月12日03:59",
+      "gachaPoolDetail": null,
+      "guaranteeName": "中坚选调",
+      "guarantee5Avail": 1,
+      "guarantee5Count": 10,
+      "LMTGSID": null,
+      "CDPrimColor": null,
+      "CDSecColor": null,
+      "freeBackColor": null,
+      "gachaRuleType": "CLASSIC_DOUBLE",
+      "dynMeta": {
+        "main6RarityCharId": "char_225_haak",
+        "rare5CharList": [
+          "char_145_prove",
+          "char_343_tknogi",
+          "char_144_red"
+        ],
+        "scrollIndex": 8,
+        "sub6RarityCharId": "char_213_mostma"
       },
       "linkageRuleId": null,
       "linkageParam": null,

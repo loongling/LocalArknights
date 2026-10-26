@@ -116,6 +116,23 @@ public class users {
     }
 
     @PostMapping(
+            value = {"/bindBirthday"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject bindBirthday(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        LOGGER.info("[/" + clientIp + "] /user/bindBirthday");
+        if (checkAccount(secret)) {
+            LOGGER.info(JsonBody);
+        }
+        else {
+            createError(secret, response);
+        }
+        return null;
+    }
+
+    @PostMapping(
             value = {"/exchangeDiamondShard"},
             produces = {"application/json;charset=UTF-8"}
     )
