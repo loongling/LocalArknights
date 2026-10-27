@@ -33,15 +33,11 @@ public class gacha {
         this.arknightsApplication = arknightsApplication;
     }
 
-    // 配置文件路径
-
-
     @PostMapping("/syncNormalGacha")
-    public JSONObject syncNormalGacha(@RequestBody JSONObject JsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject syncNormalGacha(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/syncNormalGacha");
         ArknightsApplication.LOGGER.info("syncNG" + JsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
 
         if (checkAccount(secret)) {
             List<Account> accounts = userDao.queryAccountBySecret(secret);
@@ -65,11 +61,10 @@ public class gacha {
     }
 
     @PostMapping("/normalGacha")
-    public JSONObject normalGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject normalGacha(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/normalGacha");
         ArknightsApplication.LOGGER.info("normalG:" + jsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
 
         if (checkAccount(secret)) {
             List<Account> accounts = userDao.queryAccountBySecret(secret);
@@ -130,7 +125,7 @@ public class gacha {
     }
 
     @PostMapping("/finishNormalGacha")
-    public JSONObject finishNormalGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject finishNormalGacha(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/finishNormalGacha");
         ArknightsApplication.LOGGER.info("finishNG:" + jsonBody);
@@ -140,7 +135,6 @@ public class gacha {
             return createErrorResponse(400, "服务器维护中");
         }
 
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         List<Account> accounts = userDao.queryAccountBySecret(secret);
         if (accounts.size() != 1) {
             response.setStatus(401);
@@ -156,25 +150,133 @@ public class gacha {
         int slotId = jsonBody.getIntValue("slotId");
         JSONObject userData = JSONObject.parseObject(account.getUser());
 
-        // 执行公开招募
-        JSONObject gachaResult = performNormalGacha(userData);
+        JSONObject slots = userData.getJSONObject("recruit").getJSONObject("normal").getJSONObject("slots");
+        JSONObject recruitSlot = slots == null ? null : slots.getJSONObject(String.valueOf(slotId));
+        if (recruitSlot == null) {
+            response.setStatus(400);
+            return createErrorResponse(5754, "recruit_slot_not_found: " + slotId);
+        }
+        int slotState = recruitSlot.getIntValue("state");
+        if (slotState != 2 && slotState != 3) {
+            response.setStatus(400);
+            return createErrorResponse(5754, "recruit_slot_state_error: state=" + slotState);
+        }
+        JSONArray selectTags = recruitSlot.getJSONArray("selectTags");
+        // 招募时长决定稀有度区间；满 9 小时 + 资深/高级资深干员 tag 会触发保底。
+        // durationInSec 由 /gacha/normalGacha 写入，异常值按 1 小时处理。
+        int durationSec = recruitSlot.getIntValue("durationInSec");
+        if (durationSec <= 0) {
+            durationSec = 3600;
+        }
 
-        // 更新用户数据
+        JSONObject gachaResult = performNormalGacha(userData, selectTags, durationSec);
+
         updateUserAfterNormalGacha(userData, gachaResult, slotId);
         userDao.setUserData(account.getUid(), userData);
 
-        // 构建响应
-        JSONObject result = new JSONObject();
-        JSONObject playerDataDelta = new JSONObject();
-        JSONObject modified = new JSONObject();
+        // 4) 构建响应
+        //    客户端 FinishNormalGachaResponse = { int result; GachaResult charGet; }
+        JSONObject result = new JSONObject(true);
+        result.put("result", 0);
+        result.put("charGet", gachaResult);
+
+        JSONObject modified = new JSONObject(true);
         modified.put("recruit", userData.getJSONObject("recruit"));
         modified.put("status", userData.getJSONObject("status"));
         modified.put("troop", userData.getJSONObject("troop"));
-        playerDataDelta.put("modified", modified);
-        playerDataDelta.put("deleted", new JSONObject());
-        result.put("playerDataDelta", playerDataDelta);
-        result.put("charGet", gachaResult);
+        // building.chars 也会新增角色，inventory 里有潜能材料，必须一并下发
+        modified.put("building", userData.getJSONObject("building"));
+        modified.put("inventory", userData.getJSONObject("inventory"));
 
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+        result.put("playerDataDelta", playerDataDelta);
+
+        ArknightsApplication.LOGGER.info("[gacha] finishNormalGacha slot={} -> {} (isNew={})",
+                slotId, gachaResult.getString("charId"), gachaResult.getBooleanValue("isNew"));
+        return result;
+    }
+
+    @PostMapping("/boostNormalGacha")
+    public JSONObject boostNormalGacha(@RequestHeader(value = "secret", required = false) String secret,
+                                       @RequestBody JSONObject jsonBody,
+                                       HttpServletRequest request, HttpServletResponse response) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[" + clientIp + "] /gacha/boostNormalGacha");
+        ArknightsApplication.LOGGER.info("boostNG:" + jsonBody);
+
+        if (!ArknightsApplication.enableServer) {
+            response.setStatus(400);
+            return createErrorResponse(400, "服务器维护中");
+        }
+
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            response.setStatus(401);
+            return createErrorResponse(2, "账户验证失败");
+        }
+        Account account = accounts.get(0);
+        if (account.getBan() == 1L) {
+            response.setStatus(403);
+            return createErrorResponse(403, "账号已被封禁");
+        }
+
+        int slotId = jsonBody.getIntValue("slotId");
+
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject slots = userData.getJSONObject("recruit").getJSONObject("normal").getJSONObject("slots");
+        JSONObject recruitSlot = slots == null ? null : slots.getJSONObject(String.valueOf(slotId));
+        if (recruitSlot == null) {
+            response.setStatus(400);
+            return createErrorResponse(5754, "recruit_slot_not_found: " + slotId);
+        }
+        int slotState = recruitSlot.getIntValue("state");
+        if (slotState != 2) {
+            response.setStatus(400);
+            return createErrorResponse(5755, "recruit_slot_not_busy: state=" + slotState);
+        }
+
+        boolean lenient = true;
+        try {
+            lenient = ArknightsApplication.serverConfig.getJSONObject("battle").getBooleanValue("debug");
+        } catch (Exception ignored) {
+        }
+
+        JSONObject status = userData.getJSONObject("status");
+        int ticket = status.getIntValue("instantFinishTicket");
+
+        if (ticket > 0) {
+            status.put("instantFinishTicket", ticket - 1);
+        } else if (!lenient) {
+            response.setStatus(400);
+            return createErrorResponse(5012, "no instant finish ticket");
+        } else {
+            ArknightsApplication.LOGGER.warn("[gacha] 没有加急许可但 debug 放行加速: slot={}", slotId);
+        }
+
+        // 加速：直接进入可领取状态
+        long now = ArknightsApplication.getTimestamp();
+        recruitSlot.put("state", 3);                 // State.FAST_FINISH
+        recruitSlot.put("realFinishTs", now);
+        if (recruitSlot.getLongValue("maxFinishTs") > now) {
+            recruitSlot.put("maxFinishTs", now);
+        }
+
+        userDao.setUserData(account.getUid(), userData);
+
+        JSONObject modified = new JSONObject(true);
+        modified.put("recruit", userData.getJSONObject("recruit"));
+        modified.put("status", status);
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+
+        JSONObject result = new JSONObject(true);
+        result.put("result", 0);
+        result.put("playerDataDelta", playerDataDelta);
+        ArknightsApplication.LOGGER.info("[gacha] boostNormalGacha slot={} 完成，剩余加急许可={}",
+                slotId, status.getIntValue("instantFinishTicket"));
         return result;
     }
 
@@ -195,7 +297,7 @@ public class gacha {
     }
 
     @PostMapping("/advancedGacha")
-    public JSONObject advancedGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject advancedGacha(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/advancedGacha");
         ArknightsApplication.LOGGER.info("advanceG:" + jsonBody);
@@ -205,7 +307,6 @@ public class gacha {
             return createErrorResponse(400, "服务器维护中");
         }
 
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         List<Account> accounts = userDao.queryAccountBySecret(secret);
         if (accounts.size() != 1) {
             response.setStatus(401);
@@ -256,7 +357,7 @@ public class gacha {
     }
 
     @PostMapping("/tenAdvancedGacha")
-    public JSONObject tenAdvancedGacha(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject tenAdvancedGacha(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /gacha/tenAdvancedGacha");
         ArknightsApplication.LOGGER.info("TAG:" + jsonBody);
@@ -266,7 +367,6 @@ public class gacha {
             return createErrorResponse(400, "服务器维护中");
         }
 
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         List<Account> accounts = userDao.queryAccountBySecret(secret);
         if (accounts.size() != 1) {
             response.setStatus(401);
@@ -314,12 +414,303 @@ public class gacha {
         return selectTags;
     }
 
-    private JSONObject performNormalGacha(JSONObject userData) {
-        JSONObject chars = userData.getJSONObject("troop").getJSONObject("chars");
-        JSONObject buildingChars = userData.getJSONObject("troop").getJSONObject("building").getJSONObject("chars");
-        JSONArray availCharInfo = ArknightsApplication.normalGachaData.getJSONObject("detailInfo")
+    // ────────────────────────────────────────────────────────────
+    // 公开招募：tag 表 / 稀有度规则 / 池过滤 / tag 刷新
+    // ────────────────────────────────────────────────────────────
+
+    /** 满时长（9 小时）；官方：含「高级资深干员」必得 6★，含「资深干员」必得 5★ */
+    private static final int RECRUIT_FULL_DURATION_SEC = 9 * 3600;
+
+    private static final int TAG_TOP_OPERATOR = 11;   // 高级资深干员 -> rarityRank 5（6★）
+    private static final int TAG_SENIOR = 14;         // 资深干员     -> rarityRank 4（5★）
+
+    private static JSONObject GACHA_TABLE;
+
+    /** gacha_table.json 懒加载 */
+    private static synchronized JSONObject gachaTable() {
+        if (GACHA_TABLE == null) {
+            try {
+                GACHA_TABLE = IOTools.ReadJsonFile(
+                        System.getProperty("user.dir") + "/data/excel/gacha_table.json");
+            } catch (Exception e) {
+                ArknightsApplication.LOGGER.error("[gacha] 读取 gacha_table.json 失败: {}", e.toString());
+            }
+            if (GACHA_TABLE == null) {
+                GACHA_TABLE = new JSONObject();
+            }
+        }
+        return GACHA_TABLE;
+    }
+
+    /** gachaTags（tagId -> tagName） */
+    private static JSONArray gachaTags() {
+        JSONArray tags = gachaTable().getJSONArray("gachaTags");
+        return tags == null ? new JSONArray() : tags;
+    }
+
+    /**
+     * 满 9 小时 + 勾了特殊 tag 时，强制稀有度。
+     * 依据 gacha_table.specialTagRarityTable：{"11":[5], "14":[4]}
+     * 高级资深干员优先于资深干员。
+     *
+     * @return null 表示不强制
+     */
+    private static Integer forcedRarity(Set<Integer> tagIds, int durationSec) {
+        if (tagIds == null || tagIds.isEmpty() || durationSec < RECRUIT_FULL_DURATION_SEC) {
+            return null;
+        }
+        if (tagIds.contains(TAG_TOP_OPERATOR)) {
+            return 5;                       // 6★
+        }
+        if (tagIds.contains(TAG_SENIOR)) {
+            return 4;                       // 5★
+        }
+        return null;
+    }
+
+    /**
+     * 招募时长决定的稀有度区间。
+     * gacha_table.recruitRarityTable 的 key 是**分钟数**（recruitTimeTable 的 timeLength）：
+     *   <=230 分钟 -> 0..3   240..450 -> 1..4   460..540 -> 2..4
+     *
+     * @return {min, max}
+     */
+    private static int[] rarityRangeByDuration(int durationSec) {
+        int minutes = Math.max(10, durationSec / 60);
+        JSONObject table = gachaTable().getJSONObject("recruitRarityTable");
+        int min = 0;
+        int max = 4;
+        if (table != null && !table.isEmpty()) {
+            JSONObject entry = table.getJSONObject(String.valueOf(minutes));
+            if (entry == null) {
+                int best = -1;
+                for (String k : table.keySet()) {
+                    try {
+                        int kv = Integer.parseInt(k);
+                        if (kv <= minutes && kv > best) {
+                            best = kv;
+                        }
+                    } catch (NumberFormatException ignored) {
+                    }
+                }
+                if (best > 0) {
+                    entry = table.getJSONObject(String.valueOf(best));
+                }
+            }
+            if (entry != null) {
+                min = entry.getIntValue("rarityStart");
+                max = entry.getIntValue("rarityEnd");
+            }
+        }
+        return new int[]{min, max};
+    }
+
+    private static String tagNameOf(int tagId) {
+        JSONArray tags = gachaTags();
+        for (int i = 0; i < tags.size(); i++) {
+            JSONObject t = tags.getJSONObject(i);
+            if (t != null && t.getIntValue("tagId") == tagId) {
+                return t.getString("tagName");
+            }
+        }
+        return null;
+    }
+
+    /** 按稀有度区间过滤招募池；forced != null 时只保留该稀有度 */
+    private static JSONArray filterPoolByRarity(JSONArray perAvailList, int min, int max, Integer forced) {
+        JSONArray out = new JSONArray();
+        for (int i = 0; i < perAvailList.size(); i++) {
+            JSONObject bucket = perAvailList.getJSONObject(i);
+            int rank = bucket.getIntValue("rarityRank");
+            if (forced != null) {
+                if (rank != forced) {
+                    continue;
+                }
+            } else if (rank < min || rank > max) {
+                continue;
+            }
+            out.add(bucket);
+        }
+        return out;
+    }
+
+    /** 从 selectTags 里取出 tagId 集合 */
+    private static Set<Integer> tagIdSet(JSONArray selectTags) {
+        Set<Integer> ids = new HashSet<>();
+        if (selectTags != null) {
+            for (int i = 0; i < selectTags.size(); i++) {
+                JSONObject t = selectTags.getJSONObject(i);
+                if (t != null) {
+                    ids.add(t.getIntValue("tagId"));
+                }
+            }
+        }
+        return ids;
+    }
+
+    /** 刷新一个招募位的 5 个 tag（客户端 SlotModel.tags 是 int 数组） */
+    private JSONArray rollRecruitTags() {
+        JSONArray all = gachaTags();
+        List<Integer> ids = new ArrayList<>();
+        for (int i = 0; i < all.size(); i++) {
+            ids.add(all.getJSONObject(i).getIntValue("tagId"));
+        }
+        Collections.shuffle(ids);
+        JSONArray out = new JSONArray();
+        for (int i = 0; i < Math.min(5, ids.size()); i++) {
+            out.add(ids.get(i));
+        }
+        return out;
+    }
+
+    /** 职业 tag（1~8）→ character_table.profession */
+    private static final Map<Integer, String> PROFESSION_TAG = Map.of(
+            1, "WARRIOR",    // 近卫干员
+            2, "SNIPER",     // 狙击干员
+            3, "TANK",       // 重装干员
+            4, "MEDIC",      // 医疗干员
+            5, "SUPPORT",    // 辅助干员
+            6, "CASTER",     // 术师干员
+            7, "SPECIAL",    // 特种干员
+            8, "PIONEER");   // 先锋干员
+
+    private static boolean charMatchesTag(String charId, int tagId, String tagName) {
+        JSONObject ch = ArknightsApplication.characterJson.getJSONObject(charId);
+        if (ch == null) {
+            return false;
+        }
+        String prof = PROFESSION_TAG.get(tagId);
+        if (prof != null) {
+            return prof.equals(ch.getString("profession"));
+        }
+        switch (tagId) {
+            case 9: {                       // 近战位
+                String p = ch.getString("position");
+                return "MELEE".equals(p) || "ALL".equals(p);
+            }
+            case 10: {                      // 远程位
+                String p = ch.getString("position");
+                return "RANGED".equals(p) || "ALL".equals(p);
+            }
+            case 11:                        // 高级资深干员 = 6★
+                return "TIER_6".equals(ch.getString("rarity"));
+            case 14:                        // 资深干员 = 5★
+                return "TIER_5".equals(ch.getString("rarity"));
+            case 1012:                      // 男性干员：数据里没有 gender，视为不限制
+            case 1013:                      // 女性干员
+            case 29:                        // 元素：tagList 里没有，视为不限制
+                return true;
+            default: {
+                JSONArray tagList = ch.getJSONArray("tagList");
+                return tagList != null && tagName != null && tagList.contains(tagName);
+            }
+        }
+    }
+
+    private JSONArray filterRecruitPool(JSONArray perAvailList, JSONArray selectTags) {
+        Set<Integer> wantedIds = tagIdSet(selectTags);
+        if (wantedIds.isEmpty()) {
+            return perAvailList;
+        }
+        if (wantedIds.contains(TAG_TOP_OPERATOR)) {
+            wantedIds.remove(TAG_SENIOR);
+        }
+
+        JSONArray out = new JSONArray();
+        int kept = 0;
+        for (int i = 0; i < perAvailList.size(); i++) {
+            JSONObject bucket = perAvailList.getJSONObject(i);
+            JSONArray ids = bucket.getJSONArray("charIdList");
+            if (ids == null) {
+                continue;
+            }
+            JSONArray keptIds = new JSONArray();
+            for (int j = 0; j < ids.size(); j++) {
+                String cid = ids.getString(j);
+                boolean ok = true;
+                for (Integer tagId : wantedIds) {
+                    if (!charMatchesTag(cid, tagId, tagNameOf(tagId))) {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    keptIds.add(cid);
+                }
+            }
+            if (keptIds.isEmpty()) {
+                continue;
+            }
+            JSONObject nb = JSONObject.parseObject(bucket.toJSONString());
+            nb.put("charIdList", keptIds);
+            out.add(nb);
+            kept += keptIds.size();
+        }
+        if (kept == 0) {
+            ArknightsApplication.LOGGER.info("[gacha] tag {} 无匹配角色，退回全池", wantedIds);
+            return perAvailList;
+        }
+        ArknightsApplication.LOGGER.info("[gacha] tag {} 过滤后剩 {} 个角色", wantedIds, kept);
+        return out;
+    }
+
+    private JSONObject performNormalGacha(JSONObject userData, JSONArray selectTags, int durationSec) {
+        JSONObject troop = userData.getJSONObject("troop");
+        if (troop == null) {
+            troop = new JSONObject(true);
+            userData.put("troop", troop);
+        }
+        JSONObject chars = troop.getJSONObject("chars");
+        if (chars == null) {
+            chars = new JSONObject(true);
+            troop.put("chars", chars);
+        }
+
+        // 注意：基建干员在 userData.building.chars，
+        // 不是 troop.building.chars（那个路径不存在，会 NPE）
+        JSONObject building = userData.getJSONObject("building");
+        if (building == null) {
+            building = new JSONObject(true);
+            userData.put("building", building);
+        }
+        JSONObject buildingChars = building.getJSONObject("chars");
+        if (buildingChars == null) {
+            buildingChars = new JSONObject(true);
+            building.put("chars", buildingChars);
+        }
+        JSONArray allPool = ArknightsApplication.normalGachaData.getJSONObject("detailInfo")
                 .getJSONObject("availCharInfo")
                 .getJSONArray("perAvailList");
+
+        // ① 先按勾选的 tag 过滤
+        JSONArray tagged = filterRecruitPool(allPool, selectTags);
+
+        // ② 再按「招募时长区间 + 满 9 小时的特殊 tag 保底」过滤稀有度
+        Set<Integer> tagIds = tagIdSet(selectTags);
+        int[] range = rarityRangeByDuration(durationSec);
+        Integer forced = forcedRarity(tagIds, durationSec);
+        JSONArray availCharInfo = filterPoolByRarity(tagged, range[0], range[1], forced);
+
+        if (forced != null) {
+            ArknightsApplication.LOGGER.info("[gacha] 满 9 小时 + 特殊 tag {} → 保底 rarityRank {}",
+                    forced == 5 ? "高级资深干员" : "资深干员", forced);
+        } else {
+            ArknightsApplication.LOGGER.info("[gacha] 时长 {}s → rarityRank {}-{}", durationSec, range[0], range[1]);
+        }
+
+        if (availCharInfo.isEmpty()) {
+            // 兜底顺序很重要：
+            //   时长决定的稀有度区间是硬规则（1 小时不可能出 6★），
+            //   tag 只是玩家的选择 → 先放宽 tag，保留稀有度约束。
+            availCharInfo = filterPoolByRarity(allPool, range[0], range[1], forced);
+            if (availCharInfo.isEmpty()) {
+                availCharInfo = allPool;
+                ArknightsApplication.LOGGER.info("[gacha] tag/稀有度过滤后为空，已回退全池");
+            } else {
+                ArknightsApplication.LOGGER.info("[gacha] tag 过滤后为空，已放宽 tag、保留稀有度（剩 {} 档）",
+                        availCharInfo.size());
+            }
+        }
 
         // 构建概率数组
         List<JSONObject> randomRankList = new ArrayList<>();
@@ -342,8 +733,13 @@ public class gacha {
         JSONObject selectedRank = randomRankList.get(new Random().nextInt(randomRankList.size()));
         JSONArray charIdList = availCharInfo.getJSONObject(selectedRank.getIntValue("index"))
                 .getJSONArray("charIdList");
-        Collections.shuffle(charIdList);
-        String charId = charIdList.getString(new Random().nextInt(charIdList.size()));
+        // 注意：charIdList 是 normalGacha.json 里的共享数组，直接 shuffle 会污染全局静态数据
+        List<String> charPool = new ArrayList<>(charIdList.size());
+        for (int i = 0; i < charIdList.size(); i++) {
+            charPool.add(charIdList.getString(i));
+        }
+        Collections.shuffle(charPool);
+        String charId = charPool.get(new Random().nextInt(charPool.size()));
 
         // 检查是否已有该角色
         int charInstId = 0;
@@ -431,10 +827,18 @@ public class gacha {
                     userData.getJSONObject("inventory").getIntValue("p_" + charId) + 1);
         }
 
+        // GachaResult.potent = {delta, now}；本实现不自动提升潜能，delta 如实报 0
+        JSONObject nowChar = chars.getJSONObject(String.valueOf(charInstId));
+        int nowPotential = nowChar == null ? 0 : nowChar.getIntValue("potentialRank");
+        JSONObject potent = new JSONObject(true);
+        potent.put("delta", 0);
+        potent.put("now", nowPotential);
+
         result.put("charId", charId);
         result.put("charInstId", charInstId);
-        result.put("isNew", isNew ? 1 : 0);
+        result.put("isNew", isNew);          // 客户端 GachaResult.isNew 是 bool
         result.put("itemGet", itemGet);
+        result.put("potent", potent);
 
         return result;
     }
@@ -525,13 +929,27 @@ public class gacha {
     }
 
     private void updateUserAfterNormalGacha(JSONObject userData, JSONObject gachaResult, int slotId) {
-        // 重置招募位
-        JSONObject recruitSlot = userData.getJSONObject("recruit")
+        // 重置招募位：BUSY/FAST_FINISH -> IDLE，清空计时并刷新一组新 tag
+        JSONObject slots = userData.getJSONObject("recruit")
                 .getJSONObject("normal")
-                .getJSONObject("slots")
-                .getJSONObject(String.valueOf(slotId));
-        recruitSlot.put("state", 1);
+                .getJSONObject("slots");
+        if (slots == null) {
+            ArknightsApplication.LOGGER.warn("[gacha] recruit.normal.slots 不存在，跳过重置");
+            return;
+        }
+        JSONObject recruitSlot = slots.getJSONObject(String.valueOf(slotId));
+        if (recruitSlot == null) {
+            ArknightsApplication.LOGGER.warn("[gacha] 招募位 {} 不存在，跳过重置", slotId);
+            return;
+        }
+        recruitSlot.put("state", 1);                    // State.IDLE
         recruitSlot.put("selectTags", new JSONArray());
+        recruitSlot.put("startTs", -1);
+        recruitSlot.put("maxFinishTs", -1);
+        recruitSlot.put("realFinishTs", -1);
+        recruitSlot.put("durationInSec", -1);
+        recruitSlot.remove("specialTagId");
+        recruitSlot.put("tags", rollRecruitTags());     // 换一组新 tag
     }
 
     private JSONObject createEmptyPoolResponse() {

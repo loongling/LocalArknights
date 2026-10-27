@@ -23,6 +23,15 @@
 		"password":"Passwd",
 		"extra":"useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
 	},
+	"yostar": {
+		"mailer": {
+			"enable": false,
+			"account": "example@qq.com",
+			"password": "",
+			"smtp": "smtp.qq.com",
+			"smtp_port": 465
+		}
+	},
 	"roguelike":{
 		"unlimitedMilestones":false
 	},
@@ -37,7 +46,7 @@
 		"enableDiamondShop":true
 	},
 	"version":{
-		"android":{
+		"Android":{
 			"resVersion":"26-10-22-14-02-11-51447808",
 			"clientVersion":"2.7.81"
 		},
@@ -66,8 +75,8 @@
 		"enableRedirect": true,
 		"cdnBase":"https://ak.hycdn.cn/assetbundle/official",
 		"redirectUrl":{
-			"Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-14-13-45-10-99469376",
-			"Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-14-13-44-12-52990322",
+			"Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-22-14-02-11-51447808",
+			"Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-22-13-48-45-09041897",
 			"ios": "https://ak.hycdn.cn/assetbundle/official/IOS/assets/26-10-14-13-39-00-86892447",
 			"global": "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/26-10-03-16-06-39_0a6acf"
 		},

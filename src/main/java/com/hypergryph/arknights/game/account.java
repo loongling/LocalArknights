@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.hypergryph.arknights.core.work.checkAccount.checkAccount;
 import static com.hypergryph.arknights.core.work.checkAccount.createError;
@@ -41,57 +38,62 @@ public class account {
         LOGGER.info("[/" + clientIp + "] /account/login");
         LOGGER.info("Received JSON: " + JsonBody.toJSONString());
         String secret = JsonBody.getString("token");
+        int platform = JsonBody.getInteger("platform");
         String assetsVersion = JsonBody.getString("assetsVersion");
         String clientVersion = JsonBody.getString("clientVersion");
         List<Account> Accounts = userDao.queryAccountBySecret(secret);
+        JSONObject result = new JSONObject(true);
         if (checkAccount(secret)) {
             Long uid = ((Account) Accounts.get(0)).getUid();
-            JSONObject result;
             if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("clientVersion"))) {
-                result = new JSONObject(true);
                 result.put("result", 2);
                 result.put("error", "客户端版本需要更新");
                 return result;
-            } else if (!assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("resVersion"))) {
-                result = new JSONObject(true);
+            } else if (platform == 2 && !assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("resVersion"))) {
+                    result.put("result", 4);
+                    result.put("error", "资源需要更新");
+                    return result;
+            } else if (platform == 1 && !assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Android").getString("resVersion"))) {
                 result.put("result", 4);
                 result.put("error", "资源需要更新");
                 return result;
-            } else {
+            }
+            else {
                 if (((Account) Accounts.get(0)).getUser().equals("{}")) {
                     JSONObject userData = ArknightsApplication.DefaultSyncData;
                     userData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
                     userData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
                     userDao.setUserData(uid, userData);
                 }
-                ArknightsApplication.addSecretForIP(clientIp, secret);
+                //ArknightsApplication.addSecretForIP(clientIp, secret);
                 Map<String, Object> data = new LinkedHashMap<>();
                 data.put("result", 0);
                 data.put("uid", uid);
                 data.put("secret", secret);
+                data.put("token", secret);
                 data.put("serviceLicenseVersion", 0);
-
-                result = new JSONObject(true);
+                result.put("result", 0);
+                result.put("uid", uid);
+                result.put("token", secret);
+                result.put("secret", secret);
+                result.put("serviceLicenseVersion", 0);
                 result.put("data", data);
-
-                return result;
             }
         }
         else {
             createError(secret, response);
         }
-        return new JSONObject(true);
+        return result;
     }
 
     @PostMapping(
             value = {"/syncData"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject SyncData(HttpServletRequest request,
-                               HttpServletResponse response) {
+    public JSONObject SyncData(@RequestHeader(value = "secret", required = false)String secret,HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/syncData");
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        //String secret = ArknightsApplication.getSecretByIP(clientIp);
         long uid = userDao.queryUidBySecret(secret);
         if (checkAccount(secret)) {
             // **查询数据库**
@@ -211,11 +213,11 @@ public class account {
             value = {"/syncStatus"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject SyncStatus(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject SyncStatus(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/syncStatus");
         LOGGER.info("SyncS" + JsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
+        //String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);

@@ -28,9 +28,8 @@ public class pay {
 
     @PostMapping(value = "/createOrder",
             produces = "application/json;charset=UTF-8")
-    public JSONObject createOrder(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject createOrder(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/createOrder");
         ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
         String check_orderId = orderIdDao.queryOrderIdBtSecret(secret);
@@ -76,9 +75,8 @@ public class pay {
     };
 
     @GetMapping("/order/v1/state")
-    public JSONObject getOrderState(@RequestParam("orderId") String orderId, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject getOrderState(@RequestHeader(value = "secret", required = false)String secret,@RequestParam("orderId") String orderId, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/order/v1/state");
         JSONObject result = new JSONObject();
         JSONObject data = new JSONObject();
@@ -112,9 +110,8 @@ public class pay {
             value = "/confirmOrder",
             produces = "application/json;charset=UTF-8"
     )
-    public JSONObject confirmOrder(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject confirmOrder(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/confirmOrder");
         ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
         if(checkAccount(secret)) {
@@ -282,9 +279,8 @@ public class pay {
             value = "/getUnconfirmedOrderIdList",
             produces = "application/json;charset=UTF-8"
     )
-    public Map<String, Object> getUnconfirmOrderId(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public Map<String, Object> getUnconfirmOrderId(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/getUnconfirmedOrderIdList");
         ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
 
@@ -324,7 +320,7 @@ public class pay {
         JSONObject dataPayload = new JSONObject();
         dataPayload.put("content", "Welcome to Local Arknights!这是一个开源项目,如果你为它付费了,那你一定被骗了");
         dataPayload.put("loop", 3);
-        dataPayload.put("majorVersion", "369");
+        dataPayload.put("majorVersion", "455");
 
         JSONObject payload = new JSONObject();
         payload.put("data", dataPayload.toJSONString());

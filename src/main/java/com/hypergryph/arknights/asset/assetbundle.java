@@ -1,8 +1,7 @@
 package com.hypergryph.arknights.asset;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
-import com.hypergryph.arknights.core.file.IOTools;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 public class assetbundle {
 
     @GetMapping("/official/{os}/version")
-    public JSONObject getversion(@PathVariable String os, HttpServletRequest request) {
+    public JSONObject getVersion(@PathVariable String os, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /assetbundle/official/{os}/version (YoStar)");
-        return new JSONObject();
+        String clientVer = ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("global_" + os).getString("clientVersion");
+        String resVersion = ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("global_" + os).getString("resVersion");
+        JSONObject result = new JSONObject();
+        result.put("resVersion", resVersion);
+        result.put("clientVersion", clientVer);
+        return result;
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,9 +27,8 @@ public class storyreview {
             value = {"/markStoryAcceKnown"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject markStoryAcceKnown(HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject markStoryAcceKnown(@RequestHeader(value = "secret", required = false)String secret, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /story/finishStory");
         List<Account> Accounts = userDao.queryAccountBySecret(secret);
 

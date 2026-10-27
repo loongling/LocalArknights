@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +21,9 @@ public class character {
             value = {"/changeMarkStar"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject battleStart(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject battleStart(@RequestHeader(value = "secret", required = false)String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] 标星角色 /char/ChangeMarkStar");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);

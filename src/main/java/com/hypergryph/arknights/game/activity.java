@@ -5,10 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -28,11 +26,10 @@ public class activity {
             value = {"/getChainLogInReward"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public static JSONObject getChainLogInReward(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public static JSONObject getChainLogInReward(@RequestHeader(value = "secret", required = false)String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /activity/getChainLogInReward");
         LOGGER.info("getloginchain" + JsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         int index = JsonBody.getInteger("index");
         if(checkAccount(secret)){
             List<Account> Accounts = userDao.queryAccountBySecret(secret);
@@ -179,11 +176,10 @@ public class activity {
             value = {"/getOpenServerCheckInReward"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public static JSONObject getOpenServerCheckInReward(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public static JSONObject getOpenServerCheckInReward(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /activity/getOpenServerCheckInReward");
         LOGGER.info("getloginchain" + JsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (checkAccount(secret)) {
             List<Account> Accounts = userDao.queryAccountBySecret(secret);
             Long uid = ((Account) Accounts.get(0)).getUid();

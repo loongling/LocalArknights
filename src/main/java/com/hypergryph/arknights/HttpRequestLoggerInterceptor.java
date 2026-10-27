@@ -41,10 +41,15 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
 
         StringBuilder logMessage = new StringBuilder("----- HTTP Request -----")
                 .append("\nURL: ").append(requestURI)
-                .append("\nMethod: ").append(request.getMethod());
+                .append("\nMethod: ").append(request.getMethod())
+                .append("\nStatus: ").append(response.getStatus());
         String params = request.getQueryString();
         if (params != null && !params.isEmpty()) {
             logMessage.append("\nParams: ").append(params);
+        }
+        String headers = getHeaders(request);
+        if (!headers.isEmpty()) {
+            logMessage.append("\nHeaders:\n").append(headers);
         }
         String body = getRequestBody(request);
         if (!body.isEmpty()) {
@@ -53,6 +58,33 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
         logMessage.append("\n------------------------");
 
         LOGGER.info(logMessage.toString());
+    }
+
+    /** 按名字排序输出所有请求头，同名多值用 " | " 连接 */
+    private String getHeaders(HttpServletRequest request) {
+        java.util.TreeMap<String, String> sorted =
+                new java.util.TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        java.util.Enumeration<String> names = request.getHeaderNames();
+        while (names != null && names.hasMoreElements()) {
+            String name = names.nextElement();
+            StringBuilder value = new StringBuilder();
+            java.util.Enumeration<String> values = request.getHeaders(name);
+            while (values != null && values.hasMoreElements()) {
+                if (value.length() > 0) {
+                    value.append(" | ");
+                }
+                value.append(values.nextElement());
+            }
+            sorted.put(name, value.toString());
+        }
+        StringBuilder out = new StringBuilder();
+        for (java.util.Map.Entry<String, String> e : sorted.entrySet()) {
+            if (out.length() > 0) {
+                out.append('\n');
+            }
+            out.append("  ").append(e.getKey()).append(": ").append(e.getValue());
+        }
+        return out.toString();
     }
 
     private String getRequestBody(HttpServletRequest request) {

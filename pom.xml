@@ -68,6 +68,33 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.24</version>
         </dependency>
+
+        <!-- YoStar 注册验证码邮件用的 SMTP 客户端（离线仓库里已有 2.1.5 / 2.0.5） -->
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
+            <version>2.0.5</version>
+        </dependency>
+        <!--
+          必须显式钉住 2.1.4：仓库里还有 jakarta.activation-api 1.2.2（那是 javax.activation 包名），
+          Maven 会选到 1.2.2，导致运行期 NoClassDefFoundError: jakarta/activation/DataHandler。
+          直接声明优先级最高，能压过传递依赖。
+        -->
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>2.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
+            <version>2.0.3</version>
+        </dependency>
         <dependency>
             <groupId>org.jline</groupId>
             <artifactId>jline</artifactId>

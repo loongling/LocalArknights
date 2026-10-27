@@ -37,9 +37,8 @@ public class users {
             value = {"bindNickName"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject bindNickName(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject bindNickName(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/bindNickName");
         if (checkAccount(secret)) {
             String nickName = JsonBody.getString("nickName");
@@ -83,9 +82,8 @@ public class users {
             value = {"/rebindNickName"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject reBindNickName(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject reBindNickName(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/rebindNickName");
         if (checkAccount(secret)) {
             String nickName = JsonBody.getString("nickName");
@@ -119,9 +117,8 @@ public class users {
             value = {"/bindBirthday"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject bindBirthday(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject bindBirthday(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/bindBirthday");
         if (checkAccount(secret)) {
             LOGGER.info(JsonBody);
@@ -136,9 +133,8 @@ public class users {
             value = {"/exchangeDiamondShard"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject exchangeDiamondShard(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject exchangeDiamondShard(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/exchangeDiamondShard");
         if (checkAccount(secret)) {
             int count = JsonBody.getIntValue("count");
@@ -180,9 +176,8 @@ public class users {
             value = {"/changeResume"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject changeResume(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject changeResume(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/changeResume");
         if (checkAccount(secret)) {
             String resume = JsonBody.getString("resume");
@@ -212,9 +207,8 @@ public class users {
             value = {"/changeSecretary"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject changeSecretary(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject changeSecretary(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/changeSecretary");
         if (checkAccount(secret)) {
             int charInstId = JsonBody.getIntValue("charInstId");
@@ -247,9 +241,8 @@ public class users {
             value = {"/buyAp"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buyAp(HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buyAp(@RequestHeader(value = "secret", required = false)String secret,HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/buyAp");
         if (checkAccount(secret)) {
             List<Account> Accounts = userDao.queryAccountBySecret(secret);
@@ -298,9 +291,8 @@ public class users {
             value = {"/changeAvatar"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject changeAvatar(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject changeAvatar(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] /user/changeAvatar");
         if (checkAccount(secret)) {
             String id = JsonBody.getString("id");
@@ -332,9 +324,8 @@ public class users {
             value = {"/checkIn"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject checkIn(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject checkIn(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         LOGGER.info("[/" + clientIp + "] 签到 /user/checkIn");
         LOGGER.info("checkIn:" + JsonBody);
         if (checkAccount(secret)) {

@@ -49,7 +49,7 @@ public class prod {
     public JSONObject AndroidVersion(HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /config/prod/official/Android/version");
-        return ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("android");
+        return ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Android");
     }
 
     @RequestMapping({"/official/Windows/version"})

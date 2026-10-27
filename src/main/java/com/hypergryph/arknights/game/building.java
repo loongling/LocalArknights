@@ -7,10 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,11 +33,10 @@ public class building {
             value = {"/sync"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject sync(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject sync(@RequestHeader(value = "secret", required = false)String secret, @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /building/sync");
         ArknightsApplication.LOGGER.info("BuildingSync:" + jsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         long ts = ArknightsApplication.getTimestamp();
         JSONObject result = new JSONObject();
         if(checkAccount(secret)){
@@ -100,13 +96,23 @@ public class building {
                 return result;
             } else {
                 JSONObject eventBuilding = new JSONObject();
-                JSONObject buildingRoom = new JSONObject();
-                Long buildingEvent = userData.getJSONObject("event").getLong("building");
+                long nowTs = ArknightsApplication.getTimestamp();
+                long buildingEvent = userData.getJSONObject("event").getLongValue("building");
+                boolean needSave = false;
+                if (buildingEvent < nowTs) {
+                    buildingEvent = getTomorrow4Am();
+                    userData.getJSONObject("event").put("building", buildingEvent);
+                    needSave = true;
+                }
                 eventBuilding.put("building", buildingEvent);
                 modified.put("event", eventBuilding);
+
+                if (advanceBuildingTime(userData, nowTs)) {
+                    needSave = true;
+                }
+
                 JSONObject buildingStatus = userData.getJSONObject("building").getJSONObject("status");
-                building.put("status", buildingStatus);
-                buildingRoom = userData.getJSONObject("building").getJSONObject("rooms");
+                JSONObject buildingRoom = userData.getJSONObject("building").getJSONObject("rooms");
                 JSONObject buildingChar = userData.getJSONObject("building").getJSONObject("chars");
                 JSONObject buildingRoomSlot = userData.getJSONObject("building").getJSONObject("roomSlots");
                 JSONObject Building = new JSONObject();
@@ -115,8 +121,17 @@ public class building {
                 Building.put("status", buildingStatus);
                 Building.put("chars", buildingChar);
                 modified.put("building", Building);
+                building.put("status", buildingStatus);
                 playerDataDelta.put("modified", modified);
                 result.put("playerDataDelta", playerDataDelta);
+
+                if (needSave) {
+                    try {
+                        userDao.setUserData(account.getUid(), userData);
+                    } catch (Exception e) {
+                        ArknightsApplication.LOGGER.error("[building/sync] 落库失败", e);
+                    }
+                }
                 return result;
             }
         }
@@ -132,6 +147,72 @@ public class building {
     private static JSONObject MANUFACT_DATA;
     private static JSONObject TRADING_DATA;
     private static JSONObject MANUFACT_FORMULAS;
+
+    public static boolean advanceBuildingTime(JSONObject userData, long now) {
+        loadLayout();
+        JSONObject building = userData.getJSONObject("building");
+        if (building == null) {
+            return false;
+        }
+        boolean dirty = false;
+
+        // 1) 无人机回复
+        JSONObject status = building.getJSONObject("status");
+        JSONObject labor = status == null ? null : status.getJSONObject("labor");
+        if (labor != null) {
+            int max = labor.getIntValue("maxValue");
+            int value = labor.getIntValue("value");
+            long last = labor.getLongValue("lastUpdateTime");
+            long per = 360L;                       // laborRecoverTime
+            if (last <= 0 || last > now) {
+                labor.put("lastUpdateTime", now);
+                dirty = true;
+            } else if (max > 0 && value < max) {
+                long gained = (now - last) / per;
+                if (gained > 0) {
+                    int nv = (int) Math.min(max, value + gained);
+                    labor.put("value", nv);
+                    // 满了就停表；没满则保留不足一架的余量
+                    labor.put("lastUpdateTime", nv >= max ? now : last + gained * per);
+                    dirty = true;
+                    ArknightsApplication.LOGGER.info("[building] 无人机回复 {} -> {}（+{}）", value, nv, gained);
+                }
+            }
+        }
+
+        // 2) 制造站产出
+        JSONObject rooms = building.getJSONObject("rooms");
+        JSONObject manu = rooms == null ? null : rooms.getJSONObject("MANUFACTURE");
+        JSONObject slots = building.getJSONObject("roomSlots");
+        if (manu != null && !manu.isEmpty()) {
+            for (String slotId : new ArrayList<>(manu.keySet())) {
+                JSONObject node = manu.getJSONObject(slotId);
+                if (node == null) {
+                    continue;
+                }
+                long persistedLast = node.getLongValue("lastUpdateTime");
+                int beforeOut = node.getIntValue("outputSolutionCnt");
+                int beforeState = node.getIntValue("state");
+
+                int level = 1;
+                JSONObject slot = slots == null ? null : slots.getJSONObject(slotId);
+                if (slot != null) {
+                    level = Math.max(1, slot.getIntValue("level"));
+                }
+                advanceManufacture(node, level, now);
+
+                boolean produced = node.getIntValue("outputSolutionCnt") != beforeOut;
+                boolean stateChanged = node.getIntValue("state") != beforeState;
+                if (produced || stateChanged) {
+                    dirty = true;
+                } else if (node.getIntValue("state") == 1 && now - persistedLast >= 5) {
+                    // 生产中：最多每 5 秒落一次库，让 lastUpdateTime 别长期停滞
+                    dirty = true;
+                }
+            }
+        }
+        return dirty;
+    }
 
     private static synchronized void loadLayout() {
         if (LAYOUT_SLOTS != null) {
@@ -528,9 +609,8 @@ public class building {
             value = {"/cleanRoomSlot"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject cleanRoomSlot(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject cleanRoomSlot(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         String roomSlotId = jsonBody.getString("roomSlotId");
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /building/cleanRoomSlot roomSlotId=" + roomSlotId);
 
@@ -825,9 +905,8 @@ public class building {
             value = {"/buildRoom"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buildRoom(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject buildRoom(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         String roomSlotId = jsonBody.getString("roomSlotId");
         String roomId = jsonBody.getString("roomId");
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /building/buildRoom slot={} room={}", roomSlotId, roomId);
@@ -1091,9 +1170,8 @@ public class building {
             value = {"/assignChar"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject assignChar(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject assignChar(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         String roomSlotId = jsonBody.getString("roomSlotId");
         JSONArray rawList = jsonBody.getJSONArray("charInstIdList");
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /building/assignChar slot={} list={}", roomSlotId, rawList);
@@ -1254,9 +1332,8 @@ public class building {
             value = {"/changeManufactureSolution", "/changeManufact"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject changeManufactureSolution(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject changeManufactureSolution(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         String roomSlotId = jsonBody.getString("roomSlotId");
         String targetFormulaId = jsonBody.getString("targetFormulaId");
         int solutionCount = jsonBody.getIntValue("solutionCount");
@@ -1338,9 +1415,8 @@ public class building {
             value = {"/deliveryOrder"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject deliveryOrder(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject deliveryOrder(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         String slotId = jsonBody.getString("slotId");
         if (slotId == null) {
             slotId = jsonBody.getString("roomSlotId");
@@ -1480,9 +1556,8 @@ public class building {
             value = {"/deliveryBatchOrder", "/tradingDeliveryBatch"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject deliveryBatchOrder(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject deliveryBatchOrder(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         JSONArray slotList = jsonBody.getJSONArray("slotList");
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /building/deliveryBatchOrder slots={}", slotList);
 
@@ -1648,9 +1723,8 @@ public class building {
             value = {"/settleManufacture", "/settleManufact"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject settleManufacture(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject settleManufacture(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         JSONArray slotList = jsonBody.getJSONArray("roomSlotIdList");
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /building/settleManufacture slots={}", slotList);
 
@@ -1756,11 +1830,10 @@ public class building {
             value = {"/setBuildingAssist"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject setBuildingAssist(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject setBuildingAssist(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /building/setBuildingAssist");
         ArknightsApplication.LOGGER.info("setBuildingAssist:" + jsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         return new  JSONObject();
     }
 
@@ -1768,11 +1841,10 @@ public class building {
             value = {"/getAssistReport"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject getAssistReport(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject getAssistReport(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /getAssistReport");
         ArknightsApplication.LOGGER.info("getAssistReport:" + jsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         return new  JSONObject();
     }
 
@@ -1780,11 +1852,10 @@ public class building {
             value = {"/getRecentVisitors"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject getRecentVisitors(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject getRecentVisitors(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /getRecentVisitors");
         ArknightsApplication.LOGGER.info("getRecentVisitors:" + jsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         return new  JSONObject();
     }
 
@@ -1792,11 +1863,10 @@ public class building {
             value = {"/getInfoShareVisitorsNum"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject getInfoShareVisitorsNum(@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject getInfoShareVisitorsNum(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /getInfoShareVisitorsNum");
         ArknightsApplication.LOGGER.info("getInfoShareVisitorsNum:" + jsonBody);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         return new  JSONObject();
     }
 }

@@ -1,5 +1,6 @@
 package com.hypergryph.arknights.app;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
 import org.springframework.util.StringUtils;
@@ -73,16 +74,16 @@ public class api {
         response.put("launcher_action", 0);
         return response;
     }
-    @GetMapping("/remote_config/1/prod/default/Windows/remote_config")
-    public Map<String, Object> akSdkConfig(HttpServletRequest request) {
+    @GetMapping("/remote_config/1/prod/default/{os}/remote_config")
+    public Map<String, Object> akSdkConfig(HttpServletRequest request, @PathVariable String os) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求 SDK 配置信息: /api/remote_config/1/prod/default/Windows/remote_config");
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] 请求 SDK 配置信息: /api/remote_config/1/prod/default/{os}/remote_config");
         return ArknightsApplication.serverConfig.getJSONObject("remote");
     }
-    @RequestMapping("/remote_config/1/prod/default/Windows/network_config")
-    public JSONObject NetworkConfig(HttpServletRequest request) {
+    @RequestMapping("/remote_config/1/prod/default/{os}/network_config")
+    public JSONObject NetworkConfig(HttpServletRequest request, @PathVariable String os) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /remote_config/1/prod/default/Win/network_config");
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /remote_config/1/prod/default/{os}/network_config");
         JSONObject server_network = ArknightsApplication.serverConfig.getJSONObject("network");
         JSONObject hg_network = server_network.getJSONObject("configs").getJSONObject(server_network.getString("funcVer")).getJSONObject("network");
         JSONObject network = new JSONObject(true);
@@ -102,5 +103,60 @@ public class api {
         network.put("funcVer", server_network.getString("funcVer"));
         network.put("secure", hg_network.getBoolean("secure"));
         return network;
+    }
+
+    @GetMapping("/remote_config/104/prod-download/default/Android/download-remote-config")
+    public JSONObject downloadRemoteConfig(HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /api/remote_config/104/prod-download/default/Android/download-remote-config");
+        JSONObject result = new JSONObject();
+        result.put("use-assets", false);
+        return result;
+    }
+
+    @GetMapping("/game/get_latest_game_info")
+    public JSONObject getLatestGameInfo(HttpServletRequest request,@RequestParam Map<String, String> params) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /api/game/get_latest_game_info");
+        String platform = params.get("platform");
+        String clientVersion = ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject(platform).getString("clientVersion");
+        String funcVer = ArknightsApplication.serverConfig.getString("clientFuncVer");
+
+       JSONObject response = new JSONObject();
+        response.put("action", 0);
+        response.put("version", funcVer);
+        response.put("update_type", 0);
+
+        JSONObject update_info = new JSONObject();
+        update_info.put("patch", null);
+        update_info.put("custom_info", "");
+        update_info.put("source_package", null);
+
+        JSONObject packageA = new JSONObject();
+        packageA.put("packs", new JSONArray());
+        packageA.put("total_size", "0");
+        packageA.put("file_path", "");
+        packageA.put("url", "");
+        packageA.put("md5", "");
+        packageA.put("package_size", "0");
+        packageA.put("file_id", "1");
+        packageA.put("sub_channel", "1");
+        packageA.put("game_files_md5", "");
+        update_info.put("package", packageA);
+
+        response.put("update_info", update_info);
+        response.put("client_version", clientVersion);
+        response.put("state", 0);
+        response.put("preload_action", 0);
+        JSONObject preload_info = new JSONObject();
+        preload_info.put("res_version", "");
+        preload_info.put("res_game_version", "");
+        preload_info.put("package_size", "0");
+        preload_info.put("total_size", "0");
+        preload_info.put("patches", new JSONArray());
+        preload_info.put("cd_key", "");
+        preload_info.put("source_res_version", "");
+        response.put("preload_info", preload_info);
+        return response;
     }
 }

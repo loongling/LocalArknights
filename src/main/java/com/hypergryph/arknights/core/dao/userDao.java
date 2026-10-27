@@ -19,12 +19,21 @@ public class userDao {
 
     public static String queryPhoneBySecret(String secret) {
         String sql = "SELECT phone FROM account WHERE secret = ?";
-        return ArknightsApplication.jdbcTemplate.queryForObject(sql, String.class, secret);
+        List<String> rows = ArknightsApplication.jdbcTemplate.queryForList(sql, String.class, secret);
+        return rows.isEmpty() ? null : rows.get(0);
     }
 
+    /**
+     * 按 secret 查 uid。
+     * 用 queryForList 而不是 queryForObject —— 后者查不到会抛
+     * EmptyResultDataAccessException，把整个请求打成 500。
+     *
+     * @return 查不到返回 -1
+     */
     public static int queryUidBySecret(String secret) {
         String sql = "SELECT uid FROM account WHERE secret = ?";
-        return ArknightsApplication.jdbcTemplate.queryForObject(sql, Integer.class, secret);
+        List<Integer> rows = ArknightsApplication.jdbcTemplate.queryForList(sql, Integer.class, secret);
+        return rows.isEmpty() ? -1 : rows.get(0);
     }
 
     public static List<Account> queryAccountByUid(long uid) {

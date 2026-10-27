@@ -17,10 +17,8 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 import static com.hypergryph.arknights.ArknightsApplication.mainStage;
 import static com.hypergryph.arknights.ArknightsApplication.stageTable;
@@ -36,10 +34,9 @@ public class quest {
             value = {"/battleStart"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject BattleStart(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject BattleStart(@RequestHeader(value = "secret", required = false)String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleStart");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -131,12 +128,9 @@ public class quest {
             value = {"/battleFinish"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject BattleFinish(@RequestBody JSONObject JsonBody,
-                                   HttpServletResponse response,
-                                   HttpServletRequest request) {
+    public JSONObject BattleFinish(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         // 1. 初始化与基础验证
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/battleFinish");
         ArknightsApplication.LOGGER.info("battleData:" + JsonBody);
 
@@ -1327,9 +1321,8 @@ public class quest {
             value = {"/squadFormation"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject SquadFormation(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject SquadFormation(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/squadFormation");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -1382,9 +1375,8 @@ public class quest {
             value = {"/saveBattleReplay"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject SaveBattleReplay(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject SaveBattleReplay(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/saveBattleReplay");
         JSONObject BattleData;
         if (!ArknightsApplication.enableServer) {
@@ -1440,9 +1432,8 @@ public class quest {
             value = {"/getBattleReplay"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject GetBattleReplay(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject GetBattleReplay(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/getBattleReplay");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -1488,9 +1479,8 @@ public class quest {
             value = {"/changeSquadName"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject ChangeSquadName(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject ChangeSquadName(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/changeSquadName");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -1544,9 +1534,8 @@ public class quest {
             value = {"/getAssistList"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject getAssistList(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject getAssistList(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/getAssistList");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
@@ -1712,9 +1701,8 @@ public class quest {
             value = {"/finishStoryStage"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject finishStoryStage(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject finishStoryStage(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /quest/finishStoryStage");
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);

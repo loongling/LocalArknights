@@ -258,9 +258,11 @@ public class ArknightsApplication {
         public static final ConcurrentHashMap<String, String> IP_SECRET_MAP = new ConcurrentHashMap<>();
 
         // 绑定 IP -> secret
+    /*
         public static void addSecretForIP (String ip, String secret){
             IP_SECRET_MAP.put(ip, secret);
         }
+     */
 
     public static int getCharRarity(String charId) {
         String rarity = characterJson.getJSONObject(charId).getString("rarity");
@@ -330,9 +332,11 @@ public class ArknightsApplication {
 
 
     // 获取 secret
+    /* 暂停使用
     public static String getSecretByIP(String ip) {
         return IP_SECRET_MAP.get(ip);
     }
+    */
 
     public static void reloadServerConfig() {
         long startTime = System.currentTimeMillis();

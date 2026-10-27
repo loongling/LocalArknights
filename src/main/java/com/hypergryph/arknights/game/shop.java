@@ -70,10 +70,9 @@ public class shop {
             value = {"/buySkinGood"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buySkinGood(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buySkinGood(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buySkinGood");
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
@@ -128,10 +127,9 @@ public class shop {
             value = {"/buyLowGood"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buyLowGood(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buyLowGood(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyLowGood");
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
@@ -200,10 +198,9 @@ public class shop {
             value = {"/buyHighGood"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buyHighGood(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buyHighGood(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyHighGood");
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
@@ -272,10 +269,9 @@ public class shop {
             value = {"/buyExtraGood"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject buyExtraGood(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject buyExtraGood(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/buyExtraGood");
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);
@@ -344,10 +340,9 @@ public class shop {
             value = {"/decomposePotentialItem"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject decomposePotentialItem(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject decomposePotentialItem(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/decomposePotentialItem");
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject result = new JSONObject(true);

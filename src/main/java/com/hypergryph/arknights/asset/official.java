@@ -40,7 +40,7 @@ public class official {
             @PathVariable("assetsHash") String assetsHash,
             @PathVariable("fileName") String fileName,
             HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
+            HttpServletResponse response, @PathVariable String os) throws IOException {
 
         if (!assetsHash.matches("[a-zA-Z0-9_-]+")
                 || fileName.contains("..")
@@ -56,7 +56,17 @@ public class official {
             cdnBase = "https://ak.hycdn.cn/assetbundle/official";
         }
 
-        String osName = resolveOs(request);
+        String encoded = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("+", "%20");
+        String srcUrl = cdnBase + "/" + os + "/assets/" + assetsHash + "/" + encoded;
+
+        if (cfg.getBooleanValue("enableRedirect")) {
+            LOGGER.info("[{}] 重定向 {}/{} -> {}", remoteIp(request), assetsHash, fileName, srcUrl);
+            response.setStatus(HttpStatus.FOUND.value());
+            response.setHeader("Location", srcUrl);
+            response.setHeader("Cache-Control", "no-store");
+            return;
+        }
+
         String baseDir = System.getProperty("user.dir") + "/assets/" + assetsHash + "/direct/";
         File dir = new File(baseDir);
         File file = new File(dir, fileName);
@@ -66,8 +76,6 @@ public class official {
                 response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value());
                 return;
             }
-            String encoded = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("+", "%20");
-            String srcUrl = cdnBase + "/" + osName + "/assets/" + assetsHash + "/" + encoded;
 
             try {
                 LOGGER.info("[{}] 回源 {}/{} <- {}", remoteIp(request), assetsHash, fileName, srcUrl);

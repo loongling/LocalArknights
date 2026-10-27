@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/mission")
@@ -24,9 +22,8 @@ public class mission {
             value = {"/confirmMission"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject confirmMission(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject confirmMission(@RequestHeader(value = "secret", required = false)String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         String missionId = JsonBody.getString("missionId");
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /mission/confirmMission " + missionId);
 
@@ -92,9 +89,8 @@ public class mission {
             value = {"/autoConfirmMissions"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject autoConfirmMissions(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject autoConfirmMissions(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        String secret = ArknightsApplication.getSecretByIP(clientIp);
         String type = JsonBody.getString("type");
         if (type == null) {
             type = "MAIN";
