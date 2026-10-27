@@ -29,13 +29,17 @@ public class u8 {
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /user/v1/getToken");
         ArknightsApplication.LOGGER.info("Received JSON: " + JsonBody.toJSONString());
 
-        // 解析 JSON 请求体，获取 `token`
-        if (!JsonBody.containsKey("extension") || !JsonBody.getJSONObject("extension").containsKey("code")) {
-            ArknightsApplication.LOGGER.warn("请求体缺少 token (code)");
+        JSONObject ext = JsonBody.getJSONObject("extension");
+        if (ext == null) {
             return Map.of("result", 2, "error", "Missing Token");
         }
 
-        String token = JsonBody.getJSONObject("extension").getString("code");
+        String token = ext.containsKey("code") ? ext.getString("code") : ext.getString("token");
+        if (token == null || token.isEmpty()) {
+            ArknightsApplication.LOGGER.warn("请求体 extension 里既没有 code 也没有 token: {}", JsonBody);
+            return Map.of("result", 2, "error", "Missing Token");
+        }
+
 
         // 检查服务器是否启用
         if (!ArknightsApplication.enableServer) {

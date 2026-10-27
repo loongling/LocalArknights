@@ -1,13 +1,15 @@
 # ArknightsServer
-这是一个明日方舟本地服务端,对应的客户端是CN 2.7.81 Windows,该服务端理论上支持多人游戏.本仓库不提供将数据代理到本地的方法,请自行解决 
+这是一个明日方舟本地服务端,对应的客户端是CN 2.7.81 Windows|CN 2.7.81 Android|Global 37.7.41 Android,该服务端理论上支持多人游戏.本仓库不提供将数据代理到本地的方法,请自行解决 
 
-## 支持设备
+## 支持客户端
 |   设备  | 是否支持  |
 |:-------:|:---:|
-|  CN Windows | Support |
-|    CN Android   | Support |
-|    Global Android   | Not Support |
-|    Global Windows   | Not Support |
+|  CN Windows | Support 支持|
+|    CN Android   | Support 支持|
+|    CN IOS   | Not Planned 未计划|
+|    Global Android   | Support 支持|
+|    Global Windows   | Not Support 暂不支持|
+|    Global IOS   | Not Planned 未计划|
 
 ## 如何在外部修改密码和注册？
 双击项目根目录的 `login.html` 在网页里完成
@@ -41,6 +43,22 @@
 "user"://用户名
 "password"://密码
 },
+"yostar": {
+"mailer": {
+"enable": //是否启用国际版邮件发送
+"account": "example@qq.com", //你的邮箱
+"password": "", //密码/授权码
+"smtp": "smtp.qq.com", //smtp服务器
+"smtp_port": 465 //smtp服务器端口
+}
+}
+"battle":{
+"dropRate":1, //掉落倍数
+"debug": //是否启动调试模式(战斗无论是否成功都是三星)
+},
+"basement": {
+"produceSpeed": 1000 //基建生产速率
+},
 "network": //设置network配置，如果更改端口这里需要更改URL
 ```
 
@@ -48,10 +66,10 @@
 请使用java17以上的java版本在CMD或Powershell中运行,MySQL(8.0以上)请自行准备,不要忘记改config.json中的设置
 
 1、首先运行 `chcp 65001`  
-2、在项目根目录运行`hypergryph-0.4.4.0 Alpha.jar`
+2、在项目根目录运行`hypergryph-0.4.5.5 Alpha.jar`
 ```bash
 chcp 65001
-java -jar "hypergryph-0.4.4.0 Alpha.jar"
+java -jar "hypergryph-0.4.5.5 Alpha.jar"
 ```
 
 ## 已知问题

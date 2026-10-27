@@ -23,13 +23,6 @@ public class userDao {
         return rows.isEmpty() ? null : rows.get(0);
     }
 
-    /**
-     * 按 secret 查 uid。
-     * 用 queryForList 而不是 queryForObject —— 后者查不到会抛
-     * EmptyResultDataAccessException，把整个请求打成 500。
-     *
-     * @return 查不到返回 -1
-     */
     public static int queryUidBySecret(String secret) {
         String sql = "SELECT uid FROM account WHERE secret = ?";
         List<Integer> rows = ArknightsApplication.jdbcTemplate.queryForList(sql, Integer.class, secret);
@@ -136,6 +129,12 @@ public class userDao {
         String sql = "SELECT uid FROM account WHERE user -> '$.status.nickName' = ?";
         Object[] params = new Object[]{nickName};
         return ArknightsApplication.jdbcTemplate.queryForList(sql, params);
+    }
+
+    public static String queryNickNameBySecret(String secret) {
+        String sql = "SELECT `user` ->> '$.status.nickName' FROM account WHERE secret = ?";
+        Object[] params = new Object[] { secret };
+        return ArknightsApplication.jdbcTemplate.queryForObject(sql, String.class, secret);
     }
 
     public static List tableExists(String table_name) {

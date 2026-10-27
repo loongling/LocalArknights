@@ -1,3 +1,9 @@
+# v0.4.5.5
+
+## 修复的BUG
+1. 修复了YoStar Android的端口现在可以玩了
+2. 修复了Header里没有secret的问题
+
 # v0.4.5.0 Alpha
 
 ## 修复的BUG

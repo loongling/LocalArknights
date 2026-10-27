@@ -37,48 +37,82 @@ public class account {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /account/login");
         LOGGER.info("Received JSON: " + JsonBody.toJSONString());
+
+        // 按 Host 头区分国服 / 国际服：例如 gs.arknights.global:8443 就是国际服。
+        // 国际服的 clientVersion / resVersion 跟国服配置对不上，不能套用同一套版本校验。
+        String host = request.getHeader("Host");
+        if (host == null || host.isEmpty()) {
+            host = request.getHeader("host");
+        }
+        if (host == null || host.isEmpty()) {
+            host = request.getHeader("X-Forwarded-Host");
+        }
+        if (host == null || host.isEmpty()) {
+            host = request.getServerName();
+        }
+        boolean isGlobal = host != null && host.toLowerCase().contains("global");
+
         String secret = JsonBody.getString("token");
         int platform = JsonBody.getInteger("platform");
         String assetsVersion = JsonBody.getString("assetsVersion");
         String clientVersion = JsonBody.getString("clientVersion");
+        LOGGER.info("[login] host={} isGlobal={} platform={} clientVersion={} resVersion={}",
+                host, isGlobal, platform, clientVersion, assetsVersion);
+
         List<Account> Accounts = userDao.queryAccountBySecret(secret);
         JSONObject result = new JSONObject(true);
         if (checkAccount(secret)) {
             Long uid = ((Account) Accounts.get(0)).getUid();
-            if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("clientVersion"))) {
-                result.put("result", 2);
-                result.put("error", "客户端版本需要更新");
-                return result;
-            } else if (platform == 2 && !assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("resVersion"))) {
+            if (!isGlobal) {
+                // 国服：校验客户端版本与资源版本
+                if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("clientVersion"))) {
+                    result.put("result", 2);
+                    result.put("error", "客户端版本需要更新");
+                    return result;
+                } else if (platform == 2 && !assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("resVersion"))) {
                     result.put("result", 4);
                     result.put("error", "资源需要更新");
                     return result;
-            } else if (platform == 1 && !assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Android").getString("resVersion"))) {
-                result.put("result", 4);
-                result.put("error", "资源需要更新");
-                return result;
-            }
-            else {
-                if (((Account) Accounts.get(0)).getUser().equals("{}")) {
-                    JSONObject userData = ArknightsApplication.DefaultSyncData;
-                    userData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
-                    userData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
-                    userDao.setUserData(uid, userData);
+                } else if (platform == 1 && !assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Android").getString("resVersion"))) {
+                    result.put("result", 4);
+                    result.put("error", "资源需要更新");
+                    return result;
                 }
-                //ArknightsApplication.addSecretForIP(clientIp, secret);
-                Map<String, Object> data = new LinkedHashMap<>();
-                data.put("result", 0);
-                data.put("uid", uid);
-                data.put("secret", secret);
-                data.put("token", secret);
-                data.put("serviceLicenseVersion", 0);
-                result.put("result", 0);
-                result.put("uid", uid);
-                result.put("token", secret);
-                result.put("secret", secret);
-                result.put("serviceLicenseVersion", 0);
-                result.put("data", data);
+            } else {
+                if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("global_Android").getString("clientVersion"))) {
+                    result.put("result", 2);
+                    result.put("error", "客户端版本需要更新");
+                    return result;
+                } else if (platform == 2 && !assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("global_Windows").getString("resVersion"))) {
+                    result.put("result", 4);
+                    result.put("error", "资源需要更新");
+                    return result;
+                } else if (platform == 1 && !assetsVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("global_Android").getString("resVersion"))) {
+                    result.put("result", 4);
+                    result.put("error", "资源需要更新");
+                    return result;
+                }
             }
+
+            if (((Account) Accounts.get(0)).getUser().equals("{}")) {
+                JSONObject userData = ArknightsApplication.DefaultSyncData;
+                userData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
+                userData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
+                userDao.setUserData(uid, userData);
+            }
+            //ArknightsApplication.addSecretForIP(clientIp, secret);
+            Map<String, Object> data = new LinkedHashMap<>();
+            data.put("result", 0);
+            data.put("uid", uid);
+            data.put("secret", secret);
+            data.put("token", secret);
+            data.put("serviceLicenseVersion", 0);
+            result.put("result", 0);
+            result.put("uid", uid);
+            result.put("token", secret);
+            result.put("secret", secret);
+            result.put("serviceLicenseVersion", 0);
+            result.put("data", data);
         }
         else {
             createError(secret, response);
