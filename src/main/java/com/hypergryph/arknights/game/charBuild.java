@@ -484,14 +484,25 @@ public class charBuild {
                 return UserSyncData;
             } else {
                 UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)).put("defaultSkillIndex", defaultSkillIndex);
+                JSONObject defSkillChar = UserSyncData.getJSONObject("troop").getJSONObject("chars")
+                        .getJSONObject(String.valueOf(charInstId));
+                // 每个模板各自记 defaultSkillIndex（官方实测：术师 2 / 近卫 1 / 医疗 1）
+                com.hypergryph.arknights.core.work.processArray
+                        .activeCharData(defSkillChar).put("defaultSkillIndex", defaultSkillIndex);
                 userDao.setUserData(uid, UserSyncData);
+                // 官方只回 {defaultSkillIndex}
+                JSONObject dsiDelta = new JSONObject(true);
+                if (defSkillChar.getJSONObject("tmpl") != null) {
+                    dsiDelta.put("tmpl", defSkillChar.getJSONObject("tmpl"));
+                } else {
+                    dsiDelta.put("defaultSkillIndex", defaultSkillIndex);
+                }
                 JSONObject result = new JSONObject(true);
                 JSONObject playerDataDelta = new JSONObject(true);
                 JSONObject modified = new JSONObject(true);
                 JSONObject troop = new JSONObject(true);
                 JSONObject chars = new JSONObject(true);
-                chars.put(String.valueOf(charInstId), UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)));
+                chars.put(String.valueOf(charInstId), dsiDelta);
                 troop.put("chars", chars);
                 modified.put("troop", troop);
                 playerDataDelta.put("deleted", new JSONObject(true));
@@ -594,6 +605,14 @@ public class charBuild {
                 JSONArray phases = ArknightsApplication.characterJson.getJSONObject(String.valueOf(charid)).getJSONArray("phases");
                 JSONArray skills = ArknightsApplication.characterJson.getJSONObject(String.valueOf(charid)).getJSONArray("skills");
 
+                // 精二/精一都得真实存在（12F 这种只有 E0 的干员，phase 表长度就是 1）
+                if (destEvolvePhase < 0 || destEvolvePhase >= phases.size()) {
+                    JSONObject bad = new JSONObject(true);
+                    bad.put("result", 1);
+                    bad.put("error", charid + " 没有精" + destEvolvePhase + "（最多精" + (phases.size() - 1) + "）");
+                    return bad;
+                }
+
                 int gold;
                 int i;
                 for(gold = 0; gold < phases.size(); ++gold) {
@@ -612,7 +631,7 @@ public class charBuild {
                 gold = UserSyncData.getJSONObject("status").getIntValue("gold");
                 JSONObject tchar = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId));
                 String charId = tchar.getString("charId");
-                JSONArray charskills = tchar.getJSONArray("skills");
+                String skinAtStart = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
                 if (destEvolvePhase == 1) {
                     if (rarity == 2) {
                         gold -= 10000;
@@ -624,11 +643,16 @@ public class charBuild {
                         gold -= 30000;
                     }
 
-                    for(i = 0; i < charskills.size(); ++i) {
-                        if (charskills.getJSONObject(i).getString("skillId").equals(skills.getJSONObject(i).getString("skillId")) && ArknightsApplication.getCharPhase(skills.getJSONObject(i).getJSONObject("unlockCond").getString("phase")) == 1) {
-                            charskills.getJSONObject(i).put("unlock", 1);
-                        }
+                    // 精一换皮肤：#1 → #1+（官方实测：char_002_amiya#1+）
+                    String skinBefore = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
+                    if (skinBefore == null || skinBefore.equals(charId + "#1")) {
+                        com.hypergryph.arknights.core.work.processArray
+                                .setSkin(tchar, charId + "#1+");
                     }
+
+                    // 按 skillId 去静态表查 phase；模板干员的基节点 skills 是空的，要连模板一起解锁
+                    com.hypergryph.arknights.core.work.processArray
+                            .unlockSkillsForPhase(tchar, charId, 1);
                 } else if (destEvolvePhase == 2) {
                     if (rarity == 3) {
                         gold -= 60000;
@@ -638,17 +662,23 @@ public class charBuild {
                         gold -= 180000;
                     }
 
-                    if (tchar.getString("skin").equals(charId + "#1")) {
-                        tchar.put("skin", charId + "#2");
+                    // 模板干员的基节点 skin 是 null，不能再 .equals()（会 NPE）
+                    // 精二：从 #1 或 #1+ 都换到 #2
+                    String curSkin = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
+                    if (curSkin == null || curSkin.equals(charId + "#1") || curSkin.equals(charId + "#1+")) {
+                        com.hypergryph.arknights.core.work.processArray
+                                .setSkin(tchar, charId + "#2");
                     }
 
-                    for(i = 0; i < charskills.size(); ++i) {
-                        if (charskills.getJSONObject(i).getString("skillId").equals(skills.getJSONObject(i).getString("skillId")) && ArknightsApplication.getCharPhase(skills.getJSONObject(i).getJSONObject("unlockCond").getString("phase")) == 2) {
-                            charskills.getJSONObject(i).put("unlock", 1);
-                        }
-                    }
+                    com.hypergryph.arknights.core.work.processArray
+                            .unlockSkillsForPhase(tchar, charId, 2);
+
+                    // 精二后模组槽变成可见：官方 300 个干员实测 hide = (evolvePhase>=2 ? 0 : 1)
+                    com.hypergryph.arknights.core.work.processArray.setEquipHidden(tchar, false);
                 }
 
+                boolean skinChanged = !java.util.Objects.equals(
+                        skinAtStart, com.hypergryph.arknights.core.work.processArray.getSkin(tchar));
                 UserSyncData.getJSONObject("status").put("gold", gold);
                 tchar.put("evolvePhase", destEvolvePhase);
                 tchar.put("level", 1);
@@ -660,7 +690,15 @@ public class charBuild {
                 JSONObject status = new JSONObject(true);
                 status.put("gold", gold);
                 JSONObject charss = new JSONObject(true);
-                charss.put(String.valueOf(charInstId), tchar);
+                JSONObject evolveDelta;
+                if (skinChanged) {
+                    evolveDelta = tchar;
+                } else {
+                    evolveDelta = new JSONObject(true);
+                    evolveDelta.put("level", tchar.getIntValue("level"));
+                    evolveDelta.put("evolvePhase", destEvolvePhase);
+                }
+                charss.put(String.valueOf(charInstId), evolveDelta);
                 troop.put("chars", charss);
                 modified.put("troop", troop);
                 modified.put("inventory", inventory);
@@ -671,6 +709,217 @@ public class charBuild {
                 return result;
             }
         }
+    }
+
+    @PostMapping(
+            value = {"/evolveCharUseItem"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject evolveCharUseItem(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/evolveCharUseItem");
+        int charInstId = JsonBody.getIntValue("charInstId");
+        String itemId = JsonBody.getString("itemId");
+        int instId = JsonBody.getIntValue("instId");
+
+        JSONObject result = new JSONObject(true);
+        List<Account> Accounts = userDao.queryAccountBySecret(secret);
+        if (Accounts.size() != 1) {
+            result.put("result", 2);
+            result.put("error", "无法查询到此账户");
+            return result;
+        }
+        Account account = (Account)Accounts.get(0);
+        if (account.getBan() == 1L) {
+            response.setStatus(500);
+            JSONObject banned = new JSONObject(true);
+            banned.put("statusCode", 403);
+            banned.put("error", "Bad Request");
+            banned.put("message", "error");
+            return banned;
+        }
+
+        JSONObject UserSyncData = JSONObject.parseObject(account.getUser());
+        JSONObject tchar = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId));
+        if (tchar == null) {
+            result.put("result", 1);
+            result.put("error", "没有这个干员: " + charInstId);
+            return result;
+        }
+
+        JSONObject consumableDelta = spendConsumable(UserSyncData, itemId, instId);
+        if (consumableDelta == null) {
+            result.put("result", 1);
+            result.put("error", "没有这件特训装置: " + itemId + " / instId=" + instId);
+            return result;
+        }
+
+        String charId = tchar.getString("charId");
+        int curPhase = tchar.getIntValue("evolvePhase");
+        int maxPhase = 0;
+        JSONArray charPhases = ArknightsApplication.characterJson.getJSONObject(charId).getJSONArray("phases");
+        if (charPhases != null) {
+            maxPhase = Math.max(0, charPhases.size() - 1);
+        }
+        if (curPhase >= maxPhase) {
+            result.put("result", 1);
+            result.put("error", charId + " 已经到最高精英阶段（精" + maxPhase + "），不能用精二直升凭证");
+            return result;
+        }
+        int destPhase = Math.min(maxPhase, curPhase + 1);
+        if (destPhase == 1) {
+            String skinBefore = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
+            if (skinBefore == null || skinBefore.equals(charId + "#1")) {
+                com.hypergryph.arknights.core.work.processArray.setSkin(tchar, charId + "#1+");
+            }
+            com.hypergryph.arknights.core.work.processArray.unlockSkillsForPhase(tchar, charId, 1);
+        } else if (destPhase == 2) {
+            String curSkin = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
+            if (curSkin == null || curSkin.equals(charId + "#1") || curSkin.equals(charId + "#1+")) {
+                com.hypergryph.arknights.core.work.processArray.setSkin(tchar, charId + "#2");
+            }
+            com.hypergryph.arknights.core.work.processArray.unlockSkillsForPhase(tchar, charId, 2);
+            com.hypergryph.arknights.core.work.processArray.setEquipHidden(tchar, false);
+        }
+        tchar.put("evolvePhase", destPhase);
+        userDao.setUserData(account.getUid(), UserSyncData);
+
+        JSONObject charss = new JSONObject(true);
+        charss.put(String.valueOf(charInstId), tchar);
+        JSONObject troop = new JSONObject(true);
+        troop.put("chars", charss);
+
+        JSONObject modified = new JSONObject(true);
+        modified.put("consumable", consumableDelta);
+        modified.put("troop", troop);
+
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+
+        result.put("playerDataDelta", playerDataDelta);
+        result.put("result", 0);
+        ArknightsApplication.LOGGER.info("[evolveCharUseItem] {} ({}) 精二，消耗 {}/{}", charId, charInstId, itemId, instId);
+        return result;
+    }
+
+    @PostMapping(
+            value = {"/upgradeCharLevelMaxUseItem"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject upgradeCharLevelMaxUseItem(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /charBuild/upgradeCharLevelMaxUseItem");
+        // 官方字段：charInsId / itemInsId；兼容带 t 的写法
+        int charInstId = JsonBody.containsKey("charInsId") ? JsonBody.getIntValue("charInsId") : JsonBody.getIntValue("charInstId");
+        String itemId = JsonBody.getString("itemId");
+        int instId = JsonBody.containsKey("itemInsId") ? JsonBody.getIntValue("itemInsId") : JsonBody.getIntValue("instId");
+
+        JSONObject result = new JSONObject(true);
+        List<Account> Accounts = userDao.queryAccountBySecret(secret);
+        if (Accounts.size() != 1) {
+            result.put("result", 2);
+            result.put("error", "无法查询到此账户");
+            return result;
+        }
+        Account account = (Account)Accounts.get(0);
+        if (account.getBan() == 1L) {
+            response.setStatus(500);
+            JSONObject banned = new JSONObject(true);
+            banned.put("statusCode", 403);
+            banned.put("error", "Bad Request");
+            banned.put("message", "error");
+            return banned;
+        }
+
+        JSONObject UserSyncData = JSONObject.parseObject(account.getUser());
+        JSONObject tchar = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId));
+        if (tchar == null) {
+            result.put("result", 1);
+            result.put("error", "没有这个干员: " + charInstId);
+            return result;
+        }
+
+        JSONObject consumableDelta = spendConsumable(UserSyncData, itemId, instId);
+        if (consumableDelta == null) {
+            result.put("result", 1);
+            result.put("error", "没有这件特训装置: " + itemId + " / instId=" + instId);
+            return result;
+        }
+
+        String charId = tchar.getString("charId");
+        int phase = tchar.getIntValue("evolvePhase");
+        int maxLevel = maxLevelOf(charId, phase);
+        tchar.put("level", maxLevel);
+        tchar.put("exp", 0);
+        userDao.setUserData(account.getUid(), UserSyncData);
+
+        JSONObject charDelta = new JSONObject(true);
+        charDelta.put("level", maxLevel);
+        charDelta.put("exp", 0);
+        JSONObject charss = new JSONObject(true);
+        charss.put(String.valueOf(charInstId), charDelta);
+        JSONObject troop = new JSONObject(true);
+        troop.put("chars", charss);
+
+        JSONObject modified = new JSONObject(true);
+        modified.put("consumable", consumableDelta);
+        modified.put("troop", troop);
+
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+
+        result.put("playerDataDelta", playerDataDelta);
+        result.put("result", 0);
+        ArknightsApplication.LOGGER.info("[upgradeCharLevelMaxUseItem] {} ({}) -> 精{} 满级 {}", charId, charInstId, phase, maxLevel);
+        return result;
+    }
+
+    private static JSONObject spendConsumable(JSONObject UserSyncData, String itemId, int instId) {
+        if (itemId == null || itemId.isEmpty()) {
+            return null;
+        }
+        JSONObject consumable = UserSyncData.getJSONObject("consumable");
+        if (consumable == null) {
+            return null;
+        }
+        JSONObject byInst = consumable.getJSONObject(itemId);
+        if (byInst == null) {
+            return null;
+        }
+        JSONObject inst = byInst.getJSONObject(String.valueOf(instId));
+        if (inst == null || inst.getIntValue("count") <= 0) {
+            return null;
+        }
+        inst.put("count", 0);
+        inst.put("ts", -1);
+
+        JSONObject after = new JSONObject(true);
+        after.put("ts", -1);
+        after.put("count", 0);
+        JSONObject oneInst = new JSONObject(true);
+        oneInst.put(String.valueOf(instId), after);
+        JSONObject delta = new JSONObject(true);
+        delta.put(itemId, oneInst);
+        return delta;
+    }
+
+    private static int maxLevelOf(String charId, int phase) {
+        try {
+            JSONObject def = ArknightsApplication.characterJson.getJSONObject(charId);
+            JSONArray phases = def == null ? null : def.getJSONArray("phases");
+            if (phases != null && phase >= 0 && phase < phases.size()) {
+                int max = phases.getJSONObject(phase).getIntValue("maxLevel");
+                if (max > 0) {
+                    return max;
+                }
+            }
+        } catch (Exception e) {
+            ArknightsApplication.LOGGER.warn("[charBuild] 取 {} 精{} 等级上限失败: {}", charId, phase, e.toString());
+        }
+        // 兜底：按精英阶段取最常见的上限
+        return phase >= 2 ? 90 : (phase == 1 ? 80 : 50);
     }
 
     @PostMapping(
@@ -700,14 +949,25 @@ public class charBuild {
                 return UserSyncData;
             } else {
                 UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)).put("skin", skinId);
+                JSONObject skinChar = UserSyncData.getJSONObject("troop").getJSONObject("chars")
+                        .getJSONObject(String.valueOf(charInstId));
+                // 基节点字段是 skin，模板 patch 里叫 skinId
+                com.hypergryph.arknights.core.work.processArray.setSkin(skinChar, skinId);
                 userDao.setUserData(uid, UserSyncData);
+                // 官方只回变更字段（2026-10-27 实测 103 B）：
+                //   非模板干员 -> {"skin": "..."}；模板干员 -> 整个 tmpl（skinId 在 patch 里）
+                JSONObject skinDelta = new JSONObject(true);
+                if (skinChar.getJSONObject("tmpl") != null) {
+                    skinDelta.put("tmpl", skinChar.getJSONObject("tmpl"));
+                } else {
+                    skinDelta.put("skin", skinId);
+                }
                 JSONObject result = new JSONObject(true);
                 JSONObject modified = new JSONObject(true);
                 JSONObject playerDataDelta = new JSONObject(true);
                 JSONObject troop = new JSONObject(true);
                 JSONObject chars = new JSONObject(true);
-                chars.put(String.valueOf(charInstId), UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)));
+                chars.put(String.valueOf(charInstId), skinDelta);
                 troop.put("chars", chars);
                 modified.put("troop", troop);
                 playerDataDelta.put("deleted", new JSONObject(true));
@@ -852,9 +1112,45 @@ public class charBuild {
                 return UserSyncData;
             } else {
                 UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)).getJSONObject("equip").getJSONObject(equipId).put("locked", 0);
+                JSONObject unlockChar = UserSyncData.getJSONObject("troop").getJSONObject("chars")
+                        .getJSONObject(String.valueOf(charInstId));
+                // 模板干员（阿米娅）的 equip 在 tmpl[currentTmpl] 里，基节点是空对象
+                JSONObject unlockTarget = com.hypergryph.arknights.core.work.processArray
+                        .activeCharData(unlockChar);
+                if (unlockTarget.getJSONObject("equip") == null) {
+                    unlockTarget.put("equip", new JSONObject(true));
+                }
+                JSONObject eqSlot = unlockTarget.getJSONObject("equip").getJSONObject(equipId);
+                if (eqSlot == null) {
+                    JSONObject bad = new JSONObject(true);
+                    bad.put("result", 1);
+                    bad.put("error", "没有这个模组槽: " + equipId);
+                    return bad;
+                }
+                if (eqSlot.getIntValue("locked") == 0) {
+                    JSONObject bad = new JSONObject(true);
+                    bad.put("result", 1);
+                    bad.put("error", "该模组已解锁");
+                    return bad;
+                }
+
+                // 扣解锁消耗：uniequip_table.equipDict[equipId].itemCost["1"]
+                JSONObject invDelta = new JSONObject(true);
+                JSONObject statDelta = new JSONObject(true);
+                String costError = consumeEquipCost(UserSyncData, equipId, 1, invDelta, statDelta);
+                if (costError != null) {
+                    JSONObject bad = new JSONObject(true);
+                    bad.put("result", 1);
+                    bad.put("error", costError);
+                    return bad;
+                }
+
+                eqSlot.put("locked", 0);
+                eqSlot.put("level", 1);
                 userDao.setUserData(uid, UserSyncData);
+
                 JSONObject result = new JSONObject(true);
+                result.put("result", 0);
                 JSONObject modified = new JSONObject(true);
                 JSONObject playerDataDelta = new JSONObject(true);
                 JSONObject troop = new JSONObject(true);
@@ -862,6 +1158,12 @@ public class charBuild {
                 chars.put(String.valueOf(charInstId), UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)));
                 troop.put("chars", chars);
                 modified.put("troop", troop);
+                if (!invDelta.isEmpty()) {
+                    modified.put("inventory", invDelta);
+                }
+                if (!statDelta.isEmpty()) {
+                    modified.put("status", statDelta);
+                }
                 playerDataDelta.put("deleted", new JSONObject(true));
                 playerDataDelta.put("modified", modified);
                 result.put("playerDataDelta", playerDataDelta);
@@ -898,9 +1200,15 @@ public class charBuild {
                 return UserSyncData;
             } else {
                 UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)).put("currentEquip", equipId);
+                JSONObject setChar = UserSyncData.getJSONObject("troop").getJSONObject("chars")
+                        .getJSONObject(String.valueOf(charInstId));
+                // 客户端会带 templateId（非模板干员为 null），有就按它写，没有才回落到 currentTmpl
+                JSONObject setTarget = com.hypergryph.arknights.core.work.processArray
+                        .templateNode(setChar, templateId);
+                setTarget.put("currentEquip", equipId);
                 userDao.setUserData(uid, UserSyncData);
                 JSONObject result = new JSONObject(true);
+                result.put("result", 0);
                 JSONObject modified = new JSONObject(true);
                 JSONObject playerDataDelta = new JSONObject(true);
                 JSONObject troop = new JSONObject(true);
@@ -914,6 +1222,146 @@ public class charBuild {
                 return result;
             }
         }
+    }
+
+    @PostMapping(
+            value = {"/upgradeEquipment"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject upgradeEquipment(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /charBuild/upgradeEquipment");
+        int charInstId = JsonBody.getIntValue("charInstId");
+        String templateId = JsonBody.getString("templateId");
+        String equipId = JsonBody.getString("equipId");
+        int targetLevel = JsonBody.getIntValue("targetLevel");
+
+        List<Account> Accounts = userDao.queryAccountBySecret(secret);
+        if (Accounts.size() != 1) {
+            JSONObject result = new JSONObject(true);
+            result.put("result", 2);
+            result.put("error", "无法查询到此账户");
+            return result;
+        }
+        Long uid = ((Account)Accounts.get(0)).getUid();
+        if (((Account)Accounts.get(0)).getBan() == 1L) {
+            response.setStatus(500);
+            JSONObject banned = new JSONObject(true);
+            banned.put("statusCode", 403);
+            banned.put("error", "Bad Request");
+            banned.put("message", "error");
+            return banned;
+        }
+
+        JSONObject UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
+        JSONObject upChar = UserSyncData.getJSONObject("troop").getJSONObject("chars")
+                .getJSONObject(String.valueOf(charInstId));
+        JSONObject upTarget = com.hypergryph.arknights.core.work.processArray
+                .templateNode(upChar, templateId);
+
+        JSONObject upEquipMap = upTarget.getJSONObject("equip");
+        JSONObject upSlot = upEquipMap == null ? null : upEquipMap.getJSONObject(equipId);
+        if (upSlot == null) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "没有这个模组槽: " + equipId);
+            return bad;
+        }
+        if (upSlot.getIntValue("locked") != 0) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "该模组尚未解锁");
+            return bad;
+        }
+        int curLevel = upSlot.getIntValue("level");
+        if (targetLevel != curLevel + 1) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "等级不连续：当前 " + curLevel + "，请求 " + targetLevel);
+            return bad;
+        }
+
+        // 消耗 = equipDict[equipId].itemCost[targetLevel]
+        JSONObject invDelta = new JSONObject(true);
+        JSONObject statDelta = new JSONObject(true);
+        String costError = consumeEquipCost(UserSyncData, equipId, targetLevel, invDelta, statDelta);
+        if (costError != null) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", costError);
+            return bad;
+        }
+
+        upSlot.put("level", targetLevel);
+        userDao.setUserData(uid, UserSyncData);
+
+        JSONObject result = new JSONObject(true);
+        result.put("result", 0);
+        JSONObject modified = new JSONObject(true);
+        JSONObject playerDataDelta = new JSONObject(true);
+        JSONObject troop = new JSONObject(true);
+        JSONObject chars = new JSONObject(true);
+        // 官方回整个干员对象（含 equip），照做
+        chars.put(String.valueOf(charInstId), UserSyncData.getJSONObject("troop").getJSONObject("chars")
+                .getJSONObject(String.valueOf(charInstId)));
+        troop.put("chars", chars);
+        modified.put("troop", troop);
+        if (!invDelta.isEmpty()) {
+            modified.put("inventory", invDelta);
+        }
+        if (!statDelta.isEmpty()) {
+            modified.put("status", statDelta);
+        }
+        playerDataDelta.put("deleted", new JSONObject(true));
+        playerDataDelta.put("modified", modified);
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
+    }
+
+    private String consumeEquipCost(JSONObject UserSyncData, String equipId, int level,
+                                    JSONObject invDelta, JSONObject statDelta) {
+        JSONObject equipDict = ArknightsApplication.uniequipTable;
+        JSONObject def = equipDict == null ? null : equipDict.getJSONObject(equipId);
+        if (def == null) {
+            return "模组表里没有 " + equipId;
+        }
+        JSONObject itemCost = def.getJSONObject("itemCost");
+        JSONArray cost = itemCost == null ? null : itemCost.getJSONArray(String.valueOf(level));
+        if (cost == null || cost.isEmpty()) {
+            return "模组表里没有第 " + level + " 级的消耗";
+        }
+        // 先整体校验再扣，避免扣一半失败
+        for (int i = 0; i < cost.size(); i++) {
+            JSONObject item = cost.getJSONObject(i);
+            String id = item.getString("id");
+            int need = item.getIntValue("count");
+            String type = item.getString("type");
+            if ("GOLD".equals(type) || "4001".equals(id)) {
+                if (UserSyncData.getJSONObject("status").getIntValue("gold") < need) {
+                    return "龙门币不足（需要 " + need + "）";
+                }
+            } else {
+                if (UserSyncData.getJSONObject("inventory").getIntValue(id) < need) {
+                    return "材料不足: " + id + " 需要 " + need;
+                }
+            }
+        }
+        for (int i = 0; i < cost.size(); i++) {
+            JSONObject item = cost.getJSONObject(i);
+            String id = item.getString("id");
+            int need = item.getIntValue("count");
+            String type = item.getString("type");
+            if ("GOLD".equals(type) || "4001".equals(id)) {
+                int left = UserSyncData.getJSONObject("status").getIntValue("gold") - need;
+                UserSyncData.getJSONObject("status").put("gold", left);
+                statDelta.put("gold", left);
+            } else {
+                int left = UserSyncData.getJSONObject("inventory").getIntValue(id) - need;
+                UserSyncData.getJSONObject("inventory").put(id, left);
+                invDelta.put(id, left);
+            }
+        }
+        return null;
     }
 
     @PostMapping(
@@ -1191,14 +1639,35 @@ public class charBuild {
                 return UserSyncData;
             } else {
                 UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
-                UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)).put("currentTmpl", templateId);
+                JSONObject tmplChar = UserSyncData.getJSONObject("troop").getJSONObject("chars")
+                        .getJSONObject(String.valueOf(charInstId));
+                JSONObject tmplMap = tmplChar.getJSONObject("tmpl");
+                if (templateId == null || templateId.isEmpty()) {
+                    JSONObject bad = new JSONObject(true);
+                    bad.put("result", 1);
+                    bad.put("error", "templateId 不能为空");
+                    return bad;
+                }
+                // 只能切到已解锁的模板：模板 patch 是通关对应关卡时由 AmiyaTemplate 建出来的
+                if (tmplMap == null || !tmplMap.containsKey(templateId)) {
+                    JSONObject bad = new JSONObject(true);
+                    bad.put("result", 1);
+                    bad.put("error", "该模板尚未解锁: " + templateId);
+                    return bad;
+                }
+                if (!templateId.equals(tmplChar.getString("currentTmpl"))) {
+                    tmplChar.put("currentTmpl", templateId);
+                }
                 userDao.setUserData(uid, UserSyncData);
                 JSONObject result = new JSONObject(true);
                 JSONObject modified = new JSONObject(true);
                 JSONObject playerDataDelta = new JSONObject(true);
                 JSONObject troop = new JSONObject(true);
                 JSONObject chars = new JSONObject(true);
-                chars.put(String.valueOf(charInstId), UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)));
+                // 官方只回 currentTmpl，tmpl / equip / skin / skills 一律不动（2026-10-27 实测）
+                JSONObject tmplDelta = new JSONObject(true);
+                tmplDelta.put("currentTmpl", templateId);
+                chars.put(String.valueOf(charInstId), tmplDelta);
                 troop.put("chars", chars);
                 modified.put("troop", troop);
                 playerDataDelta.put("deleted", new JSONObject(true));

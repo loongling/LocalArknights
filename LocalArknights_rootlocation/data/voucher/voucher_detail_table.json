@@ -1,0 +1,10205 @@
+{
+ "_comment": "券池数据。官方不下发这张表，内容来自真机抓包 + 公开资料。_source=capture:* 是抓包权威数据；unknown 表示还没补。",
+ "_generatedAt": "2026-10-28T03:17:35.918Z",
+ "_stats": {
+  "captured": 7,
+  "placeholder": 84,
+  "prts": 29,
+  "failed": 9,
+  "prts2": 9,
+  "failed2": 0,
+  "prtsChars": 4,
+  "prtsItems": 2,
+  "prtsFail": 34,
+  "prts3": 21,
+  "derived": 6,
+  "fail3": 7,
+  "fixChars": 0,
+  "fixDerived": 2,
+  "fixFail": 11,
+  "eliteDerived": 4,
+  "askChars": 0,
+  "askFail": 7
+ },
+ "vouchers": {
+  "voucher_item_4pick1": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_108_silent",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_107_liskam",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_174_slbell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_144_red",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "干员兑换券",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_4pick1_1803": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": "voucher_item_4pick1",
+   "itemList": [
+    {
+     "id": "char_107_liskam",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_108_silent",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_174_slbell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_144_red",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "干员兑换券",
+   "itemType": "VOUCHER_PICK",
+   "_source": "capture:getVoucherDetail"
+  },
+  "voucher_item_pick601": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "高级干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick1401": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "感谢庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick1803": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_400_weedy",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_197_poca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_358_lisa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_293_thorns",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_416_zumama",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_350_surtr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_423_blemsh",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "周年庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick2301": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "感谢庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick2701": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_400_weedy",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_197_poca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_358_lisa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_293_thorns",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_416_zumama",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_350_surtr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_423_blemsh",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "周年庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick3301": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "感谢庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick3801": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_400_weedy",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_197_poca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_358_lisa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_293_thorns",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_416_zumama",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_350_surtr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_423_blemsh",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "周年庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick4401": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "感谢庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick5001": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_400_weedy",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_197_poca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_358_lisa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_293_thorns",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_416_zumama",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_350_surtr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_423_blemsh",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "周年庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick5601": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "感谢庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick6101": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_400_weedy",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_197_poca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_358_lisa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_293_thorns",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_416_zumama",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_350_surtr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_423_blemsh",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "周年庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR6_pick6401": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "高级干员活动调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "unknown"
+  },
+  "voucher_item_pick6701": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "感谢庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_pick7301": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_010_chen",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_112_siege",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_134_ifrit",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_136_hsguma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_147_shining",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_179_cgbird",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_180_amgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_188_helage",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_213_mostma",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_222_bpipe",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_225_haak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_248_mgllan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_250_phatom",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_263_skadi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_291_aglina",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_340_shwaz",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_2013_cerber",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_400_weedy",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_197_poca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_358_lisa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_293_thorns",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_416_zumama",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_350_surtr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_423_blemsh",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "周年庆典干员凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_class_pick5601": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "中坚高级干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "unknown"
+  },
+  "voucher_class_pick6101": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "中坚高级干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "unknown"
+  },
+  "voucher_class_pick6701": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "中坚高级干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "unknown"
+  },
+  "voucher_class_pick7301": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "中坚高级干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "unknown"
+  },
+  "voucher_recruitR5_pick1803": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_128_plosis",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_115_headbr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_102_texas",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_106_franka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_140_whitew",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_143_ghost",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_129_bluep",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_204_platnm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_219_meteo",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_166_skfire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_242_otter",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_108_silent",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_171_bldsk",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_148_nearl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_144_red",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_107_liskam",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_201_moeshd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_145_prove",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_158_milu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_173_slchan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_174_slbell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_195_glassb",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_101_sora",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_215_mantic",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_241_panda",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_164_nightm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_308_swire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_326_glacus",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_274_astesi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_279_excu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_243_waaifu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_261_sddrag",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_356_broca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_367_swllow",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_226_hmau",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_306_leizi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_379_sesa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_254_vodfox",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_401_elysm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_378_asbest",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_343_tknogi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_373_lionhd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_294_ayer",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_344_beewax",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_349_chiave",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_218_cuttle",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_415_flint",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_365_aprl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_346_aosta",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_436_whispr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_214_kafka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_338_iris",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_455_nothin",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_363_toddi",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "资深干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR5_pick2701": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_128_plosis",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_115_headbr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_102_texas",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_106_franka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_140_whitew",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_143_ghost",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_129_bluep",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_204_platnm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_219_meteo",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_166_skfire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_242_otter",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_108_silent",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_171_bldsk",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_148_nearl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_144_red",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_107_liskam",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_201_moeshd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_145_prove",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_158_milu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_173_slchan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_174_slbell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_195_glassb",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_101_sora",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_215_mantic",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_241_panda",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_164_nightm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_308_swire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_326_glacus",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_274_astesi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_279_excu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_243_waaifu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_261_sddrag",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_356_broca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_367_swllow",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_226_hmau",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_306_leizi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_379_sesa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_254_vodfox",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_401_elysm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_378_asbest",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_343_tknogi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_373_lionhd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_294_ayer",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_344_beewax",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_349_chiave",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_218_cuttle",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_415_flint",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_365_aprl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_346_aosta",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_436_whispr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_214_kafka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_338_iris",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_455_nothin",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_363_toddi",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "资深干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR5_pick3801": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_128_plosis",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_115_headbr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_102_texas",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_106_franka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_140_whitew",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_143_ghost",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_129_bluep",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_204_platnm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_219_meteo",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_166_skfire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_242_otter",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_108_silent",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_171_bldsk",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_148_nearl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_144_red",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_107_liskam",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_201_moeshd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_145_prove",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_158_milu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_173_slchan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_174_slbell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_195_glassb",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_101_sora",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_215_mantic",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_241_panda",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_164_nightm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_308_swire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_326_glacus",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_274_astesi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_279_excu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_243_waaifu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_261_sddrag",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_356_broca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_367_swllow",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_226_hmau",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_306_leizi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_379_sesa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_254_vodfox",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_401_elysm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_378_asbest",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_343_tknogi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_373_lionhd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_294_ayer",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_344_beewax",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_349_chiave",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_218_cuttle",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_415_flint",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_365_aprl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_346_aosta",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_436_whispr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_214_kafka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_338_iris",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_455_nothin",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_363_toddi",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "资深干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR5_pick5001": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_128_plosis",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_115_headbr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_102_texas",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_106_franka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_140_whitew",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_143_ghost",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_129_bluep",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_204_platnm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_219_meteo",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_166_skfire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_242_otter",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_108_silent",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_171_bldsk",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_148_nearl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_144_red",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_107_liskam",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_201_moeshd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_145_prove",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_158_milu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_173_slchan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_174_slbell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_195_glassb",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_101_sora",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_215_mantic",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_241_panda",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_164_nightm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_308_swire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_326_glacus",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_274_astesi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_279_excu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_243_waaifu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_261_sddrag",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_356_broca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_367_swllow",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_226_hmau",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_306_leizi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_379_sesa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_254_vodfox",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_401_elysm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_378_asbest",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_343_tknogi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_373_lionhd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_294_ayer",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_344_beewax",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_349_chiave",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_218_cuttle",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_415_flint",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_365_aprl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_346_aosta",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_436_whispr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_214_kafka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_338_iris",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_455_nothin",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_363_toddi",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "资深干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR5_pick6101": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_128_plosis",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_115_headbr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_102_texas",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_106_franka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_140_whitew",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_143_ghost",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_129_bluep",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_204_platnm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_219_meteo",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_166_skfire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_242_otter",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_108_silent",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_171_bldsk",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_148_nearl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_144_red",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_107_liskam",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_201_moeshd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_145_prove",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_158_milu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_173_slchan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_174_slbell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_195_glassb",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_101_sora",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_215_mantic",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_241_panda",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_164_nightm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_308_swire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_326_glacus",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_274_astesi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_279_excu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_243_waaifu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_261_sddrag",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_356_broca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_367_swllow",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_226_hmau",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_306_leizi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_379_sesa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_254_vodfox",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_401_elysm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_378_asbest",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_343_tknogi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_373_lionhd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_294_ayer",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_344_beewax",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_349_chiave",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_218_cuttle",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_415_flint",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_365_aprl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_346_aosta",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_436_whispr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_214_kafka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_338_iris",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_455_nothin",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_363_toddi",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "资深干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR5_pick7301": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_128_plosis",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_115_headbr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_102_texas",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_106_franka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_140_whitew",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_143_ghost",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_129_bluep",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_204_platnm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_219_meteo",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_166_skfire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_242_otter",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_108_silent",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_171_bldsk",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_148_nearl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_144_red",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_107_liskam",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_201_moeshd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_145_prove",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_158_milu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_173_slchan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_174_slbell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_195_glassb",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_101_sora",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_215_mantic",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_241_panda",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_164_nightm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_308_swire",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_326_glacus",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_274_astesi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_279_excu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_243_waaifu",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_261_sddrag",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_356_broca",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_367_swllow",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_226_hmau",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_306_leizi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_379_sesa",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_254_vodfox",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_401_elysm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_378_asbest",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_343_tknogi",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_373_lionhd",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_294_ayer",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_344_beewax",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_349_chiave",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_218_cuttle",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_415_flint",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_365_aprl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_346_aosta",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_436_whispr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_214_kafka",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_338_iris",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_455_nothin",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_363_toddi",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "资深干员调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR5_pick2": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_155_tiger",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_163_hpsts",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "火神因陀罗招募券",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR6_pick5301": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_017_huang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_103_angel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_172_svrash",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_202_demkni",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_264_f12yin",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_293_thorns",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "高级干员调用凭证-新人",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_item_4pick1_5301": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_128_plosis",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_140_whitew",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_143_ghost",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_173_slchan",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "资深干员调用凭证-新人",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR6_pick7201": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "特殊活动调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "unknown"
+  },
+  "voucher_recruitR6_pick7601": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "高级干员活动调用凭证",
+   "itemType": "VOUCHER_PICK",
+   "_source": "unknown"
+  },
+  "RandomSkinbox_1": {
+   "api": "getVoucherDetail",
+   "voucherType": "SKIN_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "时装回顾展",
+   "itemType": "RANDOM_VOUCHER_SKIN",
+   "_source": "unknown"
+  },
+  "RandomSkinbox_2": {
+   "api": "getVoucherDetail",
+   "voucherType": "SKIN_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "时装回顾展·II",
+   "itemType": "RANDOM_VOUCHER_SKIN",
+   "_source": "unknown"
+  },
+  "RandomSkinbox_3": {
+   "api": "getVoucherDetail",
+   "voucherType": "SKIN_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "时装回顾展·III",
+   "itemType": "RANDOM_VOUCHER_SKIN",
+   "_source": "unknown"
+  },
+  "RandomSkinbox_4": {
+   "api": "getVoucherDetail",
+   "voucherType": "SKIN_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "时装回顾展·IV",
+   "itemType": "RANDOM_VOUCHER_SKIN",
+   "_source": "unknown"
+  },
+  "RandomSkinbox_arkhub_1": {
+   "api": "getVoucherDetail",
+   "voucherType": "SKIN_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "奇象时装回顾展",
+   "itemType": "RANDOM_VOUCHER_SKIN",
+   "_source": "unknown"
+  },
+  "RandomSkinbox_5": {
+   "api": "getVoucherDetail",
+   "voucherType": "SKIN_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [],
+   "pool": null,
+   "name": "时装回顾展·V",
+   "itemType": "RANDOM_VOUCHER_SKIN",
+   "_source": "unknown"
+  },
+  "voucher_recruitR4_1": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_141_nights",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_109_fmout",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_235_jesica",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_126_shotst",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_118_yuki",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_149_scave",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_290_vigna",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_130_doberm",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_289_gyuki",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_193_frostl",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_127_estell",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_185_frncat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_237_gravel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_236_rope",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_117_myrrh",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_181_flower",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_199_yak",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_150_snakek",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_196_sunbr",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_183_skgoat",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_277_sqrrel",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "公开招募★4兑换券·I",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_recruitR3_1": {
+   "api": "getVoucherDetail",
+   "voucherType": "CHAR_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "char_123_fang",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_240_wyvern",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_192_falco",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_208_melan",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_122_beagle",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_124_kroos",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_211_adnach",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_121_lava",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_120_hibisc",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_212_ansel",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_210_stward",
+     "count": 1,
+     "type": "CHAR"
+    },
+    {
+     "id": "char_278_orchid",
+     "count": 1,
+     "type": "CHAR"
+    }
+   ],
+   "pool": null,
+   "name": "公开招募★3兑换券·I",
+   "itemType": "VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_chipPack": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "3212",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3222",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3232",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3242",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3252",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3262",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3272",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3282",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "芯片组自助打印盒",
+   "itemType": "OPTIONAL_VOUCHER_PICK",
+   "_source": "derived:chips"
+  },
+  "voucher_chip": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "3211",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3221",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3231",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3241",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3251",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3261",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3271",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3281",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "act25side_token_fdrchips",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "act25side_token_fdrchips_rep_1",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "act34side_token_chip",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "act34side_token_chip_rep_1",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "芯片自助打印盒",
+   "itemType": "OPTIONAL_VOUCHER_PICK",
+   "_source": "derived:chips"
+  },
+  "voucher_chipPackage": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "itempack_mod_7",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "itempack_mod_8",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "itempack_mod_9",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "itempack_mod_10",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "itempack_mod_11",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "itempack_mod_12",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "itempack_mod_13",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "itempack_mod_14",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3212",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3211",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3222",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3221",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3232",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3231",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3242",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3241",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3252",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3251",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3262",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3261",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3272",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3271",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3282",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3281",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "自助芯片组印刻仪",
+   "itemType": "OPTIONAL_VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "voucher_5chipPackage": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "3211",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3221",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3231",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3241",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3251",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3261",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3271",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3281",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "自助芯片印刻仪",
+   "itemType": "OPTIONAL_VOUCHER_PICK",
+   "_source": "prts.wiki"
+  },
+  "precious_material_voucher_perm": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "30115",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30125",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30135",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30145",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30155",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30165",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3213",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3223",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3233",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3243",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3253",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3263",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3273",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3283",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "稀有材料提货券",
+   "itemType": "MATERIAL_ISSUE_VOUCHER",
+   "_source": "derived:evolveCost"
+  },
+  "premium_material_voucher_perm": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "30014",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30024",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30034",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30044",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30054",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30064",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30074",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30084",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30094",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30104",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31014",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31024",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31034",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31044",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31054",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31064",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31074",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31084",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31094",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31104",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31114",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3212",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3222",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3232",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3242",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3252",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3262",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3272",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3282",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "特级材料提货券",
+   "itemType": "MATERIAL_ISSUE_VOUCHER",
+   "_source": "derived:evolveCost"
+  },
+  "advanced_material_voucher_perm": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": "advanced_material_issue_voucher",
+   "itemList": [
+    {
+     "id": "30053",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30043",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30023",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30033",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30063",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30013",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30103",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30093",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30083",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30073",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31013",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31023",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31033",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31043",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31053",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31063",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31073",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31083",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31093",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31103",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31113",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "高级材料提货券",
+   "itemType": "MATERIAL_ISSUE_VOUCHER",
+   "_source": "capture:getVoucherDetail"
+  },
+  "randomMaterialRune_0": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_0",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    }
+   ],
+   "name": "荒芜行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_1": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    }
+   ],
+   "name": "黄铁行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_2": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_2",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    }
+   ],
+   "name": "利刃行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_3": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_3",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    }
+   ],
+   "name": "燃灰行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_4": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_4",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    }
+   ],
+   "name": "铅封行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_5": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_5",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    }
+   ],
+   "name": "光谱行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_6": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_6",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    }
+   ],
+   "name": "蛮鳞行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_7": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_7",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    }
+   ],
+   "name": "松烟行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_8": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_8",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    }
+   ],
+   "name": "寻昼行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_9": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_9",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    }
+   ],
+   "name": "渊默行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_10": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_10",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    }
+   ],
+   "name": "尘环行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_11": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_11",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    }
+   ],
+   "name": "赝波行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterialRune_12": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterialRune_12",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    }
+   ],
+   "name": "起源行动物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_1": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "30061",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30051",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30041",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30031",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30021",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30011",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_2": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_2",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "30061",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30051",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30041",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30031",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30021",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30011",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "岁过华灯",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_3": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_3",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    }
+   ],
+   "name": "32h战略配给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_4": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_4",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "感谢庆典物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_5": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给II",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_6": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给III",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_7": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给IV",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_8": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给V",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_9": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给VI",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_10": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给VII",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_11": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 7
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 8
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 9
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 10
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 11
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 12
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 13
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 14
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 15
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 16
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 17
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 18
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 19
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给VIII",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "capture:getMaterialVoucherDetail"
+  },
+  "randomMaterial_12": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给IX",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_13": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31113",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 2
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 3
+    },
+    {
+     "itemId": "30062",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 1
+    },
+    {
+     "itemId": "30052",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 2
+    },
+    {
+     "itemId": "30042",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 3
+    },
+    {
+     "itemId": "30032",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 4
+    },
+    {
+     "itemId": "30022",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 5
+    },
+    {
+     "itemId": "30012",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "5",
+     "sortId": 6
+    }
+   ],
+   "name": "罗德岛物资补给X",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_5d5": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_4",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    }
+   ],
+   "name": "2024感谢庆典物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_rhine2": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_rhine2",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    }
+   ],
+   "name": "技术调查补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomDiamondShd_1": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomDiamondShd_1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "4003",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "4003",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    }
+   ],
+   "name": "罗德岛迎春红包",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomDiamondShd_2": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomDiamondShd_2",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "4003",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "4003",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    }
+   ],
+   "name": "庆典礼盒",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_siesta2": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_siesta2",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    }
+   ],
+   "name": "峯联贸易物流补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_leith2": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_leith2",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    }
+   ],
+   "name": "查访补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_act38side": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_act38side",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    }
+   ],
+   "name": "狂欢烟花桶",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_act42side": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_act42side",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    }
+   ],
+   "name": "铳械工坊赠品盒",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_6d5": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_4",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    }
+   ],
+   "name": "2025感谢庆典物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_act46side": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_act46side",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    }
+   ],
+   "name": "应急救援包",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_message1": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_message1",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "4001",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    }
+   ],
+   "name": "一号项目决定版",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_amiya": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_amiya",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 1
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 2
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 3
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 4
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 5
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "2",
+     "sortId": 6
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 1
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 2
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 3
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 4
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 5
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "3",
+     "sortId": 6
+    },
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "4",
+     "sortId": 1
+    }
+   ],
+   "name": "兔兔礼品盒",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_message2": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_message2",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "4001",
+     "itemType": "GOLD",
+     "itemNum": 30000,
+     "groupId": "1",
+     "sortId": 1
+    }
+   ],
+   "name": "形制朴素的棋具",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "capture:getMaterialVoucherDetail"
+  },
+  "randomMaterial_message3": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_message3",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "4001",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    }
+   ],
+   "name": "生命标本",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "prts.wiki"
+  },
+  "randomMaterial_act53side": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_act53side",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 7
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 8
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 9
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 10
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 11
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 12
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 13
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 14
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 15
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 16
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 17
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 18
+    },
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 19
+    },
+    {
+     "itemId": "31103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 20
+    },
+    {
+     "itemId": "31113",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 21
+    }
+   ],
+   "name": "“幸福在途”补给包",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "capture:getMaterialVoucherDetail"
+  },
+  "randomMaterial_message4": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_message4",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "4001",
+     "itemType": "GOLD",
+     "itemNum": 30000,
+     "groupId": "1",
+     "sortId": 1
+    }
+   ],
+   "name": "“神秘动物的口袋”",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "capture:getMaterialVoucherDetail"
+  },
+  "randomMaterial_7d5": {
+   "api": "getMaterialVoucherDetail",
+   "voucherType": null,
+   "pickNum": 1,
+   "picId": "randomMaterial_4",
+   "itemList": null,
+   "pool": [
+    {
+     "itemId": "30013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 1
+    },
+    {
+     "itemId": "30023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 2
+    },
+    {
+     "itemId": "30033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 3
+    },
+    {
+     "itemId": "30043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 4
+    },
+    {
+     "itemId": "30053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 5
+    },
+    {
+     "itemId": "30063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 6
+    },
+    {
+     "itemId": "30073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 7
+    },
+    {
+     "itemId": "30083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 8
+    },
+    {
+     "itemId": "30093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 9
+    },
+    {
+     "itemId": "30103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 10
+    },
+    {
+     "itemId": "31013",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 11
+    },
+    {
+     "itemId": "31023",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 12
+    },
+    {
+     "itemId": "31033",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 13
+    },
+    {
+     "itemId": "31043",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 14
+    },
+    {
+     "itemId": "31053",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 15
+    },
+    {
+     "itemId": "31063",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 16
+    },
+    {
+     "itemId": "31073",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 17
+    },
+    {
+     "itemId": "31083",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 18
+    },
+    {
+     "itemId": "31093",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 19
+    },
+    {
+     "itemId": "31103",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 20
+    },
+    {
+     "itemId": "31113",
+     "itemType": "MATERIAL",
+     "itemNum": 1,
+     "groupId": "1",
+     "sortId": 21
+    }
+   ],
+   "name": "2026感谢庆典物资补给",
+   "itemType": "VOUCHER_MGACHA",
+   "_source": "capture:getMaterialVoucherDetail"
+  },
+  "premium_material_issue_voucher": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "30014",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30024",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30034",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30044",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30054",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30064",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30074",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30084",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30094",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30104",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31014",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31024",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31034",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31044",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31054",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31064",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31074",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31084",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31094",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31104",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31114",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3212",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3222",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3232",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3242",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3252",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3262",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3272",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3282",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "特级材料提货券",
+   "itemType": "MATERIAL_ISSUE_VOUCHER",
+   "_source": "derived:evolveCost"
+  },
+  "advanced_material_issue_voucher": {
+   "api": "getVoucherDetail",
+   "voucherType": "MATERIAL_VOUCHER",
+   "pickNum": 1,
+   "picId": null,
+   "itemList": [
+    {
+     "id": "30013",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30023",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30033",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30043",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30053",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30063",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30073",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30083",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30093",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "30103",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31013",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31023",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31033",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31043",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31053",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31063",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31073",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31083",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31093",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "31113",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3211",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3221",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3231",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3241",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3251",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3261",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3271",
+     "count": 1,
+     "type": "MATERIAL"
+    },
+    {
+     "id": "3281",
+     "count": 1,
+     "type": "MATERIAL"
+    }
+   ],
+   "pool": null,
+   "name": "高级材料提货券",
+   "itemType": "MATERIAL_ISSUE_VOUCHER",
+   "_source": "derived:evolveCost"
+  }
+ }
+}

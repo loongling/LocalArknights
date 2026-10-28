@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### capture / credentials (never commit) ###
+*.session.json
+.official_session*.json
+.bilibili_session.json
+_bili_cap/
+_bili_capture/
+*.har
+*.mflow

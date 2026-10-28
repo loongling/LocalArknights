@@ -1,0 +1,26 @@
+{
+ "_comment": "本地服务端邮件定义。玩家第一次进邮箱时按 defId 各发一封（已发过的记在 userData.mail.receivedDefIds）。文案取自官服抓包 mailId=751。",
+ "mails": [
+  {
+   "defId": "welcome_recruit_751",
+   "from": "penguin_logistics",
+   "subject": "公开招募调整补偿",
+   "content": "尊敬的博士：\n\n于05月01日维护中进行的公开招募强制刷新补偿请在附件中查收。\n感谢您对明日方舟的理解与支持！\n\n[明日方舟]运营组",
+   "expireDays": 365,
+   "hasItem": 1,
+   "type": 1,
+   "items": [
+    {
+     "id": "7001",
+     "type": "TKT_RECRUIT",
+     "count": 5
+    },
+    {
+     "id": "7002",
+     "type": "TKT_INST_FIN",
+     "count": 5
+    }
+   ]
+  }
+ ]
+}

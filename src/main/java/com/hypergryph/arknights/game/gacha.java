@@ -893,8 +893,9 @@ public class gacha {
         }
         charData.put("skills", skills);
         charData.put("currentEquip", null);
-        JSONObject equip = new JSONObject();
-        charData.put("equip", equip);
+        // 模组槽要和官方一致：有 uniequip_001_xxx 就预建两个，否则空对象。
+        // 写空 {} 会让 /charBuild/uniequip 的 getJSONObject(equipId) 抛 NPE
+        charData.put("equip", com.hypergryph.arknights.core.work.processArray.buildEquipSlots(charId));
         // 设置语音语言
         charData.put("voiceLan", "JP");
         charData.put("defaultSkillIndex", -1);

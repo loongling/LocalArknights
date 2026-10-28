@@ -1,0 +1,14 @@
+{
+  "_comment": "调研邮件模板（官服 type:2 / surveyMailId / style.route:2）。数据取自 2026-10-28 官服抓包 /mail/listMailBox 的 surveyMailList。第一次读邮箱时按 surveyMailId 各补一封，删掉后不再补。",
+  "enabled": true,
+  "surveys": [
+    {
+      "surveyMailId": "sv_2",
+      "from": "penguin_logistics",
+      "subject": "《明日方舟》七日体验问卷",
+      "content": "尊敬的博士，\n\n这段时间以来，罗德岛的各项事务您是否已经得心应手了呢？期待您宝贵的意见。\n完成本次问卷并成功提交，可获得【龙门币与作战记录】奖励。奖励会通过邮件发放，请注意查收。\n\n*调研邮件有效期为2天，以确保您的反馈接近您当前的实际体验。奖励邮件有效期为30天，感谢您的理解。",
+      "expireDays": 2,
+      "style": { "route": 2, "banner": "survey" }
+    }
+  ]
+}

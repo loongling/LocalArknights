@@ -17,6 +17,453 @@ import static com.hypergryph.arknights.core.work.consumableNumberG.*;
 
 public class processArray {
 
+    public static JSONArray grantChar(JSONObject user, String charId, int count) {
+        JSONArray out = new JSONArray();
+        for (int n = 0; n < Math.max(1, count); n++) {
+            out.add(grantOneChar(user, charId));
+        }
+        return out;
+    }
+
+    private static JSONObject grantOneChar(JSONObject user, String charId) {
+        JSONObject troop = user.getJSONObject("troop");
+        JSONObject chars = troop.getJSONObject("chars");
+
+        // 是否已有该角色
+        String existInstId = null;
+        for (String key : chars.keySet()) {
+            JSONObject c = chars.getJSONObject(key);
+            if (c != null && charId.equals(c.getString("charId"))) {
+                existInstId = key;
+                break;
+            }
+        }
+
+        JSONArray itemGet = new JSONArray();
+        int charInstId;
+        boolean isNew = existInstId == null;
+
+        if (isNew) {
+            // instId 直接用 charId 里的编号（char_151_myrtle → 151），和 gacha 一致
+            charInstId = extractInstId(charId, chars);
+            chars.put(String.valueOf(charInstId), createNewCharacter(charId, charInstId));
+            putCurCharInstId(troop, charInstId);
+
+            // 基建数据
+            user.getJSONObject("building").getJSONObject("chars")
+                    .put(String.valueOf(charInstId), createBuildingCharacter(charId));
+
+            // 首次获得送 1 张高级凭证
+            JSONObject hggShard = new JSONObject(true);
+            hggShard.put("type", "HGG_SHD");
+            hggShard.put("id", "4004");
+            hggShard.put("count", 1);
+            itemGet.add(hggShard);
+            user.getJSONObject("status").put("hggShard",
+                    user.getJSONObject("status").getIntValue("hggShard") + 1);
+
+            // 角色组
+            JSONObject charGroup = new JSONObject(true);
+            charGroup.put("favorPoint", 0);
+            troop.getJSONObject("charGroup").put(charId, charGroup);
+
+            // 潜能材料初始化为 0
+            user.getJSONObject("inventory").put("p_" + charId, 0);
+
+            // 图鉴
+            putDexNav(user, charId, charInstId, 1);
+        } else {
+            charInstId = Integer.parseInt(existInstId);
+            JSONObject existingChar = chars.getJSONObject(existInstId);
+            int potentialRank = existingChar.getIntValue("potentialRank");
+            int rarity = ArknightsApplication.getCharRarity(charId);
+
+            // 信物按稀有度折算
+            JSONObject shardItem = new JSONObject(true);
+            if (rarity <= 3) {
+                shardItem.put("type", "LGG_SHD");
+                shardItem.put("id", "4005");
+                shardItem.put("count", rarity == 3 ? 30 : (rarity == 2 ? 5 : 1));
+                user.getJSONObject("status").put("lggShard",
+                        user.getJSONObject("status").getIntValue("lggShard")
+                                + shardItem.getIntValue("count"));
+            } else {
+                shardItem.put("type", "HGG_SHD");
+                shardItem.put("id", "4004");
+                shardItem.put("count", rarity == 5
+                        ? (potentialRank < 5 ? 10 : 15)
+                        : (potentialRank < 5 ? 5 : 8));
+                user.getJSONObject("status").put("hggShard",
+                        user.getJSONObject("status").getIntValue("hggShard")
+                                + shardItem.getIntValue("count"));
+            }
+            itemGet.add(shardItem);
+
+            // 潜能材料
+            JSONObject potentialItem = new JSONObject(true);
+            potentialItem.put("type", "MATERIAL");
+            potentialItem.put("id", "p_" + charId);
+            potentialItem.put("count", 1);
+            itemGet.add(potentialItem);
+            user.getJSONObject("inventory").put("p_" + charId,
+                    user.getJSONObject("inventory").getIntValue("p_" + charId) + 1);
+
+            // 图鉴获得次数 +1
+            putDexNav(user, charId, charInstId, -1);
+        }
+
+        JSONObject charGet = new JSONObject(true);
+        charGet.put("charInstId", charInstId);
+        charGet.put("charId", charId);
+        charGet.put("isNew", isNew ? 1 : 0);
+        charGet.put("itemGet", itemGet);
+
+        JSONObject item = new JSONObject(true);
+        item.put("type", "CHAR");
+        item.put("id", charId);
+        item.put("count", 1);
+        item.put("charGet", charGet);
+        return item;
+    }
+
+    private static JSONObject createNewCharacter(String charId, int instId) {
+        JSONObject charInfo = ArknightsApplication.characterJson.getJSONObject(charId);
+
+        JSONArray skills = new JSONArray();
+        JSONArray skilsArray = charInfo.getJSONArray("skills");
+        for (int i = 0; i < skilsArray.size(); i++) {
+            JSONObject skill = skilsArray.getJSONObject(i);
+            JSONObject newSkill = new JSONObject(true);
+            newSkill.put("skillId", skill.getString("skillId"));
+            newSkill.put("state", 0);
+            newSkill.put("specializeLevel", 0);
+            newSkill.put("completeUpgradeTime", -1);
+            JSONObject unlockCond = skill.getJSONObject("unlockCond");
+            String phase = unlockCond != null ? unlockCond.getString("phase") : "";
+            // unlockCond.phase 可能是 "PHASE_0"
+            newSkill.put("unlock", (phase == null || phase.isEmpty()
+                    || ArknightsApplication.getCharPhase(phase) == 0) ? 1 : 0);
+            skills.add(newSkill);
+        }
+
+        JSONObject charData = new JSONObject(true);
+        charData.put("charId", charId);
+        charData.put("instId", instId);
+        charData.put("level", 1);
+        charData.put("exp", 0);
+        charData.put("evolvePhase", 0);
+        charData.put("favorPoint", 0);
+        charData.put("potentialRank", 0);
+        charData.put("mainSkillLvl", 1);
+        charData.put("skin", charId + "#1");
+        charData.put("gainTime", System.currentTimeMillis() / 1000L);
+        charData.put("skills", skills);
+        charData.put("currentEquip", null);
+        charData.put("equip", createEquipSlots(charId));
+        // 语音语种跟随干员表（国服是 CN_MANDARIN），不能写死 JP
+        JSONObject typeDict = ArknightsApplication.charwordTable.getJSONObject("charDefaultTypeDict");
+        charData.put("voiceLan", typeDict == null ? null : typeDict.getString(charId));
+        charData.put("defaultSkillIndex", skills.isEmpty() ? -1 : 0);
+        // 星标（客户端 PlayerCharacter.starMark，int 枚举）；gacha 的语义：有技能 = 0，没有 = -1
+        charData.put("starMark", skills.isEmpty() ? -1 : 0);
+        return charData;
+    }
+
+    private static JSONObject createBuildingCharacter(String charId) {
+        JSONObject buildingChar = new JSONObject(true);
+        buildingChar.put("charId", charId);
+        buildingChar.put("lastApAddTime", System.currentTimeMillis() / 1000L);
+        buildingChar.put("ap", 8640000);
+        buildingChar.put("roomSlotId", "");
+        buildingChar.put("index", -1);
+        buildingChar.put("changeScale", 0);
+
+        JSONObject bubble = new JSONObject(true);
+        JSONObject normal = new JSONObject(true);
+        normal.put("add", -1);
+        normal.put("ts", 0);
+        bubble.put("normal", normal);
+
+        JSONObject assist = new JSONObject(true);
+        assist.put("add", -1);
+        assist.put("ts", 0);
+        bubble.put("assist", assist);
+
+        JSONObject privateBubble = new JSONObject(true);
+        privateBubble.put("add", -1);
+        privateBubble.put("ts", 0);
+        bubble.put("private", privateBubble);
+
+        buildingChar.put("bubble", bubble);
+        buildingChar.put("workTime", 0);
+        buildingChar.put("privateRooms", new JSONArray());
+        return buildingChar;
+    }
+
+    public static void setEquipHidden(JSONObject charData, boolean hidden) {
+        if (charData == null) {
+            return;
+        }
+        int flag = hidden ? 1 : 0;
+        applyHidden(charData.getJSONObject("equip"), flag);
+
+        // 模板干员（阿米娅）：每个模板的 equip 也要跟着变
+        JSONObject tmpl = charData.getJSONObject("tmpl");
+        if (tmpl != null) {
+            for (String key : tmpl.keySet()) {
+                JSONObject patch = tmpl.getJSONObject(key);
+                if (patch != null) {
+                    applyHidden(patch.getJSONObject("equip"), flag);
+                }
+            }
+        }
+    }
+
+    private static void applyHidden(JSONObject equip, int flag) {
+        if (equip == null) {
+            return;
+        }
+        for (String slotId : equip.keySet()) {
+            JSONObject slot = equip.getJSONObject(slotId);
+            if (slot != null) {
+                slot.put("hide", flag);
+            }
+        }
+    }
+
+    public static JSONObject activeCharData(JSONObject charData) {
+        if (charData == null) {
+            return null;
+        }
+        String currentTmpl = charData.getString("currentTmpl");
+        JSONObject tmpl = charData.getJSONObject("tmpl");
+        if (currentTmpl != null && !currentTmpl.isEmpty() && tmpl != null) {
+            JSONObject patch = tmpl.getJSONObject(currentTmpl);
+            if (patch != null) {
+                return patch;
+            }
+        }
+        return charData;
+    }
+
+    public static JSONObject templateNode(JSONObject charData, String requestedTemplateId) {
+        if (charData == null) {
+            return null;
+        }
+        JSONObject tmpl = charData.getJSONObject("tmpl");
+        if (tmpl != null && requestedTemplateId != null && !requestedTemplateId.isEmpty()) {
+            JSONObject patch = tmpl.getJSONObject(requestedTemplateId);
+            if (patch != null) {
+                return patch;
+            }
+        }
+        return activeCharData(charData);
+    }
+
+    public static String getSkin(JSONObject charData) {
+        if (charData == null) {
+            return null;
+        }
+        String currentTmpl = charData.getString("currentTmpl");
+        JSONObject tmpl = charData.getJSONObject("tmpl");
+        if (currentTmpl != null && !currentTmpl.isEmpty() && tmpl != null) {
+            JSONObject patch = tmpl.getJSONObject(currentTmpl);
+            if (patch != null) {
+                return patch.getString("skinId");
+            }
+        }
+        return charData.getString("skin");
+    }
+
+    public static void setSkin(JSONObject charData, String skinId) {
+        if (charData == null || skinId == null) {
+            return;
+        }
+        String currentTmpl = charData.getString("currentTmpl");
+        JSONObject tmpl = charData.getJSONObject("tmpl");
+        if (currentTmpl != null && !currentTmpl.isEmpty() && tmpl != null) {
+            JSONObject patch = tmpl.getJSONObject(currentTmpl);
+            if (patch != null) {
+                patch.put("skinId", skinId);
+                return;
+            }
+        }
+        charData.put("skin", skinId);
+    }
+
+    public static int getDefaultSkillIndex(JSONObject charData) {
+        JSONObject active = activeCharData(charData);
+        return active == null ? -1 : active.getIntValue("defaultSkillIndex");
+    }
+
+    public static List<JSONArray> allSkillArrays(JSONObject charData) {
+        List<JSONArray> result = new ArrayList<>();
+        if (charData == null) {
+            return result;
+        }
+        JSONObject tmpl = charData.getJSONObject("tmpl");
+        boolean templated = tmpl != null && charData.getString("currentTmpl") != null
+                && !charData.getString("currentTmpl").isEmpty();
+        if (!templated) {
+            JSONArray base = charData.getJSONArray("skills");
+            if (base != null) {
+                result.add(base);
+            }
+            return result;
+        }
+        if (tmpl != null) {
+            for (String key : tmpl.keySet()) {
+                JSONObject patch = tmpl.getJSONObject(key);
+                JSONArray skills = patch == null ? null : patch.getJSONArray("skills");
+                if (skills != null) {
+                    result.add(skills);
+                }
+            }
+        }
+        return result;
+    }
+
+    public static void unlockSkillsForPhase(JSONObject charData, String baseCharId, int destPhase) {
+        if (charData == null) {
+            return;
+        }
+        JSONObject tmpl = charData.getJSONObject("tmpl");
+        boolean templated = tmpl != null && charData.getString("currentTmpl") != null
+                && !charData.getString("currentTmpl").isEmpty();
+
+        if (!templated) {
+            unlockSkillsOfNode(charData.getJSONArray("skills"), baseCharId, destPhase);
+            return;
+        }
+        if (tmpl != null) {
+            for (String templateId : tmpl.keySet()) {
+                JSONObject patch = tmpl.getJSONObject(templateId);
+                if (patch != null) {
+                    unlockSkillsOfNode(patch.getJSONArray("skills"), templateId, destPhase);
+                }
+            }
+        }
+    }
+
+    private static void unlockSkillsOfNode(JSONArray charSkills, String tableCharId, int destPhase) {
+        if (charSkills == null || tableCharId == null) {
+            return;
+        }
+        JSONArray defs = skillDefsOf(tableCharId);
+        if (defs == null) {
+            return;
+        }
+        for (int i = 0; i < charSkills.size(); i++) {
+            JSONObject skill = charSkills.getJSONObject(i);
+            if (skill == null) {
+                continue;
+            }
+            String skillId = skill.getString("skillId");
+            for (int d = 0; d < defs.size(); d++) {
+                JSONObject def = defs.getJSONObject(d);
+                if (def == null || !skillId.equals(def.getString("skillId"))) {
+                    continue;
+                }
+                JSONObject unlockCond = def.getJSONObject("unlockCond");
+                String phase = unlockCond == null ? null : unlockCond.getString("phase");
+                int need = phase == null || phase.isEmpty() ? 0 : ArknightsApplication.getCharPhase(phase);
+                if (need <= destPhase) {
+                    skill.put("unlock", 1);
+                }
+                break;
+            }
+        }
+    }
+
+    public static JSONObject charDef(String charId) {
+        if (charId == null) {
+            return null;
+        }
+        JSONObject patchTable = ArknightsApplication.charPatchTable;
+        JSONObject patchChars = patchTable == null ? null : patchTable.getJSONObject("patchChars");
+        JSONObject patch = patchChars == null ? null : patchChars.getJSONObject(charId);
+        if (patch != null) {
+            return patch;
+        }
+        return ArknightsApplication.characterJson == null
+                ? null : ArknightsApplication.characterJson.getJSONObject(charId);
+    }
+
+    private static JSONArray skillDefsOf(String charId) {
+        JSONObject def = charDef(charId);
+        return def == null ? null : def.getJSONArray("skills");
+    }
+
+    public static JSONObject buildEquipSlots(String charId) {
+        return createEquipSlots(charId);
+    }
+
+    private static JSONObject createEquipSlots(String charId) {
+        JSONObject equip = new JSONObject(true);
+        String itemType = charId.substring(charId.indexOf("_") + 1);
+        String itemId = itemType.substring(itemType.indexOf("_") + 1);
+
+        int moduleCount = 0;
+        for (int i = 1; i <= 9; i++) {
+            if (ArknightsApplication.uniequipTable.containsKey("uniequip_00" + i + "_" + itemId)) {
+                moduleCount = i;
+            }
+        }
+        for (int i = 1; i <= moduleCount; i++) {
+            JSONObject slot = new JSONObject(true);
+            slot.put("hide", 1);
+            slot.put("level", 1);
+            slot.put("locked", i == 1 ? 0 : 1);
+            equip.put("uniequip_00" + i + "_" + itemId, slot);
+        }
+        return equip;
+    }
+
+    private static int extractInstId(String charId, JSONObject chars) {
+        java.util.regex.Matcher matcher =
+                java.util.regex.Pattern.compile("char_(\\d+)_").matcher(charId);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
+        }
+        ArknightsApplication.LOGGER.warn("[grantChar] charId 里没有编号: {}，退回自增", charId);
+        int instId = 1;
+        for (String key : chars.keySet()) {
+            try {
+                instId = Math.max(instId, Integer.parseInt(key) + 1);
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return instId;
+    }
+
+    private static void putCurCharInstId(JSONObject troop, int instId) {
+        if (troop.getIntValue("curCharInstId") < instId + 1) {
+            troop.put("curCharInstId", instId + 1);
+        }
+    }
+
+    private static void putDexNav(JSONObject user, String charId, int charInstId, int count) {
+        JSONObject dexNav = user.getJSONObject("dexNav");
+        if (dexNav == null) {
+            return;
+        }
+        JSONObject dexChar = dexNav.getJSONObject("character");
+        if (dexChar == null) {
+            dexChar = new JSONObject(true);
+            dexNav.put("character", dexChar);
+        }
+        JSONObject entry = dexChar.getJSONObject(charId);
+        if (entry == null) {
+            entry = new JSONObject(true);
+            entry.put("charInstId", charInstId);
+            entry.put("count", Math.max(1, count));
+            entry.put("classicCount", 0);
+            dexChar.put(charId, entry);
+        } else {
+            entry.put("count", entry.getIntValue("count") + Math.max(1, count));
+        }
+    }
+
     public static JSONArray removeByGoodId(JSONArray array, String id) {
         if (array == null || array.isEmpty() || id == null) {
             return null;
@@ -43,11 +490,12 @@ public class processArray {
         JSONObject inventoryChanged = new JSONObject();
         JSONObject consumable = user.getJSONObject("consumable");
         JSONObject consumableChanged = new JSONObject();
+
         if (T == 1) {
             int LMD = status.getInteger("gold");
             count = LMD + count;
             changedStatus.put("gold", count);
-            modified.put("status", changedStatus);
+            mergeNode(modified, "status", changedStatus);
             return modified;
         }
         else if (T == 2) {
@@ -55,31 +503,24 @@ public class processArray {
                 int counts = inventory.getInteger(id);
                 count = count + counts;
                 inventory.put(id, count);
-                modified.put("inventory", inventoryChanged);
+                mergeNode(modified, "inventory", inventoryChanged);
                 return modified;
             } else {
                 inventoryChanged.put(id, count);
-                modified.put("inventory", inventoryChanged);
+                mergeNode(modified, "inventory", inventoryChanged);
                 return modified;
             }
         }
         else if (T == 3) {
+            // 各种票券：统一映射到 status 里的对应字段
+            String ticketField = ticketStatusField(type);
+            if (ticketField != null) {
+                changedStatus.put(ticketField, status.getIntValue(ticketField) + count);
+                mergeNode(modified, "status", changedStatus);
+                return modified;
+            }
             int TKT = resolveTKT(type);
-            if (TKT == 0) {
-                int GachaTKT = status.getInteger("gachaTicket");
-                GachaTKT = GachaTKT + count;
-                changedStatus.put("gachaTicket", GachaTKT);
-                modified.put("status", changedStatus);
-                return modified;
-            }
-            else if (TKT == 1) {
-                int GachaTKT10 = status.getInteger("tenGachaTicket");
-                GachaTKT10 = GachaTKT10 + count;
-                changedStatus.put("tenGachaTicket", GachaTKT10);
-                modified.put("status", changedStatus);
-                return modified;
-            }
-            else if (TKT == 2) {
+            if (TKT == 2) {
                 if (isExist(id, consumable)){
                     JSONObject A = consumable.getJSONObject(id);
                     JSONObject B = getInnerObject(A);
@@ -111,7 +552,7 @@ public class processArray {
                     B.put(String.valueOf(me), A);
                     consumableChanged.put(id, B);
                 }
-                modified.put("consumable", consumableChanged);
+                mergeNode(modified, "consumable", consumableChanged);
                 return modified;
             }
         } else if(T == 5){
@@ -133,9 +574,10 @@ public class processArray {
                 JSONObject C = new JSONObject();
                 C.put(String.valueOf(me), A);
                 consumableChanged.put(id, C);
-                modified.put("consumable", consumableChanged);
-                return modified;
             }
+            // 两个分支都要写增量（原来"已存在"那条路径直接漏了增量）
+            mergeNode(modified, "consumable", consumableChanged);
+            return modified;
         } else if(T == 6){
             int andD = status.getInteger("androidDiamond");
             int iosD = status.getInteger("iosDiamond");
@@ -143,9 +585,24 @@ public class processArray {
             iosD = iosD + count;
             changedStatus.put("androidDiamond", andD);
             changedStatus.put("iosDiamond", iosD);
-            modified.put("status", changedStatus);
+            mergeNode(modified, "status", changedStatus);
             return modified;
-        } else  if(T == 9){
+        }
+        else if (T == 7) {
+            // 干员：加干员会同时改 troop / building / dexNav / status / inventory，
+            // 增量交给调用方在 handleUserDataChange 之后做实际 diff
+            return modified;
+        }
+        else if (T == 8) {
+            long nowTs = System.currentTimeMillis() / 1000L;
+            String cardId = com.hypergryph.arknights.core.monthlycard.MonthlyCard.currentCardId();
+            mergeNode(modified, "status", com.hypergryph.arknights.core.monthlycard.MonthlyCard
+                    .planStatusDelta(user, cardId, nowTs));
+            mergeNode(modified, "inventory", com.hypergryph.arknights.core.monthlycard.MonthlyCard
+                    .planInventoryDelta(user, cardId, nowTs));
+            return modified;
+        }
+        else if(T == 9){
             if(type.equals("HOME_THEME")){
                 JSONObject homeTheme = new JSONObject();
                 JSONObject theme = new JSONObject();
@@ -153,7 +610,7 @@ public class processArray {
                 add.put("unlock", ArknightsApplication.getTimestamp());
                 theme.put(id, add);
                 homeTheme.put("themes", theme);
-                modified.put("homeTheme", homeTheme);
+                mergeNode(modified, "homeTheme", homeTheme);
                 return modified;
             }
             else if(type.equals("HOME_BACKGROUND")){
@@ -163,7 +620,7 @@ public class processArray {
                 add.put("unlock", ArknightsApplication.getTimestamp());
                 bgs.put(id, add);
                 background.put("bgs", bgs);
-                modified.put("background", background);
+                mergeNode(modified, "background", background);
                 return modified;
             }
             else if(type.equals("PLAYER_AVATAR")){
@@ -174,14 +631,14 @@ public class processArray {
                 add.put("src", "other");
                 icon.put(id, add);
                 avatar.put("avatar_icon", icon);
-                modified.put("avatar", avatar);
+                mergeNode(modified, "avatar", avatar);
                 return modified;
             }
         }
         else if(T == 10){
             int o_shd = status.getInteger("diamondShard");
             changedStatus.put("diamondShard", o_shd + count);
-            modified.put("status", changedStatus);
+            mergeNode(modified, "status", changedStatus);
             return modified;
         }
         return modified;
@@ -205,9 +662,8 @@ public class processArray {
 
         LocalDateTime ldt = LocalDateTime.of(year, month, day, hour, minute, 0);
 
-        //若解析出的时间已早于"现在"，说明跨年了，年份 +1
         LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
-        if (ldt.isBefore(now.minusDays(1))) {   // 容错 1 天，避免边界误判
+        if (ldt.isBefore(now.minusDays(1))) {
             ldt = ldt.plusYears(1);
         }
 
@@ -217,6 +673,11 @@ public class processArray {
     }
 
     public static JSONObject handleUserDataChange(JSONObject obj, JSONObject user, long uid, int i) {
+        return handleUserDataChange(obj, user, uid, i, null);
+    }
+
+    public static JSONObject handleUserDataChange(JSONObject obj, JSONObject user, long uid, int i,
+                                                  JSONArray itemsOut) {
         int count = obj.getInteger("count");
         String id = obj.getString("id");
         String type = obj.getString("type");
@@ -227,6 +688,16 @@ public class processArray {
         JSONObject inventoryChanged = new JSONObject();
         JSONObject consumable = user.getJSONObject("consumable");
         JSONObject consumableChanged = new JSONObject();
+
+        // T == 7 干员（唯一实现在 processArray.grantChar）
+        if (T == 7) {
+            JSONArray got = grantChar(user, id, count);
+            if (itemsOut != null) {
+                itemsOut.addAll(got);
+            }
+            return user;
+        }
+
         if(T == 1) {
             int o_LMD =  status.getInteger("gold");
             user.getJSONObject("status").put("gold", o_LMD + count);
@@ -242,20 +713,19 @@ public class processArray {
                 return user;
             }
         } else if(T == 3) {
+            // 各种票券：统一映射到 status 里的对应字段
+            String ticketField = ticketStatusField(type);
+            if (ticketField != null) {
+                user.getJSONObject("status").put(ticketField, status.getIntValue(ticketField) + count);
+                return user;
+            }
+            if ("TKT_GACHA_PRSV".equals(type)) {
+                // 采购凭证十连券之类，存在 inventory 里
+                user.getJSONObject("inventory").put(id, inventory.getIntValue(id) + count);
+                return user;
+            }
             int TKT = resolveTKT(type);
-            if (TKT == 0) {
-                int GachaTKT = status.getInteger("gachaTicket");
-                GachaTKT = GachaTKT + count;
-                user.getJSONObject("status").put("gachaTicket", GachaTKT);
-                return user;
-            }
-            else if (TKT == 1) {
-                int GachaTKT10 = status.getInteger("tenGachaTicket");
-                GachaTKT10 = GachaTKT10 + count;
-                user.getJSONObject("status").put("tenGachaTicket", GachaTKT10);
-                return user;
-            }
-            else if (TKT == 2) {
+            if (TKT == 2) {
                 if (isExist(id, consumable)){
                     JSONObject A = consumable.getJSONObject(id);
                     JSONObject B = getInnerObject(A);
@@ -323,6 +793,15 @@ public class processArray {
             user.getJSONObject("status").put("iosDiamond", iosD);
             return user;
         }
+        else if (T == 8) {
+            for (int n = 0; n < Math.max(1, count); n++) {
+                com.hypergryph.arknights.core.monthlycard.MonthlyCard
+                        .activate(user, System.currentTimeMillis() / 1000L);
+            }
+            com.hypergryph.arknights.core.monthlycard.MonthlyCard.grantDailyBonus(user,
+                    com.hypergryph.arknights.core.monthlycard.MonthlyCard.currentCardId());
+            return user;
+        }
         else  if(T == 9){
             if(type.equals("HOME_THEME")){
                 JSONObject add = new JSONObject();
@@ -352,6 +831,47 @@ public class processArray {
         return user;
     }
 
+    private static void mergeNode(JSONObject modified, String node, JSONObject delta) {
+        if (delta == null || delta.isEmpty()) {
+            return;
+        }
+        JSONObject target = modified.getJSONObject(node);
+        if (target == null) {
+            target = JSONObject.parseObject(delta.toJSONString());
+        } else {
+            deepMerge(target, delta);
+        }
+        modified.put(node, target);
+    }
+
+    private static void deepMerge(JSONObject dst, JSONObject src) {
+        for (String key : src.keySet()) {
+            Object sv = src.get(key);
+            Object dv = dst.get(key);
+            if (sv instanceof JSONObject && dv instanceof JSONObject) {
+                deepMerge((JSONObject) dv, (JSONObject) sv);
+            } else {
+                dst.put(key, sv);
+            }
+        }
+    }
+
+    private static String ticketStatusField(String type) {
+        if (type == null) {
+            return null;
+        }
+        return switch (type.trim().toUpperCase(Locale.ROOT)) {
+            case "TKT_GACHA" -> "gachaTicket";
+            case "TKT_GACHA_10" -> "tenGachaTicket";
+            case "CLASSIC_TKT_GACHA" -> "classicGachaTicket";
+            case "CLASSIC_TKT_GACHA_10" -> "classicTenGachaTicket";
+            case "TKT_RECRUIT" -> "recruitLicense";
+            case "TKT_INST_FIN" -> "instantFinishTicket";
+            case "TKT_TRY" -> "practiceTicket";
+            default -> null;
+        };
+    }
+
     private static int resolveTKT(String TKT) {
         if (TKT == null) {
             return -1;
@@ -370,8 +890,8 @@ public class processArray {
         if (itemList != null) {
             for (int i = 0; i < itemList.size(); i++) {
                 Object o = itemList.get(i);
-                if (o instanceof Map) {                 // 兼容 fastjson1 / fastjson2
-                    items.add(itemList.getJSONObject(i)); // 统一转成 com.alibaba.fastjson.JSONObject
+                if (o instanceof Map) {
+                    items.add(itemList.getJSONObject(i));
                 }
             }
         }

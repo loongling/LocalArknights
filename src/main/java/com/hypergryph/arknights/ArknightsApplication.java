@@ -59,6 +59,8 @@ public class ArknightsApplication {
     public static JSONObject mainStage;
     public static JSONObject normalGachaData;
     public static JSONObject uniequipTable;
+    public static JSONObject charPatchTable;   // char_patch_table.json（阿米娅三套模板）
+    public static JSONObject mailTable;        // data/mail/mail_table.json（本地邮件定义）
     public static JSONObject skinGoodList;
     public static JSONObject skinTable;
     public static JSONObject charwordTable;
@@ -78,6 +80,7 @@ public class ArknightsApplication {
     public static JSONObject unlockActivity;
     public static JSONObject buildingData;
     public static JSONObject storyTable;
+    public static JSONObject ClassicGoodList;
     public static CommandManager ConsoleCommandManager;
     public static ICommandSender Sender;
 
@@ -196,7 +199,8 @@ public class ArknightsApplication {
             case "GOLD" -> 1;
             case "CARD_EXP", "MATERIAL" -> 2;
             case "TKT_RECRUIT", "TKT_INST_FIN", "TKT_GACHA", "CLASSIC_TKT_GACHA_10", "TKT_GACHA_10",
-                 "EXCLUSIVE_TKT_GACHA", "EXCLUSIVE_TKT_GACHA_10" -> 3;
+                 "EXCLUSIVE_TKT_GACHA", "EXCLUSIVE_TKT_GACHA_10",
+                 "CLASSIC_TKT_GACHA", "TKT_GACHA_PRSV", "TKT_TRY" -> 3;
             case "LGG_SHD", "HGG_SHD" -> 4;
             case "VOUCHER_PICK", "OPTIONAL_VOUCHER_PICK", "MATERIAL_ISSUE_VOUCHER", "VOUCHER_LEVELMAX_5",
                  "VOUCHER_ELITE_II_5", "VOUCHER_ELITE_II_4", "VOUCHER_ELITE_II_6", "RENAMING_CARD", "AP_SUPPLY" -> 5;
@@ -344,6 +348,7 @@ public class ArknightsApplication {
         serverConfig = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/config.json");
         enableServer = serverConfig.getJSONObject("server").getBooleanValue("enableServer");
         LOGGER.info("载入游戏数据...");
+        ClassicGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/ClassicGoodList.json");
         checkIn = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/checkin_table.json").getJSONObject("groups");
         monthlyPass = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/checkin_table.json").getJSONObject("monthlySubItem");
         openServer = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/open_server_table.json");
@@ -355,6 +360,9 @@ public class ArknightsApplication {
         itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json").getJSONObject("items");
         mainStage = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/stage.json").getJSONObject("MainStage");
         uniequipTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/uniequip_table.json").getJSONObject("equipDict");
+        charPatchTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/char_patch_table.json");
+        com.hypergryph.arknights.core.voucher.VoucherTable.load();
+        mailTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/mail/mail_table.json");
         skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
         skinTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/skin_table.json").getJSONObject("charSkins");
         charwordTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/charword_table.json");
@@ -390,6 +398,7 @@ public class ArknightsApplication {
         mainStage = new JSONObject();
         normalGachaData = new JSONObject();
         uniequipTable = new JSONObject();
+        charPatchTable = new JSONObject();
         skinGoodList = new JSONObject();
         skinTable = new JSONObject();
         charwordTable = new JSONObject();
@@ -408,6 +417,7 @@ public class ArknightsApplication {
         AllProductList = new JSONObject();
         unlockActivity = new JSONObject();
         buildingData = new JSONObject();
+        ClassicGoodList = new JSONObject();
         storyTable = new JSONObject();
         ConsoleCommandManager = new CommandManager();
         Sender = () -> {

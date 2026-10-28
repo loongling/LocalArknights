@@ -16,6 +16,15 @@ public class orderIdDao {
         return list.isEmpty() ? null : list.get(0);
     }
 
+    public static JSONObject queryAllByOrderId(String order_id) {
+        String sql = "SELECT * FROM orders WHERE order_id = ?";
+        List<Map<String, Object>> list = ArknightsApplication.jdbcTemplate.queryForList(sql, order_id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return new JSONObject(list.get(0));
+    }
+
     public static JSONObject queryAllBySecret(String secret) {
         String sql = "SELECT * FROM orders WHERE secret = ?";
         List<Map<String, Object>> list = ArknightsApplication.jdbcTemplate.queryForList(sql, secret);
@@ -40,14 +49,14 @@ public class orderIdDao {
         return ArknightsApplication.jdbcTemplate.update(sql, secret, orderId, goodId, storeId, price, pName, times, create_time);
     }
 
-    public static int updateTimes(String secret) {
-        String sql = "UPDATE orders SET times = times + 1 WHERE secret = ?";
-        return ArknightsApplication.jdbcTemplate.update(sql, secret);
+    public static int updateTimes(String order_id) {
+        String sql = "UPDATE orders SET times = times + 1 WHERE order_id = ?";
+        return ArknightsApplication.jdbcTemplate.update(sql, order_id);
     }
 
-    public static int checkTimes(String secret) {
-        String sql = "SELECT times FROM orders WHERE secret = ?";
-        List<Integer> list = ArknightsApplication.jdbcTemplate.queryForList(sql, Integer.class, secret);
+    public static int checkTimes(String order_id) {
+        String sql = "SELECT times FROM orders WHERE order_id = ?";
+        List<Integer> list = ArknightsApplication.jdbcTemplate.queryForList(sql, Integer.class, order_id);
         return list.isEmpty() ? 0 : list.get(0);
     }
 

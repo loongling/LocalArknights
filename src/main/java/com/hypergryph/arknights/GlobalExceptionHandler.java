@@ -31,12 +31,14 @@ public class GlobalExceptionHandler {
             "/openServer", "/trainingGround", "/recalRune", "/performanceStory",
             "/aprilFool", "/collectionReward", "/firework", "/charRotation",
             "/limitedBuff", "/templateTrap", "/campaignsV2", "/rune", "/share",
-            "/setting", "/pay"
+            "/setting", "/pay", "/survey"
     ));
 
     private static final Set<String> TELEMETRY_PATHS = new HashSet<>(Arrays.asList(
             "/batch_event", "/event_report", "/api/h", "/beat", "/event",
-            "/error", "/syncPushMessage", "/pb/async"
+            "/error", "/syncPushMessage", "/pb/async",
+            // 公告页：GET /gameBulletin，客户端只当信息流用，返回空对象即可（之前 404 会弹提示）
+            "/gameBulletin"
     ));
 
     @ExceptionHandler(NoHandlerFoundException.class)

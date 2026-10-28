@@ -26,7 +26,7 @@ public class activity {
             value = {"/getChainLogInReward"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public static JSONObject getChainLogInReward(@RequestHeader(value = "secret", required = false)String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject getChainLogInReward(@RequestHeader(value = "secret", required = false)String secret, @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /activity/getChainLogInReward");
         LOGGER.info("getloginchain" + JsonBody);
@@ -176,7 +176,7 @@ public class activity {
             value = {"/getOpenServerCheckInReward"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public static JSONObject getOpenServerCheckInReward(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject getOpenServerCheckInReward(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         LOGGER.info("[/" + clientIp + "] /activity/getOpenServerCheckInReward");
         LOGGER.info("getloginchain" + JsonBody);
@@ -261,7 +261,8 @@ public class activity {
                 playerDataDelta.put("modified", modified);
                 result.put("playerDataDelta", playerDataDelta);
                 return result;
-            } else if (T == 2) {
+            }
+            else if (T == 2) {
                 JSONObject inventory = UserSyncData.getJSONObject("inventory");
                 JSONObject inventoryU = new JSONObject();
                 if (inventory.getInteger(itemId) != null) {
@@ -279,6 +280,20 @@ public class activity {
                 playerDataDelta.put("modified", modified);
                 result.put("playerDataDelta", playerDataDelta);
                 userDao.setUserData(uid, UserSyncData);
+                return result;
+            }
+            else if (T == 3) {
+                JSONObject status = UserSyncData.getJSONObject("status");
+                JSONObject changedStatus = new JSONObject();
+                int num = status.getInteger("instantFinishTicket");
+                count = num + count;
+                status.put("instantFinishTicket", count);
+                changedStatus.put("instantFinishTicket", count);
+                UserSyncData.put("status", status);
+                userDao.setUserData(uid, UserSyncData);
+                modified.put("status", changedStatus);
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
                 return result;
             }
         } else {

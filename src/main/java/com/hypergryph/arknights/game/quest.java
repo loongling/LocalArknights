@@ -30,6 +30,36 @@ public class quest {
     public quest() {
     }
 
+    private static final java.util.concurrent.ConcurrentHashMap<String, String> BATTLE_STAGE =
+            new java.util.concurrent.ConcurrentHashMap<>();
+    private static final java.util.concurrent.ConcurrentHashMap<String, Long> BATTLE_CREATED =
+            new java.util.concurrent.ConcurrentHashMap<>();
+    private static final long BATTLE_ID_TTL_SECONDS = 6 * 3600L;
+
+    private static String registerBattle(String stageId) {
+        long now = System.currentTimeMillis() / 1000L;
+        for (java.util.Iterator<java.util.Map.Entry<String, Long>> it = BATTLE_CREATED.entrySet().iterator(); it.hasNext(); ) {
+            java.util.Map.Entry<String, Long> entry = it.next();
+            if (now - entry.getValue() > BATTLE_ID_TTL_SECONDS) {
+                BATTLE_STAGE.remove(entry.getKey());
+                it.remove();
+            }
+        }
+        String battleId = java.util.UUID.randomUUID().toString();
+        BATTLE_STAGE.put(battleId, stageId);
+        BATTLE_CREATED.put(battleId, now);
+        return battleId;
+    }
+
+    private static String resolveBattleStage(String battleId) {
+        if (battleId == null) {
+            return null;
+        }
+        String stageId = BATTLE_STAGE.remove(battleId);
+        BATTLE_CREATED.remove(battleId);
+        return stageId != null ? stageId : battleId;
+    }
+
     @PostMapping(
             value = {"/battleStart"},
             produces = {"application/json;charset=UTF-8"}
@@ -87,6 +117,19 @@ public class quest {
                         UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("practiceTimes", 1);
                     }
                     UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("startTimes", UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("startTimes") + 1);
+
+                    // 官服是在 battleStart 就扣理智的（battleFinish 不再扣，所以那边传 0）：
+                    // 失败/异常退出时客户端按 apFailReturn 返还，这里先扣。
+                    JSONObject apStatus = UserSyncData.getJSONObject("status");
+                    int apCostNow = Math.max(0, stage_table.getIntValue("apCost"));
+                    boolean apProtect = UserSyncData.getJSONObject("dungeon").getJSONObject("stages")
+                            .getJSONObject(stageId).getIntValue("noCostCnt") == 1;
+                    if (usePracticeTicket != 1 && !apProtect && apCostNow > 0) {
+                        int apLeft = apStatus.getIntValue("ap") - apCostNow;
+                        apStatus.put("ap", Math.max(0, apLeft));
+                        ArknightsApplication.LOGGER.info("[battleStart] 扣理智 {} → {}（关卡 {} 消耗 {}）",
+                                apLeft + apCostNow, Math.max(0, apLeft), stageId, apCostNow);
+                    }
                     userDao.setUserData(uid, UserSyncData);
                     result = new JSONObject(true);
                     JSONObject playerDataDelta = new JSONObject(true);
@@ -101,9 +144,12 @@ public class quest {
                     playerDataDelta.put("modified", modified);
                     result.put("playerDataDelta", playerDataDelta);
                     result.put("result", 0);
-                    result.put("battleId", stageId);
+                    result.put("battleId", registerBattle(stageId));
                     result.put("isApProtect", 0);
                     result.put("apFailReturn", stage_table.getIntValue("apFailReturn"));
+                    // 官服抓包（2026-10-28 /quest/battleStart）响应固定带这两个字段
+                    result.put("inApProtectPeriod", false);
+                    result.put("notifyPowerScoreNotEnoughIfFailed", false);
                     if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("noCostCnt") == 1) {
                         result.put("isApProtect", 1);
                         result.put("apFailReturn", stage_table.getIntValue("apCost"));
@@ -170,8 +216,15 @@ public class quest {
         JSONObject BattleData = Utils.BattleData_decrypt(JsonBody.getString("data"),
                 UserSyncData.getJSONObject("pushFlags").getString("status"));
 
-        String stageId = BattleData.getString("battleId");
-        JSONObject stage_table = stageTable.getJSONObject(stageId);
+        String battleId = BattleData.getString("battleId");
+        String stageId = resolveBattleStage(battleId);
+        JSONObject stage_table = stageId == null ? null : stageTable.getJSONObject(stageId);
+        if (stage_table == null) {
+            ArknightsApplication.LOGGER.warn("[battleFinish] 找不到战斗记录 battleId={}（stageId={}）", battleId, stageId);
+            result.put("result", 1);
+            result.put("error", "找不到这次战斗的记录: battleId=" + battleId);
+            return result;
+        }
 
         // 4. 获取关卡解锁信息
         JSONObject stageClear = new JSONObject();
@@ -205,7 +258,8 @@ public class quest {
         int goldGain = stage_table.getIntValue("goldGain");
 
         // 7. 处理AP消耗
-        handleApConsumption(UserSyncData, apCost, completeState, stage_table);
+        // 理智已经在 /quest/battleStart 扣过了，这里只做回体力的时间结算，apCost 传 0 避免双扣
+        handleApConsumption(UserSyncData, 0, completeState, stage_table);
 
         // 8. 战斗失败处理
         if (completeState == 1) {
@@ -247,13 +301,14 @@ public class quest {
         // 14. 构建返回结果
         result.put("result", 0);
         result.put("alert", new JSONArray());
-        result.put("suggestFriend", false);
+        result.put("suggestFriend", true);
         result.put("apFailReturn", 0);
         result.putAll(rewards);
         if (charGet != null) {
             result.put("charGet", charGet);
         }
         result.put("unlockStages", unlockStages);
+        withOfficialBattleFinishDefaults(result);
 
         // 15. 构建玩家数据变更
         JSONObject playerDataDelta = buildPlayerDataDelta(UserSyncData, unlockStagesObject, stageId, troop);
@@ -330,8 +385,33 @@ public class quest {
 
         chars.put("playerDataDelta", troop);
         chars.put("result", 0);
+        withOfficialBattleFinishDefaults(chars);
 
         return chars;
+    }
+
+    private static void withOfficialBattleFinishDefaults(JSONObject result) {
+        putDefault(result, "apFailReturn", 0);
+        putDefault(result, "expScale", 1);
+        putDefault(result, "goldScale", 1);
+        putDefault(result, "rewards", new JSONArray());
+        putDefault(result, "firstRewards", new JSONArray());
+        putDefault(result, "unlockStages", new JSONArray());
+        putDefault(result, "unusualRewards", new JSONArray());
+        putDefault(result, "additionalRewards", new JSONArray());
+        putDefault(result, "furnitureRewards", new JSONArray());
+        putDefault(result, "overrideRewards", new JSONArray());
+        putDefault(result, "alert", new JSONArray());
+        putDefault(result, "pryResult", new JSONArray());
+        putDefault(result, "itemReturn", new JSONArray());
+        putDefault(result, "extra", new JSONObject(true));
+        putDefault(result, "suggestFriend", true);
+    }
+
+    private static void putDefault(JSONObject target, String key, Object value) {
+        if (target != null && !target.containsKey(key)) {
+            target.put(key, value);
+        }
     }
 
     private void handleApConsumption(JSONObject UserSyncData, int apCost, int completeState, JSONObject stage_table) {
@@ -392,6 +472,7 @@ public class quest {
         result.put("expScale", 0);
         result.put("goldScale", 0);
         result.put("apFailReturn", apFailReturn);
+        withOfficialBattleFinishDefaults(result);
 
         modified.put("status", UserSyncData.getJSONObject("status"));
 
@@ -434,8 +515,22 @@ public class quest {
     private JSONObject handleFirstClearRewards(JSONObject UserSyncData, String stageId,
                                                JSONObject chars, JSONObject troop, JSONArray firstReward) {
         JSONObject charGet = null;
-        if (stageId.equals("main_08-16")) {
-            handleAmiyaTransform(UserSyncData, chars, troop);
+        // 阿米娅模板解锁（升变）：近卫 ← main_08-16 通关、医疗 ← main_14-20 通关
+        int amiyaUnlocked = com.hypergryph.arknights.core.chartemplate.AmiyaTemplate
+                .unlockByStage(UserSyncData, stageId);
+        if (amiyaUnlocked > 0) {
+            // 升变改的是干员对象本身，必须把它塞进本次响应，否则客户端要重登才看得到
+            String amiyaInstId = com.hypergryph.arknights.core.chartemplate.AmiyaTemplate
+                    .findInstId(UserSyncData);
+            if (amiyaInstId != null && chars.getJSONObject(amiyaInstId) != null) {
+                JSONObject deltaChars = troop.getJSONObject("chars");
+                if (deltaChars == null) {
+                    deltaChars = new JSONObject(true);
+                    troop.put("chars", deltaChars);
+                }
+                deltaChars.put(amiyaInstId, chars.getJSONObject(amiyaInstId));
+                ArknightsApplication.LOGGER.info("[amiya] 升变后把干员 " + amiyaInstId + " 放进本次 modified.troop.chars");
+            }
         }
 
         JSONArray displayDetailRewards = stageTable.getJSONObject(stageId).getJSONObject("stageDropInfo").getJSONArray("displayDetailRewards");
@@ -463,65 +558,6 @@ public class quest {
         }
         ArknightsApplication.LOGGER.info("First rewards extracted: " + firstReward.toJSONString());
         return charGet;
-    }
-
-    private void handleAmiyaTransform(JSONObject UserSyncData, JSONObject chars, JSONObject troop) {
-        for (Map.Entry<String, Object> entry : UserSyncData.getJSONObject("troop").getJSONObject("chars").entrySet()) {
-            JSONObject charData = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(entry.getKey());
-            String charId = charData.getString("charId");
-
-            if (charId.equals("char_002_amiya")) {
-                JSONArray amiya_skills = charData.getJSONArray("skills");
-                String skin = charData.getString("skin");
-                int defaultSkillIndex = charData.getIntValue("defaultSkillIndex");
-
-                charData.put("skin", (Object)null);
-                charData.put("defaultSkillIndex", -1);
-                charData.put("skills", new JSONArray());
-                charData.put("currentTmpl", "char_1001_amiya2");
-
-                JSONObject tmpl = new JSONObject(true);
-                JSONObject charList = new JSONObject(true);
-                charList.put("skinId", skin);
-                charList.put("defaultSkillIndex", defaultSkillIndex);
-                charList.put("skills", amiya_skills);
-                charList.put("currentEquip", (Object)null);
-                charList.put("equip", new JSONObject(true));
-                tmpl.put("char_002_amiya", charList);
-
-                JSONArray sword_amiya_skills = new JSONArray();
-                JSONObject skill1 = new JSONObject(true);
-                skill1.put("skillId", "skchr_amiya2_1");
-                skill1.put("unlock", 1);
-                skill1.put("state", 0);
-                skill1.put("specializeLevel", 0);
-                skill1.put("completeUpgradeTime", -1);
-                sword_amiya_skills.add(skill1);
-
-                JSONObject skill2 = new JSONObject(true);
-                skill2.put("skillId", "skchr_amiya2_1");
-                skill2.put("unlock", 1);
-                skill2.put("state", 0);
-                skill2.put("specializeLevel", 0);
-                skill2.put("completeUpgradeTime", -1);
-                sword_amiya_skills.add(skill2);
-
-                JSONObject newCharData = new JSONObject(true);
-                newCharData.put("skinId", "char_1001_amiya2#2");
-                newCharData.put("defaultSkillIndex", 0);
-                newCharData.put("skills", sword_amiya_skills);
-                newCharData.put("currentEquip", (Object)null);
-                newCharData.put("equip", new JSONObject(true));
-                tmpl.put("char_1001_amiya2", newCharData);
-
-                charData.put("tmpl", tmpl);
-                JSONObject charinstId = new JSONObject(true);
-                charinstId.put(entry.getKey(), charData);
-                troop.put("chars", charinstId);
-                UserSyncData.getJSONObject("troop").getJSONObject("chars").put(entry.getKey(), charData);
-                break;
-            }
-        }
     }
 
     private JSONObject handleFirstClearReward(JSONObject UserSyncData, String reward_id, String reward_type,
@@ -647,12 +683,8 @@ public class quest {
         char_data.put("voiceLan", "CN_MANDARIN");
         char_data.put("defaultSkillIndex", skils.isEmpty() ? -1 : 0);
         char_data.put("starMark", 0);
-        String itemType = randomCharId.substring(randomCharId.indexOf("_") + 1);
-        String itemId = itemType.substring(itemType.indexOf("_") + 1);
-        JSONObject equip = new JSONObject();
-        String CE = null;
-        char_data.put("currentEquip", CE);
-        char_data.put("equip", equip);
+        char_data.put("currentEquip", (Object) null);
+        char_data.put("equip", com.hypergryph.arknights.core.work.processArray.buildEquipSlots(randomCharId));
         ArknightsApplication.LOGGER.info("CD:"+ char_data);
 
 

@@ -17,7 +17,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.hypergryph.arknights.core.work.buildingUpdateLastTs.replaceLastUpdateTime;
 import static com.hypergryph.arknights.core.work.checkAccount.checkAccount;
@@ -120,6 +122,8 @@ public class building {
                 Building.put("roomSlots", buildingRoomSlot);
                 Building.put("status", buildingStatus);
                 Building.put("chars", buildingChar);
+                // 基建副手列表也要跟着 sync 回去，否则客户端拿不到 assist，副手框一直是空的
+                Building.put("assist", userData.getJSONObject("building").getJSONArray("assist"));
                 modified.put("building", Building);
                 building.put("status", buildingStatus);
                 playerDataDelta.put("modified", modified);
@@ -147,6 +151,7 @@ public class building {
     private static JSONObject MANUFACT_DATA;
     private static JSONObject TRADING_DATA;
     private static JSONObject MANUFACT_FORMULAS;
+    private static JSONObject WORKSHOP_FORMULAS;
 
     public static boolean advanceBuildingTime(JSONObject userData, long now) {
         loadLayout();
@@ -211,6 +216,120 @@ public class building {
                 }
             }
         }
+
+        // 3) 贸易站出单（按 completeWorkTime 慢慢攒，满仓停表）
+        JSONObject trade = rooms == null ? null : rooms.getJSONObject("TRADING");
+        if (trade != null && !trade.isEmpty()) {
+            for (String slotId : new ArrayList<>(trade.keySet())) {
+                JSONObject node = trade.getJSONObject(slotId);
+                if (node == null) {
+                    continue;
+                }
+                int level = 1;
+                JSONArray slotChars = null;
+                JSONObject slot = slots == null ? null : slots.getJSONObject(slotId);
+                if (slot != null) {
+                    level = Math.max(1, slot.getIntValue("level"));
+                    slotChars = slot.getJSONArray("charInstIds");
+                }
+                if (advanceTrading(node, level, now, slotChars)) {
+                    dirty = true;
+                }
+            }
+        }
+
+        // 4) 房间数据自检（缺 stock 数组 / 缺 assist 列表之类）
+        if (repairRoomData(userData) > 0) {
+            dirty = true;
+        }
+
+        // 5) 干员心情（building.chars[].ap）：派驻消耗、空闲回复
+        if (advanceBuildingCharsAp(building, now)) {
+            dirty = true;
+        }
+        return dirty;
+    }
+
+    /** 心情满值：24 点 × 360000（官服 ap 单位就是 360000/点） */
+    private static final int CHAR_AP_MAX = 8640000;
+    /** 每点心情 360000；每小时消耗/回复 1 点 → 每秒 100 */
+    private static final double CHAR_AP_PER_SECOND = 360000.0 / 3600.0;
+
+    private static boolean advanceBuildingCharsAp(JSONObject building, long now) {
+        JSONObject chars = building.getJSONObject("chars");
+        if (chars == null || chars.isEmpty()) {
+            return false;
+        }
+        JSONObject slots = building.getJSONObject("roomSlots");
+        // 以 roomSlots.charInstIds 为准判断是否在岗（客户端编队也是认这个）
+        Set<String> onDuty = new HashSet<>();
+        if (slots != null) {
+            for (String slotId : slots.keySet()) {
+                JSONObject slot = slots.getJSONObject(slotId);
+                if (slot == null || slot.getIntValue("state") != 2) {
+                    continue;
+                }
+                JSONArray ids = slot.getJSONArray("charInstIds");
+                if (ids == null) {
+                    continue;
+                }
+                for (int i = 0; i < ids.size(); i++) {
+                    onDuty.add(String.valueOf(ids.get(i)));
+                }
+            }
+        }
+        boolean dirty = false;
+        for (String key : new ArrayList<>(chars.keySet())) {
+            JSONObject c = chars.getJSONObject(key);
+            if (c == null) {
+                continue;
+            }
+            long lastAp = c.getLongValue("lastApAddTime");
+            if (lastAp <= 0 || lastAp > now) {
+                c.put("lastApAddTime", now);
+                dirty = true;
+                continue;
+            }
+            long elapsed = now - lastAp;
+            if (elapsed <= 0) {
+                continue;
+            }
+            // 老存档的 lastApAddTime 可能是十几天前：一次补算会把心情瞬间清零（看起来像 bug），
+            // 所以单次最多结算 10 分钟，剩下的不管。
+            if (elapsed > 600) {
+                elapsed = 600;
+            }
+
+            String slotId = c.getString("roomSlotId");
+            boolean assigned = onDuty.contains(key)
+                    || (slotId != null && !slotId.isEmpty() && slots != null && slots.containsKey(slotId));
+
+            int ap = c.getIntValue("ap");
+            if (ap <= 0 && !c.containsKey("ap")) {
+                ap = CHAR_AP_MAX;
+            }
+            long deltaUnits = (long) (elapsed * CHAR_AP_PER_SECOND);
+            if (deltaUnits <= 0) {
+                continue;
+            }
+
+            int newAp;
+            if (assigned) {
+                newAp = (int) Math.max(0, ap - deltaUnits);
+                c.put("workTime", c.getLongValue("workTime") + elapsed);
+                c.put("changeScale", -100);
+            } else {
+                newAp = (int) Math.min(CHAR_AP_MAX, ap + deltaUnits);
+                if (newAp >= CHAR_AP_MAX) {
+                    c.put("changeScale", 0);
+                }
+            }
+            if (newAp != ap) {
+                c.put("ap", newAp);
+                dirty = true;
+            }
+            c.put("lastApAddTime", now);
+        }
         return dirty;
     }
 
@@ -230,6 +349,7 @@ public class building {
             MANUFACT_DATA = data.getJSONObject("manufactData");
             TRADING_DATA = data.getJSONObject("tradingData");
             MANUFACT_FORMULAS = data.getJSONObject("manufactFormulas");
+            WORKSHOP_FORMULAS = data.getJSONObject("workshopFormulas");
         } catch (IOException e) {
             ArknightsApplication.LOGGER.error("[building] 读取 {} 失败: {}", path, e.toString());
             LAYOUT_SLOTS = new JSONObject();
@@ -239,6 +359,7 @@ public class building {
             MANUFACT_DATA = new JSONObject();
             TRADING_DATA = new JSONObject();
             MANUFACT_FORMULAS = new JSONObject();
+            WORKSHOP_FORMULAS = new JSONObject();
         }
     }
 
@@ -424,6 +545,19 @@ public class building {
 
         long now = ArknightsApplication.getTimestamp();
         int fixed = 0;
+
+        // 基建副手列表：官服是 building.assist = [id,-1,-1,-1,-1]
+        JSONArray assistArr = building.getJSONArray("assist");
+        if (assistArr == null || assistArr.size() < 5) {
+            JSONArray fresh = new JSONArray();
+            for (int i = 0; i < 5; i++) {
+                fresh.add(-1);
+            }
+            building.put("assist", fresh);
+            fixed++;
+            ArknightsApplication.LOGGER.info("[building] 补建基建副手列表 assist=[-1×5]");
+        }
+
         for (String slotId : new ArrayList<>(slots.keySet())) {
             JSONObject slot = slots.getJSONObject(slotId);
             if (slot == null || slot.getIntValue("state") != 2) {
@@ -488,10 +622,11 @@ public class building {
                         fixed++;
                     }
                     JSONArray stock = node.getJSONArray("stock");
-                    if (stock == null || stock.isEmpty()) {
-                        node.put("stock", makeTradingOrders(limit));
+                    if (stock == null) {
+                        // 只补结构缺失；空数组交给 advanceTrading 按时间出单
+                        node.put("stock", new JSONArray());
                         fixed++;
-                        ArknightsApplication.LOGGER.info("[building] 修复贸易站 {} 订单 → {} 单", slotId, limit);
+                        ArknightsApplication.LOGGER.info("[building] 贸易站 {} 补建 stock 数组（等按时间出单）", slotId);
                     }
                 }
             } else if (node == null) {
@@ -802,25 +937,186 @@ public class building {
     private static JSONArray makeTradingOrders(int count) {
         JSONArray stock = new JSONArray();
         for (int i = 1; i <= count; i++) {
-            JSONObject order = new JSONObject(true);
-            order.put("instId", i);
-            JSONArray delivery = new JSONArray();
-            JSONObject d = new JSONObject(true);
-            d.put("id", "3003");
-            d.put("type", "MATERIAL");
-            d.put("count", 2);
-            delivery.add(d);
-            order.put("delivery", delivery);
-            order.put("type", "O_GOLD");
-            JSONObject gain = new JSONObject(true);
-            gain.put("id", "4001");
-            gain.put("type", "GOLD");
-            gain.put("count", 1000);
-            order.put("gain", gain);
-            order.put("buff", new JSONArray());
-            stock.add(order);
+            stock.add(makeOneTradingOrder(i));
         }
         return stock;
+    }
+
+    private static JSONObject makeOneTradingOrder(int instId) {
+        JSONObject order = new JSONObject(true);
+        order.put("instId", instId);
+        JSONArray delivery = new JSONArray();
+        JSONObject d = new JSONObject(true);
+        d.put("id", "3003");
+        d.put("type", "MATERIAL");
+        d.put("count", 2);
+        delivery.add(d);
+        order.put("delivery", delivery);
+        order.put("type", "O_GOLD");
+        JSONObject gain = new JSONObject(true);
+        gain.put("id", "4001");
+        gain.put("type", "GOLD");
+        gain.put("count", 1000);
+        order.put("gain", gain);
+        order.put("buff", new JSONArray());
+        return order;
+    }
+
+    private static double tradingOrderBaseSeconds() {
+        try {
+            JSONObject cfg = ArknightsApplication.serverConfig.getJSONObject("building");
+            if (cfg != null) {
+                double v = cfg.getDoubleValue("tradingOrderBaseSeconds");
+                if (v > 0) {
+                    return v;
+                }
+            }
+        } catch (Exception ignored) {
+            // 配置缺失用默认
+        }
+        return 3600.0;
+    }
+
+    private static boolean setTradingState(JSONObject node, int want) {
+        if (node.getIntValue("state") == want) {
+            return false;
+        }
+        node.put("state", want);
+        return true;
+    }
+
+    private static boolean advanceTrading(JSONObject node, int level, long now, JSONArray charInstIds) {
+        JSONObject buff = node.getJSONObject("buff");
+        double charSpeed = buff == null ? 0.0 : buff.getDoubleValue("speed");
+        double orderSpeed = 1.0;
+        try {
+            orderSpeed = TRADING_DATA.getJSONArray("phases")
+                    .getJSONObject(Math.max(0, level - 1)).getDoubleValue("orderSpeed");
+        } catch (Exception ignored) {
+            // 数据缺失就当 1
+        }
+        if (orderSpeed <= 0) {
+            orderSpeed = 1.0;
+        }
+
+        int limit = node.getIntValue("stockLimit") > 0 ? node.getIntValue("stockLimit") : tradingOrderLimit(level);
+        JSONArray stock = node.getJSONArray("stock");
+        boolean changed = false;
+        if (stock == null) {
+            stock = new JSONArray();
+            node.put("stock", stock);
+            changed = true;
+        }
+
+        long last = node.getLongValue("lastUpdateTime");
+        boolean dirty = changed;
+
+        // 满仓：停产（官服满仓样本没有 next/display，completeWorkTime 也不在，state=0）
+        if (stock.size() >= limit) {
+            dirty |= setTradingState(node, 0);
+            for (String k : new String[]{"next", "display"}) {
+                if (node.containsKey(k)) {
+                    node.remove(k);
+                    dirty = true;
+                }
+            }
+            if (node.getLongValue("completeWorkTime") != 0) {
+                node.put("completeWorkTime", 0);
+                dirty = true;
+            }
+            if (last != now) {
+                node.put("lastUpdateTime", now);
+                dirty = true;
+            }
+            return dirty;
+        }
+        dirty |= setTradingState(node, 1);
+
+        double secondsPerOrder = tradingOrderBaseSeconds() / (orderSpeed * (1.0 + charSpeed));
+        if (secondsPerOrder <= 0) {
+            secondsPerOrder = 3600.0;
+        }
+        long need = Math.max(1L, (long) Math.ceil(secondsPerOrder));
+
+        long complete = node.getLongValue("completeWorkTime");
+        if (complete <= 0 || complete > now + need * 2) {
+            complete = now + need;
+        }
+
+        int maxInst = 0;
+        for (int i = 0; i < stock.size(); i++) {
+            JSONObject o = stock.getJSONObject(i);
+            if (o != null) {
+                maxInst = Math.max(maxInst, o.getIntValue("instId"));
+            }
+        }
+
+        int produced = 0;
+        while (complete <= now && stock.size() < limit) {
+            stock.add(makeOneTradingOrder(++maxInst));
+            complete += need;
+            produced++;
+            dirty = true;
+        }
+
+        if (stock.size() >= limit) {
+            setTradingState(node, 0);
+            node.remove("next");
+            node.remove("display");
+            node.put("completeWorkTime", 0);
+            node.put("lastUpdateTime", now);
+            ArknightsApplication.LOGGER.info("[building] 贸易站出单 +{}，已满仓 {}/{}（停产）",
+                    produced, stock.size(), limit);
+            return true;
+        }
+
+        node.put("completeWorkTime", complete);
+        node.put("lastUpdateTime", now);
+
+        double speed = orderSpeed * (1.0 + charSpeed);
+        double maxPoint = Math.max(1.0, need * speed);
+        double remaining = Math.max(0.0, complete - now);
+        double processPoint = Math.min(maxPoint, remaining * speed);
+
+        JSONObject next = new JSONObject(true);
+        next.put("order", maxInst + 1);
+        next.put("speed", speed);
+        next.put("processPoint", Math.round(processPoint * 100) / 100.0);
+        next.put("maxPoint", Math.round(maxPoint));
+        node.put("next", next);
+
+        JSONObject display = new JSONObject(true);
+        display.put("base", -100);
+        display.put("buff", 0);
+        node.put("display", display);
+
+        // apCost.self：每个驻站干员 25（官服实测）
+        if (buff != null) {
+            JSONObject apCost = buff.getJSONObject("apCost");
+            if (apCost == null) {
+                apCost = new JSONObject(true);
+                buff.put("apCost", apCost);
+            }
+            JSONObject self = apCost.getJSONObject("self");
+            if (self == null) {
+                self = new JSONObject(true);
+                apCost.put("self", self);
+            }
+            if (charInstIds != null) {
+                for (int i = 0; i < charInstIds.size(); i++) {
+                    String id = String.valueOf(charInstIds.get(i));
+                    if (!self.containsKey(id)) {
+                        self.put(id, 25);
+                    }
+                }
+            }
+        }
+
+        if (produced > 0) {
+            ArknightsApplication.LOGGER.info("[building] 贸易站出单 +{}（每单 {}s，现有 {}/{}，加成 {}）",
+                    produced, need, stock.size(), limit, charSpeed);
+        }
+        return true;
     }
 
     private static JSONObject tradingBuff() {
@@ -1676,6 +1972,9 @@ public class building {
             }
 
             node.put("stock", remain);
+            if (remain.isEmpty()) {
+                node.remove("completeWorkTime");
+            }
             node.put("lastUpdateTime", ArknightsApplication.getTimestamp());
             if (!gains.isEmpty()) {
                 delivered.put(slotId, gains);
@@ -1826,15 +2125,208 @@ public class building {
         return result;
     }
 
-    @PostMapping(
-            value = {"/setBuildingAssist"},
-            produces = {"application/json;charset=UTF-8"}
-    )
-    public JSONObject setBuildingAssist(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping(value = {"/workshopSynthesis"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject workshopSynthesis(@RequestHeader(value = "secret", required = false) String secret,
+                                        @RequestBody JSONObject jsonBody,
+                                        HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /building/setBuildingAssist");
-        ArknightsApplication.LOGGER.info("setBuildingAssist:" + jsonBody);
-        return new  JSONObject();
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /building/workshopSynthesis formulaId="
+                + jsonBody.getString("formulaId") + " times=" + jsonBody.getIntValue("times"));
+        if (!checkAccount(secret)) {
+            return createError(secret, response);
+        }
+        loadLayout();
+        String formulaId = jsonBody.getString("formulaId");
+        int times = Math.max(1, jsonBody.getIntValue("times"));
+        JSONObject formula = WORKSHOP_FORMULAS.getJSONObject(formulaId);
+        if (formula == null) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "未知加工配方: " + formulaId);
+            return bad;
+        }
+
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        Account account = accounts.get(0);
+        JSONObject userData = JSON.parseObject(account.getUser());
+        JSONObject inventory = userData.getJSONObject("inventory");
+        JSONObject status = userData.getJSONObject("status");
+
+        JSONArray costs = formula.getJSONArray("costs");
+        List<String> lack = new ArrayList<>();
+        if (costs != null) {
+            for (int i = 0; i < costs.size(); i++) {
+                JSONObject c = costs.getJSONObject(i);
+                String id = c.getString("id");
+                int need = c.getIntValue("count") * times;
+                int have = inventory.getIntValue(id);
+                if (have < need) {
+                    lack.add("材料 " + id + " 需要 " + need + " 只有 " + have);
+                }
+            }
+        }
+        long goldCost = (long) formula.getIntValue("goldCost") * times;
+        if (status.getLongValue("gold") < goldCost) {
+            lack.add("龙门币需要 " + goldCost + " 只有 " + status.getLongValue("gold"));
+        }
+        if (!lack.isEmpty()) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "材料不足: " + String.join("；", lack));
+            return bad;
+        }
+
+        JSONObject inventoryDelta = new JSONObject(true);
+        if (costs != null) {
+            for (int i = 0; i < costs.size(); i++) {
+                JSONObject c = costs.getJSONObject(i);
+                String id = c.getString("id");
+                int left = Math.max(0, inventory.getIntValue(id) - c.getIntValue("count") * times);
+                inventory.put(id, left);
+                inventoryDelta.put(id, left);
+            }
+        }
+        long goldLeft = status.getLongValue("gold") - goldCost;
+        status.put("gold", goldLeft);
+
+        String itemId = formula.getString("itemId");
+        int outCount = Math.max(1, formula.getIntValue("count")) * times;
+        int newOut = inventory.getIntValue(itemId) + outCount;
+        inventory.put(itemId, newOut);
+        inventoryDelta.put(itemId, newOut);
+
+        JSONArray results = new JSONArray();
+        JSONObject main = new JSONObject(true);
+        main.put("id", itemId);
+        main.put("type", "MATERIAL");
+        main.put("count", outCount);
+        results.add(main);
+
+        // 额外产出：每次合成按 extraOutcomeRate 概率从 extraOutcomeGroup 里抽
+        JSONArray additional = new JSONArray();
+        double rate = formula.getDoubleValue("extraOutcomeRate");
+        JSONArray groups = formula.getJSONArray("extraOutcomeGroup");
+        if (groups != null && !groups.isEmpty() && rate > 0) {
+            for (int t = 0; t < times; t++) {
+                if (Math.random() >= rate) {
+                    continue;
+                }
+                JSONObject pick = groups.getJSONObject((int) (Math.random() * groups.size()));
+                String extraId = pick.getString("itemId");
+                int extraCount = Math.max(1, pick.getIntValue("itemCount"));
+                int after = inventory.getIntValue(extraId) + extraCount;
+                inventory.put(extraId, after);
+                inventoryDelta.put(extraId, after);
+                JSONObject bundle = new JSONObject(true);
+                bundle.put("id", extraId);
+                bundle.put("type", "MATERIAL");
+                bundle.put("count", extraCount);
+                additional.add(bundle);
+            }
+        }
+
+        userDao.setUserData(account.getUid(), userData);
+
+        JSONObject modified = new JSONObject(true);
+        modified.put("inventory", inventoryDelta);
+        JSONObject statusDelta = new JSONObject(true);
+        statusDelta.put("gold", goldLeft);
+        modified.put("status", statusDelta);
+
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+
+        JSONObject result = new JSONObject(true);
+        result.put("result", 0);
+        result.put("results", results);
+        result.put("additional", additional);
+        result.put("recoverCost", new JSONObject(true));
+        result.put("playerDataDelta", playerDataDelta);
+        ArknightsApplication.LOGGER.info("[building] 加工 {} ×{} → {}×{}，额外产出 {} 个，龙门币 -{}",
+                formulaId, times, itemId, outCount, additional.size(), goldCost);
+        return result;
+    }
+
+    @PostMapping(value = {"/setBuildingAssist"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject setBuildingAssist(@RequestHeader(value = "secret", required = false) String secret,
+                                        @RequestBody JSONObject jsonBody,
+                                        HttpServletRequest request, HttpServletResponse response) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        int type = jsonBody.getIntValue("type");
+        int charInstId = jsonBody.getIntValue("charInstId");
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /building/setBuildingAssist type=" + type
+                + " charInstId=" + charInstId);
+        if (!checkAccount(secret)) {
+            return createError(secret, response);
+        }
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        Account account = accounts.get(0);
+        JSONObject userData = JSON.parseObject(account.getUser());
+        JSONObject building = userData.getJSONObject("building");
+        if (building == null) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "no building data");
+            return bad;
+        }
+        if (type < 0 || type > 4) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "type 必须在 0..4: " + type);
+            return bad;
+        }
+
+        JSONArray assist = building.getJSONArray("assist");
+        if (assist == null || assist.size() < 5) {
+            assist = new JSONArray();
+            for (int i = 0; i < 5; i++) {
+                assist.add(-1);
+            }
+            building.put("assist", assist);
+        }
+
+        // 同一个干员不能占两个槽位
+        if (charInstId > 0) {
+            for (int i = 0; i < 5; i++) {
+                if (assist.getIntValue(i) == charInstId && i != type) {
+                    assist.set(i, -1);
+                }
+            }
+        }
+        assist.set(type, charInstId > 0 ? charInstId : -1);
+
+        JSONObject buildingChars = building.getJSONObject("chars");
+        if (buildingChars == null) {
+            buildingChars = new JSONObject(true);
+            building.put("chars", buildingChars);
+        }
+        if (charInstId > 0 && !buildingChars.containsKey(String.valueOf(charInstId))) {
+            JSONObject entry = new JSONObject(true);
+            entry.put("lastApAddTime", ArknightsApplication.getTimestamp());
+            buildingChars.put(String.valueOf(charInstId), entry);
+        }
+
+        userDao.setUserData(account.getUid(), userData);
+
+        JSONObject Building = new JSONObject(true);
+        Building.put("roomSlots", building.getJSONObject("roomSlots"));
+        Building.put("rooms", building.getJSONObject("rooms"));
+        Building.put("chars", building.getJSONObject("chars"));
+        Building.put("status", building.getJSONObject("status"));
+        Building.put("assist", assist);
+
+        JSONObject modified = new JSONObject(true);
+        modified.put("building", Building);
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+
+        JSONObject result = new JSONObject(true);
+        result.put("result", 0);
+        result.put("playerDataDelta", playerDataDelta);
+        ArknightsApplication.LOGGER.info("[building] 副手槽 {} → {}（assist={}）", type, charInstId, assist);
+        return result;
     }
 
     @PostMapping(
@@ -1843,9 +2335,14 @@ public class building {
     )
     public JSONObject getAssistReport(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /getAssistReport");
-        ArknightsApplication.LOGGER.info("getAssistReport:" + jsonBody);
-        return new  JSONObject();
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /building/getAssistReport");
+        JSONObject result = new JSONObject(true);
+        result.put("reports", new JSONArray());
+        JSONObject delta = new JSONObject(true);
+        delta.put("modified", new JSONObject(true));
+        delta.put("deleted", new JSONObject(true));
+        result.put("playerDataDelta", delta);
+        return result;
     }
 
     @PostMapping(
@@ -1854,9 +2351,11 @@ public class building {
     )
     public JSONObject getRecentVisitors(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /getRecentVisitors");
-        ArknightsApplication.LOGGER.info("getRecentVisitors:" + jsonBody);
-        return new  JSONObject();
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /building/getRecentVisitors");
+        // 官服返回 {"visitors":[]}
+        JSONObject result = new JSONObject(true);
+        result.put("visitors", new JSONArray());
+        return result;
     }
 
     @PostMapping(
@@ -1865,8 +2364,10 @@ public class building {
     )
     public JSONObject getInfoShareVisitorsNum(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /getInfoShareVisitorsNum");
-        ArknightsApplication.LOGGER.info("getInfoShareVisitorsNum:" + jsonBody);
-        return new  JSONObject();
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /building/getInfoShareVisitorsNum");
+        // 官服返回 {"num":0}
+        JSONObject result = new JSONObject(true);
+        result.put("num", 0);
+        return result;
     }
 }

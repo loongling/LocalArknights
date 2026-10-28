@@ -1,174 +1,175 @@
 {
-	"server":{
-		"url":"http://127.0.0.1:10029",
-		"http":10029,
-		"https":36650,
-		"captcha":false,
-		"enableServer":true,
-		"closeMessage":"服务器目前暂未开放",
-		"GMKey":"$Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h"
-	},
-	"timer": {
-		"set_server_time": "-1"
-	},
-	"pay": {
-		"cashDoubleCount": false,
-		"time": 3
-	},
-	"database":{
-		"host": "10.60.116.201",
-		"port":3306,
-		"dbname":"arknights",
-		"user":"ark",
-		"password":"Passwd",
-		"extra":"useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
-	},
-	"yostar": {
-		"mailer": {
-			"enable": false,
-			"account": "example@qq.com",
-			"password": "",
-			"smtp": "smtp.qq.com",
-			"smtp_port": 465
-		}
-	},
-	"roguelike":{
-		"unlimitedMilestones":false
-	},
-	"battle":{
-		"dropRate":1,
-		"debug":true
-	},
-	"basement": {
-		"produceSpeed": 1000
-	},
-	"shop":{
-		"enableDiamondShop":true
-	},
-	"version":{
-		"Android":{
-			"resVersion":"26-10-22-14-02-11-51447808",
-			"clientVersion":"2.7.81"
-		},
-		"ios":{
-			"resVersion":"26-10-22-13-48-45-09041897",
-			"clientVersion":"2.7.81"
-		},
-		"Windows":{
-			"resVersion":"26-10-22-13-56-52-86025105",
-			"clientVersion":"2.7.81"
-		},
-		"global_Android": {
-			"resVersion": "26-10-03-16-06-39_0a6acf",
-			"clientVersion": "37.7.41"
-		},
-		"global_Windows": {
-			"resVersion":"26-09-30-10-39-59_597fcc",
-			"clientVersion":"37.7.41"
-		},
-		"global_IOS": {
-			"resVersion":"26-10-04-21-10-59_abd9cb",
-			"clientVersion":"37.7.41"
-		}
-	},
-	"assets":{
-		"enableRedirect": true,
-		"cdnBase":"https://ak.hycdn.cn/assetbundle/official",
-		"redirectUrl":{
-			"Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-22-14-02-11-51447808",
-			"Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-22-13-48-45-09041897",
-			"ios": "https://ak.hycdn.cn/assetbundle/official/IOS/assets/26-10-14-13-39-00-86892447",
-			"global": "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/26-10-03-16-06-39_0a6acf"
-		},
-		"localFiles":[]
-	},
-	"remote": {
-		"fapv2": 1,
-		"HGDownload_1": 10000,
-		"HGDownload_2": 10000,
-		"bakeMuzzleEnableRate": 10000,
-		"enemyBakeMuzzleEnableRate": 10000,
-		"SixStarBakeMuzzleEnableRate": 10000,
-		"enableGameBI": true,
-		"showRecordNumber": false,
-		"enableNativeLicense": false
-	},
-	"global_remote": {
-		"fapv2": 1
-	},
-	"YoStar_common": {
-
-	},
-	"clientFuncVer": "78.0.0",
-	"file_path": "https://ak.hycdn.cn/GzD1CpaWgmSq1wew/77.0/update/1/1/Windows/77.0.0_o2Ri5AN2Z7XXjdtF/files",
-	"global_net": {
-		"sign": "Rq9cFaYoHvWwdbr6ROQfLu70+F+2BF3+vEmnDLdPmacTFHXTyNC0SEeaHfl9W1/D86iJrxLRhs9puNaoK2ArOu6xNyeNf8IL45KxCjhseuGKDNwG65HdOYpGKIRvi8EitL9S3AoRtlsSeEV44D2Q7Y8c5gcfdMXkFXxBkYEa5wk=",
-		"configVer": "1",
-		"funcVer": "V074",
-		"configs": {
-				"V074": {
-					"override": true,
-					"network": {
-					"gs": "https://gs.arknights.global:8443",
-					"as": "https://as.arknights.global",
-					"u8": "https://as.arknights.global/u8",
-					"hu": "https://ark-us-static-online.yo-star.com/assetbundle/official",
-					"hv": "https://ark-us-static-online.yo-star.com/assetbundle/official/{0}/version",
-					"rc": "https://ak-conf.arknights.global/config/prod/official/remote_config",
-					"an": "https://ark-us-static-online.yo-star.com/announce/{0}/announcement.meta.json",
-					"prean": "https://ak-webview.arknights.global",
-					"sl": "https://www.arknights.global/terms_of_service",
-					"of": "https://www.arknights.global",
-					"pkgAd": "https://play.google.com/store/apps/details?id=com.YoStarEN.Arknights",
-					"pkgIOS": "https://apps.apple.com/us/app/id1464872022?mt=8",
-					"secure": false
-				}
-			}
-		}
-	},
-	"network":{
-		"configVer":"5",
-		"funcVer":"V078",
-		"configs":{
-			"V078":{
-				"override":true,
-				"network":{
-					"devsdk": false,
-					"gs":"http://127.0.0.1:10029",
-					"as":"http://127.0.0.1:10029",
-					"u8":"http://127.0.0.1:10029/u8",
-					"hu":"http://127.0.0.1:10029/assetbundle/official",
-					"hv":"http://127.0.0.1:10029/config/prod/official/{0}/version",
-					"rc":"http://127.0.0.1:10029/config/prod/official/remote_config",
-					"an":"http://127.0.0.1:10029/config/prod/announce_meta/{0}/announcement.meta.json",
-					"prean":"https://ak-webview.hypergryph.com",
-					"sl":"https://ak.hypergryph.com/protocol/service",
-					"of":"https://ak.hypergryph.com/index.html",
-					"pkgAd":"https://ak.hypergryph.com/download",
-					"pkgIOS":"https://apps.apple.com/cn/app/id1454663939",
-					"secure":false
-				}
-			}
-		}
-	},
-	"announce":{
-		"status":{
-			"announcementVersion":"1195",
-			"announcementPopUpVersion":"784"
-		},
-		"preannouncement":{
-			"preAnnounceId":"315",
-			"actived":true,
-			"preAnnounceType":2,
-			"preAnnounceUrl":"https://ak.hycdn.cn/announce/Android/preannouncement/314_1635759750.html"
-		},
-		"announcement":{
-			"focusAnnounceId":"843",
-			"announceList":[],
-			"extra":{
-				"enable":false,
-				"name":"额外活动"
-			}
-		}
-	}
+  "server": {
+    "url": "http://127.0.0.1:10029",
+    "http": 10029,
+    "https": 36650,
+    "captcha": false,
+    "enableServer": true,
+    "closeMessage": "服务器目前暂未开放",
+    "GMKey": "$Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h"
+  },
+  "timer": {
+    "set_server_time": "-1"
+  },
+  "pay": {
+    "cashDoubleCount": false,
+    "time": 3
+  },
+  "database": {
+    "host": "10.60.116.201",
+    "port": 3306,
+    "dbname": "arknights",
+    "user": "ark",
+    "password": "Passwd",
+    "extra": "useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
+  },
+  "yostar": {
+    "mailer": {
+      "enable": false,
+      "account": "example@qq.com",
+      "password": "",
+      "smtp": "smtp.qq.com",
+      "smtp_port": 465
+    }
+  },
+  "roguelike": {
+    "unlimitedMilestones": false
+  },
+  "battle": {
+    "dropRate": 1,
+    "debug": true
+  },
+  "basement": {
+    "produceSpeed": 1000
+  },
+  "shop": {
+    "enableDiamondShop": true
+  },
+  "version": {
+    "Android": {
+      "resVersion": "26-10-22-14-02-11-51447808",
+      "clientVersion": "2.7.81"
+    },
+    "ios": {
+      "resVersion": "26-10-22-13-48-45-09041897",
+      "clientVersion": "2.7.81"
+    },
+    "Windows": {
+      "resVersion": "26-10-22-13-56-52-86025105",
+      "clientVersion": "2.7.81"
+    },
+    "global_Android": {
+      "resVersion": "26-10-03-16-06-39_0a6acf",
+      "clientVersion": "37.7.41"
+    },
+    "global_Windows": {
+      "resVersion": "26-09-30-10-39-59_597fcc",
+      "clientVersion": "37.7.41"
+    },
+    "global_IOS": {
+      "resVersion": "26-10-04-21-10-59_abd9cb",
+      "clientVersion": "37.7.41"
+    }
+  },
+  "assets": {
+    "enableRedirect": true,
+    "cdnBase": "https://ak.hycdn.cn/assetbundle/official",
+    "redirectUrl": {
+      "Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-22-14-02-11-51447808",
+      "Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-22-13-56-52-86025105",
+      "ios": "https://ak.hycdn.cn/assetbundle/official/IOS/assets/26-10-22-13-48-45-09041897",
+      "global": "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/26-10-03-16-06-39_0a6acf"
+    },
+    "localFiles": []
+  },
+  "remote": {
+    "fapv2": 1,
+    "HGDownload_1": 10000,
+    "HGDownload_2": 10000,
+    "bakeMuzzleEnableRate": 10000,
+    "enemyBakeMuzzleEnableRate": 10000,
+    "SixStarBakeMuzzleEnableRate": 10000,
+    "enableGameBI": true,
+    "showRecordNumber": false,
+    "enableNativeLicense": false
+  },
+  "global_remote": {
+    "fapv2": 1
+  },
+  "YoStar_common": {},
+  "clientFuncVer": "78.0.0",
+  "file_path": "https://ak.hycdn.cn/GzD1CpaWgmSq1wew/77.0/update/1/1/Windows/77.0.0_o2Ri5AN2Z7XXjdtF/files",
+  "global_net": {
+    "sign": "Rq9cFaYoHvWwdbr6ROQfLu70+F+2BF3+vEmnDLdPmacTFHXTyNC0SEeaHfl9W1/D86iJrxLRhs9puNaoK2ArOu6xNyeNf8IL45KxCjhseuGKDNwG65HdOYpGKIRvi8EitL9S3AoRtlsSeEV44D2Q7Y8c5gcfdMXkFXxBkYEa5wk=",
+    "configVer": "1",
+    "funcVer": "V074",
+    "configs": {
+      "V074": {
+        "override": true,
+        "network": {
+          "gs": "https://gs.arknights.global:8443",
+          "as": "https://as.arknights.global",
+          "u8": "https://as.arknights.global/u8",
+          "hu": "https://ark-us-static-online.yo-star.com/assetbundle/official",
+          "hv": "https://ark-us-static-online.yo-star.com/assetbundle/official/{0}/version",
+          "rc": "https://ak-conf.arknights.global/config/prod/official/remote_config",
+          "an": "https://ark-us-static-online.yo-star.com/announce/{0}/announcement.meta.json",
+          "prean": "https://ak-webview.arknights.global",
+          "sl": "https://www.arknights.global/terms_of_service",
+          "of": "https://www.arknights.global",
+          "pkgAd": "https://play.google.com/store/apps/details?id=com.YoStarEN.Arknights",
+          "pkgIOS": "https://apps.apple.com/us/app/id1464872022?mt=8",
+          "secure": false
+        }
+      }
+    }
+  },
+  "network": {
+    "configVer": "5",
+    "funcVer": "V078",
+    "configs": {
+      "V078": {
+        "override": true,
+        "network": {
+          "devsdk": false,
+          "gs": "http://127.0.0.1:10029",
+          "as": "http://127.0.0.1:10029",
+          "u8": "http://127.0.0.1:10029/u8",
+          "hu": "http://127.0.0.1:10029/assetbundle/official",
+          "hv": "http://127.0.0.1:10029/config/prod/official/{0}/version",
+          "rc": "http://127.0.0.1:10029/config/prod/official/remote_config",
+          "an": "http://127.0.0.1:10029/config/prod/announce_meta/{0}/announcement.meta.json",
+          "prean": "https://ak-webview.hypergryph.com",
+          "sl": "https://ak.hypergryph.com/protocol/service",
+          "of": "https://ak.hypergryph.com/index.html",
+          "pkgAd": "https://ak.hypergryph.com/download",
+          "pkgIOS": "https://apps.apple.com/cn/app/id1454663939",
+          "secure": false
+        }
+      }
+    }
+  },
+  "announce": {
+    "status": {
+      "announcementVersion": "1195",
+      "announcementPopUpVersion": "784"
+    },
+    "preannouncement": {
+      "preAnnounceId": "315",
+      "actived": true,
+      "preAnnounceType": 2,
+      "preAnnounceUrl": "https://ak.hycdn.cn/announce/Android/preannouncement/314_1635759750.html"
+    },
+    "announcement": {
+      "focusAnnounceId": "843",
+      "announceList": [],
+      "extra": {
+        "enable": false,
+        "name": "额外活动"
+      }
+    }
+  },
+  "building": {
+    "tradingOrderBaseSeconds": 3600
+  }
 }

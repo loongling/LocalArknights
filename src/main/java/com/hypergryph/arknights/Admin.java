@@ -3,6 +3,7 @@ package com.hypergryph.arknights;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.core.dao.userDao;
+import com.hypergryph.arknights.core.work.processArray;
 import com.hypergryph.arknights.core.pojo.Account;
 import java.util.Date;
 import java.util.Iterator;
@@ -24,219 +25,9 @@ public class Admin {
         JSONObject troop = new JSONObject(true);
         JSONObject item;
         JSONObject consumable;
+        // 干员发放的唯一实现已搬到 processArray.grantChar，这里只做转发
         if (reward_type.equals("CHAR")) {
-            item = new JSONObject(true);
-            String randomCharId = reward_id;
-            int repeatCharId = 0;
-
-            for(int j = 0; j < UserSyncData.getJSONObject("troop").getJSONObject("chars").size(); ++j) {
-                if (UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(j + 1)).getString("charId").equals(randomCharId)) {
-                    repeatCharId = j + 1;
-                    break;
-                }
-            }
-
-            JSONObject char_data;
-            String itemId;
-            JSONObject new_itemGet_1;
-            JSONObject new_itemGet_3;
-            JSONObject charinstId;
-            JSONObject get_char;
-            String itemType;
-            if (repeatCharId == 0) {
-                get_char = new JSONObject(true);
-                char_data = new JSONObject(true);
-                JSONArray skilsArray = ArknightsApplication.characterJson.getJSONObject(randomCharId).getJSONArray("skills");
-                JSONArray skils = new JSONArray();
-
-                int instId;
-                for(instId = 0; instId < skilsArray.size(); ++instId) {
-                    JSONObject new_skils = new JSONObject(true);
-                    new_skils.put("skillId", skilsArray.getJSONObject(instId).getString("skillId"));
-                    new_skils.put("state", 0);
-                    new_skils.put("specializeLevel", 0);
-                    new_skils.put("completeUpgradeTime", -1);
-                    if (skilsArray.getJSONObject(instId).getJSONObject("unlockCond").getIntValue("phase") == 0) {
-                        new_skils.put("unlock", 1);
-                    } else {
-                        new_skils.put("unlock", 0);
-                    }
-
-                    skils.add(new_skils);
-                }
-
-                instId = UserSyncData.getJSONObject("troop").getJSONObject("chars").size() + 1;
-                char_data.put("instId", instId);
-                char_data.put("charId", randomCharId);
-                char_data.put("favorPoint", 0);
-                char_data.put("potentialRank", 0);
-                char_data.put("mainSkillLvl", 1);
-                char_data.put("skin", randomCharId + "#1");
-                char_data.put("level", 1);
-                char_data.put("exp", 0);
-                char_data.put("evolvePhase", 0);
-                char_data.put("gainTime", (new Date()).getTime() / 1000L);
-                char_data.put("skills", skils);
-                char_data.put("voiceLan", ArknightsApplication.charwordTable.getJSONObject("charDefaultTypeDict").getString(randomCharId));
-                if (skils == new JSONArray()) {
-                    char_data.put("defaultSkillIndex", -1);
-                } else {
-                    char_data.put("defaultSkillIndex", 0);
-                }
-
-                itemType = randomCharId.substring(randomCharId.indexOf("_") + 1);
-                itemId = itemType.substring(itemType.indexOf("_") + 1);
-                JSONObject charGroup;
-                JSONObject buildingChar;
-                if (ArknightsApplication.uniequipTable.containsKey("uniequip_001_" + itemId)) {
-                    charGroup = new JSONObject(true);
-                    buildingChar = new JSONObject(true);
-                    buildingChar.put("hide", 0);
-                    buildingChar.put("locked", 0);
-                    buildingChar.put("level", 1);
-                    new_itemGet_1 = new JSONObject(true);
-                    new_itemGet_1.put("hide", 0);
-                    new_itemGet_1.put("locked", 0);
-                    new_itemGet_1.put("level", 1);
-                    charGroup.put("uniequip_001_" + itemId, buildingChar);
-                    charGroup.put("uniequip_002_" + itemId, new_itemGet_1);
-                    char_data.put("equip", charGroup);
-                    char_data.put("currentEquip", "uniequip_001_" + itemId);
-                } else {
-                    char_data.put("currentEquip", (Object)null);
-                }
-
-                UserSyncData.getJSONObject("troop").getJSONObject("chars").put(String.valueOf(instId), char_data);
-                UserSyncData.getJSONObject("troop").put("curCharInstId", instId + 1);
-                charGroup = new JSONObject(true);
-                charGroup.put("favorPoint", 0);
-                UserSyncData.getJSONObject("troop").getJSONObject("charGroup").put(randomCharId, charGroup);
-                buildingChar = new JSONObject(true);
-                buildingChar.put("charId", randomCharId);
-                buildingChar.put("lastApAddTime", (new Date()).getTime() / 1000L);
-                buildingChar.put("ap", 8640000);
-                buildingChar.put("roomSlotId", "");
-                buildingChar.put("index", -1);
-                buildingChar.put("changeScale", 0);
-                new_itemGet_1 = new JSONObject(true);
-                new_itemGet_3 = new JSONObject(true);
-                new_itemGet_3.put("add", -1);
-                new_itemGet_3.put("ts", 0);
-                new_itemGet_1.put("normal", new_itemGet_3);
-                charinstId = new JSONObject(true);
-                charinstId.put("add", -1);
-                charinstId.put("ts", -1);
-                new_itemGet_1.put("assist", charinstId);
-                buildingChar.put("bubble", new_itemGet_1);
-                buildingChar.put("workTime", 0);
-                UserSyncData.getJSONObject("building").getJSONObject("chars").put(String.valueOf(instId), buildingChar);
-                get_char.put("charInstId", instId);
-                get_char.put("charId", randomCharId);
-                get_char.put("isNew", 1);
-                JSONArray itemGet = new JSONArray();
-                new_itemGet_1 = new JSONObject(true);
-                new_itemGet_1.put("type", "HGG_SHD");
-                new_itemGet_1.put("id", "4004");
-                new_itemGet_1.put("count", 1);
-                itemGet.add(new_itemGet_1);
-                UserSyncData.getJSONObject("status").put("hggShard", UserSyncData.getJSONObject("status").getIntValue("hggShard") + 1);
-                get_char.put("itemGet", itemGet);
-                UserSyncData.getJSONObject("inventory").put("p_" + randomCharId, 0);
-                consumable = get_char;
-                charinstId = new JSONObject(true);
-                charinstId.put(String.valueOf(instId), char_data);
-                chars.put(String.valueOf(instId), char_data);
-                troop.put("chars", charinstId);
-                item.put("id", randomCharId);
-                item.put("type", reward_type);
-                item.put("charGet", consumable);
-                items.add(item);
-            } else {
-                get_char = new JSONObject(true);
-                get_char.put("charInstId", repeatCharId);
-                get_char.put("charId", randomCharId);
-                get_char.put("isNew", 0);
-                char_data = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(repeatCharId));
-                int potentialRank = char_data.getIntValue("potentialRank");
-                int rarity = ArknightsApplication.characterJson.getJSONObject(randomCharId).getIntValue("rarity");
-                String itemName = null;
-                itemType = null;
-                itemId = null;
-                int itemCount = 0;
-                if (rarity == 0) {
-                    itemName = "lggShard";
-                    itemType = "LGG_SHD";
-                    itemId = "4005";
-                    itemCount = 1;
-                }
-
-                if (rarity == 1) {
-                    itemName = "lggShard";
-                    itemType = "LGG_SHD";
-                    itemId = "4005";
-                    itemCount = 1;
-                }
-
-                if (rarity == 2) {
-                    itemName = "lggShard";
-                    itemType = "LGG_SHD";
-                    itemId = "4005";
-                    itemCount = 5;
-                }
-
-                if (rarity == 3) {
-                    itemName = "lggShard";
-                    itemType = "LGG_SHD";
-                    itemId = "4005";
-                    itemCount = 30;
-                }
-
-                if (rarity == 4) {
-                    itemName = "hggShard";
-                    itemType = "HGG_SHD";
-                    itemId = "4004";
-                    if (potentialRank != 5) {
-                        itemCount = 5;
-                    } else {
-                        itemCount = 8;
-                    }
-                }
-
-                if (rarity == 5) {
-                    itemName = "hggShard";
-                    itemType = "HGG_SHD";
-                    itemId = "4004";
-                    if (potentialRank != 5) {
-                        itemCount = 10;
-                    } else {
-                        itemCount = 15;
-                    }
-                }
-
-                JSONArray itemGet = new JSONArray();
-                new_itemGet_1 = new JSONObject(true);
-                new_itemGet_1.put("type", itemType);
-                new_itemGet_1.put("id", itemId);
-                new_itemGet_1.put("count", Integer.valueOf(itemCount));
-                itemGet.add(new_itemGet_1);
-                UserSyncData.getJSONObject("status").put(itemName, UserSyncData.getJSONObject("status").getIntValue(itemName) + itemCount);
-                new_itemGet_3 = new JSONObject(true);
-                new_itemGet_3.put("type", "MATERIAL");
-                new_itemGet_3.put("id", "p_" + randomCharId);
-                new_itemGet_3.put("count", 1);
-                itemGet.add(new_itemGet_3);
-                get_char.put("itemGet", itemGet);
-                UserSyncData.getJSONObject("inventory").put("p_" + randomCharId, UserSyncData.getJSONObject("inventory").getIntValue("p_" + randomCharId) + 1);
-                consumable = get_char;
-                charinstId = new JSONObject(true);
-                charinstId.put(String.valueOf(repeatCharId), UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(repeatCharId)));
-                chars.put(String.valueOf(repeatCharId), UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(repeatCharId)));
-                troop.put("chars", charinstId);
-                item.put("type", reward_type);
-                item.put("id", randomCharId);
-                item.put("charGet", consumable);
-                items.add(item);
-            }
+            items.addAll(processArray.grantChar(UserSyncData, reward_id, reward_count));
         }
 
         if (reward_type.equals("HGG_SHD")) {
@@ -338,6 +129,16 @@ public class Admin {
         if (reward_type.equals("CHAR_SKIN")) {
             UserSyncData.getJSONObject("skin").getJSONObject("characterSkins").put(reward_id, 1);
             UserSyncData.getJSONObject("skin").getJSONObject("skinTs").put(reward_id, (new Date()).getTime() / 1000L);
+        }
+
+        // 月卡兑换券（GP_Once_206 的 mcardVoucher）：立刻生效，不占背包
+        if (reward_type.equals("MCARD_VOUCHER")) {
+            long nowTs = (new Date()).getTime() / 1000L;
+            for (int n = 0; n < Math.max(1, reward_count); n++) {
+                com.hypergryph.arknights.core.monthlycard.MonthlyCard.activate(UserSyncData, nowTs);
+            }
+            com.hypergryph.arknights.core.monthlycard.MonthlyCard.grantDailyBonus(UserSyncData,
+                    com.hypergryph.arknights.core.monthlycard.MonthlyCard.currentCardId());
         }
 
         if (!reward_type.equals("CHAR")) {
@@ -626,6 +427,46 @@ public class Admin {
         }
     }
 
+    @RequestMapping({"/building/resetAp"})
+    public JSONObject resetBuildingAp(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject building = userData.getJSONObject("building");
+        if (building == null || building.getJSONObject("chars") == null) {
+            result.put("code", 404);
+            result.put("msg", "没有基建数据");
+            return result;
+        }
+        long now = com.hypergryph.arknights.ArknightsApplication.getTimestamp();
+        JSONObject chars = building.getJSONObject("chars");
+        for (String key : chars.keySet()) {
+            JSONObject c = chars.getJSONObject(key);
+            if (c == null) {
+                continue;
+            }
+            c.put("ap", 8640000);
+            c.put("lastApAddTime", now);
+            c.put("workTime", 0);
+            c.put("changeScale", 0);
+        }
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已把 " + chars.size() + " 个基建干员的心情补满（ap=8640000）");
+        return result;
+    }
+
     @RequestMapping({"/charBuild/changeEvolvePhase"})
     public JSONObject evolvePhase(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId, @RequestParam int value) {
         if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
@@ -791,8 +632,11 @@ public class Admin {
                     charData = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(entry.getKey().toString());
                 } while(!charData.getString("charId").equals(charId));
 
-                for(int i = 0; i < charData.getJSONArray("skills").size(); ++i) {
-                    charData.getJSONArray("skills").getJSONObject(i).put("unlock", 1);
+                // 模板干员的技能在 tmpl 各 patch 里，基节点 skills 是空的
+                for (com.alibaba.fastjson.JSONArray skillArr : com.hypergryph.arknights.core.work.processArray.allSkillArrays(charData)) {
+                    for (int i = 0; i < skillArr.size(); ++i) {
+                        skillArr.getJSONObject(i).put("unlock", 1);
+                    }
                 }
 
                 UserSyncData.getJSONObject("troop").getJSONObject("chars").put(entry.getKey().toString(), charData);
@@ -838,8 +682,10 @@ public class Admin {
                     charData = UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(entry.getKey().toString());
                 } while(!charData.getString("charId").equals(charId));
 
-                for(int i = 0; i < charData.getJSONArray("skills").size(); ++i) {
-                    charData.getJSONArray("skills").getJSONObject(i).put("specializeLevel", value);
+                for (com.alibaba.fastjson.JSONArray skillArr : com.hypergryph.arknights.core.work.processArray.allSkillArrays(charData)) {
+                    for (int i = 0; i < skillArr.size(); ++i) {
+                        skillArr.getJSONObject(i).put("specializeLevel", value);
+                    }
                 }
 
                 UserSyncData.getJSONObject("troop").getJSONObject("chars").put(entry.getKey().toString(), charData);
@@ -850,5 +696,164 @@ public class Admin {
                 return result;
             }
         }
+    }
+    /**
+     * 给某个玩家发一封邮件（模板来自 MySQL mail 表，可重复发）。
+     * <pre>POST /admin/mail/send?uid=10000001&mailId=1   Header: GMKey</pre>
+     */
+    @RequestMapping({"/mail/send"})
+    public JSONObject sendMail(@RequestHeader("GMKey") String GMKey,
+                               @RequestParam Long uid,
+                               @RequestParam(required = false) Integer mailId,
+                               @RequestParam(required = false) String templateName,
+                               @RequestParam(required = false, defaultValue = "365") Long expireDays,
+                               @RequestParam(required = false) String from) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            JSONObject denied = new JSONObject(true);
+            denied.put("code", 401);
+            denied.put("msg", "Unauthorized");
+            return denied;
+        }
+        if (mailId == null && (templateName == null || templateName.isBlank())) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("code", 400);
+            bad.put("msg", "mailId 或 templateName 必须传一个");
+            return bad;
+        }
+        JSONObject r = com.hypergryph.arknights.core.mail.MailService.send(uid, mailId, templateName, expireDays, from);
+        if (r.getIntValue("result") != 0) {
+            JSONObject fail = new JSONObject(true);
+            fail.put("code", 404);
+            fail.put("msg", r.getString("error"));
+            return fail;
+        }
+        return r;
+    }
+
+    /**
+     * 把 data/mail/mail_templates.json 导入 mail 表（按 name 幂等：有则更新、无则插入）。
+     * type=2 的调研模板跳过——那些进 mail_survey 表。
+     */
+    @RequestMapping({"/mail/importTemplates"})
+    public JSONObject importTemplates(@RequestHeader("GMKey") String GMKey) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            JSONObject denied = new JSONObject(true);
+            denied.put("code", 401);
+            denied.put("msg", "Unauthorized");
+            return denied;
+        }
+        String path = System.getProperty("user.dir") + "/data/mail/mail_templates.json";
+        JSONObject file;
+        try {
+            file = com.hypergryph.arknights.core.file.IOTools.ReadJsonFile(path);
+        } catch (Exception e) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("code", 500);
+            bad.put("msg", "读模板文件失败: " + e.getMessage());
+            return bad;
+        }
+        JSONArray templates = file == null ? null : file.getJSONArray("templates");
+        if (templates == null) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("code", 404);
+            bad.put("msg", "模板文件里没有 templates 数组");
+            return bad;
+        }
+        JSONArray imported = new JSONArray();
+        int skipped = 0;
+        for (int i = 0; i < templates.size(); i++) {
+            JSONObject t = templates.getJSONObject(i);
+            if (t == null || t.getString("name") == null) {
+                continue;
+            }
+            if (t.getIntValue("type") == 2 || t.getString("surveyMailId") != null) {
+                skipped++;
+                continue;
+            }
+            com.hypergryph.arknights.core.dao.mailDao.upsertTemplate(
+                    t.getString("name"),
+                    t.getString("from"),
+                    t.getString("subject"),
+                    t.getString("content"),
+                    t.getJSONArray("items"));
+            imported.add(t.getString("name"));
+        }
+        JSONObject result = new JSONObject(true);
+        result.put("code", 200);
+        result.put("imported", imported);
+        result.put("skippedSurveys", skipped);
+        result.put("msg", "已导入 " + imported.size() + " 个模板，跳过 " + skipped + " 个调研模板");
+        return result;
+    }
+
+    /** 重发调研邮件：抹掉墓碑，下次读邮箱时按模板重新补一封 */
+    @RequestMapping({"/mail/resetSurvey"})
+    public JSONObject resetSurvey(@RequestHeader("GMKey") String GMKey,
+                                  @RequestParam Long uid,
+                                  @RequestParam String surveyMailId) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            JSONObject denied = new JSONObject(true);
+            denied.put("code", 401);
+            denied.put("msg", "Unauthorized");
+            return denied;
+        }
+        int n = com.hypergryph.arknights.core.dao.mailInstanceDao.resetSurvey(uid, surveyMailId);
+        JSONObject r = new JSONObject(true);
+        r.put("code", 200);
+        r.put("deleted", n);
+        r.put("msg", "已抹掉 " + surveyMailId + " 的墓碑，玩家下次读邮箱会重新收到");
+        return r;
+    }
+
+    /** 看某个玩家现在有哪些邮件 */
+    @RequestMapping({"/mail/list"})
+    public JSONObject listMails(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            JSONObject denied = new JSONObject(true);
+            denied.put("code", 401);
+            denied.put("msg", "Unauthorized");
+            return denied;
+        }
+        JSONArray mails = com.hypergryph.arknights.core.mail.MailService.mailsOf(uid);
+        if (mails == null) {
+            JSONObject notFound = new JSONObject(true);
+            notFound.put("code", 404);
+            notFound.put("msg", "无法找到该玩家的存档");
+            return notFound;
+        }
+        JSONObject result = new JSONObject(true);
+        result.put("result", 0);
+        result.put("mails", mails);
+        return result;
+    }
+
+    /** 删掉某个玩家的一封邮件 */
+    @RequestMapping({"/mail/delete"})
+    public JSONObject deleteMail(@RequestHeader("GMKey") String GMKey,
+                                 @RequestParam Long uid,
+                                 @RequestParam Integer mailId) {
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            JSONObject denied = new JSONObject(true);
+            denied.put("code", 401);
+            denied.put("msg", "Unauthorized");
+            return denied;
+        }
+        int n = com.hypergryph.arknights.core.mail.MailService.delete(uid, mailId);
+        if (n < 0) {
+            JSONObject notFound = new JSONObject(true);
+            notFound.put("code", 404);
+            notFound.put("msg", "无法找到该玩家的存档");
+            return notFound;
+        }
+        if (n == 0) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("code", 404);
+            bad.put("msg", "这个玩家没有 mailId=" + mailId);
+            return bad;
+        }
+        JSONObject result = new JSONObject(true);
+        result.put("result", 0);
+        result.put("remaining", com.hypergryph.arknights.core.mail.MailService.mailsOf(uid).size());
+        return result;
     }
 }

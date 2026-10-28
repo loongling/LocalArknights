@@ -5,5 +5,6 @@ public class CommandManager extends CommandHandler {
         this.registerCommand(new CommandHelp());
         this.registerCommand(new CommandAddD());
         this.registerCommand(new CommandCreateAC());
+        this.registerCommand(new CommandMail());
     }
 }

@@ -1,0 +1,1234 @@
+{
+  "_comment": "邮件相关字段的合法取值表。from 取自客户端 display_meta_table.mailSenderData；items[].type 取自 item_table 的 itemType 枚举（全部列出）。",
+  "fields": {
+    "name": {
+      "note": "模板名，自由起名，唯一即可（发信时 templateName= 用它）",
+      "existing": [
+        "welcome_2026",
+        "maintain_compensate",
+        "event_reward",
+        "material_pack",
+        "survey_sv_2"
+      ]
+    },
+    "from": {
+      "note": "发件人 id，客户端按 senderId 查 senderName + avatarId；不在表里的 id 会兜底显示「神秘人」+ PRTS 默认头像，不会崩（2026-10-28 客户端实测）",
+      "source": "display_meta_table.mailSenderData",
+      "count": 13,
+      "values": [
+        {
+          "id": "amiya_2024",
+          "name": "阿米娅",
+          "avatarId": "avatar_special_amiya"
+        },
+        {
+          "id": "amiya_2025",
+          "name": "阿米娅",
+          "avatarId": "avatar_special_amiya_2025"
+        },
+        {
+          "id": "amiya_school",
+          "name": "阿米娅",
+          "avatarId": "avatar_special_amiya_school"
+        },
+        {
+          "id": "arknights_choearth",
+          "name": "山山兔",
+          "avatarId": "mail_choearth_amiya"
+        },
+        {
+          "id": "forcer_realname",
+          "name": "艾泽尔",
+          "avatarId": "mail_char_4036_forcer"
+        },
+        {
+          "id": "inside_realname",
+          "name": "里凯莱",
+          "avatarId": "mail_char_498_inside"
+        },
+        {
+          "id": "npc_007_closure",
+          "name": "可露希尔",
+          "avatarId": "mail_closure"
+        },
+        {
+          "id": "npc_2378",
+          "name": "吉阿达",
+          "avatarId": "mail_npc_2378"
+        },
+        {
+          "id": "npc_2379",
+          "name": "裘里奥",
+          "avatarId": "mail_npc_2379"
+        },
+        {
+          "id": "npc_356",
+          "name": "“杰奥”",
+          "avatarId": "mail_npc_356"
+        },
+        {
+          "id": "penguin_logistics",
+          "name": "企鹅物流",
+          "avatarId": "mail_avatar_penguin_logistics"
+        },
+        {
+          "id": "rhodes_island",
+          "name": "罗德岛",
+          "avatarId": "icon_rhodes_island"
+        },
+        {
+          "id": "siren_records",
+          "name": "塞壬唱片",
+          "avatarId": "mail_siren_record"
+        }
+      ],
+      "fallback": {
+        "name": "神秘人",
+        "avatar": "PRTS 默认头像",
+        "verified": "2026-10-28 用 from=not_a_real_sender 实测"
+      }
+    },
+    "type": {
+      "note": "邮件类型：1=普通（mailId 数字），2=调研（surveyMailId 字符串）",
+      "values": {
+        "1": "普通邮件（mailId）",
+        "2": "调研邮件（surveyMailId）"
+      }
+    },
+    "state": {
+      "note": "0=未领取；1=已领取。本地删除用墓碑 removed=1 表达，不物理删行",
+      "values": {
+        "0": "未领取",
+        "1": "已领取"
+      }
+    },
+    "platform": {
+      "note": "固定 -1",
+      "values": {
+        "-1": "全平台"
+      }
+    },
+    "style.route": {
+      "note": "邮件样式",
+      "values": {
+        "0": "普通",
+        "2": "调研（配 banner:\"survey\"）"
+      }
+    },
+    "style.banner": {
+      "note": "横幅资源名，普通邮件留空",
+      "values": {
+        "": "无",
+        "survey": "调研横幅"
+      }
+    },
+    "expireDays": {
+      "note": "本地扩展字段（mail 表没有这列，默认 365）；<=0 表示永不过期",
+      "values": {
+        "2": "调研邮件",
+        "30": "常规补偿",
+        "365": "长期"
+      }
+    },
+    "items[].type": {
+      "note": "必须等于 item_table[id].itemType，写错整封邮件解析失败",
+      "source": "item_table",
+      "count": 75,
+      "values": [
+        {
+          "type": "MATERIAL",
+          "count": 769,
+          "examples": [
+            {
+              "id": "3003",
+              "name": "赤金"
+            },
+            {
+              "id": "3105",
+              "name": "龙骨"
+            },
+            {
+              "id": "3112",
+              "name": "碳"
+            }
+          ]
+        },
+        {
+          "type": "ACTIVITY_ITEM",
+          "count": 291,
+          "examples": [
+            {
+              "id": "act1d0_token_gold_rep_1",
+              "name": "赏金猎人金币"
+            },
+            {
+              "id": "token_Wristband",
+              "name": "黑曜石节手环"
+            },
+            {
+              "id": "token_Obsidian",
+              "name": "汐斯塔的黑曜石"
+            }
+          ]
+        },
+        {
+          "type": "AP_SUPPLY",
+          "count": 58,
+          "examples": [
+            {
+              "id": "ap_supply_lt_100",
+              "name": "应急理智顶液"
+            },
+            {
+              "id": "ap_supply_lt_60",
+              "name": "应急理智合剂"
+            },
+            {
+              "id": "ap_supply_lt_010",
+              "name": "应急理智小样"
+            }
+          ]
+        },
+        {
+          "type": "UNI_COLLECTION",
+          "count": 54,
+          "examples": [
+            {
+              "id": "uni_set_guitar",
+              "name": "火蓝之心家具收藏包"
+            },
+            {
+              "id": "uni_set_pizza",
+              "name": "骑兵与猎人家具收藏包"
+            },
+            {
+              "id": "uni_set_penguin",
+              "name": "喧闹法则家具收藏包"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_MGACHA",
+          "count": 43,
+          "examples": [
+            {
+              "id": "randomMaterialRune_0",
+              "name": "荒芜行动物资补给"
+            },
+            {
+              "id": "randomMaterialRune_1",
+              "name": "黄铁行动物资补给"
+            },
+            {
+              "id": "randomMaterialRune_2",
+              "name": "利刃行动物资补给"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_FULL_POTENTIAL",
+          "count": 38,
+          "examples": [
+            {
+              "id": "voucher_full_ceylon",
+              "name": "锡兰的私人信件"
+            },
+            {
+              "id": "voucher_full_grani",
+              "name": "格拉尼的私人信件"
+            },
+            {
+              "id": "voucher_full_flameb",
+              "name": "炎客的私人信件"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_PICK",
+          "count": 33,
+          "examples": [
+            {
+              "id": "voucher_item_4pick1",
+              "name": "干员兑换券"
+            },
+            {
+              "id": "voucher_item_4pick1_1803",
+              "name": "干员兑换券"
+            },
+            {
+              "id": "voucher_item_pick601",
+              "name": "高级干员调用凭证"
+            }
+          ]
+        },
+        {
+          "type": "ITEM_PACK",
+          "count": 29,
+          "examples": [
+            {
+              "id": "itempack_mod_7",
+              "name": "先锋芯片组印刻仪"
+            },
+            {
+              "id": "itempack_mod_8",
+              "name": "近卫芯片组印刻仪"
+            },
+            {
+              "id": "itempack_mod_9",
+              "name": "重装芯片组印刻仪"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_CGACHA",
+          "count": 27,
+          "examples": [
+            {
+              "id": "2020recruitment10_1",
+              "name": "α类新年寻访凭证"
+            },
+            {
+              "id": "2020recruitment10_2",
+              "name": "β类新年寻访凭证"
+            },
+            {
+              "id": "2020recruitment10_3",
+              "name": "γ类新年寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "LMTGS_COIN",
+          "count": 26,
+          "examples": [
+            {
+              "id": "LMTGS_COIN_601",
+              "name": "寻访数据契约"
+            },
+            {
+              "id": "LMTGS_COIN_903",
+              "name": "寻访数据契约"
+            },
+            {
+              "id": "LMTGS_COIN_1401",
+              "name": "寻访数据契约"
+            }
+          ]
+        },
+        {
+          "type": "LIMITED_TKT_GACHA_10",
+          "count": 25,
+          "examples": [
+            {
+              "id": "LIMITED_TKT_GACHA_10_903",
+              "name": "苏醒纪念寻访凭证"
+            },
+            {
+              "id": "LIMITED_TKT_GACHA_10_1401",
+              "name": "只为铭记寻访凭证"
+            },
+            {
+              "id": "LIMITED_TKT_GACHA_10_1601",
+              "name": "日落潮来寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "RENAMING_CARD",
+          "count": 23,
+          "examples": [
+            {
+              "id": "renamingCard",
+              "name": "ID信息更新卡"
+            },
+            {
+              "id": "renamingCard_0_018",
+              "name": "ID信息更新卡"
+            },
+            {
+              "id": "renamingCard_30_018",
+              "name": "ID信息更新卡"
+            }
+          ]
+        },
+        {
+          "type": "GIFTPACKAGE_TKT",
+          "count": 16,
+          "examples": [
+            {
+              "id": "giftPackageTicket_4_1",
+              "name": "可露希尔珍藏券I"
+            },
+            {
+              "id": "giftPackageTicket_3_4",
+              "name": "可露希尔特需券IV"
+            },
+            {
+              "id": "giftPackageTicket_3_3",
+              "name": "可露希尔特需券III"
+            }
+          ]
+        },
+        {
+          "type": "AP_ITEM",
+          "count": 12,
+          "examples": [
+            {
+              "id": "ap_item_amiya",
+              "name": "阿米娅的烧烤味饼干"
+            },
+            {
+              "id": "ap_item_chen",
+              "name": "陈的烧烤味饼干"
+            },
+            {
+              "id": "ap_item_texas",
+              "name": "德克萨斯的烧烤味饼干"
+            }
+          ]
+        },
+        {
+          "type": "RL_COIN",
+          "count": 12,
+          "examples": [
+            {
+              "id": "rogue_1_token_bp",
+              "name": "蜡烛"
+            },
+            {
+              "id": "rogue_1_token_grow",
+              "name": "昏暗的灵感"
+            },
+            {
+              "id": "rogue_2_token_bp",
+              "name": "生机细胞"
+            }
+          ]
+        },
+        {
+          "type": "EMOTICON_SET",
+          "count": 10,
+          "examples": [
+            {
+              "id": "emoticon_basic",
+              "name": "表情套组"
+            },
+            {
+              "id": "emoticon_arkhub_basic",
+              "name": "表情套组"
+            },
+            {
+              "id": "emoticon_originium_slug",
+              "name": "表情套组：虫动"
+            }
+          ]
+        },
+        {
+          "type": "LINKAGE_TKT_GACHA_10",
+          "count": 8,
+          "examples": [
+            {
+              "id": "LINKAGE_TKT_GACHA_10_1701",
+              "name": "特勤专家寻访凭证"
+            },
+            {
+              "id": "LINKAGE_TKT_GACHA_10_3601",
+              "name": "指引明路寻访凭证"
+            },
+            {
+              "id": "LINKAGE_TKT_GACHA_10_4801",
+              "name": "特勤专家寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "EXCLUSIVE_TKT_GACHA",
+          "count": 7,
+          "examples": [
+            {
+              "id": "SINGLE_49_0_1_GACHA",
+              "name": "如死亦终寻访凭证"
+            },
+            {
+              "id": "SINGLE_55_0_1_GACHA",
+              "name": "未致蒙尘寻访凭证"
+            },
+            {
+              "id": "SINGLE_60_0_1_GACHA",
+              "name": "指令重构寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "EXCLUSIVE_TKT_GACHA_10",
+          "count": 7,
+          "examples": [
+            {
+              "id": "SINGLE_49_0_1_GACHA_10",
+              "name": "如死亦终十连寻访凭证"
+            },
+            {
+              "id": "SINGLE_55_0_1_GACHA_10",
+              "name": "未致蒙尘十连寻访凭证"
+            },
+            {
+              "id": "SINGLE_60_0_1_GACHA_10",
+              "name": "指令重构十连寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "RANDOM_VOUCHER_SKIN",
+          "count": 6,
+          "examples": [
+            {
+              "id": "RandomSkinbox_1",
+              "name": "时装回顾展"
+            },
+            {
+              "id": "RandomSkinbox_2",
+              "name": "时装回顾展·II"
+            },
+            {
+              "id": "RandomSkinbox_3",
+              "name": "时装回顾展·III"
+            }
+          ]
+        },
+        {
+          "type": "MATERIAL_ISSUE_VOUCHER",
+          "count": 5,
+          "examples": [
+            {
+              "id": "precious_material_voucher_perm",
+              "name": "稀有材料提货券"
+            },
+            {
+              "id": "premium_material_voucher_perm",
+              "name": "特级材料提货券"
+            },
+            {
+              "id": "advanced_material_voucher_perm",
+              "name": "高级材料提货券"
+            }
+          ]
+        },
+        {
+          "type": "PLOT_ITEM",
+          "count": 5,
+          "examples": [
+            {
+              "id": "main16_spitem_1",
+              "name": "暗淡的源石"
+            },
+            {
+              "id": "main16_spitem_2",
+              "name": "无主的矿灯"
+            },
+            {
+              "id": "main16_spitem_3",
+              "name": "涂改的旗帜"
+            }
+          ]
+        },
+        {
+          "type": "CARD_EXP",
+          "count": 4,
+          "examples": [
+            {
+              "id": "2001",
+              "name": "基础作战记录"
+            },
+            {
+              "id": "2002",
+              "name": "初级作战记录"
+            },
+            {
+              "id": "2003",
+              "name": "中级作战记录"
+            }
+          ]
+        },
+        {
+          "type": "OPTIONAL_VOUCHER_PICK",
+          "count": 4,
+          "examples": [
+            {
+              "id": "voucher_chipPack",
+              "name": "芯片组自助打印盒"
+            },
+            {
+              "id": "voucher_chip",
+              "name": "芯片自助打印盒"
+            },
+            {
+              "id": "voucher_chipPackage",
+              "name": "自助芯片组印刻仪"
+            }
+          ]
+        },
+        {
+          "type": "MEDAL",
+          "count": 4,
+          "examples": [
+            {
+              "id": "medal_activity_15side_01",
+              "name": "“诗酒乘兴”"
+            },
+            {
+              "id": "medal_activity_15side_03",
+              "name": "“寒芒新淬”"
+            },
+            {
+              "id": "medal_activity_15side_04",
+              "name": "“豪爽之人”"
+            }
+          ]
+        },
+        {
+          "type": "ACTIVITY_POTENTIAL",
+          "count": 3,
+          "examples": [
+            {
+              "id": "voucher_vigil",
+              "name": "伺夜的文件夹"
+            },
+            {
+              "id": "voucher_ulika",
+              "name": "U-Official的文件夹"
+            },
+            {
+              "id": "voucher_lessng",
+              "name": "止颂的文件夹"
+            }
+          ]
+        },
+        {
+          "type": "CLASSIC_FES_PICK_TIER_5",
+          "count": 3,
+          "examples": [
+            {
+              "id": "classic_fes_pick_tier_5_3801",
+              "name": "中坚甄选5星干员"
+            },
+            {
+              "id": "classic_fes_pick_tier_5_4101",
+              "name": "中坚甄选5星干员"
+            },
+            {
+              "id": "classic_fes_pick_tier_5_4401",
+              "name": "中坚甄选5星干员"
+            }
+          ]
+        },
+        {
+          "type": "CLASSIC_FES_PICK_TIER_6",
+          "count": 3,
+          "examples": [
+            {
+              "id": "classic_fes_pick_tier_6_3801",
+              "name": "中坚甄选6星干员"
+            },
+            {
+              "id": "classic_fes_pick_tier_6_4101",
+              "name": "中坚甄选6星干员"
+            },
+            {
+              "id": "classic_fes_pick_tier_6_4401",
+              "name": "中坚甄选6星干员"
+            }
+          ]
+        },
+        {
+          "type": "ET_STAGE",
+          "count": 2,
+          "examples": [
+            {
+              "id": "et_ObsidianPass",
+              "name": "黑曜石节门票"
+            },
+            {
+              "id": "et_ObsidianPass_rep_1",
+              "name": "黑曜石节门票"
+            }
+          ]
+        },
+        {
+          "type": "RETURN_CREDIT",
+          "count": 2,
+          "examples": [
+            {
+              "id": "return_credit_token",
+              "name": "二次认证徽记"
+            },
+            {
+              "id": "return_credit_token2",
+              "name": "二次认证徽记"
+            }
+          ]
+        },
+        {
+          "type": "SANDBOX_TOKEN",
+          "count": 2,
+          "examples": [
+            {
+              "id": "sandbox_1_tokencoin",
+              "name": "繁荣点数"
+            },
+            {
+              "id": "sandbox_2_tokencoin",
+              "name": "任务验收单"
+            }
+          ]
+        },
+        {
+          "type": "GOLD",
+          "count": 1,
+          "examples": [
+            {
+              "id": "4001",
+              "name": "龙门币"
+            }
+          ]
+        },
+        {
+          "type": "DIAMOND",
+          "count": 1,
+          "examples": [
+            {
+              "id": "4002",
+              "name": "至纯源石"
+            }
+          ]
+        },
+        {
+          "type": "DIAMOND_SHD",
+          "count": 1,
+          "examples": [
+            {
+              "id": "4003",
+              "name": "合成玉"
+            }
+          ]
+        },
+        {
+          "type": "HGG_SHD",
+          "count": 1,
+          "examples": [
+            {
+              "id": "4004",
+              "name": "高级凭证"
+            }
+          ]
+        },
+        {
+          "type": "LGG_SHD",
+          "count": 1,
+          "examples": [
+            {
+              "id": "4005",
+              "name": "资质凭证"
+            }
+          ]
+        },
+        {
+          "type": "EXP_PLAYER",
+          "count": 1,
+          "examples": [
+            {
+              "id": "5001",
+              "name": "声望"
+            }
+          ]
+        },
+        {
+          "type": "TKT_TRY",
+          "count": 1,
+          "examples": [
+            {
+              "id": "6001",
+              "name": "演习券"
+            }
+          ]
+        },
+        {
+          "type": "TKT_RECRUIT",
+          "count": 1,
+          "examples": [
+            {
+              "id": "7001",
+              "name": "招聘许可"
+            }
+          ]
+        },
+        {
+          "type": "TKT_INST_FIN",
+          "count": 1,
+          "examples": [
+            {
+              "id": "7002",
+              "name": "加急许可"
+            }
+          ]
+        },
+        {
+          "type": "TKT_GACHA",
+          "count": 1,
+          "examples": [
+            {
+              "id": "7003",
+              "name": "寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "TKT_GACHA_10",
+          "count": 1,
+          "examples": [
+            {
+              "id": "7004",
+              "name": "十连寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "SOCIAL_PT",
+          "count": 1,
+          "examples": [
+            {
+              "id": "SOCIAL_PT",
+              "name": "信用"
+            }
+          ]
+        },
+        {
+          "type": "AP_GAMEPLAY",
+          "count": 1,
+          "examples": [
+            {
+              "id": "AP_GAMEPLAY",
+              "name": "理智"
+            }
+          ]
+        },
+        {
+          "type": "AP_BASE",
+          "count": 1,
+          "examples": [
+            {
+              "id": "base_ap",
+              "name": "无人机"
+            }
+          ]
+        },
+        {
+          "type": "TKT_GACHA_PRSV",
+          "count": 1,
+          "examples": [
+            {
+              "id": "bilibili001",
+              "name": "预约干员随机4选1"
+            }
+          ]
+        },
+        {
+          "type": "EPGS_COIN",
+          "count": 1,
+          "examples": [
+            {
+              "id": "EPGS_COIN",
+              "name": "寻访参数模型"
+            }
+          ]
+        },
+        {
+          "type": "REP_COIN",
+          "count": 1,
+          "examples": [
+            {
+              "id": "REP_COIN",
+              "name": "情报凭证"
+            }
+          ]
+        },
+        {
+          "type": "CRS_SHOP_COIN",
+          "count": 1,
+          "examples": [
+            {
+              "id": "CRISIS_SHOP_COIN",
+              "name": "合约赏金"
+            }
+          ]
+        },
+        {
+          "type": "CRS_SHOP_COIN_V2",
+          "count": 1,
+          "examples": [
+            {
+              "id": "CRISIS_SHOP_COIN_V2",
+              "name": "晶体合约赏金"
+            }
+          ]
+        },
+        {
+          "type": "RETRO_COIN",
+          "count": 1,
+          "examples": [
+            {
+              "id": "RETRO_COIN",
+              "name": "事相结晶"
+            }
+          ]
+        },
+        {
+          "type": "EXTERMINATION_AGENT",
+          "count": 1,
+          "examples": [
+            {
+              "id": "EXTERMINATION_AGENT",
+              "name": "常态事务代理卡"
+            }
+          ]
+        },
+        {
+          "type": "LINKAGE_TKT_GACHA",
+          "count": 1,
+          "examples": [
+            {
+              "id": "LINKAGE_TKT_GACHA_7701",
+              "name": "一逢满月寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_LEVELMAX_6",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_levelmax_6",
+              "name": "高级资深干员特训装置"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_LEVELMAX_5",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_levelmax_5",
+              "name": "资深干员特训装置"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_LEVELMAX_4",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_levelmax_4",
+              "name": "专业干员特训装置"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_ELITE_II_6",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_elite_II_6",
+              "name": "高级资深干员特训邀请函"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_ELITE_II_5",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_elite_II_5",
+              "name": "资深干员特训邀请函"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_ELITE_II_4",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_elite_II_4",
+              "name": "专业干员特训邀请函"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_SKILL_SPECIALLEVELMAX_6",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_skill_specialLevelMax_6",
+              "name": "高级资深干员技巧集"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_SKILL_SPECIALLEVELMAX_5",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_skill_specialLevelMax_5",
+              "name": "资深干员技巧集"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_SKILL_SPECIALLEVELMAX_4",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_skill_specialLevelMax_4",
+              "name": "专业干员技巧集"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_SKIN",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_skin",
+              "name": "时装自选凭证"
+            }
+          ]
+        },
+        {
+          "type": "VOUCHER_SKIN_V2",
+          "count": 1,
+          "examples": [
+            {
+              "id": "voucher_skin_2",
+              "name": "回顾入场券"
+            }
+          ]
+        },
+        {
+          "type": "CRS_RUNE_COIN",
+          "count": 1,
+          "examples": [
+            {
+              "id": "CRISIS_RUNE_COIN",
+              "name": "行动协议"
+            }
+          ]
+        },
+        {
+          "type": "ACTIVITY_COIN",
+          "count": 1,
+          "examples": [
+            {
+              "id": "1stact",
+              "name": "赏金猎人金币"
+            }
+          ]
+        },
+        {
+          "type": "FAVOR_ADD_ITEM",
+          "count": 1,
+          "examples": [
+            {
+              "id": "favor_add_ulika",
+              "name": "主播U的直播切片"
+            }
+          ]
+        },
+        {
+          "type": "CLASSIC_SHD",
+          "count": 1,
+          "examples": [
+            {
+              "id": "classic_normal_ticket",
+              "name": "通用凭证"
+            }
+          ]
+        },
+        {
+          "type": "CLASSIC_TKT_GACHA",
+          "count": 1,
+          "examples": [
+            {
+              "id": "classic_gacha",
+              "name": "中坚寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "CLASSIC_TKT_GACHA_10",
+          "count": 1,
+          "examples": [
+            {
+              "id": "classic_gacha_10",
+              "name": "十连中坚寻访凭证"
+            }
+          ]
+        },
+        {
+          "type": "LIMITED_BUFF",
+          "count": 1,
+          "examples": [
+            {
+              "id": "Logistics_Special_Permit",
+              "name": "后勤特别许可证"
+            }
+          ]
+        },
+        {
+          "type": "RETURN_PROGRESS",
+          "count": 1,
+          "examples": [
+            {
+              "id": "return_progress",
+              "name": "回流累登券"
+            }
+          ]
+        },
+        {
+          "type": "NEW_PROGRESS",
+          "count": 1,
+          "examples": [
+            {
+              "id": "new_progress",
+              "name": "开服累登券"
+            }
+          ]
+        },
+        {
+          "type": "MCARD_VOUCHER",
+          "count": 1,
+          "examples": [
+            {
+              "id": "mcardVoucher",
+              "name": "月卡兑换凭证"
+            }
+          ]
+        },
+        {
+          "type": "SO_CHAR_EXP",
+          "count": 1,
+          "examples": [
+            {
+              "id": "so_char_exp_1",
+              "name": "特勤作战记录"
+            }
+          ]
+        }
+      ]
+    },
+    "items[].ts": {
+      "note": "固定 0",
+      "values": {
+        "0": "固定值"
+      }
+    },
+    "items[].id": {
+      "note": "物品 id = item_table 的 key；下面是常用的一批",
+      "common": {
+        "3003": {
+          "name": "赤金",
+          "type": "MATERIAL"
+        },
+        "3251": {
+          "name": "术师芯片",
+          "type": "MATERIAL"
+        },
+        "4001": {
+          "name": "龙门币",
+          "type": "GOLD"
+        },
+        "4002": {
+          "name": "至纯源石",
+          "type": "DIAMOND"
+        },
+        "4003": {
+          "name": "合成玉",
+          "type": "DIAMOND_SHD"
+        },
+        "4004": {
+          "name": "高级凭证",
+          "type": "HGG_SHD"
+        },
+        "4005": {
+          "name": "资质凭证",
+          "type": "LGG_SHD"
+        },
+        "5001": {
+          "name": "声望",
+          "type": "EXP_PLAYER"
+        },
+        "6001": {
+          "name": "演习券",
+          "type": "TKT_TRY"
+        },
+        "7001": {
+          "name": "招聘许可",
+          "type": "TKT_RECRUIT"
+        },
+        "7002": {
+          "name": "加急许可",
+          "type": "TKT_INST_FIN"
+        },
+        "7003": {
+          "name": "寻访凭证",
+          "type": "TKT_GACHA"
+        },
+        "7004": {
+          "name": "十连寻访凭证",
+          "type": "TKT_GACHA_10"
+        },
+        "30011": {
+          "name": "源岩",
+          "type": "MATERIAL"
+        },
+        "30012": {
+          "name": "固源岩",
+          "type": "MATERIAL"
+        },
+        "30013": {
+          "name": "固源岩组",
+          "type": "MATERIAL"
+        },
+        "32001": {
+          "name": "芯片助剂",
+          "type": "MATERIAL"
+        },
+        "classic_gacha": {
+          "name": "中坚寻访凭证",
+          "type": "CLASSIC_TKT_GACHA"
+        },
+        "classic_gacha_10": {
+          "name": "十连中坚寻访凭证",
+          "type": "CLASSIC_TKT_GACHA_10"
+        },
+        "voucher_elite_II_6": {
+          "name": "高级资深干员特训邀请函",
+          "type": "VOUCHER_ELITE_II_6"
+        },
+        "voucher_levelmax_6": {
+          "name": "高级资深干员特训装置",
+          "type": "VOUCHER_LEVELMAX_6"
+        },
+        "SOCIAL_PT": {
+          "name": "信用",
+          "type": "SOCIAL_PT"
+        },
+        "AP_GAMEPLAY": {
+          "name": "理智",
+          "type": "AP_GAMEPLAY"
+        },
+        "base_ap": {
+          "name": "无人机",
+          "type": "AP_BASE"
+        }
+      }
+    }
+  }
+}

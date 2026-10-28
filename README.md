@@ -63,22 +63,20 @@
 ```
 
 ## 怎么启动/解决中文乱码问题
-请使用java17以上的java版本在CMD或Powershell中运行,MySQL(8.0以上)请自行准备,不要忘记改config.json中的设置
+请使用java17以上(JDK25以下)的java版本在CMD或Powershell中运行,MySQL(8.0以上)请自行准备,不要忘记改config.json中的设置
 
 1、首先运行 `chcp 65001`  
-2、在项目根目录运行`hypergryph-0.4.5.5 Alpha.jar`
+2、在项目根目录运行`hypergryph-0.5.0.0 Alpha.jar`
 ```bash
 chcp 65001
-java -jar "hypergryph-0.4.5.5 Alpha.jar"
+java -jar "hypergryph-0.5.0.0 Alpha.jar"
 ```
 
 ## 已知问题
-   
-1. 社交系统  
-2. 商店系统(不能买月卡和源石标价的物品)
-3. 肉鸽玩法  
-4. stage.json不完善  
-5. 可能有更多问题
+
+1. 肉鸽玩法  
+2. stage.json不完善  
+3. 可能有更多问题
 
 ## 如何注册?
 ## 新账户首次登陆点击 开始唤醒 时可能会在加载进度100%之后返回主界面，此时再次点击 开始唤醒 即可开始游戏

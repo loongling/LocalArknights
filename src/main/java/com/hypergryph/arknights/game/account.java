@@ -3,6 +3,7 @@ package com.hypergryph.arknights.game;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
+import com.hypergryph.arknights.core.dao.mailInstanceDao;
 import com.hypergryph.arknights.core.dao.userDao;
 import com.hypergryph.arknights.core.pojo.Account;
 
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
+import static com.hypergryph.arknights.core.shop.PeriodicShopReset.resetIfNeeded;
 import static com.hypergryph.arknights.core.work.checkAccount.checkAccount;
 import static com.hypergryph.arknights.core.work.checkAccount.createError;
 import static com.hypergryph.arknights.core.work.checkActLogin.needAddIndex;
@@ -64,7 +66,6 @@ public class account {
         if (checkAccount(secret)) {
             Long uid = ((Account) Accounts.get(0)).getUid();
             if (!isGlobal) {
-                // 国服：校验客户端版本与资源版本
                 if (!clientVersion.equals(ArknightsApplication.serverConfig.getJSONObject("version").getJSONObject("Windows").getString("clientVersion"))) {
                     result.put("result", 2);
                     result.put("error", "客户端版本需要更新");
@@ -99,6 +100,17 @@ public class account {
                 userData.getJSONObject("status").put("registerTs", (new Date()).getTime() / 1000L);
                 userData.getJSONObject("status").put("lastApAddTime", (new Date()).getTime() / 1000L);
                 userDao.setUserData(uid, userData);
+            }
+
+            try {
+                List<Account> fresh = userDao.queryAccountBySecret(secret);
+                JSONObject loginUserData = JSONObject.parseObject(fresh.get(0).getUser());
+                if (resetIfNeeded(loginUserData)) {
+                    userDao.setUserData(uid, loginUserData);
+                    LOGGER.info("[login] uid={} 周/月礼包商店已按周期重置", uid);
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[login] 周/月礼包商店重置失败: {}", e.toString());
             }
             //ArknightsApplication.addSecretForIP(clientIp, secret);
             Map<String, Object> data = new LinkedHashMap<>();
@@ -144,6 +156,10 @@ public class account {
             } catch (Exception e) {
                 LOGGER.error("解析用户数据失败, UID: " + uid, e);
                 return createErrorResponse(2, "用户数据损坏");
+            }
+            if (UserSyncData.containsKey("monthlySub")) {
+                UserSyncData.remove("monthlySub");
+                LOGGER.info("[syncData] 已清掉不兼容的 monthlySub（uid=" + uid + "）");
             }
 
             Long ts = ArknightsApplication.getTimestamp();
@@ -216,6 +232,14 @@ public class account {
             }
 
             try {
+                if (resetIfNeeded(UserSyncData)) {
+                    LOGGER.info("[syncData] uid={} 周/月礼包商店已按周期重置", uid);
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] 周/月礼包商店重置失败: {}", e.toString());
+            }
+
+            try {
                 userDao.setUserData(uid, UserSyncData);
             } catch (Exception e) {
                 LOGGER.error("写入用户数据失败, UID: " + uid, e);
@@ -282,17 +306,11 @@ public class account {
                     UserSyncData.getJSONObject("status").put("lastRefreshTs", ArknightsApplication.getTimestamp());
                     UserSyncData.getJSONObject("pushFlags").put("hasGifts", 0);
                     UserSyncData.getJSONObject("pushFlags").put("hasFriendRequest", 0);
-                    JSONArray listMailBox = JSONArray.parseArray(((Account) Accounts.get(0)).getMails());
-
-                    for (int i = 0; i < listMailBox.size(); ++i) {
-                        if (listMailBox.getJSONObject(i).getIntValue("state") == 0) {
-                            if ((new Date()).getTime() / 1000L <= listMailBox.getJSONObject(i).getLongValue("expireAt")) {
-                                UserSyncData.getJSONObject("pushFlags").put("hasGifts", 1);
-                                break;
-                            }
-
-                            listMailBox.getJSONObject(i).put("remove", 1);
-                        }
+                    // 邮件已经落 mail_instance 表：顺手清过期、按未领取附件算 hasGifts
+                    long mailNow = (new Date()).getTime() / 1000L;
+                    mailInstanceDao.deleteExpired(uid, mailNow);
+                    if (mailInstanceDao.countUnreceived(uid, mailNow) > 0) {
+                        UserSyncData.getJSONObject("pushFlags").put("hasGifts", 1);
                     }
 
                     JSONArray FriendRequest = JSONObject.parseObject(((Account) Accounts.get(0)).getFriend()).getJSONArray("request");
@@ -313,7 +331,6 @@ public class account {
                             modified.put("checkIn", checkIn);
                         }
                     }
-                    userDao.setMailsData(uid, listMailBox);
                     userDao.setUserData(uid, UserSyncData);
                     JSONObject result = new JSONObject(true);
                     JSONObject playerDataDelta = new JSONObject(true);

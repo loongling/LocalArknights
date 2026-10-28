@@ -1,0 +1,113 @@
+{
+  "_comment": "本地服邮件模板库（示例/导入用）。真正生效的是 MySQL mail 表（id/name/from/subject/content/items），这份 JSON 用来照着填表或批量导入。附件里的 type 必须和 item_table 的 itemType 一致，写错客户端会整封邮件解析失败。",
+  "schema": {
+    "name": "模板名，唯一，/admin/mail/send?templateName=xxx 用它",
+    "from": "发件人（显示在邮件头），官方常见: penguin_logistics / rhodes / system",
+    "subject": "标题",
+    "content": "正文，\n 换行",
+    "expireDays": "有效天数，<=0 表示永不过期（注意：这是本地扩展字段，mail 表没有这列时按 365 处理）",
+    "type": "1=普通邮件（默认）；2=调研邮件（走 surveyMailId，需要 mail_survey 表）",
+    "platform": "固定 -1",
+    "style": "route 0=普通；2=调研(banner:\"survey\")",
+    "items[].id": "物品 id（item_table 的 key）",
+    "items[].type": "物品类型 = item_table[].itemType，不能凭感觉写",
+    "items[].count": "数量",
+    "items[].ts": "固定 0（客户端只认 0）"
+  },
+  "templates": [
+    {
+      "id": 1,
+      "name": "welcome_2026",
+      "from": "penguin_logistics",
+      "subject": "罗德岛补给",
+      "content": "博士：\n\n欢迎回到罗德岛。随信附上初期补给，请查收。\n\n[罗德岛后勤部]",
+      "expireDays": 365,
+      "type": 1,
+      "platform": -1,
+      "style": { "route": 0, "banner": "" },
+      "items": [
+        { "id": "7001", "type": "TKT_RECRUIT", "count": 5, "ts": 0 },
+        { "id": "7002", "type": "TKT_INST_FIN", "count": 5, "ts": 0 },
+        { "id": "4001", "type": "GOLD", "count": 20000, "ts": 0 },
+        { "id": "3003", "type": "MATERIAL", "count": 10, "ts": 0 }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "maintain_compensate",
+      "from": "rhodes_island",
+      "subject": "维护补偿",
+      "content": "尊敬的博士：\n\n本次维护已完成，补偿已随信附上，感谢您的耐心等待。\n\n[明日方舟运营组]",
+      "expireDays": 30,
+      "type": 1,
+      "platform": -1,
+      "style": { "route": 0, "banner": "" },
+      "items": [
+        { "id": "4002", "type": "DIAMOND", "count": 5, "ts": 0 },
+        { "id": "4001", "type": "GOLD", "count": 20000, "ts": 0 }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "event_reward",
+      "from": "penguin_logistics",
+      "subject": "活动奖励发放",
+      "content": "博士：\n\n活动奖励已送达，请在有效期内领取。\n\n[罗德岛后勤部]",
+      "expireDays": 14,
+      "type": 1,
+      "platform": -1,
+      "style": { "route": 0, "banner": "" },
+      "items": [
+        { "id": "4003", "type": "DIAMOND_SHD", "count": 600, "ts": 0 },
+        { "id": "classic_gacha", "type": "CLASSIC_TKT_GACHA", "count": 1, "ts": 0 }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "material_pack",
+      "from": "penguin_logistics",
+      "subject": "材料补给包",
+      "content": "博士：\n\n随信附上养成材料，请查收。\n\n[罗德岛后勤部]",
+      "expireDays": 90,
+      "type": 1,
+      "platform": -1,
+      "style": { "route": 0, "banner": "" },
+      "items": [
+        { "id": "30011", "type": "MATERIAL", "count": 20, "ts": 0 },
+        { "id": "30012", "type": "MATERIAL", "count": 10, "ts": 0 },
+        { "id": "30013", "type": "MATERIAL", "count": 5, "ts": 0 },
+        { "id": "32001", "type": "MATERIAL", "count": 4, "ts": 0 },
+        { "id": "3251", "type": "MATERIAL", "count": 3, "ts": 0 }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "survey_sv_2",
+      "from": "penguin_logistics",
+      "subject": "《明日方舟》七日体验问卷",
+      "content": "尊敬的博士，\n\n这段时间以来，罗德岛的各项事务您是否已经得心应手了呢？期待您宝贵的意见。\n完成本次问卷并成功提交，可获得【龙门币与作战记录】奖励。奖励会通过邮件发放，请注意查收。\n\n*调研邮件有效期为2天，以确保您的反馈接近您当前的实际体验。奖励邮件有效期为30天，感谢您的理解。",
+      "expireDays": 2,
+      "type": 2,
+      "platform": -1,
+      "style": { "route": 2, "banner": "survey" },
+      "surveyMailId": "sv_2",
+      "items": []
+    },
+    {
+      "id": 6,
+      "name": "amiya_letter",
+      "from": "amiya_2024",
+      "subject": "阿米娅的信",
+      "content": "博士：\n\n今天也辛苦了。整理档案的时候翻到了我们刚认识那会儿的记录，不知不觉写了这么多，就想顺便说几句。\n\n罗德岛要走的路还很长，会遇到很多不好受的事。但每次看到博士还在这里，我就觉得走得下去。\n\n随信附上一点物资。别又全攒着不用，该花的时候就花——这是凯尔希医生说的，我只是转述。\n\n阿米娅",
+      "expireDays": 365,
+      "type": 1,
+      "platform": -1,
+      "style": { "route": 0, "banner": "" },
+      "items": [
+        { "id": "4001", "type": "GOLD", "count": 20000, "ts": 0 },
+        { "id": "4003", "type": "DIAMOND_SHD", "count": 300, "ts": 0 },
+        { "id": "3003", "type": "MATERIAL", "count": 5, "ts": 0 }
+      ]
+    }
+  ]
+}

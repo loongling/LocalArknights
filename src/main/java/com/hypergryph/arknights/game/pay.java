@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.hypergryph.arknights.core.monthlycard.MonthlyCard.*;
 import static com.hypergryph.arknights.core.work.checkAccount.checkAccount;
 import static com.hypergryph.arknights.core.work.getProduct.*;
 import static com.hypergryph.arknights.core.work.processArray.handleModifiedBuild;
@@ -75,12 +76,12 @@ public class pay {
     };
 
     @GetMapping("/order/v1/state")
-    public JSONObject getOrderState(@RequestHeader(value = "secret", required = false)String secret,@RequestParam("orderId") String orderId, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject getOrderState(@RequestParam("orderId") String orderId, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
         ArknightsApplication.LOGGER.info("[/" + clientIp + "] /pay/order/v1/state");
         JSONObject result = new JSONObject();
         JSONObject data = new JSONObject();
-        JSONObject product = orderIdDao.queryAllBySecret(secret);
+        JSONObject product = orderIdDao.queryAllByOrderId(orderId);
         long createTime = product.getLong("create_at");
         String productName  = product.getString("product_name");
         int amount = product.getInteger("price");
@@ -95,10 +96,10 @@ public class pay {
         result.put("data", data);
         result.put("type", "A");
         int time = ArknightsApplication.serverConfig.getJSONObject("pay").getInteger("time");
-        if (orderIdDao.checkTimes(secret) < time) {
+        if (orderIdDao.checkTimes(orderId) < time) {
             result.put("status", 101);
             result.put("msg", "未支付");
-            orderIdDao.updateTimes(secret);
+            orderIdDao.updateTimes(orderId);
             return result;
         }
         result.put("status", 0);
@@ -186,90 +187,41 @@ public class pay {
                 }
             }
             if (productType == 1) {
-                if (product_id.startsWith("GP_Once")) {
-                    if (product_id.equals("GP_Once_106")) {
-                        JSONObject A = new JSONObject();
-                        A.put("id", "GP_Once_106");
-                        A.put("count", 1);               //特殊处理唯一的GP_Once_106的干员获取
-                        if (user.getJSONObject("troop").getJSONObject("chars").getJSONObject("151") == null) {
-                            JSONObject resp = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/GP_Once_106_New_resp.json");
-                            JSONObject chars = resp.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("troop").getJSONObject("chars").getJSONObject("151");
-                            user.getJSONObject("troop").getJSONObject("chars").put("151", chars);
-                            JSONObject charGroup = resp.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("troop").getJSONObject("charGroup").getJSONObject("char_151_myrtle");
-                            user.getJSONObject("troop").getJSONObject("charGroup").put("char_151_myrtle", charGroup);
-                            JSONObject building = resp.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("building").getJSONObject("chars").getJSONObject("151");
-                            user.getJSONObject("building").getJSONObject("chars").put("151", building);
-                            JSONObject dex = resp.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("dexNav").getJSONObject("character").getJSONObject("char_151_myrtle");
-                            user.getJSONObject("dexNav").getJSONObject("character").put("char_151_myrtle",dex);
-                            JSONObject shop = resp.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("shop").getJSONObject("GP").getJSONObject("oneTime").getJSONArray("info").getJSONObject(0);
-                            user.getJSONObject("shop").getJSONObject("GP").getJSONObject("oneTime").getJSONArray("info").add(shop);
-                            userDao.setUserData(uid, user);
-                            JSONArray info =  user.getJSONObject("shop").getJSONObject("GP").getJSONObject("oneTime").getJSONArray("info");
-                            resp.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("shop").getJSONObject("GP").getJSONObject("oneTime").put("info", info);
-                            return resp;
-                        } else {
-                            JSONObject res = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/GP_Once_106_noNew_resp.json");
-                            int o_LMD = user.getJSONObject("status").getInteger("gold");
-                            user.getJSONObject("status").put("gold", o_LMD + 10000);
-                            int o_gachaTicket = user.getJSONObject("status").getInteger("gachaTicket");
-                            user.getJSONObject("status").put("gachaTicket", o_gachaTicket + 1);
-                            int o_lggShard = user.getJSONObject("status").getInteger("lggShard");
-                            user.getJSONObject("status").put("lggShard", o_lggShard + 30);
-                            res.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("status").put("gachaTicket",o_gachaTicket + 1);
-                            res.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("status").put("lggShard", o_lggShard + 30);
-                            int o_exp = 0;
-                            if(user.getJSONObject("inventory").getInteger("2001") != null){
-                                o_exp = user.getJSONObject("inventory").getInteger("2001");
-                                user.getJSONObject("inventory").put("2001", o_exp + 20);
-                                res.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("inventory").put("2001",o_exp + 20);
-                            }
-                            int p_char_115_myrtle;
-                            if(user.getJSONObject("inventory").getInteger("p_char_115_myrtle") != null){
-                                p_char_115_myrtle  = user.getJSONObject("inventory").getInteger("p_char_115_myrtle");
-                                user.getJSONObject("inventory").put("p_char_115_myrtle", p_char_115_myrtle + 1);
-                                res.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("inventory").put("p_char_115_myrtle", p_char_115_myrtle + 1);
-                            } else  {
-                                user.getJSONObject("inventory").put("p_char_115_myrtle", 1);
-                                res.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("inventory").put("p_char_115_myrtle", 1);
-                            }
-                            int o_dexCount = user.getJSONObject("dexNav").getJSONObject("character").getJSONObject("char_151_myrtle").getInteger("count");
-                            user.getJSONObject("dexNav").getJSONObject("character").getJSONObject("char_151_myrtle").put("count", o_dexCount + 1);
-                            res.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("dexNav").getJSONObject("character").getJSONObject("char_151_myrtle").put("count", o_dexCount + 1);
-                            JSONObject shop = res.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("shop").getJSONObject("GP").getJSONObject("ineTime").getJSONArray("info").getJSONObject(0);
-                            user.getJSONObject("shop").getJSONObject("GP").getJSONObject("oneTime").getJSONArray("info").add(shop);
-                            userDao.setUserData(uid, user);
-                            JSONArray info =  user.getJSONObject("shop").getJSONObject("GP").getJSONObject("oneTime").getJSONArray("info");
-                            res.getJSONObject("playerDataDelta").getJSONObject("modified").getJSONObject("shop").getJSONObject("GP").getJSONObject("oneTime").put("info", info);
-                            return res;
-                        }
-                    } else {
-                        JSONObject once = oneTimeGood(product_id);
-                        JSONArray items = once.getJSONArray("items");
-                        receiveItems.put("items", items);
-                        if (items != null && !items.isEmpty()) {
-                            for (int i = 0; i < items.size(); i++) {          // 遍历全部
-                                if (items.get(i) instanceof JSONObject obj) {
-                                    modified = handleModifiedBuild(obj, modified, user, i);
-                                    user = handleUserDataChange(obj, user, uid, i);
-                                }
-                            }
-                            userDao.setUserData(uid, user);
-                            JSONObject add = new JSONObject();
-                            add.put("id", GoodId);
-                            add.put("count", 1);
-                            JSONObject shop = user.getJSONObject("shop");
-                            shop.getJSONObject("GP").getJSONObject("oneTime").getJSONArray("info").add(add);
-                            modified.put("shop", shop);
-                            user.getJSONObject("shop").getJSONObject("GP").getJSONObject("oneTime").getJSONArray("info").add(add);
-                            userDao.setUserData(uid, user);
-                            playerDataDelta.put("modified", modified);
-                            result.put("playerDataDelta", playerDataDelta);
-                            result.put("receiveItems", receiveItems);
-                            ArknightsApplication.LOGGER.info("Response confirmOrder JSON: " + result);
-                            return result;
-                        }
+                JSONObject good = com.hypergryph.arknights.core.monthlycard.MonthlyCard
+                        .findGood(product_id);
+                if (good == null) {
+                    ArknightsApplication.LOGGER.warn("[pay] confirmOrder: 找不到商品 {}", product_id);
+                    return new JSONObject();
+                }
+
+                String[] gpPath = com.hypergryph.arknights.core.shop.ShopPurchase.gpShopPath(product_id);
+                if (gpPath != null) {
+                    String soldOut = com.hypergryph.arknights.core.shop.ShopPurchase
+                            .checkAvailCount(good, user, gpPath, product_id, 1);
+                    if (soldOut != null) {
+                        ArknightsApplication.LOGGER.warn("[pay] confirmOrder: {}", soldOut);
+                        orderIdDao.DelTable(orderId);
+                        result.put("result", 1);
+                        result.put("error", soldOut);
+                        return result;
                     }
                 }
+
+                JSONArray items = com.hypergryph.arknights.core.shop.GPGoodGrant
+                        .grant(user, good, uid, modified);
+
+                userDao.setUserData(uid, user);
+
+                playerDataDelta.put("modified", modified);
+                result.put("playerDataDelta", playerDataDelta);
+                receiveItems.put("items", items);
+                result.put("receiveItems", receiveItems);
+                result.put("result", 0);
+                orderIdDao.DelTable(orderId);
+
+                ArknightsApplication.LOGGER.info("[pay] uid={} 订单 {} 发放 {} 项，modified={}",
+                        uid, orderId, items.size(), modified.toJSONString());
+                return result;
             }
         }
         return new JSONObject();
@@ -314,6 +266,7 @@ public class pay {
         }
         return result;
     }
+
     private JSONArray buildPushMessage() {
         JSONArray pushMessageArray = new JSONArray();
 

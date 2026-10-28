@@ -2,9 +2,6 @@ package com.hypergryph.arknights.game;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.internal.bind.JsonAdapterAnnotationTypeAdapterFactory;
 import com.hypergryph.arknights.ArknightsApplication;
 import com.hypergryph.arknights.core.dao.orderIdDao;
 import com.hypergryph.arknights.core.dao.userDao;
@@ -22,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.hypergryph.arknights.ArknightsApplication.*;
+import static com.hypergryph.arknights.core.monthlycard.MonthlyCard.*;
 import static com.hypergryph.arknights.core.work.checkAccount.checkAccount;
 import static com.hypergryph.arknights.core.work.checkAccount.createError;
 
@@ -446,11 +444,38 @@ public class users {
             item.put("type", typeI);
             item.put("count", counts);
             signInRewards.add(item);
+
+            JSONArray subscriptionRewards;
+            JSONObject subStatusDelta = new JSONObject();
+            JSONObject subInventoryDelta = new JSONObject();
+            try {
+                String statusBefore = status.toJSONString();
+                String inventoryBefore = inventory == null ? "{}" : inventory.toJSONString();
+                subscriptionRewards = grantDailyBonus(userData,
+                                currentCardId());
+                subStatusDelta = diff(statusBefore, status);
+                subInventoryDelta = diff(inventoryBefore, inventory);
+                if (!subStatusDelta.isEmpty()) {
+                    for (String key : subStatusDelta.keySet()) {
+                        changedStatus.put(key, subStatusDelta.get(key));
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[monthlycard] 签到发放月卡奖励失败: {}", e.toString());
+                subscriptionRewards = new JSONArray();
+            }
+
             result.put("signInRewards", signInRewards);
-            result.put("subscriptionRewards", new JSONArray());  //TODO 月卡检查
+            result.put("subscriptionRewards", subscriptionRewards);
             playerDataDelta.put("deleted", new JSONObject(true));
             JSONObject modified = new JSONObject();
             modified.put("checkIn", changedSignIn);
+            if (!subInventoryDelta.isEmpty()) {
+                modified.put("inventory", subInventoryDelta);
+            }
+            if (!subStatusDelta.isEmpty()) {
+                modified.put("status", subStatusDelta);
+            }
             if (type == 1) {
                 int count = Integer.parseInt(nextRecord.getString("count"));
                 int money = status.getInteger("gold");
