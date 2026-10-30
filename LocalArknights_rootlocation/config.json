@@ -6,7 +6,7 @@
     "captcha": false,
     "enableServer": true,
     "closeMessage": "服务器目前暂未开放",
-    "GMKey": "$Ts!7!O@#$KpV%~~3K~%%3O8E~0O#B36J2945OW!J/%t@Fw73V7J%%B$AK!%Rs4h"
+    "GMKey": "JG!@~%/M!Db#!%!!b$!80R$Ak/~/#0~1075nQA863iSZ3kH1%T#7#NR472~@/!14"
   },
   "timer": {
     "set_server_time": "-1"
@@ -32,9 +32,6 @@
       "smtp_port": 465
     }
   },
-  "roguelike": {
-    "unlimitedMilestones": false
-  },
   "battle": {
     "dropRate": 1,
     "debug": true
@@ -42,8 +39,8 @@
   "basement": {
     "produceSpeed": 1000
   },
-  "shop": {
-    "enableDiamondShop": true
+  "building": {
+    "tradingOrderBaseSeconds": 3600
   },
   "version": {
     "Android": {
@@ -148,28 +145,5 @@
         }
       }
     }
-  },
-  "announce": {
-    "status": {
-      "announcementVersion": "1195",
-      "announcementPopUpVersion": "784"
-    },
-    "preannouncement": {
-      "preAnnounceId": "315",
-      "actived": true,
-      "preAnnounceType": 2,
-      "preAnnounceUrl": "https://ak.hycdn.cn/announce/Android/preannouncement/314_1635759750.html"
-    },
-    "announcement": {
-      "focusAnnounceId": "843",
-      "announceList": [],
-      "extra": {
-        "enable": false,
-        "name": "额外活动"
-      }
-    }
-  },
-  "building": {
-    "tradingOrderBaseSeconds": 3600
   }
 }

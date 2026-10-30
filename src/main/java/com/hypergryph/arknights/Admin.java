@@ -427,8 +427,566 @@ public class Admin {
         }
     }
 
+    /**
+     * 开发用：把某个槽位强制设成指定房间（跳过材料/建造流程）。
+     * POST /admin/building/forceRoom?uid=10000001&slotId=slot_28&roomId=DORMITORY&level=1
+     */
+    /**
+     * 强制清空留言板待领状态（消红点）：sp.thisWeek=0、lastShowTs=now、所有访客标记已领。
+     * POST /admin/building/clearMessageBoard?uid=10000001
+     */
+    @RequestMapping({"/building/clearMessageBoard"})
+    public JSONObject clearMessageBoard(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject rooms = userData.getJSONObject("building").getJSONObject("rooms");
+        JSONObject bucket = rooms == null ? null : rooms.getJSONObject("MEETING");
+        if (bucket == null || bucket.isEmpty()) {
+            result.put("code", 404);
+            result.put("msg", "没有会客室数据");
+            return result;
+        }
+        long now = com.hypergryph.arknights.ArknightsApplication.getTimestamp();
+        for (String slotId : bucket.keySet()) {
+            JSONObject node = bucket.getJSONObject(slotId);
+            if (node == null) continue;
+            node.put("received", 0);
+            JSONObject leave = node.getJSONObject("messageLeave");
+            if (leave == null) {
+                leave = new JSONObject(true);
+                node.put("messageLeave", leave);
+            }
+            leave.put("lastVisitTs", now);
+            leave.put("lastShowTs", now);
+            leave.put("inUse", true);
+            JSONObject sp = leave.getJSONObject("sp");
+            if (sp == null) {
+                sp = new JSONObject(true);
+                sp.put("lastWeek", 0);
+                sp.put("lastWeekSum", 0);
+                leave.put("sp", sp);
+            }
+            sp.put("thisWeek", 0);
+            sp.put("lastWeek", 0);
+        }
+        userDao.setUserData(account.getUid(), userData);
+        try {
+            com.hypergryph.arknights.core.dao.visitDao.markClaimed(account.getUid());
+        } catch (Exception ignored) {
+        }
+        result.put("code", 200);
+        result.put("msg", "留言板待领状态已清空 lastVisitTs=lastShowTs=" + now);
+        return result;
+    }
+
+    /**
+     * 把留言板 lastUpdateSpTs 往前推 N 天（测试「自然周翻转」用）。
+     * POST /admin/building/shiftSpWeek?uid=10000001&days=8
+     */
+    @RequestMapping({"/building/shiftSpWeek"})
+    public JSONObject shiftSpWeek(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                  @RequestParam(required = false, defaultValue = "8") Integer days) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject rooms = userData.getJSONObject("building").getJSONObject("rooms");
+        JSONObject bucket = rooms == null ? null : rooms.getJSONObject("MEETING");
+        if (bucket == null || bucket.isEmpty()) {
+            result.put("code", 404);
+            result.put("msg", "没有会客室数据");
+            return result;
+        }
+        long now = com.hypergryph.arknights.ArknightsApplication.getTimestamp();
+        int n = 0;
+        for (String slotId : bucket.keySet()) {
+            JSONObject node = bucket.getJSONObject(slotId);
+            if (node == null) continue;
+            JSONObject leave = node.getJSONObject("messageLeave");
+            if (leave == null) continue;
+            leave.put("lastUpdateSpTs", now - (long) (days == null ? 8 : days) * 86400L);
+            n++;
+        }
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已把 " + n + " 个会客室的 lastUpdateSpTs 往前推 " + days + " 天");
+        return result;
+    }
+
+    /**
+     * 造访客记录（测试多访客用）。
+     * POST /admin/building/fakeVisit?host=10000001&visitor=10000009&nick=测试&count=1
+     */
+    @RequestMapping({"/building/fakeVisit"})
+    public JSONObject fakeVisit(@RequestHeader("GMKey") String GMKey,
+                                @RequestParam Long host,
+                                @RequestParam Long visitor,
+                                @RequestParam(required = false, defaultValue = "访客") String nick,
+                                @RequestParam(required = false, defaultValue = "1") Integer count) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        long now = com.hypergryph.arknights.ArknightsApplication.getTimestamp();
+        int n = Math.max(1, count == null ? 1 : count);
+        for (int i = 0; i < n; i++) {
+            com.hypergryph.arknights.core.dao.visitDao.addVisit(host, visitor + i, nick + (n > 1 ? (i + 1) : ""),
+                    "0000", 1, "avatar_def_10", now - i);
+        }
+        // 同步模拟真实访问对宿主留言板的影响：lastVisitTs=now、sp.thisWeek += 30*n
+        List<Account> hosts = userDao.queryAccountByUid(host);
+        if (hosts.size() == 1) {
+            Account hostAcc = hosts.get(0);
+            JSONObject hostData = JSONObject.parseObject(hostAcc.getUser());
+            JSONObject rooms = hostData.getJSONObject("building").getJSONObject("rooms");
+            JSONObject bucket = rooms == null ? null : rooms.getJSONObject("MEETING");
+            if (bucket != null) {
+                for (String slotId : bucket.keySet()) {
+                    JSONObject node = bucket.getJSONObject(slotId);
+                    if (node == null) continue;
+                    JSONObject leave = node.getJSONObject("messageLeave");
+                    if (leave == null) {
+                        leave = new JSONObject(true);
+                        leave.put("inUse", true);
+                        leave.put("lastShowTs", 0);
+                        leave.put("lastUpdateSpTs", now);
+                        node.put("messageLeave", leave);
+                    }
+                    leave.put("lastVisitTs", now);
+                    JSONObject sp = leave.getJSONObject("sp");
+                    if (sp == null) {
+                        sp = new JSONObject(true);
+                        sp.put("lastWeek", 0);
+                        sp.put("lastWeekSum", 0);
+                        leave.put("sp", sp);
+                    }
+                    sp.put("thisWeek", sp.getIntValue("thisWeek") + 30 * n);
+                }
+            }
+            userDao.setUserData(hostAcc.getUid(), hostData);
+        }
+        result.put("code", 200);
+        result.put("msg", "已写入 " + n + " 条访客记录 host=" + host + "（并点亮留言板）");
+        return result;
+    }
+
+    /**
+     * 会客室：把库存里「阵营重复/板上已有」的线索重掷成缺少的阵营，方便测试一键放置。
+     * POST /admin/building/rerollClues?uid=10000001
+     */
+    @RequestMapping({"/building/rerollClues"})
+    public JSONObject rerollClues(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject rooms = userData.getJSONObject("building").getJSONObject("rooms");
+        JSONObject bucket = rooms == null ? null : rooms.getJSONObject("MEETING");
+        if (bucket == null || bucket.isEmpty()) {
+            result.put("code", 404);
+            result.put("msg", "没有会客室数据");
+            return result;
+        }
+        String[] all = {"RHINE", "PENGUIN", "BLACKSTEEL", "URSUS", "GLASGOW", "KJERAG", "RHODES"};
+        int changed = 0;
+        for (String slotId : bucket.keySet()) {
+            JSONObject node = bucket.getJSONObject(slotId);
+            if (node == null) continue;
+            JSONObject board = node.getJSONObject("board");
+            JSONArray stock = node.getJSONArray("ownStock");
+            if (stock == null) continue;
+            // 标记板上和库存里已用掉的阵营
+            java.util.Set<String> used = new java.util.HashSet<>();
+            if (board != null) {
+                used.addAll(board.keySet());
+            }
+            for (int i = 0; i < stock.size(); i++) {
+                JSONObject c = stock.getJSONObject(i);
+                if (c == null || c.getIntValue("inUse") == 1) continue;
+                String t = c.getString("type");
+                if (t != null && !used.contains(t)) {
+                    used.add(t);
+                    continue;
+                }
+                // 阵营重复 → 换一个还没用的
+                for (String f : all) {
+                    if (!used.contains(f)) {
+                        c.put("type", f);
+                        c.put("id", String.valueOf(account.getUid()) + "#" + (i + 1) + "#"
+                                + com.hypergryph.arknights.ArknightsApplication.getTimestamp());
+                        used.add(f);
+                        changed++;
+                        break;
+                    }
+                }
+            }
+        }
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "重掷了 " + changed + " 条重复阵营的线索");
+        return result;
+    }
+
+    /**
+     * 会客室：重置每日线索产出（把 clueProduceTs 清零、dailyReward 清空），下次 sync 会重新产出待领线索。
+     * POST /admin/building/resetDailyClue?uid=10000001
+     */
+    @RequestMapping({"/building/resetDailyClue"})
+    public JSONObject resetDailyClue(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject rooms = userData.getJSONObject("building").getJSONObject("rooms");
+        JSONObject bucket = rooms == null ? null : rooms.getJSONObject("MEETING");
+        if (bucket == null || bucket.isEmpty()) {
+            result.put("code", 404);
+            result.put("msg", "没有会客室数据");
+            return result;
+        }
+        int n = 0;
+        for (String slotId : bucket.keySet()) {
+            JSONObject node = bucket.getJSONObject(slotId);
+            if (node == null) continue;
+            node.put("clueProduceTs", 0L);
+            node.put("dailyReward", null);
+            n++;
+        }
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已重置 " + n + " 个会客室的每日线索");
+        return result;
+    }
+
+    /**
+     * 会客室线索交流：直接把倒计时清零（测领取用）。
+     * POST /admin/building/finishClueExchange?uid=10000001
+     */
+    @RequestMapping({"/building/finishClueExchange"})
+    public JSONObject finishClueExchange(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject rooms = userData.getJSONObject("building").getJSONObject("rooms");
+        JSONObject bucket = rooms == null ? null : rooms.getJSONObject("MEETING");
+        if (bucket == null || bucket.isEmpty()) {
+            result.put("code", 404);
+            result.put("msg", "没有会客室数据");
+            return result;
+        }
+        long now = com.hypergryph.arknights.ArknightsApplication.getTimestamp();
+        int n = 0;
+        for (String slotId : bucket.keySet()) {
+            JSONObject node = bucket.getJSONObject(slotId);
+            if (node == null) continue;
+            node.put("processPoint", 0);
+            node.put("completeWorkTime", now);
+            node.put("lastUpdateTime", now);
+            node.put("clueExchangeReady", true);
+            JSONObject infoShare = node.getJSONObject("infoShare");
+            if (infoShare == null) {
+                infoShare = new JSONObject(true);
+                infoShare.put("reward", 0);
+                node.put("infoShare", infoShare);
+            }
+            infoShare.put("ts", now - 1);
+            n++;
+        }
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已把 " + n + " 个会客室的线索交流倒计时清零");
+        return result;
+    }
+
+    /**
+     * 拆房间（测试/救急用）：把槽位恢复成「未建造」。
+     * POST /admin/building/removeRoom?uid=10000001&slotId=slot_13
+     * 效果：删 roomSlots[slotId] 与 rooms[roomType][slotId]，并把里面驻扎的干员解绑。
+     */
+    @RequestMapping({"/building/removeRoom"})
+    public JSONObject removeRoom(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                 @RequestParam String slotId) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject building = userData.getJSONObject("building");
+        JSONObject slots = building.getJSONObject("roomSlots");
+        JSONObject slot = slots == null ? null : slots.getJSONObject(slotId);
+        if (slot == null) {
+            result.put("code", 404);
+            result.put("msg", "槽位不存在或已拆: " + slotId);
+            return result;
+        }
+        String roomId = slot.getString("roomId");
+
+        // 解绑驻扎干员
+        JSONArray ids = slot.getJSONArray("charInstIds");
+        JSONObject bchars = building.getJSONObject("chars");
+        if (ids != null && bchars != null) {
+            for (int i = 0; i < ids.size(); i++) {
+                Integer v = ids.getInteger(i);
+                if (v == null || v <= 0) {
+                    continue;
+                }
+                JSONObject c = bchars.getJSONObject(String.valueOf(v));
+                if (c != null) {
+                    c.put("roomSlotId", "");
+                    c.put("index", -1);
+                    c.put("changeScale", 0);
+                }
+            }
+        }
+        // 删房间节点
+        JSONObject rooms = building.getJSONObject("rooms");
+        JSONObject bucket = rooms == null ? null : rooms.getJSONObject(roomId);
+        if (bucket != null) {
+            bucket.remove(slotId);
+            if (bucket.isEmpty()) {
+                rooms.remove(roomId);
+            }
+        }
+        slots.remove(slotId);
+
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已拆掉 " + slotId + "（" + roomId + "）");
+        result.put("roomId", roomId);
+        return result;
+    }
+
+    /**
+     * 训练室：直接把「剩余训练点数」设成指定值（测结算用）。
+     * POST /admin/building/trainPoint?uid=10000001&point=5
+     */
+    @RequestMapping({"/building/trainPoint"})
+    public JSONObject setTrainPoint(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                    @RequestParam double point) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject rooms = userData.getJSONObject("building").getJSONObject("rooms");
+        JSONObject bucket = rooms == null ? null : rooms.getJSONObject("TRAINING");
+        if (bucket == null || bucket.isEmpty()) {
+            result.put("code", 404);
+            result.put("msg", "没有训练室数据");
+            return result;
+        }
+        long now = com.hypergryph.arknights.ArknightsApplication.getTimestamp();
+        int n = 0;
+        for (String slotId : bucket.keySet()) {
+            JSONObject node = bucket.getJSONObject(slotId);
+            JSONObject trainee = node == null ? null : node.getJSONObject("trainee");
+            if (trainee == null || trainee.getIntValue("state") != 1) {
+                continue;
+            }
+            trainee.put("processPoint", point);
+            node.put("lastUpdateTime", now);
+            n++;
+        }
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已把 " + n + " 个训练中的点数设为 " + point);
+        return result;
+    }
+
+    /**
+     * 送家具：POST /admin/send/furniture?uid=10000001&furniId=furni_inkArt_table_01&count=1
+     * 写 building.furniture[id] = {count, inUse} 和 solution.furnitureTs[id]
+     */
+    @RequestMapping({"/send/furniture"})
+    public JSONObject sendFurniture(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                    @RequestParam String furniId,
+                                    @RequestParam(defaultValue = "1") int count) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject building = userData.getJSONObject("building");
+        if (building == null) {
+            result.put("code", 404);
+            result.put("msg", "没有基建数据");
+            return result;
+        }
+        JSONObject furni = building.getJSONObject("furniture");
+        if (furni == null) {
+            furni = new JSONObject(true);
+            building.put("furniture", furni);
+        }
+        JSONObject entry = furni.getJSONObject(furniId);
+        if (entry == null) {
+            entry = new JSONObject(true);
+            entry.put("count", 0);
+            entry.put("inUse", 0);
+        }
+        entry.put("count", entry.getIntValue("count") + count);
+        furni.put(furniId, entry);
+
+        JSONObject solution = building.getJSONObject("solution");
+        if (solution == null) {
+            solution = new JSONObject(true);
+            building.put("solution", solution);
+        }
+        JSONObject ts = solution.getJSONObject("furnitureTs");
+        if (ts == null) {
+            ts = new JSONObject(true);
+            solution.put("furnitureTs", ts);
+        }
+        ts.put(furniId, com.hypergryph.arknights.ArknightsApplication.getTimestamp());
+
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已送 " + furniId + " x" + count + "（现有 " + entry.getIntValue("count") + " 件）");
+        return result;
+    }
+
+    @RequestMapping({"/building/forceRoom"})
+    public JSONObject forceRoom(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                @RequestParam String slotId, @RequestParam String roomId,
+                                @RequestParam(defaultValue = "1") int level) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject building = userData.getJSONObject("building");
+        JSONObject slots = building.getJSONObject("roomSlots");
+        JSONObject slot = slots.getJSONObject(slotId);
+        if (slot == null) {
+            slot = new JSONObject(true);
+            slots.put(slotId, slot);
+        }
+        slot.put("level", Math.max(1, level));
+        slot.put("state", 2);
+        slot.put("roomId", roomId);
+        slot.put("charInstIds", new com.alibaba.fastjson.JSONArray());
+        slot.put("completeConstructTime", -1);
+
+        JSONObject rooms = building.getJSONObject("rooms");
+        if (rooms == null) {
+            rooms = new JSONObject(true);
+            building.put("rooms", rooms);
+        }
+        JSONObject bucket = rooms.getJSONObject(roomId);
+        if (bucket == null) {
+            bucket = new JSONObject(true);
+            rooms.put(roomId, bucket);
+        }
+        bucket.put(slotId, com.hypergryph.arknights.game.building.createRoomNode(roomId, Math.max(1, level)));
+
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "槽位 " + slotId + " 已设为 " + roomId + " Lv" + level);
+        result.put("room", bucket.getJSONObject(slotId));
+        return result;
+    }
+
+    /**
+     * 心情（基建 ap）操作：
+     * - 不带参数：全部干员补满（ap=8640000）
+     * - charInstId=N：只改这一个，值取 ap 参数（默认 0），用于测宿舍回复/消耗
+     * POST /admin/building/resetAp?uid=10000001
+     * POST /admin/building/resetAp?uid=10000001&charInstId=9&ap=8000000
+     */
     @RequestMapping({"/building/resetAp"})
-    public JSONObject resetBuildingAp(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+    public JSONObject resetBuildingAp(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                      @RequestParam(required = false) Long charInstId,
+                                      @RequestParam(defaultValue = "0") int ap) {
         JSONObject result = new JSONObject(true);
         if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
             result.put("code", 401);
@@ -451,6 +1009,20 @@ public class Admin {
         }
         long now = com.hypergryph.arknights.ArknightsApplication.getTimestamp();
         JSONObject chars = building.getJSONObject("chars");
+        if (charInstId != null) {
+            JSONObject c = chars.getJSONObject(String.valueOf(charInstId));
+            if (c == null) {
+                result.put("code", 404);
+                result.put("msg", "该干员不在基建 chars 里: " + charInstId);
+                return result;
+            }
+            c.put("ap", ap);
+            c.put("lastApAddTime", now);
+            userDao.setUserData(account.getUid(), userData);
+            result.put("code", 200);
+            result.put("msg", "干员 " + charInstId + " 的心情设为 " + ap);
+            return result;
+        }
         for (String key : chars.keySet()) {
             JSONObject c = chars.getJSONObject(key);
             if (c == null) {

@@ -161,6 +161,15 @@ public class account {
                 UserSyncData.remove("monthlySub");
                 LOGGER.info("[syncData] 已清掉不兼容的 monthlySub（uid=" + uid + "）");
             }
+            try {
+                int fixed = com.hypergryph.arknights.core.work.processArray.repairConsumableTs(UserSyncData);
+                if (fixed > 0) {
+                    userDao.setUserData(uid, UserSyncData);
+                    LOGGER.info("[syncData] 修补了 " + fixed + " 条时限消耗品的过期时间");
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] 修补消耗品过期时间失败: " + e.toString());
+            }
 
             Long ts = ArknightsApplication.getTimestamp();
             Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");

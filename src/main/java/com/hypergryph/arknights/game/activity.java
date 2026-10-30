@@ -1,5 +1,6 @@
 package com.hypergryph.arknights.game;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hypergryph.arknights.ArknightsApplication;
@@ -302,4 +303,143 @@ public class activity {
         return new JSONObject(true);
     }
 
+    @PostMapping(value = {"/getActivityCheckInReward"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getActivityCheckInReward(@RequestHeader(value = "secret", required = false) String secret,
+                                               @RequestBody JSONObject jsonBody,
+                                               HttpServletRequest request, HttpServletResponse response) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String activityId = jsonBody.getString("activityId");
+        int index = jsonBody.getIntValue("index");
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /activity/getActivityCheckInReward activityId="
+                + activityId + " index=" + index);
+        if (!checkAccount(secret)) {
+            return createError(secret, response);
+        }
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        Account account = accounts.get(0);
+        JSONObject userData = JSON.parseObject(account.getUser());
+        JSONObject activity = userData.getJSONObject("activity");
+        if (activity == null) {
+            activity = new JSONObject(true);
+            userData.put("activity", activity);
+        }
+        JSONObject act = activity.getJSONObject(activityId);
+        if (act == null) {
+            act = new JSONObject(true);
+            act.put("checkIn", new JSONObject(true));
+            activity.put(activityId, act);
+        }
+        JSONObject checkIn = act.getJSONObject("checkIn");
+        if (checkIn == null) {
+            checkIn = new JSONObject(true);
+            act.put("checkIn", checkIn);
+        }
+        String key = String.valueOf(index);
+        if (checkIn.getIntValue(key) == 1) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "该签到奖励已领取");
+            return bad;
+        }
+        checkIn.put(key, 1);
+        act.put("index", Math.max(act.getIntValue("index"), index));
+        userDao.setUserData(account.getUid(), userData);
+        JSONObject modified = new JSONObject(true);
+        modified.put("activity", activityDelta(activityId, act));
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+        JSONObject result = new JSONObject(true);
+        result.put("items", new JSONArray());
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
+    }
+
+    @PostMapping(value = {"/actRewardOnly/setChoice"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject actRewardOnlySetChoice(@RequestHeader(value = "secret", required = false) String secret,
+                                             @RequestBody JSONObject jsonBody,
+                                             HttpServletRequest request, HttpServletResponse response) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String activityId = jsonBody.getString("activityId");
+        String poolId = jsonBody.getString("poolId");
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /activity/actRewardOnly/setChoice activityId="
+                + activityId + " poolId=" + poolId);
+        if (!checkAccount(secret)) {
+            return createError(secret, response);
+        }
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        Account account = accounts.get(0);
+        JSONObject userData = JSON.parseObject(account.getUser());
+        JSONObject activity = userData.getJSONObject("activity");
+        if (activity == null) {
+            activity = new JSONObject(true);
+            userData.put("activity", activity);
+        }
+        JSONObject act = activity.getJSONObject(activityId);
+        if (act == null) {
+            act = new JSONObject(true);
+            activity.put(activityId, act);
+        }
+        act.put("choice", poolId);
+        userDao.setUserData(account.getUid(), userData);
+        JSONObject modified = new JSONObject(true);
+        modified.put("activity", activityDelta(activityId, act));
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+        JSONObject result = new JSONObject(true);
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
+    }
+
+    @PostMapping(value = {"/getActivityCheckInVideoReward"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getActivityCheckInVideoReward(@RequestHeader(value = "secret", required = false) String secret,
+                                                    @RequestBody JSONObject jsonBody,
+                                                    HttpServletRequest request, HttpServletResponse response) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        String activityId = jsonBody.getString("activityId");
+        int index = jsonBody.getIntValue("index");
+        ArknightsApplication.LOGGER.info("[" + "/" + clientIp + "] /activity/getActivityCheckInVideoReward activityId="
+                + activityId + " index=" + index);
+        if (!checkAccount(secret)) {
+            return createError(secret, response);
+        }
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        Account account = accounts.get(0);
+        JSONObject userData = JSON.parseObject(account.getUser());
+        JSONObject activity = userData.getJSONObject("activity");
+        if (activity == null) {
+            activity = new JSONObject(true);
+            userData.put("activity", activity);
+        }
+        JSONObject act = activity.getJSONObject(activityId);
+        if (act == null) {
+            act = new JSONObject(true);
+            act.put("videoReward", new JSONObject(true));
+            activity.put(activityId, act);
+        }
+        JSONObject vr = act.getJSONObject("videoReward");
+        if (vr == null) {
+            vr = new JSONObject(true);
+            act.put("videoReward", vr);
+        }
+        vr.put(String.valueOf(index), 1);
+        userDao.setUserData(account.getUid(), userData);
+        JSONObject modified = new JSONObject(true);
+        modified.put("activity", activityDelta(activityId, act));
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+        JSONObject result = new JSONObject(true);
+        result.put("items", new JSONArray());
+        result.put("index", index);
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
+    }
+
+    private static JSONObject activityDelta(String activityId, JSONObject act) {
+        JSONObject out = new JSONObject(true);
+        out.put(activityId, act);
+        return out;
+    }
 }

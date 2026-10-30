@@ -123,10 +123,12 @@ public class ArknightsApplication {
         }
 
         LOGGER.info("数据库版本 " + MysqlVersion);
-        LOGGER.info("服务端版本 v0.4.4.0 Alpha");
-        LOGGER.info("客户端版本 2.7.81Win");
+        LOGGER.info("服务端版本 v0.5.1.5 Beta");
+        LOGGER.info("客户端版本1: CN Android 2.7.81");
+        LOGGER.info("客户端版本2: CN Windows 2.7.81:");
+        LOGGER.info("客户端版本3: Global Android 37.7.41");
         LOGGER.info("构建时间 2026年10月19日 12:00:00");
-        if (serverConfig.getJSONObject("server").getString("GMKey") == null) {
+        if (serverConfig.getJSONObject("server").getString("GMKey") == null || serverConfig.getJSONObject("server").getString("GMKey").isEmpty()) {
             serverConfig.getJSONObject("server").put("GMKey", randomPwd.getRandomPwd(64));
             IOTools.SaveJsonFile(System.getProperty("user.dir") + "/config.json", serverConfig);
             LOGGER.info("已随机生成新的管理员密钥");

@@ -116,22 +116,12 @@ public class useItem {
         JSONArray deletedInstIds = new JSONArray();
 
         int left = have - cnt;
+        // 官服抓包（004_00 user/useItem）：用光后槽位保留、count 置 0，
+        // modified.consumable 带该 itemId 的整个槽位表，deleted 为空。
+        slot.put("count", Math.max(0, left));
         JSONObject consumableDelta = new JSONObject(true);
-        JSONObject stackDelta = new JSONObject(true);
-        if (left > 0) {
-            slot.put("count", left);
-            stackDelta.put(instId, slot);
-        } else {
-            itemStack.remove(instId);
-            if (itemStack.isEmpty()) {
-                consumable.remove(itemId);
-            }
-            deletedInstIds.add(instId);
-        }
-        if (!stackDelta.isEmpty()) {
-            consumableDelta.put(itemId, stackDelta);
-            modified.put("consumable", consumableDelta);
-        }
+        consumableDelta.put(itemId, itemStack);
+        modified.put("consumable", consumableDelta);
 
         Matcher matcher = AP_SUPPLY.matcher(itemId);
         if (matcher.find()) {

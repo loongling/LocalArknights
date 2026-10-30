@@ -769,6 +769,9 @@ public class processArray {
                 count = count + counts;
                 int me = getInnerNumber(A);
                 B.put("count", count);
+                if (B.getLongValue("ts") <= 0) {
+                    B.put("ts", defaultConsumableTs(id, type));
+                }
                 JSONObject C = new JSONObject();
                 C.put(String.valueOf(me), B);
                 user.getJSONObject("consumable").put(id, C);
@@ -777,7 +780,8 @@ public class processArray {
                 int me = nextItemNumber(consumable);
                 JSONObject A = new JSONObject();
                 A.put("count", count);
-                A.put("ts", -1);
+                // 理智药这类时限消耗品必须带过期时间，否则客户端不显示有效期
+                A.put("ts", defaultConsumableTs(id, type));
                 JSONObject C = new JSONObject();
                 C.put(String.valueOf(me), A);
                 user.getJSONObject("consumable").put(id, C);
@@ -870,6 +874,73 @@ public class processArray {
             case "TKT_TRY" -> "practiceTicket";
             default -> null;
         };
+    }
+
+    public static long defaultConsumableTs(String id, String type) {
+        boolean timeLimited = "AP_SUPPLY".equalsIgnoreCase(type == null ? "" : type.trim())
+                || (id != null && id.startsWith("ap_supply"));
+        return timeLimited ? ArknightsApplication.getTimestamp() + 14L * 86400 : -1L;
+    }
+
+    public static int repairConsumableTs(JSONObject user) {
+        if (user == null) {
+            return 0;
+        }
+        JSONObject consumable = user.getJSONObject("consumable");
+        if (consumable == null) {
+            consumable = new JSONObject(true);
+            user.put("consumable", consumable);
+        }
+        int fixed = 0;
+        long ts = ArknightsApplication.getTimestamp() + 14L * 86400;
+        for (String id : new ArrayList<>(consumable.keySet())) {
+            if (!id.startsWith("ap_supply")) {
+                continue;
+            }
+            JSONObject bucket = consumable.getJSONObject(id);
+            if (bucket == null) {
+                continue;
+            }
+            for (String key : new ArrayList<>(bucket.keySet())) {
+                JSONObject entry = bucket.getJSONObject(key);
+                if (entry != null && entry.getLongValue("ts") <= 0) {
+                    entry.put("ts", ts);
+                    entry.put("count", entry.getIntValue("count"));
+                    bucket.put(key, entry);
+                    fixed++;
+                }
+            }
+        }
+        // inventory 里放错的理智药（客户端只认 consumable）→ 搬进来
+        JSONObject inventory = user.getJSONObject("inventory");
+        if (inventory != null) {
+            for (String id : new ArrayList<>(inventory.keySet())) {
+                if (!id.startsWith("ap_supply")) {
+                    continue;
+                }
+                int cnt = inventory.getIntValue(id);
+                inventory.remove(id);
+                if (cnt <= 0) {
+                    continue;
+                }
+                JSONObject bucket = consumable.getJSONObject(id);
+                if (bucket == null) {
+                    bucket = new JSONObject(true);
+                    consumable.put(id, bucket);
+                }
+                int slot = 1;
+                while (bucket.containsKey(String.valueOf(slot))) {
+                    slot++;
+                }
+                JSONObject entry = new JSONObject(true);
+                entry.put("count", cnt);
+                entry.put("ts", ts);
+                bucket.put(String.valueOf(slot), entry);
+                fixed++;
+                ArknightsApplication.LOGGER.info("[syncData] 把 inventory 里的 {} ×{} 搬到 consumable", id, cnt);
+            }
+        }
+        return fixed;
     }
 
     private static int resolveTKT(String TKT) {

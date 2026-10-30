@@ -36,12 +36,6 @@ public class userDao {
         return ArknightsApplication.jdbcTemplate.query(sql, params, rowMapper);
     }
 
-    /**
-     * 取某个 uid 的完整 userData JSON 字符串（好友详情需要 troop/building/skin/nameCardStyle 等，
-     * queryUserInfo 只挑了 status/chars/助战/friend，不够用）。
-     *
-     * @return 查不到返回 null
-     */
     public static String queryUserJsonByUid(long uid) {
         String sql = "SELECT `user` FROM account WHERE uid = ?";
         List<String> rows = ArknightsApplication.jdbcTemplate.queryForList(sql, String.class, uid);

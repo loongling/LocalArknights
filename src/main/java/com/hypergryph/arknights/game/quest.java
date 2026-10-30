@@ -36,7 +36,7 @@ public class quest {
             new java.util.concurrent.ConcurrentHashMap<>();
     private static final long BATTLE_ID_TTL_SECONDS = 6 * 3600L;
 
-    private static String registerBattle(String stageId) {
+    /*private static String registerBattle(String stageId) {
         long now = System.currentTimeMillis() / 1000L;
         for (java.util.Iterator<java.util.Map.Entry<String, Long>> it = BATTLE_CREATED.entrySet().iterator(); it.hasNext(); ) {
             java.util.Map.Entry<String, Long> entry = it.next();
@@ -59,6 +59,7 @@ public class quest {
         BATTLE_CREATED.remove(battleId);
         return stageId != null ? stageId : battleId;
     }
+    */ //模拟官服的stageId加密术
 
     @PostMapping(
             value = {"/battleStart"},
@@ -118,8 +119,6 @@ public class quest {
                     }
                     UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).put("startTimes", UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("startTimes") + 1);
 
-                    // 官服是在 battleStart 就扣理智的（battleFinish 不再扣，所以那边传 0）：
-                    // 失败/异常退出时客户端按 apFailReturn 返还，这里先扣。
                     JSONObject apStatus = UserSyncData.getJSONObject("status");
                     int apCostNow = Math.max(0, stage_table.getIntValue("apCost"));
                     boolean apProtect = UserSyncData.getJSONObject("dungeon").getJSONObject("stages")
@@ -144,7 +143,7 @@ public class quest {
                     playerDataDelta.put("modified", modified);
                     result.put("playerDataDelta", playerDataDelta);
                     result.put("result", 0);
-                    result.put("battleId", registerBattle(stageId));
+                    result.put("battleId", /*registerBattle(stageId)*/ stageId);
                     result.put("isApProtect", 0);
                     result.put("apFailReturn", stage_table.getIntValue("apFailReturn"));
                     // 官服抓包（2026-10-28 /quest/battleStart）响应固定带这两个字段
@@ -217,7 +216,7 @@ public class quest {
                 UserSyncData.getJSONObject("pushFlags").getString("status"));
 
         String battleId = BattleData.getString("battleId");
-        String stageId = resolveBattleStage(battleId);
+        String stageId = /*resolveBattleStage(battleId);*/ battleId;
         JSONObject stage_table = stageId == null ? null : stageTable.getJSONObject(stageId);
         if (stage_table == null) {
             ArknightsApplication.LOGGER.warn("[battleFinish] 找不到战斗记录 battleId={}（stageId={}）", battleId, stageId);

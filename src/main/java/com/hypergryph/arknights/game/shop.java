@@ -305,7 +305,6 @@ public class shop {
                     if (price <= 0) {
                         price = DEFAULT_SKIN_PRICE;
                     }
-
                     JSONObject statusNode = UserSyncData.getJSONObject("status");
                     int androidDiamond = statusNode.getIntValue("androidDiamond");
                     int iosDiamond = statusNode.getIntValue("iosDiamond");
@@ -567,9 +566,285 @@ public class shop {
     }
 
     @RequestMapping({"/getSocialGoodList"})
-    public JSONObject getSocialGoodList() {
-        return ArknightsApplication.SocialGoodList;
+    public JSONObject getSocialGoodList(@RequestHeader(value = "secret", required = false) String secret) {
+        JSONObject userData = null;
+        String uid = null;
+        try {
+            List<Account> accounts = userDao.queryAccountBySecret(secret);
+            if (accounts.size() == 1) {
+                Account account = accounts.get(0);
+                uid = String.valueOf(account.getUid());
+                userData = JSONObject.parseObject(account.getUser());
+            }
+        } catch (Exception ignored) {
+        }
+        return buildSocialGoodList(userData, uid);
     }
+
+    private static volatile java.util.List<Object[]> CHAR_UNLOCK_CACHE = null;
+    private static volatile java.util.Map<String, String> CHAR_NAME_CACHE = null;
+
+    private static void loadCharUnlocks() {
+        if (CHAR_UNLOCK_CACHE != null && CHAR_NAME_CACHE != null) {
+            return;
+        }
+        synchronized (shop.class) {
+            if (CHAR_UNLOCK_CACHE != null && CHAR_NAME_CACHE != null) {
+                return;
+            }
+            java.util.List<Object[]> list = new java.util.ArrayList<>();
+            java.util.Map<String, String> names = new java.util.HashMap<>();
+            try {
+                String base = System.getProperty("user.dir") + "/data/excel/";
+                JSONObject st = JSONObject.parseObject(new String(
+                        java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(base + "shop_client_table.json")),
+                        java.nio.charset.StandardCharsets.UTF_8));
+                JSONObject groups = st.getJSONObject("creditUnlockGroup");
+                if (groups != null) {
+                    // 两个组的 charDict 合并（同一干员取最小 unlockNum），按累计消费解锁
+                    java.util.Map<String, Integer> merged = new java.util.LinkedHashMap<>();
+                    for (String gid : groups.keySet()) {
+                        JSONObject g = groups.getJSONObject(gid);
+                        JSONArray dict = g == null ? null : g.getJSONArray("charDict");
+                        if (dict == null) {
+                            continue;
+                        }
+                        for (int i = 0; i < dict.size(); i++) {
+                            JSONObject e = dict.getJSONObject(i);
+                            if (e == null) {
+                                continue;
+                            }
+                            String cid = e.getString("charId");
+                            int need = e.getIntValue("unlockNum");
+                            Integer old = merged.get(cid);
+                            if (old == null || need < old) {
+                                merged.put(cid, need);
+                            }
+                        }
+                    }
+                    for (java.util.Map.Entry<String, Integer> en : merged.entrySet()) {
+                        list.add(new Object[]{en.getKey(), en.getValue()});
+                    }
+                }
+                // 干员名字
+                JSONObject chars = JSONObject.parseObject(new String(
+                        java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(base + "character_table.json")),
+                        java.nio.charset.StandardCharsets.UTF_8));
+                if (chars != null) {
+                    for (String cid : chars.keySet()) {
+                        JSONObject c = chars.getJSONObject(cid);
+                        if (c != null) {
+                            names.put(cid, c.getString("name"));
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                ArknightsApplication.LOGGER.error("[shop] 读取信用商店干员解锁失败: {}", e.toString());
+            }
+            CHAR_UNLOCK_CACHE = list;
+            CHAR_NAME_CACHE = names;
+            ArknightsApplication.LOGGER.info("[shop] 信用商店干员解锁 {} 条", list.size());
+        }
+    }
+
+    private static volatile java.util.List<Object[]> SOCIAL_POOL_CACHE = null;
+
+    private static java.util.List<Object[]> socialPool() {
+        if (SOCIAL_POOL_CACHE != null) {
+            return SOCIAL_POOL_CACHE;
+        }
+        synchronized (shop.class) {
+            if (SOCIAL_POOL_CACHE != null) {
+                return SOCIAL_POOL_CACHE;
+            }
+            java.util.List<Object[]> pool = new java.util.ArrayList<>();
+            pool.add(new Object[]{"4001", "GOLD", "龙门币", "T1", "gold_2", 100, 1800});
+            pool.add(new Object[]{"7002", "TKT_INST_FIN", "加急许可", "T1", "speed_3", 160, 1});
+            pool.add(new Object[]{"3401", "MATERIAL", "家具零件", "T1", "complexcoin_3", 160, 20});
+            try {
+                String path = System.getProperty("user.dir") + "/data/excel/item_table.json";
+                String content = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                        java.nio.charset.StandardCharsets.UTF_8);
+                JSONObject table = JSONObject.parseObject(content);
+                JSONObject items = table.getJSONObject("items");
+                if (items != null) {
+                    for (String id : items.keySet()) {
+                        JSONObject it = items.getJSONObject(id);
+                        if (it == null) {
+                            continue;
+                        }
+                        String rarity = it.getString("rarity");
+                        if (rarity == null || !rarity.startsWith("TIER_")) {
+                            continue;
+                        }
+                        int tier;
+                        try {
+                            tier = Integer.parseInt(rarity.substring(5));
+                        } catch (Exception e) {
+                            continue;
+                        }
+                        if (tier < 1 || tier > 4) {
+                            continue;
+                        }
+                        if (!"MATERIAL".equals(it.getString("itemType"))) {
+                            continue;
+                        }
+                        String name = it.getString("name");
+                        if (name == null || name.isEmpty()) {
+                            continue;
+                        }
+                        // 只收普通材料（3xxxx/3xxx）和经验卡（2001~2004），排除干员信物 p_char_*、芯片 32xx
+                        boolean isMaterial = id.matches("^3\\d{3,4}$") && !id.startsWith("32");
+                        boolean isExpCard = id.matches("^200[1-4]$");
+                        if (!isMaterial && !isExpCard) {
+                            continue;
+                        }
+                        int price = tier <= 1 ? 80 : (tier == 2 ? 120 : 160);
+                        int count = tier <= 1 ? 2 : (tier == 2 ? 2 : 1);
+                        String type = isExpCard ? "CARD_EXP" : "MATERIAL";
+                        pool.add(new Object[]{id, type, name, "T" + tier, "goods_" + id, price, count});
+                    }
+                }
+            } catch (Exception e) {
+                ArknightsApplication.LOGGER.error("[shop] 读 item_table 失败，信用商店用小池子: {}", e.toString());
+            }
+            if (pool.size() < 12) {
+                pool.add(new Object[]{"30011", "MATERIAL", "源岩", "T1", "goods_2", 80, 2});
+                pool.add(new Object[]{"30051", "MATERIAL", "双酮", "T1", "goods_13", 120, 2});
+                pool.add(new Object[]{"30061", "MATERIAL", "破损装置", "T1", "goods_17", 160, 2});
+                pool.add(new Object[]{"2001", "CARD_EXP", "基础作战记录", "T1", "exp_2", 100, 9});
+            }
+            ArknightsApplication.LOGGER.info("[shop] 信用商店候选池 {} 种商品", pool.size());
+            SOCIAL_POOL_CACHE = pool;
+            return pool;
+        }
+    }
+
+    private static JSONObject buildSocialGoodList(JSONObject userData, String uid) {
+        java.time.ZonedDateTime nowCn = java.time.ZonedDateTime.now(java.time.ZoneId.of("Asia/Shanghai"));
+        String day = String.format("%04d%02d%02d", nowCn.getYear(), nowCn.getMonthValue(), nowCn.getDayOfMonth());
+        String shopId = "SOCIAL" + day;
+
+        JSONObject socialShop = null;
+        if (userData != null) {
+            JSONObject shopNode = userData.getJSONObject("shop");
+            socialShop = shopNode == null ? null : shopNode.getJSONObject("SOCIAL");
+        }
+        int spent = 0;
+        JSONArray info = new JSONArray();
+        JSONObject charPurchase = new JSONObject(true);
+        if (socialShop != null) {
+            if (shopId.equals(socialShop.getString("curShopId"))) {
+                spent = socialShop.getIntValue("costSocialPoint");
+                JSONArray old = socialShop.getJSONArray("info");
+                if (old != null) {
+                    info = old;
+                }
+            }
+            JSONObject cp = socialShop.getJSONObject("charPurchase");
+            if (cp != null) {
+                charPurchase = cp;
+            }
+        }
+
+        java.util.List<Object[]> pool = socialPool();
+        java.util.Random rnd = new java.util.Random(Long.parseLong(day));
+        java.util.List<Object[]> shuffled = new java.util.ArrayList<>(pool);
+        java.util.Collections.shuffle(shuffled, rnd);
+        JSONArray goodList = new JSONArray();
+        int slot = 1;
+        // 先放已解锁的干员商品（官服：slot 1 起，price 100，availCount 1，goodId=SOCIAL{day}_char_{charId}）
+        loadCharUnlocks();
+        java.util.List<Object[]> unlocks = CHAR_UNLOCK_CACHE;
+        if (unlocks != null) {
+            for (Object[] u : unlocks) {
+                if (slot > 10) {
+                    break;
+                }
+                String charId = (String) u[0];
+                int unlockNum = (Integer) u[1];
+                if (spent < unlockNum) {
+                    continue;
+                }
+                // charPurchase 里存的是剩余可购买次数：买过（<=0）就不再上架
+                if (charPurchase.containsKey(charId) && charPurchase.getIntValue(charId) <= 0) {
+                    continue;
+                }
+                JSONObject item = new JSONObject(true);
+                item.put("id", charId);
+                item.put("count", 1);
+                item.put("type", "CHAR");
+                JSONObject good = new JSONObject(true);
+                good.put("goodId", "SOCIAL" + day + "_" + charId);
+                good.put("displayName", CHAR_NAME_CACHE == null ? charId : CHAR_NAME_CACHE.getOrDefault(charId, charId));
+                good.put("originPrice", 100);
+                good.put("price", 100);
+                good.put("discount", 0);
+                good.put("slotId", slot);
+                good.put("availCount", 1);
+                good.put("item", item);
+                goodList.add(good);
+                slot++;
+            }
+        }
+        for (; slot <= 10; slot++) {
+            Object[] def = shuffled.get((slot - 1) % shuffled.size());
+            int originPrice = (Integer) def[5];
+            double[] discounts = {0.5, 0.75, 0.0};
+            double discount = discounts[rnd.nextInt(discounts.length)];
+            int price = discount <= 0 ? originPrice : Math.max(10, (int) Math.round(originPrice * discount));
+            JSONObject item = new JSONObject(true);
+            item.put("id", def[0]);
+            item.put("count", def[6]);
+            item.put("type", def[1]);
+            JSONObject good = new JSONObject(true);
+            good.put("goodId", "SOCIAL" + day + "_" + def[3] + "_" + def[4] + "_" + slot);
+            good.put("displayName", def[2]);
+            good.put("originPrice", originPrice);
+            good.put("price", price);
+            good.put("discount", discount);
+            good.put("slotId", slot);
+            good.put("availCount", 1);
+            good.put("item", item);
+            goodList.add(good);
+        }
+
+        JSONObject socialDelta = new JSONObject(true);
+        socialDelta.put("curShopId", shopId);
+        socialDelta.put("info", info);
+        socialDelta.put("charPurchase", charPurchase);
+        JSONObject shopDelta = new JSONObject(true);
+        shopDelta.put("SOCIAL", socialDelta);
+        JSONObject modified = new JSONObject(true);
+        modified.put("shop", shopDelta);
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+
+        JSONObject result = new JSONObject(true);
+        result.put("goodList", goodList);
+        result.put("charPurchase", charPurchase);
+        result.put("costSocialPoint", spent);
+        result.put("creditGroup", spent >= 4000 ? "creditGroup2" : "creditGroup1");
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
+    }
+
+    private static JSONObject findSocialGood(JSONObject userData, String uid, String goodId) {
+        JSONObject list = buildSocialGoodList(userData, uid);
+        JSONArray goodList = list.getJSONArray("goodList");
+        if (goodList == null || goodId == null) {
+            return null;
+        }
+        for (int i = 0; i < goodList.size(); i++) {
+            JSONObject g = goodList.getJSONObject(i);
+            if (g != null && goodId.equals(g.getString("goodId"))) {
+                return g;
+            }
+        }
+        return null;
+    }
+
 
     @RequestMapping({"/getClassicGoodList"})
     public JSONObject getClassicGoodList() {
@@ -790,16 +1065,10 @@ public class shop {
             return banned;
         }
 
-        JSONArray goodList = ArknightsApplication.SocialGoodList.getJSONArray("goodList");
         JSONObject good = null;
-        if (goodList != null && goodId != null) {
-            for (int i = 0; i < goodList.size(); i++) {
-                JSONObject g = goodList.getJSONObject(i);
-                if (g != null && goodId.equals(g.getString("goodId"))) {
-                    good = g;
-                    break;
-                }
-            }
+        {
+            JSONObject u0 = JSONObject.parseObject(account.getUser());
+            good = findSocialGood(u0, String.valueOf(account.getUid()), goodId);
         }
         if (good == null) {
             return badRequest(response, "good not found: " + goodId);
@@ -881,6 +1150,10 @@ public class shop {
             e.put("count", count);
             info.add(e);
         }
+        // 当日已消费信用点累计（官服 costSocialPoint）
+        socialShop.put("costSocialPoint", socialShop.getIntValue("costSocialPoint") + price);
+        socialShop.put("curShopId", "SOCIAL" + java.time.ZonedDateTime.now(java.time.ZoneId.of("Asia/Shanghai"))
+                .format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         // 干员商品扣 charPurchase
         if (charId != null) {
@@ -897,6 +1170,8 @@ public class shop {
 
         JSONObject socialShopDelta = new JSONObject(true);
         socialShopDelta.put("info", info);
+        socialShopDelta.put("costSocialPoint", socialShop.getIntValue("costSocialPoint"));
+        socialShopDelta.put("curShopId", socialShop.getString("curShopId"));
         if (charId != null) {
             socialShopDelta.put("charPurchase", socialShop.getJSONObject("charPurchase"));
         }
@@ -913,6 +1188,507 @@ public class shop {
         result.put("playerDataDelta", playerDataDelta);
         ArknightsApplication.LOGGER.info("[shop] uid={} 信用商店买 {} x{} 花费 {}，余额 {}",
                 account.getUid(), goodId, count, price, balance - price);
+        return result;
+    }
+
+    private static JSONObject loadShopFile(String name) {
+        String path = System.getProperty("user.dir") + "/data/shop/" + name + ".json";
+        try {
+            String content = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            return JSONObject.parseObject(content);
+        } catch (Exception e) {
+            ArknightsApplication.LOGGER.error("[shop] 读取 {} 失败: {}", path, e.toString());
+            return null;
+        }
+    }
+
+    private static JSONObject serveShopList(String file, String path, HttpServletRequest request) {
+        ArknightsApplication.LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request) + "] /shop/" + path);
+        JSONObject data = loadShopFile(file);
+        JSONObject result = new JSONObject(true);
+        if (data == null) {
+            JSONObject delta = new JSONObject(true);
+            delta.put("modified", new JSONObject(true));
+            delta.put("deleted", new JSONObject(true));
+            result.put("playerDataDelta", delta);
+            return result;
+        }
+        for (String key : data.keySet()) {
+            if ("playerDataDelta".equals(key)) {
+                continue;
+            }
+            result.put(key, data.get(key));
+        }
+        JSONObject delta = new JSONObject(true);
+        delta.put("modified", new JSONObject(true));
+        delta.put("deleted", new JSONObject(true));
+        result.put("playerDataDelta", delta);
+        return result;
+    }
+
+    @PostMapping(value = {"/getCashGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getCashGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                      @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("CashGoodList", "getCashGoodList", request);
+    }
+
+    @PostMapping(value = {"/getLowGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getLowGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                     @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("LowGoodList", "getLowGoodList", request);
+    }
+
+    @PostMapping(value = {"/getHighGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getHighGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                      @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("HighGoodList", "getHighGoodList", request);
+    }
+
+    @PostMapping(value = {"/getExtraGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getExtraGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                       @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("ExtraGoodList", "getExtraGoodList", request);
+    }
+
+    @PostMapping(value = {"/getSocialGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getSocialGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                        @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("SocialGoodList", "getSocialGoodList", request);
+    }
+
+    @PostMapping(value = {"/getClassicGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getClassicGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                         @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("ClassicGoodList", "getClassicGoodList", request);
+    }
+
+    @PostMapping(value = {"/getLMTGSGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getLMTGSGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                       @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("LMTGSGoodList", "getLMTGSGoodList", request);
+    }
+
+    @PostMapping(value = {"/getEPGSGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getEPGSGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                      @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("EPGSGoodList", "getEPGSGoodList", request);
+    }
+
+    @PostMapping(value = {"/getRepGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getRepGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                     @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("RepGoodList", "getRepGoodList", request);
+    }
+
+    @PostMapping(value = {"/getGPGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getGPGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                    @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("GPGoodList", "getGPGoodList", request);
+    }
+
+    @PostMapping(value = {"/getGoodPurchaseState"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getGoodPurchaseState(@RequestHeader(value = "secret", required = false) String secret,
+                                           @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        return serveShopList("GoodPurchaseState", "getGoodPurchaseState", request);
+    }
+
+    private static JSONObject FURNI_GOOD_TABLE;
+
+    private static synchronized JSONObject furniGoodTable() {
+        if (FURNI_GOOD_TABLE != null) {
+            return FURNI_GOOD_TABLE;
+        }
+        String path = System.getProperty("user.dir") + "/data/shop/FurniGoodList.json";
+        try {
+            String content = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            FURNI_GOOD_TABLE = JSONObject.parseObject(content);
+            ArknightsApplication.LOGGER.info("[furni] 家具商店加载完成: goods={} groups={}",
+                    FURNI_GOOD_TABLE.getJSONArray("goods").size(), FURNI_GOOD_TABLE.getJSONArray("groups").size());
+        } catch (Exception e) {
+            ArknightsApplication.LOGGER.error("[furni] 读取 {} 失败: {}", path, e.toString());
+            FURNI_GOOD_TABLE = new JSONObject(true);
+        }
+        return FURNI_GOOD_TABLE;
+    }
+
+    private static JSONObject findFurniGood(String goodId) {
+        JSONArray goods = furniGoodTable().getJSONArray("goods");
+        if (goods != null) {
+            for (int i = 0; i < goods.size(); i++) {
+                JSONObject g = goods.getJSONObject(i);
+                if (goodId.equals(g.getString("goodId"))) {
+                    return g;
+                }
+            }
+        }
+        JSONArray groups = furniGoodTable().getJSONArray("groups");
+        if (groups != null) {
+            for (int i = 0; i < groups.size(); i++) {
+                JSONArray list = groups.getJSONObject(i).getJSONArray("goodList");
+                if (list == null) {
+                    continue;
+                }
+                for (int k = 0; k < list.size(); k++) {
+                    String id = list.getJSONObject(k).getString("goodId");
+                    if (goodId.equals(id)) {
+                        JSONObject hit = new JSONObject(true);
+                        hit.put("goodId", id);
+                        // 套组内单件价格表里没有，用 0 兜底（官方也只允许整包买）
+                        hit.put("furniId", null);
+                        return hit;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    @PostMapping(value = {"/getFurniGoodList"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject getFurniGoodList(@RequestHeader(value = "secret", required = false) String secret,
+                                       @RequestBody JSONObject jsonBody,
+                                       HttpServletRequest request, HttpServletResponse response) {
+        ArknightsApplication.LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request) + "] /shop/getFurniGoodList");
+        JSONObject table = furniGoodTable();
+        JSONObject result = new JSONObject(true);
+        result.put("goods", table.getJSONArray("goods") == null ? new JSONArray() : table.getJSONArray("goods"));
+        result.put("groups", table.getJSONArray("groups") == null ? new JSONArray() : table.getJSONArray("groups"));
+        JSONObject delta = new JSONObject(true);
+        delta.put("modified", new JSONObject(true));
+        delta.put("deleted", new JSONObject(true));
+        result.put("playerDataDelta", delta);
+        return result;
+    }
+
+    /** 家具入库：building.furniture.count += n、solution.furnitureTs[id] = now */
+    private static JSONObject addFurniToSave(JSONObject userData, String furniId, int count, long now) {
+        JSONObject building = userData.getJSONObject("building");
+        JSONObject furni = building.getJSONObject("furniture");
+        if (furni == null) {
+            furni = new JSONObject(true);
+            building.put("furniture", furni);
+        }
+        JSONObject entry = furni.getJSONObject(furniId);
+        if (entry == null) {
+            entry = new JSONObject(true);
+            entry.put("count", 0);
+            entry.put("inUse", 0);
+        }
+        entry.put("count", entry.getIntValue("count") + count);
+        furni.put(furniId, entry);
+
+        JSONObject solution = building.getJSONObject("solution");
+        if (solution == null) {
+            solution = new JSONObject(true);
+            building.put("solution", solution);
+        }
+        JSONObject ts = solution.getJSONObject("furnitureTs");
+        if (ts == null) {
+            ts = new JSONObject(true);
+            solution.put("furnitureTs", ts);
+        }
+        ts.put(furniId, now);
+
+        JSONObject entryOut = new JSONObject(true);
+        entryOut.put("count", entry.getIntValue("count"));
+        entryOut.put("inUse", entry.getIntValue("inUse"));
+        return entryOut;
+    }
+
+    private static int bumpFurniShopCount(JSONObject userData, String goodId, int add) {
+        JSONObject shop = userData.getJSONObject("shop");
+        if (shop == null) {
+            shop = new JSONObject(true);
+            userData.put("shop", shop);
+        }
+        JSONObject furniShop = shop.getJSONObject("FURNI");
+        if (furniShop == null) {
+            furniShop = new JSONObject(true);
+            shop.put("FURNI", furniShop);
+        }
+        JSONArray info = furniShop.getJSONArray("info");
+        if (info == null) {
+            info = new JSONArray();
+            furniShop.put("info", info);
+        }
+        for (int i = 0; i < info.size(); i++) {
+            JSONObject it = info.getJSONObject(i);
+            if (goodId.equals(it.getString("id"))) {
+                it.put("count", it.getIntValue("count") + add);
+                return it.getIntValue("count");
+            }
+        }
+        JSONObject fresh = new JSONObject(true);
+        fresh.put("id", goodId);
+        fresh.put("count", add);
+        info.add(fresh);
+        return add;
+    }
+
+    @PostMapping(value = {"/buyFurniGood"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject buyFurniGood(@RequestHeader(value = "secret", required = false) String secret,
+                                   @RequestBody JSONObject jsonBody,
+                                   HttpServletRequest request, HttpServletResponse response) {
+        String goodId = jsonBody.getString("goodId");
+        int buyCount = Math.max(1, jsonBody.getIntValue("buyCount"));
+        String costType = jsonBody.getString("costType");
+        ArknightsApplication.LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request)
+                + "] /shop/buyFurniGood goodId=" + goodId + " x" + buyCount + " costType=" + costType);
+
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.enableServer) {
+            response.setStatus(400);
+            result.put("result", 400);
+            return result;
+        }
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            response.setStatus(401);
+            result.put("result", 2);
+            return result;
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+
+        JSONObject good = findFurniGood(goodId);
+        if (good == null || good.getString("furniId") == null) {
+            result.put("result", 1);
+            result.put("error", "未知家具商品: " + goodId);
+            return result;
+        }
+        String furniId = good.getString("furniId");
+        int priceCoin = good.getIntValue("priceCoin");
+        int priceDia = good.getIntValue("priceDia");
+
+        JSONObject inventory = userData.getJSONObject("inventory");
+        JSONObject status = userData.getJSONObject("status");
+        JSONObject modified = new JSONObject(true);
+
+        boolean payDia = priceDia > 0 && !"COIN_FURN".equals(costType);
+        if (payDia) {
+            int cost = priceDia * buyCount;
+            int have = status.getIntValue("androidDiamond");
+            if (have < cost) {
+                result.put("result", 1);
+                result.put("error", "至纯源石不足: 需要 " + cost + "，只有 " + have);
+                return result;
+            }
+            JSONObject sd = new JSONObject(true);
+            sd.put("androidDiamond", have - cost);
+            status.put("androidDiamond", have - cost);
+            modified.put("status", sd);
+        } else {
+            int cost = priceCoin * buyCount;
+            int have = inventory.getIntValue("3401");
+            if (have < cost) {
+                result.put("result", 1);
+                result.put("error", "家具零件不足: 需要 " + cost + "，只有 " + have);
+                return result;
+            }
+            JSONObject inv = new JSONObject(true);
+            inv.put("3401", have - cost);
+            inventory.put("3401", have - cost);
+            modified.put("inventory", inv);
+        }
+
+        JSONObject entryOut = addFurniToSave(userData, furniId, buyCount, ArknightsApplication.getTimestamp());
+        int newShopCount = bumpFurniShopCount(userData, goodId, buyCount);
+
+        JSONObject buildingDelta = new JSONObject(true);
+        JSONObject furniDelta = new JSONObject(true);
+        furniDelta.put(furniId, entryOut);
+        buildingDelta.put("furniture", furniDelta);
+        JSONObject solutionDelta = new JSONObject(true);
+        JSONObject tsDelta = new JSONObject(true);
+        tsDelta.put(furniId, ArknightsApplication.getTimestamp());
+        solutionDelta.put("furnitureTs", tsDelta);
+        buildingDelta.put("solution", solutionDelta);
+        modified.put("building", buildingDelta);
+
+        JSONObject shopDelta = new JSONObject(true);
+        JSONObject furniShopDelta = new JSONObject(true);
+        JSONArray infoDelta = new JSONArray();
+        JSONObject infoItem = new JSONObject(true);
+        infoItem.put("id", goodId);
+        infoItem.put("count", newShopCount);
+        infoDelta.add(infoItem);
+        furniShopDelta.put("info", infoDelta);
+        shopDelta.put("FURNI", furniShopDelta);
+        modified.put("shop", shopDelta);
+
+        JSONObject carouselDelta = new JSONObject(true);
+        JSONObject furniCarousel = new JSONObject(true);
+        JSONObject goodsMark = new JSONObject(true);
+        goodsMark.put(goodId, 1);
+        furniCarousel.put("goods", goodsMark);
+        carouselDelta.put("furnitureShop", furniCarousel);
+        modified.put("carousel", carouselDelta);
+
+        userData.put("carousel", mergeCarousel(userData.getJSONObject("carousel"), goodId, null));
+
+        userDao.setUserData(account.getUid(), userData);
+
+        JSONArray items = new JSONArray();
+        JSONObject item = new JSONObject(true);
+        item.put("type", "FURN");
+        item.put("id", furniId);
+        item.put("count", buyCount);
+        items.add(item);
+
+        JSONObject delta = new JSONObject(true);
+        delta.put("modified", modified);
+        delta.put("deleted", new JSONObject(true));
+        result.put("items", items);
+        result.put("playerDataDelta", delta);
+        ArknightsApplication.LOGGER.info("[shop] uid={} 买家具 {} x{} → {}", account.getUid(), goodId, buyCount, furniId);
+        return result;
+    }
+
+    private static JSONObject mergeCarousel(JSONObject carousel, String goodId, String groupId) {
+        JSONObject out = carousel == null ? new JSONObject(true) : carousel;
+        JSONObject furniShop = out.getJSONObject("furnitureShop");
+        if (furniShop == null) {
+            furniShop = new JSONObject(true);
+            out.put("furnitureShop", furniShop);
+        }
+        JSONObject goods = furniShop.getJSONObject("goods");
+        if (goods == null) {
+            goods = new JSONObject(true);
+            furniShop.put("goods", goods);
+        }
+        if (goodId != null) {
+            goods.put(goodId, 1);
+        }
+        if (groupId != null) {
+            JSONObject groups = furniShop.getJSONObject("groups");
+            if (groups == null) {
+                groups = new JSONObject(true);
+                furniShop.put("groups", groups);
+            }
+            groups.put(groupId, 1);
+        }
+        return out;
+    }
+
+    @PostMapping(value = {"/buyFurniGroup"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject buyFurniGroup(@RequestHeader(value = "secret", required = false) String secret,
+                                    @RequestBody JSONObject jsonBody,
+                                    HttpServletRequest request, HttpServletResponse response) {
+        String groupId = jsonBody.getString("groupId");
+        JSONArray goodsReq = jsonBody.getJSONArray("goods");
+        String costType = jsonBody.getString("costType");
+        ArknightsApplication.LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request)
+                + "] /shop/buyFurniGroup groupId=" + groupId + " goods=" + goodsReq + " costType=" + costType);
+
+        JSONObject result = new JSONObject(true);
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            response.setStatus(401);
+            result.put("result", 2);
+            return result;
+        }
+        if (goodsReq == null || goodsReq.isEmpty()) {
+            result.put("result", 1);
+            result.put("error", "goods 不能为空");
+            return result;
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject status = userData.getJSONObject("status");
+
+        int totalDia = 0;
+        JSONArray items = new JSONArray();
+        StringBuilder err = new StringBuilder();
+        for (int i = 0; i < goodsReq.size(); i++) {
+            JSONObject g = goodsReq.getJSONObject(i);
+            String goodId = g.getString("id");
+            int cnt = Math.max(1, g.getIntValue("count"));
+            JSONObject def = findFurniGood(goodId);
+            if (def == null || def.getString("furniId") == null) {
+                err.append("未知商品 ").append(goodId).append("; ");
+                continue;
+            }
+            totalDia += def.getIntValue("priceDia") * cnt;
+            JSONObject item = new JSONObject(true);
+            item.put("type", "FURN");
+            item.put("id", def.getString("furniId"));
+            item.put("count", cnt);
+            items.add(item);
+        }
+        if (err.length() > 0) {
+            result.put("result", 1);
+            result.put("error", err.toString());
+            return result;
+        }
+
+        JSONObject modified = new JSONObject(true);
+        if (totalDia > 0) {
+            int have = status.getIntValue("androidDiamond");
+            if (have < totalDia) {
+                result.put("result", 1);
+                result.put("error", "至纯源石不足: 需要 " + totalDia + "，只有 " + have);
+                return result;
+            }
+            status.put("androidDiamond", have - totalDia);
+            JSONObject sd = new JSONObject(true);
+            sd.put("androidDiamond", have - totalDia);
+            modified.put("status", sd);
+        }
+
+        JSONObject furniDelta = new JSONObject(true);
+        JSONObject tsDelta = new JSONObject(true);
+        long now = ArknightsApplication.getTimestamp();
+        JSONObject shopInfo = new JSONObject(true);
+        for (int i = 0; i < goodsReq.size(); i++) {
+            JSONObject g = goodsReq.getJSONObject(i);
+            String goodId = g.getString("id");
+            int cnt = Math.max(1, g.getIntValue("count"));
+            JSONObject def = findFurniGood(goodId);
+            String furniId = def.getString("furniId");
+            furniDelta.put(furniId, addFurniToSave(userData, furniId, cnt, now));
+            tsDelta.put(furniId, now);
+            shopInfo.put(goodId, bumpFurniShopCount(userData, goodId, cnt));
+        }
+
+        JSONObject buildingDelta = new JSONObject(true);
+        buildingDelta.put("furniture", furniDelta);
+        JSONObject solutionDelta = new JSONObject(true);
+        solutionDelta.put("furnitureTs", tsDelta);
+        buildingDelta.put("solution", solutionDelta);
+        modified.put("building", buildingDelta);
+
+        JSONObject shopDelta = new JSONObject(true);
+        JSONObject furniShopDelta = new JSONObject(true);
+        JSONArray infoDelta = new JSONArray();
+        for (Map.Entry<String, Object> e : shopInfo.entrySet()) {
+            JSONObject it = new JSONObject(true);
+            it.put("id", e.getKey());
+            it.put("count", e.getValue());
+            infoDelta.add(it);
+        }
+        furniShopDelta.put("info", infoDelta);
+        shopDelta.put("FURNI", furniShopDelta);
+        modified.put("shop", shopDelta);
+
+        JSONObject carouselDelta = new JSONObject(true);
+        JSONObject furniCarousel = new JSONObject(true);
+        JSONObject groupsMark = new JSONObject(true);
+        groupsMark.put(groupId, 1);
+        furniCarousel.put("groups", groupsMark);
+        carouselDelta.put("furnitureShop", furniCarousel);
+        modified.put("carousel", carouselDelta);
+
+        userData.put("carousel", mergeCarousel(userData.getJSONObject("carousel"), null, groupId));
+        userDao.setUserData(account.getUid(), userData);
+
+        JSONObject delta = new JSONObject(true);
+        delta.put("modified", modified);
+        delta.put("deleted", new JSONObject(true));
+        result.put("items", items);
+        result.put("playerDataDelta", delta);
+        ArknightsApplication.LOGGER.info("[shop] uid={} 买家具套组 {} → {} 件，花 {} 源石",
+                account.getUid(), groupId, items.size(), totalDia);
         return result;
     }
 }

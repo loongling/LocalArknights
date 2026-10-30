@@ -280,6 +280,131 @@ public class gacha {
         return result;
     }
 
+    private static JSONArray randomRecruitTags(int count) {
+        JSONArray pool = gachaTags();
+        List<Integer> ids = new ArrayList<>();
+        for (int i = 0; i < pool.size(); i++) {
+            JSONObject t = pool.getJSONObject(i);
+            if (t != null && t.containsKey("tagId")) {
+                ids.add(t.getIntValue("tagId"));
+            }
+        }
+        Collections.shuffle(ids);
+        JSONArray out = new JSONArray();
+        for (int i = 0; i < Math.min(count, ids.size()); i++) {
+            out.add(ids.get(i));
+        }
+        return out;
+    }
+
+    private static void resetRecruitSlot(JSONObject slot) {
+        slot.put("state", 1);
+        slot.put("tags", randomRecruitTags(5));
+        slot.put("selectTags", new JSONArray());
+        slot.put("startTs", -1);
+        slot.put("durationInSec", -1);
+        slot.put("maxFinishTs", -1);
+        slot.put("realFinishTs", -1);
+    }
+
+    private JSONObject recruitSlotDelta(JSONObject userData, int slotId) {
+        JSONObject result = new JSONObject(true);
+        JSONObject modified = new JSONObject(true);
+        modified.put("recruit", userData.getJSONObject("recruit"));
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
+    }
+
+    @PostMapping("/cancelNormalGacha")
+    public JSONObject cancelNormalGacha(@RequestHeader(value = "secret", required = false) String secret,
+                                        @RequestBody JSONObject jsonBody,
+                                        HttpServletRequest request, HttpServletResponse response) {
+        int slotId = jsonBody.getIntValue("slotId");
+        ArknightsApplication.LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request)
+                + "] /gacha/cancelNormalGacha slotId=" + slotId);
+        if (!checkAccount(secret)) {
+            return createError(secret, response);
+        }
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject slots = userData.getJSONObject("recruit").getJSONObject("normal").getJSONObject("slots");
+        JSONObject slot = slots == null ? null : slots.getJSONObject(String.valueOf(slotId));
+        if (slot == null) {
+            return createErrorResponse(5754, "recruit_slot_not_found: " + slotId);
+        }
+        resetRecruitSlot(slot);
+        userDao.setUserData(account.getUid(), userData);
+        ArknightsApplication.LOGGER.info("[gacha] 取消招募 slot={}，标签重置为 {}", slotId, slot.getJSONArray("tags"));
+        return recruitSlotDelta(userData, slotId);
+    }
+
+    @PostMapping("/refreshTags")
+    public JSONObject refreshTags(@RequestHeader(value = "secret", required = false) String secret,
+                                  @RequestBody JSONObject jsonBody,
+                                  HttpServletRequest request, HttpServletResponse response) {
+        int slotId = jsonBody.getIntValue("slotId");
+        ArknightsApplication.LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request)
+                + "] /gacha/refreshTags slotId=" + slotId);
+        if (!checkAccount(secret)) {
+            return createError(secret, response);
+        }
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject slots = userData.getJSONObject("recruit").getJSONObject("normal").getJSONObject("slots");
+        JSONObject slot = slots == null ? null : slots.getJSONObject(String.valueOf(slotId));
+        if (slot == null) {
+            return createErrorResponse(5754, "recruit_slot_not_found: " + slotId);
+        }
+        JSONArray tags = randomRecruitTags(5);
+
+        JSONObject hireNode = null;
+        JSONObject bldgForHire = userData.getJSONObject("building");
+        JSONObject roomsForHire = bldgForHire == null ? null : bldgForHire.getJSONObject("rooms");
+        JSONObject hire = roomsForHire == null ? null : roomsForHire.getJSONObject("HIRE");
+        if (hire != null && !hire.isEmpty()) {
+            String hireSlot = new ArrayList<>(hire.keySet()).get(0);
+            hireNode = hire.getJSONObject(hireSlot);
+            if (hireNode != null && hireNode.getIntValue("refreshCount") <= 0) {
+                return createErrorResponse(5754, "联络点数不足: 办公室没有可用的招募标签刷新次数");
+            }
+        }
+        if (hireNode != null) {
+            int left = Math.max(0, hireNode.getIntValue("refreshCount") - 1);
+            hireNode.put("refreshCount", left);
+            ArknightsApplication.LOGGER.info("[gacha] 刷新标签消耗办公室联络点数，剩 {} 次", left);
+        }
+
+        slot.put("tags", tags);
+        if (slot.getIntValue("state") != 2 && slot.getIntValue("state") != 3) {
+            slot.put("state", 1);
+            slot.put("selectTags", new JSONArray());
+        }
+        userDao.setUserData(account.getUid(), userData);
+
+        JSONObject result = recruitSlotDelta(userData, slotId);
+        JSONObject modified = result.getJSONObject("playerDataDelta").getJSONObject("modified");
+        JSONObject building = userData.getJSONObject("building");
+        if (building != null) {
+            JSONObject b = new JSONObject(true);
+            b.put("roomSlots", building.getJSONObject("roomSlots"));
+            b.put("rooms", building.getJSONObject("rooms"));
+            b.put("chars", building.getJSONObject("chars"));
+            b.put("status", building.getJSONObject("status"));
+            modified.put("building", b);
+        }
+        JSONObject eventDelta = new JSONObject(true);
+        JSONObject ev = userData.getJSONObject("event");
+        eventDelta.put("building", ev == null ? 0 : ev.getLongValue("building"));
+        modified.put("event", eventDelta);
+        ArknightsApplication.LOGGER.info("[gacha] 刷新标签 slot={} → {}", slotId, tags);
+        return result;
+    }
+
     @PostMapping("/getPoolDetail")
     public JSONObject getPoolDetail(@RequestBody JSONObject jsonBody, HttpServletResponse response) {
         String poolId = jsonBody.getString("poolId");
@@ -414,11 +539,6 @@ public class gacha {
         return selectTags;
     }
 
-    // ────────────────────────────────────────────────────────────
-    // 公开招募：tag 表 / 稀有度规则 / 池过滤 / tag 刷新
-    // ────────────────────────────────────────────────────────────
-
-    /** 满时长（9 小时）；官方：含「高级资深干员」必得 6★，含「资深干员」必得 5★ */
     private static final int RECRUIT_FULL_DURATION_SEC = 9 * 3600;
 
     private static final int TAG_TOP_OPERATOR = 11;   // 高级资深干员 -> rarityRank 5（6★）
@@ -426,7 +546,6 @@ public class gacha {
 
     private static JSONObject GACHA_TABLE;
 
-    /** gacha_table.json 懒加载 */
     private static synchronized JSONObject gachaTable() {
         if (GACHA_TABLE == null) {
             try {
@@ -442,19 +561,11 @@ public class gacha {
         return GACHA_TABLE;
     }
 
-    /** gachaTags（tagId -> tagName） */
     private static JSONArray gachaTags() {
         JSONArray tags = gachaTable().getJSONArray("gachaTags");
         return tags == null ? new JSONArray() : tags;
     }
 
-    /**
-     * 满 9 小时 + 勾了特殊 tag 时，强制稀有度。
-     * 依据 gacha_table.specialTagRarityTable：{"11":[5], "14":[4]}
-     * 高级资深干员优先于资深干员。
-     *
-     * @return null 表示不强制
-     */
     private static Integer forcedRarity(Set<Integer> tagIds, int durationSec) {
         if (tagIds == null || tagIds.isEmpty() || durationSec < RECRUIT_FULL_DURATION_SEC) {
             return null;
@@ -468,13 +579,6 @@ public class gacha {
         return null;
     }
 
-    /**
-     * 招募时长决定的稀有度区间。
-     * gacha_table.recruitRarityTable 的 key 是**分钟数**（recruitTimeTable 的 timeLength）：
-     *   <=230 分钟 -> 0..3   240..450 -> 1..4   460..540 -> 2..4
-     *
-     * @return {min, max}
-     */
     private static int[] rarityRangeByDuration(int durationSec) {
         int minutes = Math.max(10, durationSec / 60);
         JSONObject table = gachaTable().getJSONObject("recruitRarityTable");
@@ -516,7 +620,6 @@ public class gacha {
         return null;
     }
 
-    /** 按稀有度区间过滤招募池；forced != null 时只保留该稀有度 */
     private static JSONArray filterPoolByRarity(JSONArray perAvailList, int min, int max, Integer forced) {
         JSONArray out = new JSONArray();
         for (int i = 0; i < perAvailList.size(); i++) {
@@ -534,7 +637,6 @@ public class gacha {
         return out;
     }
 
-    /** 从 selectTags 里取出 tagId 集合 */
     private static Set<Integer> tagIdSet(JSONArray selectTags) {
         Set<Integer> ids = new HashSet<>();
         if (selectTags != null) {
