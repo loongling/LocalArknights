@@ -170,7 +170,6 @@ public class account {
             } catch (Exception e) {
                 LOGGER.warn("[syncData] 修补消耗品过期时间失败: " + e.toString());
             }
-
             Long ts = ArknightsApplication.getTimestamp();
             Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
             boolean canCheck = canCheckIn(lastLogin, ts);

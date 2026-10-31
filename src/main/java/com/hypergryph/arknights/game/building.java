@@ -157,9 +157,112 @@ public class building {
     private static final double HIRE_REFRESH_POINT = 4320000;
     private static final double LABOR_POINT_PER_DRONE = 360;
     private static final double CLUE_EXCHANGE_POINTS = 7200000;
+    private static volatile JSONObject MEETING_DATA_CACHE = null;
+
+    private static JSONObject meetingDataConfig() {
+        if (MEETING_DATA_CACHE != null) {
+            return MEETING_DATA_CACHE;
+        }
+        synchronized (building.class) {
+            if (MEETING_DATA_CACHE != null) {
+                return MEETING_DATA_CACHE;
+            }
+            JSONObject md = new JSONObject(true);
+            try {
+                String path = System.getProperty("user.dir") + "/data/excel/building_data.json";
+                JSONObject bd = JSONObject.parseObject(new String(
+                        java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                        java.nio.charset.StandardCharsets.UTF_8));
+                JSONObject m = bd.getJSONObject("meetingData");
+                if (m != null) {
+                    md = m;
+                }
+                // 全局常量一起带出来
+                if (bd.get("socialResourceLimit") != null) {
+                    md.put("socialResourceLimit", bd.get("socialResourceLimit"));
+                }
+                if (bd.get("socialSlotNum") != null) {
+                    md.put("socialSlotNum", bd.get("socialSlotNum"));
+                }
+            } catch (Exception e) {
+                ArknightsApplication.LOGGER.error("[building] 读取 meetingData 失败: {}", e.toString());
+            }
+            MEETING_DATA_CACHE = md;
+            return md;
+        }
+    }
+
+    private static double meetingGatheringSpeed(int level) {
+        try {
+            JSONArray phases = meetingDataConfig().getJSONArray("phases");
+            if (phases != null && !phases.isEmpty()) {
+                int idx = Math.min(phases.size() - 1, Math.max(0, level - 1));
+                double v = phases.getJSONObject(idx).getDoubleValue("gatheringSpeed");
+                if (v > 0) {
+                    return v;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return 100.0;
+    }
+
+    private static double meetingBasicSpeedBuff() {
+        try {
+            return meetingDataConfig().getDoubleValue("basicSpeedBuff");
+        } catch (Exception e) {
+            return 0.05;
+        }
+    }
+
+    private static int clueStockCap() {
+        try {
+            int v = meetingDataConfig().getIntValue("socialSlotNum");
+            return v > 0 ? v : 10;
+        } catch (Exception e) {
+            return 10;
+        }
+    }
     private static JSONObject BUILDING_CHAR_BUFFS;
     private static JSONObject BUILDING_BUFFS;
     private static double COMFORT_RECOVER_FACTOR = 25;
+
+    private static boolean sanitizeRoomSlots(JSONObject building, JSONObject userData) {
+        JSONObject slots = building.getJSONObject("roomSlots");
+        if (slots == null || slots.isEmpty()) {
+            return false;
+        }
+        JSONObject troop = userData.getJSONObject("troop");
+        JSONObject chars = troop == null ? null : troop.getJSONObject("chars");
+        boolean changed = false;
+        for (String slotId : new ArrayList<>(slots.keySet())) {
+            JSONObject slot = slots.getJSONObject(slotId);
+            if (slot == null) {
+                continue;
+            }
+            JSONArray ids = slot.getJSONArray("charInstIds");
+            if (ids == null) {
+                continue;
+            }
+            JSONArray kept = new JSONArray();
+            for (int i = 0; i < ids.size(); i++) {
+                Integer v = ids.getInteger(i);
+                if (v == null || v <= 0) {
+                    changed = true;
+                    continue;
+                }
+                if (chars != null && chars.getJSONObject(String.valueOf(v)) == null) {
+                    changed = true;
+                    continue;
+                }
+                kept.add(v);
+            }
+            if (changed) {
+                slot.put("charInstIds", kept);
+            }
+        }
+        return changed;
+    }
 
     public static boolean advanceBuildingTime(JSONObject userData, long now) {
         loadLayout();
@@ -168,6 +271,10 @@ public class building {
             return false;
         }
         boolean dirty = false;
+
+        if (sanitizeRoomSlots(building, userData)) {
+            dirty = true;
+        }
 
         refreshLaborBuffSpeed(building, userData);
 
@@ -291,8 +398,17 @@ public class building {
                 JSONObject board = node.getJSONObject("board");
                 int factionsOnBoard = board == null ? 0 : board.size();
                 long last = node.getLongValue("lastUpdateTime");
-                double speed = Math.max(1, node.getDoubleValue("speed"));
+                // 官服公式（building_data.meetingData）：speed = gatheringSpeed × (1 + basicSpeedBuff + 干员加成)
+                int meetLevel = slot == null ? 1 : Math.max(1, slot.getIntValue("level"));
+                double baseGather = meetingGatheringSpeed(meetLevel);
+                double basicBuff = meetingBasicSpeedBuff();
+                JSONObject buffNode = node.getJSONObject("buff");
+                double opBuff = buffNode == null ? 0 : buffNode.getDoubleValue("speed");
+                double speed = Math.max(1, baseGather * (1 + basicBuff + opBuff));
+                node.put("speed", (long) Math.round(speed));
                 double pp = node.getDoubleValue("processPoint");
+                JSONObject infoShareNode = node.getJSONObject("infoShare");
+                boolean exchanging = infoShareNode != null && infoShareNode.getLongValue("ts") > 0;
                 if (factionsOnBoard >= 7) {
                     if (pp <= 0) {
                         pp = CLUE_EXCHANGE_POINTS;
@@ -300,26 +416,64 @@ public class building {
                         dirty = true;
                         ArknightsApplication.LOGGER.info("[building] 会?室线?流开始（7 条齐?");
                     }
+                } else if (onDuty > 0 && !exchanging) {
+                    // 干员进驻后自动收集线索：每 socialResourceLimit(7200000) 点产出一条，
+                    // 库存上限 socialSlotNum(10) 条，满了就停在 0 点。
+                    if (pp <= 0) {
+                        pp = CLUE_EXCHANGE_POINTS;
+                    }
                 }
                 if (pp > 0 && last > 0 && last <= now) {
                     long elapsed = now - last;
                     double left = pp - elapsed * speed;
-                    if (left <= 0) {
-                        left = 0;
-                        JSONObject isNode = node.getJSONObject("infoShare");
-                        if (isNode == null) {
-                            isNode = new JSONObject(true);
-                            isNode.put("ts", 0L);
-                            node.put("infoShare", isNode);
+                    if (factionsOnBoard >= 7 || exchanging) {
+                        if (left <= 0) {
+                            left = 0;
+                            JSONObject isNode = node.getJSONObject("infoShare");
+                            if (isNode == null) {
+                                isNode = new JSONObject(true);
+                                isNode.put("ts", 0L);
+                                node.put("infoShare", isNode);
+                            }
+                            isNode.put("reward", 1);
+                            node.put("clueExchangeReady", true);
+                            ArknightsApplication.LOGGER.info("[building] info share expired, waiting to claim");
+                            dirty = true;
                         }
-                        isNode.put("reward", 1);
-                        node.put("clueExchangeReady", true);
-                        ArknightsApplication.LOGGER.info("[building] info share expired, waiting to claim");
+                        node.put("processPoint", (long) Math.round(left));
+                        node.put("completeWorkTime", now + (long) Math.ceil(left / speed));
                         dirty = true;
+                    } else if (onDuty > 0) {
+                        // 自动收集：把这段时间的进度结算成线索
+                        JSONArray stock = node.getJSONArray("ownStock");
+                        if (stock == null) {
+                            stock = new JSONArray();
+                            node.put("ownStock", stock);
+                        }
+                        int collected = 0;
+                        int cap = clueStockCap();
+                        while (left <= 0) {
+                            if (stock.size() >= cap) {
+                                left = 0;
+                                break;
+                            }
+                            String faction = missingFaction(node);
+                            stock.add(makeClueItem(userData, null, faction, now, stock.size() + 1));
+                            collected++;
+                            left += CLUE_EXCHANGE_POINTS;
+                        }
+                        if (collected > 0) {
+                            dirty = true;
+                            ArknightsApplication.LOGGER.info("[building] meeting {} 自动收集线索 {} 条（库存 {}）",
+                                    slotId, collected, stock.size());
+                        }
+                        node.put("processPoint", (long) Math.round(Math.max(0, left)));
+                        node.put("completeWorkTime", now + (long) Math.ceil(Math.max(0, left) / speed));
+                        dirty = true;
+                    } else {
+                        node.put("processPoint", (long) Math.round(Math.max(0, pp)));
+                        node.put("completeWorkTime", now + (long) Math.ceil(Math.max(0, pp) / speed));
                     }
-                    node.put("processPoint", (long) Math.round(left));
-                    node.put("completeWorkTime", now + (long) Math.ceil(left / speed));
-                    dirty = true;
                 } else {
                     node.put("processPoint", (long) Math.round(Math.max(0, pp)));
                     node.put("completeWorkTime", now + (long) Math.ceil(Math.max(0, pp) / speed));

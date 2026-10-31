@@ -876,6 +876,80 @@ public class processArray {
         };
     }
 
+    public static int repairCampaignsV2(JSONObject user) {
+        if (user == null) {
+            return 0;
+        }
+        JSONObject c = user.getJSONObject("campaignsV2");
+        if (c == null) {
+            c = new JSONObject(true);
+            user.put("campaignsV2", c);
+        }
+        JSONObject open = c.getJSONObject("open");
+        if (open == null) {
+            open = new JSONObject(true);
+            c.put("open", open);
+        }
+        JSONArray per = new JSONArray();
+        per.add("camp_01");
+        per.add("camp_02");
+        per.add("camp_03");
+        open.put("permanent", per);
+        open.put("rotate", "camp_r_34");
+        open.put("rGroup", "group_r_34");
+        open.put("tGroup", "group_tr_75");
+        open.put("tAllOpen", "group_tr_all_12");
+        JSONArray training = new JSONArray();
+        for (int i = 1; i <= 33; i++) {
+            training.add(String.format("camp_r_%02d", i));
+        }
+        open.put("training", training);
+
+        JSONObject oldInst = c.getJSONObject("instances");
+        JSONObject inst = new JSONObject(true);
+        java.util.List<String> ids = new java.util.ArrayList<>();
+        ids.add("camp_01");
+        ids.add("camp_02");
+        ids.add("camp_03");
+        ids.add("camp_r_34");
+        for (int i = 1; i <= 33; i++) {
+            ids.add(String.format("camp_r_%02d", i));
+        }
+        for (String id : ids) {
+            JSONObject keep = oldInst == null ? null : oldInst.getJSONObject(id);
+            if (keep != null) {
+                inst.put(id, keep);
+            } else {
+                JSONObject one = new JSONObject(true);
+                one.put("maxKills", 0);
+                JSONArray rs = new JSONArray();
+                for (int i = 0; i < 8; i++) {
+                    rs.add(0);
+                }
+                one.put("rewardStatus", rs);
+                inst.put(id, one);
+            }
+        }
+        c.put("instances", inst);
+        if (c.get("campaignTotalFee") == null) {
+            c.put("campaignTotalFee", 1200);
+        }
+        if (c.get("campaignCurrentFee") == null) {
+            c.put("campaignCurrentFee", 0);
+        }
+        if (c.getJSONObject("sweepMaxKills") == null) {
+            c.put("sweepMaxKills", new JSONObject(true));
+        }
+        if (c.getJSONObject("missions") == null) {
+            JSONObject m = new JSONObject(true);
+            for (int i = 1; i <= 4; i++) {
+                m.put("exterminateActivity_" + i, 0);
+            }
+            c.put("missions", m);
+        }
+        return 1;
+    }
+
     public static long defaultConsumableTs(String id, String type) {
         boolean timeLimited = "AP_SUPPLY".equalsIgnoreCase(type == null ? "" : type.trim())
                 || (id != null && id.startsWith("ap_supply"));

@@ -1,24 +1,37 @@
-2026-10-30 12:58:30 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 16596 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-v 0.5.1.5 Beta.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
-2026-10-30 12:58:30 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
-2026-10-30 12:58:31 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
-2026-10-30 12:58:31 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
-2026-10-30 12:58:31 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
-2026-10-30 12:58:31 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
-2026-10-30 12:58:31 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
-2026-10-30 12:58:31 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2026-10-30 12:58:31 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1033 ms
-2026-10-30 12:58:31 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
-2026-10-30 12:58:31 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
-2026-10-30 12:58:31 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
-2026-10-30 12:58:31 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.639 seconds (JVM running for 2.354)
-2026-10-30 12:58:31 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
-2026-10-30 12:58:31 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
-2026-10-30 12:58:31 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-10-30 12:58:31 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-10-30 12:58:31 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2026-10-30 12:58:31 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:58:31 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:58:31 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+2026-10-31 22:09:32 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 28188 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-v 0.5.3.0 Beta.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-10-31 22:09:32 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-10-31 22:09:33 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-10-31 22:09:33 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-10-31 22:09:33 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-10-31 22:09:33 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-31 22:09:33 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-10-31 22:09:33 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-31 22:09:33 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 805 ms
+2026-10-31 22:09:33 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-10-31 22:09:33 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-10-31 22:09:33 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-10-31 22:09:33 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.425 seconds (JVM running for 2.111)
+2026-10-31 22:09:33 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-10-31 22:09:33 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-10-31 22:09:33 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-31 22:09:33 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-31 22:09:33 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-10-31 22:09:33 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [sdk] POST /api/h -> 200
+2026-10-31 22:09:34 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/h
+Method: POST
+Status: 200
+Headers:
+  connection: close
+  content-length: 268
+  content-type: application/octet-stream
+  host: 127.0.0.1:10029
+  x-forwarded-host: data-p.hypergryph.com
+  x-original-url: http://8.153.94.47/api/h
+------------------------
+2026-10-31 22:09:34 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
+2026-10-31 22:09:34 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-31 22:09:34 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
 URL: /account/syncPushMessage
 Method: POST
 Status: 200
@@ -29,29 +42,29 @@ Headers:
   content-type: application/json
   host: 127.0.0.1:10029
   secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 38
+  seqnum: 10
   te: identity
   uid: 10000001
   user-agent: BestHTTP
 Body:
 {}
 ------------------------
-2026-10-30 12:58:33 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 12:58:34 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2657ms
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.0.46-0ubuntu0.24.04.4
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 v0.5.1.5 Beta
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本1: CN Android 2.7.81
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本2: CN Windows 2.7.81:
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本3: Global Android 37.7.41
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月19日 12:00:00
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 JG!@~%/M!Db#!%!!b$!80R$Ak/~/#0~1075nQA863iSZ3kH1%T#7#NR472~@/!14
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
-2026-10-30 12:58:34 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
-2026-10-30 12:58:35 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /building/gainIntimacy charInstId=1
-2026-10-30 12:58:36 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/gainIntimacy
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2592ms
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.0.46-0ubuntu0.24.04.4
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 v0.5.1.5 Beta
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本1: CN Android 2.7.81
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本2: CN Windows 2.7.81:
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本3: Global Android 37.7.41
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月19日 12:00:00
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 JG!@~%/M!Db#!%!!b$!80R$Ak/~/#0~1075nQA863iSZ3kH1%T#7#NR472~@/!14
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-10-31 22:09:36 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-10-31 22:09:37 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncData
+2026-10-31 22:09:37 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [MissionHelper] SUB 组共 79 个
+2026-10-31 22:09:37 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - 用户数据同步成功, UID: 10000001
+2026-10-31 22:09:37 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncData
 Method: POST
 Status: 200
 Headers:
@@ -59,18 +72,16 @@ Headers:
   accept-encoding: gzip, deflate
   accept-language: *
   connection: keep-alive
-  content-length: 16
+  content-length: 14
   content-type: application/json
   host: 127.0.0.1:10029
   sec-fetch-mode: cors
   secret: 3e0aef3f3b65d6b39a288de086e13776
   user-agent: node
-Body:
-{"charInstId":1}
 ------------------------
-2026-10-30 12:58:36 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /building/changeBGM musicId=bgm_building_default
-2026-10-30 12:58:36 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/changeBGM
+2026-10-31 22:09:38 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:38 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
 Method: POST
 Status: 200
 Headers:
@@ -78,18 +89,19 @@ Headers:
   accept-encoding: gzip, deflate
   accept-language: *
   connection: keep-alive
-  content-length: 34
+  content-length: 78
   content-type: application/json
   host: 127.0.0.1:10029
   sec-fetch-mode: cors
   secret: 3e0aef3f3b65d6b39a288de086e13776
   user-agent: node
 Body:
-{"musicId":"bgm_building_default"}
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
 ------------------------
-2026-10-30 12:58:36 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /building/sendEmoji friendId=10000000 emoji=building_basic_04
-2026-10-30 12:58:36 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/sendEmoji
+2026-10-31 22:09:38 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=0 state=3
+2026-10-31 22:09:38 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=0 档位=0 理智返还=20 合成玉 960->960
+2026-10-31 22:09:38 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
 Method: POST
 Status: 200
 Headers:
@@ -97,19 +109,18 @@ Headers:
   accept-encoding: gzip, deflate
   accept-language: *
   connection: keep-alive
-  content-length: 51
+  content-length: 491
   content-type: application/json
   host: 127.0.0.1:10029
   sec-fetch-mode: cors
   secret: 3e0aef3f3b65d6b39a288de086e13776
   user-agent: node
 Body:
-{"friendId":"10000000","emoji":"building_basic_04"}
+{"data":"B9C37F247A026B0F0191FFABA76F15148CA1F0477ABCE627CCA74F536EA8925FEAD1BB3979A904873DC2D0A30B6872E8FC6D9755EC008C2593D0C24325A48BB4E9BE08EB8256E65802E4D8E5121757B278545AE9C4A9FCB5CC6D211B46838DC5992A42DFB4B70A99B41CB7F005110942A113B9C5855E6927FF2BC2DD0DA28D8260962EEE5B31652D63FDD41C89C21C602C164AD81B2AE38A6E38D0CCC9B3FFF70A2C01D37639661D49C52AECD8E8C2E46501AD41DB5B4C928F92B4F333929BA894683D27715E85286E749151C66531E3BF26B0D2ABCAE3A7FB12033E08B77DF6BA095D8B15D5CF759F59432ED75D8B29"}
 ------------------------
-2026-10-30 12:58:36 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /building/gainAssistIntimacy charInstId=1
-2026-10-30 12:58:37 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /building/gainIntimacy charInstId=1
-2026-10-30 12:58:37 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/gainAssistIntimacy
+2026-10-31 22:09:38 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:39 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
 Method: POST
 Status: 200
 Headers:
@@ -117,18 +128,19 @@ Headers:
   accept-encoding: gzip, deflate
   accept-language: *
   connection: keep-alive
-  content-length: 16
+  content-length: 78
   content-type: application/json
   host: 127.0.0.1:10029
   sec-fetch-mode: cors
   secret: 3e0aef3f3b65d6b39a288de086e13776
   user-agent: node
 Body:
-{"charInstId":1}
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
 ------------------------
-2026-10-30 12:58:37 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /activity/getActivityCheckInReward activityId=act64sign index=1
-2026-10-30 12:58:37 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /activity/getActivityCheckInReward
+2026-10-31 22:09:39 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=50 state=3
+2026-10-31 22:09:39 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=50 档位=0 理智返还=20 合成玉 960->960
+2026-10-31 22:09:39 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
 Method: POST
 Status: 200
 Headers:
@@ -136,18 +148,18 @@ Headers:
   accept-encoding: gzip, deflate
   accept-language: *
   connection: keep-alive
-  content-length: 50
+  content-length: 491
   content-type: application/json
   host: 127.0.0.1:10029
   sec-fetch-mode: cors
   secret: 3e0aef3f3b65d6b39a288de086e13776
   user-agent: node
 Body:
-{"index":1,"activityId":"act64sign","dynOpt":null}
+{"data":"28F1D42A9B5E936B9EA8D06A61851E5C9148C896A3AC943A6F5DB08BA6681CC7CEF96ADC09FD4964E40C551FB1AFA9C058A881F7442598392E340154F571EED39DFD275834CEC5617E8FF746CECB26AC1D0647765AC269A67C02C65483173D7FB83B73A9EAF098320308EA9FA8FC73FEDFE781683B273C92453D536BD98B4CE40C9A503A617C518025627BF8F32A377EE06FE4C8E7B5319B2615BE992F2E0B170EAB34D872633EF19954F502A4031223C3CE7E379023A674287CD96EF23ADF8856964B4DED1C6CDEE5849DC1B510A00C489EB209C447972E943DAA3DEA14725C73F1D7B92D3A7E852C4ACD681BD0A461"}
 ------------------------
-2026-10-30 12:58:37 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /activity/actRewardOnly/setChoice activityId=act1reward poolId=pool_4
-2026-10-30 12:58:38 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /activity/actRewardOnly/setChoice
+2026-10-31 22:09:39 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:39 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
 Method: POST
 Status: 200
 Headers:
@@ -155,18 +167,19 @@ Headers:
   accept-encoding: gzip, deflate
   accept-language: *
   connection: keep-alive
-  content-length: 45
+  content-length: 78
   content-type: application/json
   host: 127.0.0.1:10029
   sec-fetch-mode: cors
   secret: 3e0aef3f3b65d6b39a288de086e13776
   user-agent: node
 Body:
-{"activityId":"act1reward","poolId":"pool_4"}
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
 ------------------------
-2026-10-30 12:58:38 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /activity/getActivityCheckInVideoReward activityId=act4video index=0
-2026-10-30 12:58:39 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /activity/getActivityCheckInVideoReward
+2026-10-31 22:09:40 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=100 state=3
+2026-10-31 22:09:40 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=100 档位=1 理智返还=14 合成玉 960->1020
+2026-10-31 22:09:40 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
 Method: POST
 Status: 200
 Headers:
@@ -174,18 +187,18 @@ Headers:
   accept-encoding: gzip, deflate
   accept-language: *
   connection: keep-alive
-  content-length: 36
+  content-length: 523
   content-type: application/json
   host: 127.0.0.1:10029
   sec-fetch-mode: cors
   secret: 3e0aef3f3b65d6b39a288de086e13776
   user-agent: node
 Body:
-{"activityId":"act4video","index":0}
+{"data":"D5FA05F15D2B3328AB6363BF38E21F2800D48F3A3A5913954C0F4C59D5BA6F09D2BC14F5F689E75F7018420D368F4803353D2B2DF87CE6FD66E0BBD08748B73DE0609864C828906C31C251B3AB18FBB72AC5312A6F384BB865E16C0A27B56EAE2925B3FB3F52C6215652440A6E50BA1B889DF4DCFFB02B7A4437712434377DC879FF7A468F0C27080237549D43D126D696824D0BD75246D1F09345ED2F669BED6476722056708728499B71BCEA26B35CB262F12B528768C81D6C6A15A405A486CF3C23C3D9A804642455CFDA610F46ABE4BD19EEF31256A5E4804D1023ECE6B60A450DF26BBC7D73967BC30E0BEEB8A4348D9A0FEC873FEE031946DEFD7B0EE8"}
 ------------------------
-2026-10-30 12:58:39 [http-nio-10029-exec-1] WARN  com.hypergryph.arknights.ArknightsApplication - [building][未实现] /building/__notImplementedYet body={}
-2026-10-30 12:58:39 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/__notImplementedYet
+2026-10-31 22:09:40 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:40 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
 Method: POST
 Status: 200
 Headers:
@@ -193,18 +206,194 @@ Headers:
   accept-encoding: gzip, deflate
   accept-language: *
   connection: keep-alive
-  content-length: 2
+  content-length: 78
   content-type: application/json
   host: 127.0.0.1:10029
   sec-fetch-mode: cors
   secret: 3e0aef3f3b65d6b39a288de086e13776
   user-agent: node
 Body:
-{}
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
 ------------------------
-2026-10-30 12:58:41 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:58:41 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:58:41 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+2026-10-31 22:09:40 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=188 state=3
+2026-10-31 22:09:40 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=188 档位=1 理智返还=14 合成玉 1020->1080
+2026-10-31 22:09:40 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 523
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"F4A87C0B100F0249149211177492D337353130262F651FB7B5C1F29C5C6B037E639FA3B49C0316A2214D2D394F6F21115BB8E5ACFC6B286981BC2978EF5F46B4953CA6F252F460341C0ED50FDE82C88C10AA5A0597883D4F9D9956C28300187D414BB825637495F343E2A1BB7127B2BF2218541AE53B3BDBC6BE5FE080E0FCE12574E38F798476D3D867E486F1EF86F24478D16EB164EC17195CD573B93ED6C6CCD81997DD629F203984703DD8D6E93AE3EFA31CDC9E96E5A091BE0A667D114240D25DC4CAE63DC825F22376875B953D61CA91F6442E9E6C243F3FFD57B7359CDD83F1F73ED636AF58B0011F579BDEC306BB8501CFB9AEECE6D2524E10F5D672"}
+------------------------
+2026-10-31 22:09:41 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:41 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 78
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
+------------------------
+2026-10-31 22:09:41 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=200 state=3
+2026-10-31 22:09:41 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=200 档位=2 理智返还=9 合成玉 1080->1190
+2026-10-31 22:09:41 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 523
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"E5CA1DC5A1523F26289FB33CEBC7AF3CA08055045D04FCFB1B2DBEC8343DB5A0BC0F08B42B20C233CBD401651A0394323AAE99135C324633C6BC487B764BFBE8C47C7F7DF8FC39AAB2A82E3EBC7F9A3D5D77317DE00635921523A6311457711E81E893BFA8DF6242BAA843920ABB883A7BD01C86C520E994F1919583D85C746E1597C7A8B0EEEBC98676FE2B2A8493CA91E9BA88764CF7BEC7D5B99C222C8CB571EDE0F9AA044EBF6CD0083A883C81FBC974890717E42D685D6A62BBA2D1025823E5307D9CBB83F58656DE4C60B1FBBB5013A4BCBEFBFB785214624CA979105A5A00F17B9B837DE66E9814959916B7D07C5DAF5F6971431D52E543171AC255EA"}
+------------------------
+2026-10-31 22:09:41 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:42 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 78
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
+------------------------
+2026-10-31 22:09:42 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=250 state=3
+2026-10-31 22:09:42 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=250 档位=3 理智返还=6 合成玉 1190->1200
+2026-10-31 22:09:42 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 523
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"17F9F6FAC170DB831309A5FD536D45BA2085558AD37021BDF68CBFC3793469070B9BCC4D9B7E29CCA0122605D4E7F0348366B947FBCBA75EB4ADFEA867668327FC465D2210891558B4B7B3B01002D2B3E61DD84B8C448215C89780B5A18CFF2AA296375A178520F0BA38E21B4194D419D4DCA3DC0B497BADA199AD3309AADAFDFE220349D1E92C024F930423512CC6CA1D2CA04104F8CB261A9875EE79C654A62E846C5A4171A2BFD339BBE070F85E0FCDC1E4703363697161782C6ED23FB7CD4CE57C09EFA5C52EFF8B6B0A9B7896366ECEACDBA3C112401AB99E7BCB3B300EF9CF01DD6BAEBBEB35C67590A3DB57F953147E32CB815221440B8C8C429BEA14"}
+------------------------
+2026-10-31 22:09:42 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:42 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 78
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
+------------------------
+2026-10-31 22:09:43 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=300 state=3
+2026-10-31 22:09:43 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=300 档位=4 理智返还=4 合成玉 1200->1200
+2026-10-31 22:09:43 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 523
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"BCABB8554D452AEC151CA61B07816F9591522AF00300456DB88CA91A14A3AB69364631F278EAB56006AF987F0B3C5CF07BC142A9391DDAD0BA8D5A86E5DEA3660A1B822DED57EECD158F2DDCC447B0A5B5969F16E8B871D9782D219798DFBB88C7135FF626268A4A864B9B4269C2AA68E911843ABC37AF53131FFCE5664BA948F476CBC7BF8E3164FF9ACC4C2FF1A61B3CD1EF5E6E187B2E87771BF86F2D2052B748365A33261D3E1BACA4886003DCDA57AE88614E6B85B0973E362F4445FD6667E0F9179E3DEB5087E55C6CC7B0C29E63F6D2D74289AE99C47462AA9C11FA2BF06D382E631E42639AF9591A2956D775AC107B8152943F8B146AA3E7BA8CC6F6"}
+------------------------
+2026-10-31 22:09:43 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:43 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 78
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
+------------------------
+2026-10-31 22:09:43 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=325 state=3
+2026-10-31 22:09:43 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=325 档位=5 理智返还=3 合成玉 1200->1200
+2026-10-31 22:09:44 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 523
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"8E338DF786E98E89726AE390E11268957491E1A329264EAE7507860943D4E312D44D8598AD94941EB9987C38F48E43F4925B6F10902F10C1312C9ABF0A4475D86B65D16C5FFA94824831D4C1F425A4D27A65F88E3C78BE10E27E7512B388CA7733B881D0896D3CA33D86A26FC7A72B88B2D9EF19465BD85BE85F26A7FB4C5FF8AEB07BB0668F34486BAC29F8DD29F82F46A93D5F9C90EC223CD807AEECFA8617CA67DA0D921203CAC52DC2C647CD033F52E9BDE5D701EA37D8325D5A350D450BA0B6028EF8BA3006CC244CC40E8D20B30A7193FBEC1707B300F453FD2DB4579B2FD52CCB73D2B7DD70741CEAAAC6F84AE630581B5BA58EFF19D516BC346DBACC"}
+------------------------
+2026-10-31 22:09:44 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
+2026-10-31 22:09:44 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-31 22:09:44 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
 URL: /account/syncPushMessage
 Method: POST
 Status: 200
@@ -215,17 +404,147 @@ Headers:
   content-type: application/json
   host: 127.0.0.1:10029
   secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 39
+  seqnum: 11
   te: identity
   uid: 10000001
   user-agent: BestHTTP
 Body:
 {}
 ------------------------
-2026-10-30 12:58:49 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 12:58:51 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:58:51 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:58:51 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+2026-10-31 22:09:44 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:44 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 78
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
+------------------------
+2026-10-31 22:09:44 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=350 state=3
+2026-10-31 22:09:44 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=350 档位=6 理智返还=2 合成玉 1200->1200
+2026-10-31 22:09:44 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 523
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"DC9E77C1987BA3D8F86E1E0869A8F12884D0F56E08AA7A6E1A58C575E328094B04DFA5E6B68FC23BF08C3FD00AC87FBED9C5599E09F677C06E6A050845FB94FC277814ED9AB69E049ED76E9BBF04E89C42C74B9CED3D0428AE94D56493AEE67178D8F24EEC6B1AEC0CA86138DF3366F6E44D6A1CDB12412A813AAACAA06A84DDCDAD8D61ECEB98A1BB999539AE29560B5830F998066D9CD9B80201D02D8CCF4F17AC67F18847D60CFFCCBC89B66D708137AB2070999E6D103146E1A5DFCDCA5E8719732D22BA4B84A7CD12B9D700C34E27E8AC652B5AF3B27BA51A0C275BA838B7FD70433982A500657E4108A6B1AD2C9042EE22F1CEFE1CCA603D14057C61B1"}
+------------------------
+2026-10-31 22:09:45 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:45 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 78
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
+------------------------
+2026-10-31 22:09:45 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=375 state=3
+2026-10-31 22:09:45 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=375 档位=7 理智返还=1 合成玉 1200->1200
+2026-10-31 22:09:45 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 523
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"03AB71F0E6BD5D9E68D738A159F3DD441197E7E700A24877A71C3CF1E27241ED64312FC9D0A08025758527AD42C3D80907DB505AA3BDF1D4270E63EB577371A3F8C3B078465C6588B329B4579B0B83E172BDB15A56CDD7DE2B65285D761CFBE0969D770377821BADA55AD008B1D1B5FADB4098FF30CEE72A6F482B9F7622F170A3EDF4952A915F234E88813D29A9E0895B63F91C41D49DE0F0AFC5D44E8E25AEE9CAA07E6083403434F93072FFC0D43B10F1801F6BC3FA2D4FA9BB4066F3D5FE4A5F5199458F8F8CA9A415C9EF16496813F2A5913C3255FD88DC60CA1E4CD64EC3611FCCF0FF4251A59C9454F2A02602353BC6EF26ABCAFA60AE08215A77D7CF"}
+------------------------
+2026-10-31 22:09:45 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleStart uid=10000001 stage=camp_01
+2026-10-31 22:09:45 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleStart
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 78
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"usePracticeTicket":0,"stageId":"camp_01","squad":{"squadId":"0","slots":[]}}
+------------------------
+2026-10-31 22:09:46 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] battleFinish uid=10000001 stage=camp_01 kills=400 state=3
+2026-10-31 22:09:46 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [campaignV2] 作战 结算 camp_01 kills=400 档位=8 理智返还=0 合成玉 1200->1200
+2026-10-31 22:09:46 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /campaignV2/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 523
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"E3A67AB098342057731BC398596344606DEC79DA4ED995E62153238BA506C847107200FA17A7CF2D93A1B706FBC9614A159B5DF4B25308448B581D6E4E6CB235042A07E1D4B2FC29C17E5F47AAAE7AA8C7D3CEA41918A11C92C508DFDCA9C55FDCB84CC47115EA30329EB6FF7A8E8889FD52F6F8EB7888A5D78FC18D877731550A0180FE32A1EC8310F77A44BD9A9A5B0917A5DEAE2D17BE16A6F54747765413432B6CAD0393348AEA4CEF826DDAB6BCBF12F1ED688CBC4C97C1B974EF85BC49F9A78776D270CE8AA4941B11FCA797D050F706691CA2D01C52C1112F6A538ADFA552469D22B747FFF80FC8FE4C3CE4DFA48EEDE93B03CA60814DD02CECEA04A1"}
+------------------------
+2026-10-31 22:09:47 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [sdk] POST /event_report -> 200
+2026-10-31 22:09:49 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [sdk] POST /api/h -> 200
+2026-10-31 22:09:49 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/h
+Method: POST
+Status: 200
+Headers:
+  connection: close
+  content-length: 268
+  content-type: application/octet-stream
+  host: 127.0.0.1:10029
+  x-forwarded-host: data-p.hypergryph.com
+  x-original-url: http://8.153.94.47/api/h
+------------------------
+2026-10-31 22:09:54 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
+2026-10-31 22:09:54 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-31 22:09:54 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
 URL: /account/syncPushMessage
 Method: POST
 Status: 200
@@ -236,16 +555,17 @@ Headers:
   content-type: application/json
   host: 127.0.0.1:10029
   secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 40
+  seqnum: 12
   te: identity
   uid: 10000001
   user-agent: BestHTTP
 Body:
 {}
 ------------------------
-2026-10-30 12:59:02 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:59:02 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:59:02 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+2026-10-31 22:10:04 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
+2026-10-31 22:10:04 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [sdk] POST /api/h -> 200
+2026-10-31 22:10:04 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-31 22:10:04 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
 URL: /account/syncPushMessage
 Method: POST
 Status: 200
@@ -256,18 +576,28 @@ Headers:
   content-type: application/json
   host: 127.0.0.1:10029
   secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 41
+  seqnum: 13
   te: identity
   uid: 10000001
   user-agent: BestHTTP
 Body:
 {}
 ------------------------
-2026-10-30 12:59:03 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 12:59:04 [http-nio-10029-exec-10] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 12:59:12 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:59:12 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:59:12 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+2026-10-31 22:10:04 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/h
+Method: POST
+Status: 200
+Headers:
+  connection: close
+  content-length: 268
+  content-type: application/octet-stream
+  host: 127.0.0.1:10029
+  x-forwarded-host: data-p.hypergryph.com
+  x-original-url: http://8.153.94.47/api/h
+------------------------
+2026-10-31 22:10:14 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
+2026-10-31 22:10:14 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-31 22:10:14 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
 URL: /account/syncPushMessage
 Method: POST
 Status: 200
@@ -278,17 +608,30 @@ Headers:
   content-type: application/json
   host: 127.0.0.1:10029
   secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 42
+  seqnum: 14
   te: identity
   uid: 10000001
   user-agent: BestHTTP
 Body:
 {}
 ------------------------
-2026-10-30 12:59:19 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 12:59:22 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:59:22 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:59:22 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+2026-10-31 22:10:17 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [sdk] POST /event_report -> 200
+2026-10-31 22:10:19 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [sdk] POST /api/h -> 200
+2026-10-31 22:10:19 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/h
+Method: POST
+Status: 200
+Headers:
+  connection: close
+  content-length: 268
+  content-type: application/octet-stream
+  host: 127.0.0.1:10029
+  x-forwarded-host: data-p.hypergryph.com
+  x-original-url: http://8.153.94.47/api/h
+------------------------
+2026-10-31 22:10:24 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
+2026-10-31 22:10:24 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
+2026-10-31 22:10:24 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
 URL: /account/syncPushMessage
 Method: POST
 Status: 200
@@ -299,448 +642,23 @@ Headers:
   content-type: application/json
   host: 127.0.0.1:10029
   secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 43
+  seqnum: 15
   te: identity
   uid: 10000001
   user-agent: BestHTTP
 Body:
 {}
 ------------------------
-2026-10-30 12:59:32 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:59:32 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:59:32 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
+2026-10-31 22:10:34 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.ArknightsApplication - [sdk] POST /api/h -> 200
+2026-10-31 22:10:34 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /api/h
 Method: POST
 Status: 200
 Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
+  connection: close
+  content-length: 268
+  content-type: application/octet-stream
   host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 44
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
+  x-forwarded-host: data-p.hypergryph.com
+  x-original-url: http://8.153.94.47/api/h
 ------------------------
-2026-10-30 12:59:33 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 12:59:34 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 12:59:42 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:59:42 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:59:42 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 45
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 12:59:49 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 12:59:52 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 12:59:52 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 12:59:52 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 46
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:00:02 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:00:02 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:00:02 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 47
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:00:04 [http-nio-10029-exec-9] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 13:00:04 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:00:12 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:00:12 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:00:12 [http-nio-10029-exec-10] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 48
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:00:19 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:00:22 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:00:22 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:00:22 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 49
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:00:32 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:00:32 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:00:32 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 50
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:00:34 [http-nio-10029-exec-5] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 13:00:34 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:00:42 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:00:42 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:00:42 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 51
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:00:50 [http-nio-10029-exec-8] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:00:52 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:00:52 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:00:52 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 52
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:01:02 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:01:02 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:01:02 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 53
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:01:04 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 13:01:05 [http-nio-10029-exec-5] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:01:12 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:01:12 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:01:12 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 54
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:01:20 [http-nio-10029-exec-9] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:01:22 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:01:22 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:01:22 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 55
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:01:32 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:01:32 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:01:32 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 56
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:01:34 [http-nio-10029-exec-2] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 13:01:35 [http-nio-10029-exec-3] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:01:42 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:01:43 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:01:43 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 57
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:01:50 [http-nio-10029-exec-5] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:01:53 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncStatus
-2026-10-30 13:01:53 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - syncPM:{}
-2026-10-30 13:01:53 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /account/syncPushMessage
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 58
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:02:03 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /social/getSortListInfo
-2026-10-30 13:02:03 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.ArknightsApplication - getSortListInfo:{"param":{},"type":1,"sortKeyList":["level","infoShare"]}
-2026-10-30 13:02:03 [http-nio-10029-exec-7] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /social/getSortListInfo
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 57
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 59
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{"type":1,"sortKeyList":["level","infoShare"],"param":{}}
-------------------------
-2026-10-30 13:02:03 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /social/getFriendList
-2026-10-30 13:02:03 [http-nio-10029-exec-9] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /social/getFriendList
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 23
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 60
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{"idList":["10000000"]}
-------------------------
-2026-10-30 13:02:04 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /building/visitBuilding friendId=10000000
-2026-10-30 13:02:05 [http-nio-10029-exec-10] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 13:02:05 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [building] visitBuilding 10000000 → 社交点数 +30
-2026-10-30 13:02:05 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [visit] visitor_info 表已就绪
-2026-10-30 13:02:05 [http-nio-10029-exec-1] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:02:06 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.ArknightsApplication - [building] 访客 10000001 访问了 10000000，对方待领点数=30（lastVisitTs=1793336525）
-2026-10-30 13:02:06 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/visitBuilding
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 23
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 61
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{"friendId":"10000000"}
-------------------------
-2026-10-30 13:02:08 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /building/getInfoShareVisitorsNum
-2026-10-30 13:02:08 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/getInfoShareVisitorsNum
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 2
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 62
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{}
-------------------------
-2026-10-30 13:02:17 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /building/sendEmoji friendId=10000000 emoji=building_basic_04
-2026-10-30 13:02:17 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/sendEmoji
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 51
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 63
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{"friendId":"10000000","emoji":"building_basic_04"}
-------------------------
-2026-10-30 13:02:20 [http-nio-10029-exec-7] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h
-2026-10-30 13:02:26 [http-nio-10029-exec-8] WARN  com.hypergryph.arknights.ArknightsApplication - [building][未实现] /building/getOthersMessageBoardContent body={"uid":"10000000"}
-2026-10-30 13:02:26 [http-nio-10029-exec-8] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
-URL: /building/getOthersMessageBoardContent
-Method: POST
-Status: 200
-Headers:
-  accept-encoding: gzip
-  connection: Keep-Alive, TE
-  content-length: 18
-  content-type: application/json
-  host: 127.0.0.1:10029
-  secret: 3e0aef3f3b65d6b39a288de086e13776
-  seqnum: 64
-  te: identity
-  uid: 10000001
-  user-agent: BestHTTP
-Body:
-{"uid":"10000000"}
-------------------------
-2026-10-30 13:02:35 [http-nio-10029-exec-4] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /event_report
-2026-10-30 13:02:35 [http-nio-10029-exec-6] WARN  org.springframework.web.servlet.PageNotFound - No mapping for POST /api/h

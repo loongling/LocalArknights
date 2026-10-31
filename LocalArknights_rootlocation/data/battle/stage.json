@@ -237,8 +237,14 @@
         "main_01-05": {
             "next": "tr_08",
             "star": null,
-            "sub": null,
+            "sub": "camp_01",
             "hard": "main_01-05#f#"
+        },
+        "camp_01": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
         },
         "main_01-05#f#": {
             "next": null,
@@ -506,9 +512,21 @@
         },
         "main_02-08": {
             "next": "main_02-09",
-            "star": null,
+            "star": "camp_02",
             "sub": "sub_tr_2",
             "hard": "main_02-08#f#"
+        },
+        "camp_02": {
+            "next": "camp_03",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "camp_03": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
         },
         "main_02-08#f#": {
             "next": null,

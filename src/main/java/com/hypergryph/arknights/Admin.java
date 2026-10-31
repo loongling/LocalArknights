@@ -492,6 +492,311 @@ public class Admin {
     }
 
     /**
+     * 手动修单个账号的剿灭关卡记录：只保留「该号真正解锁到的那一关」，
+     * 其余 camp_* 条目删掉（之前一次性补 37 条会让客户端把剿灭全部显示成已解锁）。
+     * POST /admin/account/fixCampaignStages?uid=10000001&keep=camp_01
+     */
+    @RequestMapping({"/account/fixCampaignStages"})
+    public JSONObject fixCampaignStages(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                        @RequestParam(required = false, defaultValue = "camp_01") String keep) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+
+        JSONObject dungeon = userData.getJSONObject("dungeon");
+        if (dungeon == null) {
+            dungeon = new JSONObject(true);
+            userData.put("dungeon", dungeon);
+        }
+        JSONObject stages = dungeon.getJSONObject("stages");
+        if (stages == null) {
+            stages = new JSONObject(true);
+            dungeon.put("stages", stages);
+        }
+        // ① 删掉没打过（completeTimes=0 且 startTimes=0）且不在保留名单里的 camp_* 条目
+        java.util.Set<String> keepSet = new java.util.HashSet<>();
+        for (String s : keep.split(",")) {
+            String t = s.trim();
+            if (!t.isEmpty()) {
+                keepSet.add(t);
+            }
+        }
+        int removed = 0;
+        for (String id : new java.util.ArrayList<>(stages.keySet())) {
+            if (!id.startsWith("camp_") || keepSet.contains(id)) {
+                continue;
+            }
+            JSONObject one = stages.getJSONObject(id);
+            if (one == null) {
+                continue;
+            }
+            if (one.getIntValue("completeTimes") == 0 && one.getIntValue("startTimes") == 0) {
+                stages.remove(id);
+                removed++;
+            }
+        }
+        // ② 保留的关卡没有条目就补上（与官服 camp_01 字段一致）
+        int added = 0;
+        for (String id : keepSet) {
+            if (stages.containsKey(id)) {
+                continue;
+            }
+            JSONObject one = new JSONObject(true);
+            one.put("stageId", id);
+            one.put("completeTimes", 0);
+            one.put("startTimes", 0);
+            one.put("practiceTimes", 0);
+            one.put("state", 0);
+            one.put("hasBattleReplay", 0);
+            stages.put(id, one);
+            added++;
+        }
+
+        // ② mainStageProgress 按「已通关的最高主线关卡」推下一关（不能是 tr_08 这种教学关）
+        int progressFixed = 0;
+        JSONObject status = userData.getJSONObject("status");
+        if (status != null) {
+            java.util.List<String> cleared = new java.util.ArrayList<>();
+            for (String id : stages.keySet()) {
+                if (id.startsWith("main_") && id.indexOf('#') < 0
+                        && stages.getJSONObject(id).getIntValue("state") == 3) {
+                    cleared.add(id);
+                }
+            }
+            java.util.Collections.sort(cleared);
+            if (!cleared.isEmpty()) {
+                String highest = cleared.get(cleared.size() - 1);
+                String next = highest;
+                try {
+                    String path = System.getProperty("user.dir") + "/data/excel/stage_table.json";
+                    JSONObject table = JSONObject.parseObject(new String(
+                            java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                            java.nio.charset.StandardCharsets.UTF_8)).getJSONObject("stages");
+                    java.util.List<String> allMain = new java.util.ArrayList<>();
+                    for (String id : table.keySet()) {
+                        if (id.startsWith("main_") && id.indexOf('#') < 0) {
+                            allMain.add(id);
+                        }
+                    }
+                    java.util.Collections.sort(allMain);
+                    int idx = allMain.indexOf(highest);
+                    if (idx >= 0 && idx + 1 < allMain.size()) {
+                        next = allMain.get(idx + 1);
+                    }
+                } catch (Exception e) {
+                    ArknightsApplication.LOGGER.warn("[GM] 读取 stage_table 失败: " + e.toString());
+                }
+                String msp = status.getString("mainStageProgress");
+                if (msp == null || !msp.equals(next)) {
+                    status.put("mainStageProgress", next);
+                    progressFixed = 1;
+                }
+            }
+        }
+
+        // ③ campaignsV2 补齐成官服模板
+        int campaignFixed = com.hypergryph.arknights.core.work.processArray.repairCampaignsV2(userData);
+
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "uid " + uid + " 已修复：补剿灭关卡 " + added + " 条，mainStageProgress "
+                + progressFixed + " 处，剿灭结构 " + campaignFixed + " 处");
+        return result;
+    }
+
+    /**
+     * 重置某个剿灭关的击杀记录与破关奖励领取状态（测试用）。
+     * POST /admin/campaign/resetReward?uid=10000001&stage=camp_01
+     */
+    @RequestMapping({"/campaign/resetReward"})
+    public JSONObject resetCampaignReward(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                          @RequestParam String stage) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject camp = userData.getJSONObject("campaignsV2");
+        JSONObject inst = camp == null ? null
+                : camp.getJSONObject("instances") == null ? null
+                : camp.getJSONObject("instances").getJSONObject(stage);
+        if (inst == null) {
+            result.put("code", 404);
+            result.put("msg", "该账号没有 " + stage + " 的剿灭记录");
+            return result;
+        }
+        inst.put("maxKills", 0);
+        com.alibaba.fastjson.JSONArray rs = new com.alibaba.fastjson.JSONArray();
+        for (int i = 0; i < 8; i++) {
+            rs.add(0);
+        }
+        inst.put("rewardStatus", rs);
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", uid + " 的 " + stage + " 已重置（maxKills=0，rewardStatus 全 0）");
+        return result;
+    }
+
+    /**
+     * 手动跑一次剿灭解锁判定（按 stage_table 的 unlockCondition），用于已有存档。
+     * POST /admin/campaign/syncUnlock?uid=10000001
+     */
+    @RequestMapping({"/campaign/syncUnlock"})
+    public JSONObject syncCampaignUnlock(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                         @RequestParam(required = false, defaultValue = "false") Boolean prune) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        int removed = 0;
+        if (Boolean.TRUE.equals(prune)) {
+            // 先把「没打过又不满足解锁条件」的 camp_* 清掉，再按条件重新解锁
+            JSONObject stages = userData.getJSONObject("dungeon").getJSONObject("stages");
+            for (String id : new java.util.ArrayList<>(stages.keySet())) {
+                if (!id.startsWith("camp_")) {
+                    continue;
+                }
+                JSONObject one = stages.getJSONObject(id);
+                if (one.getIntValue("completeTimes") == 0 && one.getIntValue("startTimes") == 0) {
+                    stages.remove(id);
+                    removed++;
+                }
+            }
+        }
+        int added = com.hypergryph.arknights.game.quest.unlockCampaignStages(userData, null, null);
+        // 永久剿灭（camp_01/02/03）由主表 stage.json 的 sub/star/next 链决定，这里一并重算
+        int mainAdded = com.hypergryph.arknights.game.quest.applyStageUnlocks(userData);
+        userDao.setUserData(account.getUid(), userData);
+        JSONObject stages = userData.getJSONObject("dungeon").getJSONObject("stages");
+        java.util.List<String> camp = new java.util.ArrayList<>();
+        for (String id : stages.keySet()) {
+            if (id.startsWith("camp_")) {
+                camp.add(id);
+            }
+        }
+        java.util.Collections.sort(camp);
+        result.put("code", 200);
+        result.put("msg", "uid " + uid + " 清理 " + removed + " 张、campaignStages 解锁 " + added
+                + " 张、主表链解锁 " + mainAdded + " 张，当前共 " + camp.size() + " 张");
+        result.put("campaignStages", camp);
+        return result;
+    }
+
+    /**
+     * 标记主线关卡通关（用于验证剿灭解锁规则）。
+     * 1-5 解锁常驻剿灭，2-8 解锁轮换/训练场。
+     * POST /admin/campaign/unlock?uid=10000000&stage=main_01-05
+     */
+    @RequestMapping({"/campaign/unlock"})
+    public JSONObject unlockCampaign(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                     @RequestParam(required = false, defaultValue = "main_01-05") String stage) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject stageMap = userData.getJSONObject("stage");
+        if (stageMap == null) {
+            stageMap = new JSONObject(true);
+            userData.put("stage", stageMap);
+        }
+        JSONObject one = new JSONObject(true);
+        one.put("stageId", stage);
+        one.put("completedTimes", 1);
+        one.put("practiceTimes", 0);
+        one.put("state", 3);
+        one.put("progress", 100);
+        one.put("hasBattleReplay", 0);
+        stageMap.put(stage, one);
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已标记 " + stage + " 通关（1-5 解锁常驻剿灭，2-8 解锁轮换/训练场）");
+        return result;
+    }
+
+    /**
+     * 把会客室 lastUpdateTime 往前推 N 小时（测试自动收集线索用）。
+     * POST /admin/building/fastForward?uid=10000001&hours=20
+     */
+    @RequestMapping({"/building/fastForward"})
+    public JSONObject fastForward(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                  @RequestParam(required = false, defaultValue = "20") Integer hours) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject rooms = userData.getJSONObject("building").getJSONObject("rooms");
+        long back = (long) (hours == null ? 20 : hours) * 3600L;
+        int n = 0;
+        for (String type : new String[]{"MEETING", "MANUFACTURE", "TRADING"}) {
+            JSONObject bucket = rooms == null ? null : rooms.getJSONObject(type);
+            if (bucket == null) continue;
+            for (String slotId : bucket.keySet()) {
+                JSONObject node = bucket.getJSONObject(slotId);
+                if (node == null) continue;
+                long last = node.getLongValue("lastUpdateTime");
+                if (last > 0) {
+                    node.put("lastUpdateTime", last - back);
+                    n++;
+                }
+            }
+        }
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已把 " + n + " 个房间的 lastUpdateTime 往前推 " + hours + " 小时");
+        return result;
+    }
+
+    /**
      * 把留言板 lastUpdateSpTs 往前推 N 天（测试「自然周翻转」用）。
      * POST /admin/building/shiftSpWeek?uid=10000001&days=8
      */

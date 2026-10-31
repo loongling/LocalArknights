@@ -869,6 +869,100 @@ public class quest {
 
         ArknightsApplication.LOGGER.info("UNLS:" + unlockStages);
         ArknightsApplication.LOGGER.info("UNLSO:" + unlockStagesObject);
+
+        // ========== 4. 剿灭作战解锁 ==========
+        // 永久开放的三张（camp_01/02/03）走主表 data/battle/stage.json 的 sub/star/next 链：
+        //   main_01-05.sub = camp_01、main_02-08.star = camp_02、camp_02.next = camp_03
+        // 这里只处理 data/battle/campaignStages.json 里的非永久关卡（camp_r_*）。
+        int campUnlocked = unlockCampaignStages(UserSyncData, unlockStages, unlockStagesObject);
+        if (campUnlocked > 0) {
+            ArknightsApplication.LOGGER.info("[quest] 剿灭解锁 " + campUnlocked + " 张图");
+        }
+    }
+
+    public static int applyStageUnlocks(JSONObject UserSyncData) {
+        JSONObject dungeon = UserSyncData.getJSONObject("dungeon");
+        JSONObject stages = dungeon == null ? null : dungeon.getJSONObject("stages");
+        JSONObject table = ArknightsApplication.mainStage;
+        if (stages == null || table == null) {
+            return 0;
+        }
+        int added = 0;
+        java.util.List<String> cleared = new java.util.ArrayList<>(stages.keySet());
+        java.util.Collections.sort(cleared);
+        for (String id : cleared) {
+            JSONObject entry = stages.getJSONObject(id);
+            if (entry == null || entry.getIntValue("state") != 3) {
+                continue;
+            }
+            JSONObject cfg = table.getJSONObject(id);
+            if (cfg == null) {
+                continue;
+            }
+            java.util.List<String> targets = new java.util.ArrayList<>();
+            targets.add(cfg.getString("next"));
+            targets.add(cfg.getString("sub"));
+            targets.add(cfg.getString("hard"));
+            targets.add(cfg.getString("star"));
+            for (String target : targets) {
+                if (target == null || target.isEmpty() || target.equals(id) || stages.containsKey(target)) {
+                    continue;
+                }
+                JSONObject one = new JSONObject(true);
+                one.put("stageId", target);
+                one.put("hasBattleReplay", 0);
+                one.put("practiceTimes", 0);
+                one.put("completeTimes", 0);
+                one.put("state", 0);
+                one.put("startTimes", 0);
+                stages.put(target, one);
+                added++;
+            }
+        }
+        return added;
+    }
+
+    public static int unlockCampaignStages(JSONObject UserSyncData, JSONArray unlockStages,
+                                           JSONArray unlockStagesObject) {
+        JSONObject dungeon = UserSyncData.getJSONObject("dungeon");
+        JSONObject stages = dungeon == null ? null : dungeon.getJSONObject("stages");
+        JSONObject table = ArknightsApplication.campaignStages;
+        if (stages == null || table == null || table.isEmpty()) {
+            return 0;
+        }
+        int added = 0;
+        java.util.List<String> ids = new java.util.ArrayList<>(table.keySet());
+        java.util.Collections.sort(ids);
+        for (String id : ids) {
+            if (stages.containsKey(id)) {
+                continue;
+            }
+            JSONObject cfg = table.getJSONObject(id);
+            String needId = cfg == null ? null : cfg.getString("unlock");
+            if (needId == null || needId.isEmpty()) {
+                continue;
+            }
+            JSONObject needStage = stages.getJSONObject(needId);
+            if (needStage == null || needStage.getIntValue("state") != 3) {
+                continue;
+            }
+            JSONObject entry = new JSONObject(true);
+            entry.put("stageId", id);
+            entry.put("hasBattleReplay", 0);
+            entry.put("practiceTimes", 0);
+            entry.put("completeTimes", 0);
+            entry.put("state", 0);
+            entry.put("startTimes", 0);
+            stages.put(id, entry);
+            if (unlockStages != null) {
+                unlockStages.add(id);
+            }
+            if (unlockStagesObject != null) {
+                unlockStagesObject.add(entry);
+            }
+            added++;
+        }
+        return added;
     }
 
     private void addStageUnlock(JSONObject UserSyncData, String currentStageId, String targetStageId,

@@ -57,6 +57,7 @@ public class ArknightsApplication {
     public static JSONObject stageTable;
     public static JSONObject itemTable;
     public static JSONObject mainStage;
+    public static JSONObject campaignStages;   // data/battle/campaignStages.json → CampaignStage（非永久剿灭关）
     public static JSONObject normalGachaData;
     public static JSONObject uniequipTable;
     public static JSONObject charPatchTable;   // char_patch_table.json（阿米娅三套模板）
@@ -80,6 +81,7 @@ public class ArknightsApplication {
     public static JSONObject unlockActivity;
     public static JSONObject buildingData;
     public static JSONObject storyTable;
+    public static JSONObject CAMPAIGN_TABLE;
     public static JSONObject ClassicGoodList;
     public static CommandManager ConsoleCommandManager;
     public static ICommandSender Sender;
@@ -361,6 +363,17 @@ public class ArknightsApplication {
         stageTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/stage_table.json").getJSONObject("stages");
         itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json").getJSONObject("items");
         mainStage = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/stage.json").getJSONObject("MainStage");
+        CAMPAIGN_TABLE = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/campaign_table.json");
+        try {
+            JSONObject campaignRaw = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/campaignStages.json");
+            campaignStages = campaignRaw == null ? new JSONObject() : campaignRaw.getJSONObject("CampaignStage");
+            if (campaignStages == null) {
+                campaignStages = new JSONObject();
+            }
+        } catch (Exception e) {
+            ArknightsApplication.LOGGER.warn("[init] campaignStages.json 读取失败: " + e.toString());
+            campaignStages = new JSONObject();
+        }
         uniequipTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/uniequip_table.json").getJSONObject("equipDict");
         charPatchTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/char_patch_table.json");
         com.hypergryph.arknights.core.voucher.VoucherTable.load();
