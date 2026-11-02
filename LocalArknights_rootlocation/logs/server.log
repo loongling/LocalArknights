@@ -9838,3 +9838,258 @@ Headers:
 Body:
 {"modules":3719,"params":{}}
 ------------------------
+2026-11-02 22:40:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 25580 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-v 0.5.3.0 Beta.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-11-02 22:40:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-11-02 22:40:03 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-11-02 22:40:03 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-11-02 22:40:03 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-11-02 22:40:03 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-02 22:40:03 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-11-02 22:40:03 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-02 22:40:03 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1012 ms
+2026-11-02 22:40:04 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-11-02 22:40:04 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-11-02 22:40:04 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-11-02 22:40:04 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.774 seconds (JVM running for 2.612)
+2026-11-02 22:40:04 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-11-02 22:40:04 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-11-02 22:40:06 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-02 22:40:06 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-11-02 22:40:06 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-11-02 22:40:06 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncData
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2635ms
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.0.46-0ubuntu0.24.04.4
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 v0.5.1.5 Beta
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本1: CN Android 2.7.81
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本2: CN Windows 2.7.81:
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本3: Global Android 37.7.41
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月19日 12:00:00
+2026-11-02 22:40:06 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 JG!@~%/M!Db#!%!!b$!80R$Ak/~/#0~1075nQA863iSZ3kH1%T#7#NR472~@/!14
+2026-11-02 22:40:07 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-11-02 22:40:07 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-11-02 22:40:07 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [V3见习] refresh 被调用
+2026-11-02 22:40:07 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [MissionHelper] SUB 组共 79 个
+2026-11-02 22:40:07 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - 用户数据同步成功, UID: 10000001
+2026-11-02 22:40:07 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncData
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 14
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+------------------------
+2026-11-02 22:40:08 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /tower/createGame tower=tower_tr_01 isHard=false
+2026-11-02 22:40:08 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [tower] 创建派驻 tower_tr_01 共 1 层
+2026-11-02 22:40:08 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /tower/createGame
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 34
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"tower":"tower_tr_01","isHard":0}
+------------------------
+2026-11-02 22:40:08 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /tower/battleStart stage=lt_tr_01
+2026-11-02 22:40:08 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /tower/battleStart
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 70
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"stageId":"lt_tr_01","squad":{"squadId":null,"name":null,"slots":[]}}
+------------------------
+2026-11-02 22:40:08 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /tower/battleFinish
+2026-11-02 22:40:08 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [tower] battleFinish state=3 kill=0 pass=true
+2026-11-02 22:40:09 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /tower/battleFinish
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 44
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"data":"","battleData":{"completeState":3}}
+------------------------
+2026-11-02 22:40:09 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /tower/settleGame
+2026-11-02 22:40:09 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.ArknightsApplication - [tower] 保全演练 tower_tr_01 通关，正式玩法已解锁
+2026-11-02 22:40:09 [http-nio-10029-exec-5] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /tower/settleGame
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 2
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{}
+------------------------
+2026-11-02 22:40:09 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncData
+2026-11-02 22:40:09 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.ArknightsApplication - [V3见习] refresh 被调用
+2026-11-02 22:40:10 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.game.account - 用户数据同步成功, UID: 10000001
+2026-11-02 22:40:10 [http-nio-10029-exec-6] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncData
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 14
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+------------------------
+2026-11-02 22:43:58 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Starting ArknightsApplication using Java 21.0.11 on LoongLing with PID 6224 (C:\javacode\LocalArknights\LocalArknights_rootlocation\hypergryph-v 0.5.3.0 Beta.jar started by lingj in C:\javacode\LocalArknights\LocalArknights_rootlocation)
+2026-11-02 22:43:58 [main] INFO  com.hypergryph.arknights.ArknightsApplication - The following 1 profile is active: "default"
+2026-11-02 22:43:59 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 36650 (http) 10029 (http)
+2026-11-02 22:43:59 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-36650"]
+2026-11-02 22:43:59 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-10029"]
+2026-11-02 22:43:59 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-02 22:43:59 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-11-02 22:43:59 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-02 22:43:59 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 741 ms
+2026-11-02 22:43:59 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-36650"]
+2026-11-02 22:43:59 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-10029"]
+2026-11-02 22:43:59 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 36650 (http) 10029 (http) with context path ''
+2026-11-02 22:43:59 [main] INFO  com.hypergryph.arknights.ArknightsApplication - Started ArknightsApplication in 1.362 seconds (JVM running for 2.042)
+2026-11-02 22:43:59 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入服务器配置...
+2026-11-02 22:43:59 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入游戏数据...
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 载入完成，耗时：2485ms
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 检测数据库版本中...
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 数据库版本 8.0.46-0ubuntu0.24.04.4
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端版本 v0.5.1.5 Beta
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本1: CN Android 2.7.81
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本2: CN Windows 2.7.81:
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 客户端版本3: Global Android 37.7.41
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 构建时间 2026年10月19日 12:00:00
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 管理员密钥 JG!@~%/M!Db#!%!!b$!80R$Ak/~/#0~1075nQA863iSZ3kH1%T#7#NR472~@/!14
+2026-11-02 22:44:02 [http-nio-10029-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-02 22:44:02 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-11-02 22:44:02 [http-nio-10029-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-11-02 22:44:02 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - [/10.100.193.62] /account/syncData
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 服务端更新日志:
+2026-11-02 22:44:02 [main] INFO  com.hypergryph.arknights.ArknightsApplication - 启动完成! 如果需要获取帮助,请输入 "help"
+2026-11-02 22:44:02 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [V3见习] refresh 被调用
+2026-11-02 22:44:03 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.ArknightsApplication - [MissionHelper] SUB 组共 79 个
+2026-11-02 22:44:03 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.game.account - 用户数据同步成功, UID: 10000001
+2026-11-02 22:44:03 [http-nio-10029-exec-1] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /account/syncData
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 14
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+------------------------
+2026-11-02 22:44:03 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /tower/createGame tower=tower_tr_01 isHard=false
+2026-11-02 22:44:03 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.ArknightsApplication - [tower] 创建派驻 tower_tr_01 共 1 层
+2026-11-02 22:44:03 [http-nio-10029-exec-2] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /tower/createGame
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 34
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"tower":"tower_tr_01","isHard":0}
+------------------------
+2026-11-02 22:44:03 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /tower/createGame tower=tower_tr_02 isHard=false
+2026-11-02 22:44:04 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.ArknightsApplication - [tower] 创建派驻 tower_tr_02 共 1 层
+2026-11-02 22:44:04 [http-nio-10029-exec-3] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /tower/createGame
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 34
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"tower":"tower_tr_02","isHard":0}
+------------------------
+2026-11-02 22:44:04 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.ArknightsApplication - [/10.100.193.62] /tower/createGame tower=tower_tr_03 isHard=false
+2026-11-02 22:44:04 [http-nio-10029-exec-4] INFO  com.hypergryph.arknights.HttpRequestLoggerInterceptor - ----- HTTP Request -----
+URL: /tower/createGame
+Method: POST
+Status: 200
+Headers:
+  accept: */*
+  accept-encoding: gzip, deflate
+  accept-language: *
+  connection: keep-alive
+  content-length: 34
+  content-type: application/json
+  host: 127.0.0.1:10029
+  sec-fetch-mode: cors
+  secret: 3e0aef3f3b65d6b39a288de086e13776
+  user-agent: node
+Body:
+{"tower":"tower_tr_03","isHard":0}
+------------------------
