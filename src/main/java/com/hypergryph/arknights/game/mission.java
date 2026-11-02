@@ -111,6 +111,132 @@ public class mission {
         return result;
     }
 
+
+    @PostMapping(
+            value = {"/confirmMissionList"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject confirmMissionList(@RequestHeader(value = "secret", required = false) String secret,
+                                         @RequestBody(required = false) JSONObject JsonBody,
+                                         HttpServletResponse response, HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        JSONArray ids = null;
+        if (JsonBody != null) {
+            ids = JsonBody.getJSONArray("missionIds");
+            if (ids == null) {
+                ids = JsonBody.getJSONArray("missionIdList");
+            }
+            if (ids == null) {
+                ids = JsonBody.getJSONArray("missions");
+            }
+            if (ids == null && JsonBody.getString("missionId") != null) {
+                ids = new JSONArray();
+                ids.add(JsonBody.getString("missionId"));
+            }
+        }
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /mission/confirmMissionList " + ids);
+
+        JSONObject result = new JSONObject(true);
+        List<Account> Accounts = userDao.queryAccountBySecret(secret);
+        if (Accounts.size() != 1) {
+            result.put("result", 2);
+            result.put("error", "无法查询到此账户");
+            return result;
+        }
+        Account account = (Account) Accounts.get(0);
+        Long uid = account.getUid();
+        if (account.getBan() == 1L) {
+            response.setStatus(500);
+            JSONObject err = new JSONObject(true);
+            err.put("statusCode", 403);
+            err.put("error", "Bad Request");
+            err.put("message", "error");
+            return err;
+        }
+        JSONObject UserSyncData = JSONObject.parseObject(account.getUser());
+
+        JSONArray items = new JSONArray();
+        JSONArray claimed = new JSONArray();
+        if (ids != null) {
+            boolean touchedDailyOrWeekly = false;
+            for (int i = 0; i < ids.size(); i++) {
+                String missionId = ids.getString(i);
+                if (missionId == null || MissionHelper.entry(missionId) == null) {
+                    ArknightsApplication.LOGGER.warn("[confirmMissionList] 未知任务 {}", missionId);
+                    continue;
+                }
+                String type = MissionHelper.typeOf(missionId);
+                JSONObject bucket = type == null ? null : MissionHelper.missionsOfType(UserSyncData, type, false);
+                JSONObject node = bucket == null ? null : bucket.getJSONObject(missionId);
+                if (node == null) {
+                    ArknightsApplication.LOGGER.warn("[confirmMissionList] 存档里没有任务 {}", missionId);
+                    continue;
+                }
+                int state = node.getIntValue("state");
+                if (state == 3) {
+                    continue;                     // 已领取
+                }
+                if (state != 2) {
+                    ArknightsApplication.LOGGER.warn("[confirmMissionList] {} 未解锁（state={}）", missionId, state);
+                    continue;
+                }
+                JSONArray progress = node.getJSONArray("progress");
+                boolean done = progress == null || progress.isEmpty();
+                if (progress != null && !progress.isEmpty()) {
+                    done = true;
+                    for (int k = 0; k < progress.size(); k++) {
+                        JSONObject p = progress.getJSONObject(k);
+                        if (p.getIntValue("value") < p.getIntValue("target")) {
+                            done = false;
+                            break;
+                        }
+                    }
+                }
+                if (!done) {
+                    ArknightsApplication.LOGGER.warn("[confirmMissionList] {} 未完成，跳过", missionId);
+                    continue;
+                }
+                JSONArray got = MissionHelper.grantRewards(UserSyncData, missionId);
+                for (int k = 0; k < got.size(); k++) {
+                    items.add(got.getJSONObject(k));
+                }
+                MissionHelper.setClaimed(UserSyncData, missionId);
+                MissionHelper.addPoint(UserSyncData, missionId);
+                claimed.add(missionId);
+                if ("DAILY".equals(type) || "WEEKLY".equals(type)) {
+                    touchedDailyOrWeekly = true;
+                }
+            }
+            if (touchedDailyOrWeekly) {
+                JSONArray bonus = MissionHelper.grantPointRewards(UserSyncData, "DAILY");
+                for (int k = 0; k < bonus.size(); k++) {
+                    items.add(bonus.getJSONObject(k));
+                }
+                bonus = MissionHelper.grantPointRewards(UserSyncData, "WEEKLY");
+                for (int k = 0; k < bonus.size(); k++) {
+                    items.add(bonus.getJSONObject(k));
+                }
+            }
+        }
+        // 批量领取后按条件重算见习任务（分组解锁推进）
+        MissionHelper.refreshGuideV3(UserSyncData);
+        userDao.setUserData(uid, UserSyncData);
+
+        JSONObject modified = new JSONObject(true);
+        modified.put("mission", UserSyncData.getJSONObject("mission"));
+        modified.put("inventory", UserSyncData.getJSONObject("inventory"));
+        modified.put("status", UserSyncData.getJSONObject("status"));
+        modified.put("openServerV3", UserSyncData.getJSONObject("openServerV3"));
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+
+        result.put("items", items);
+        result.put("playerDataDelta", playerDataDelta);
+        ArknightsApplication.LOGGER.info("[confirmMissionList] 领取 " + claimed.toJSONString()
+                + " items=" + items.toJSONString());
+        return result;
+    }
     @PostMapping(
             value = {"/autoConfirmMissions"},
             produces = {"application/json;charset=UTF-8"}

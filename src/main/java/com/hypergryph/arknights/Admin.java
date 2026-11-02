@@ -751,6 +751,46 @@ public class Admin {
     }
 
     /**
+     * 重建某个账号的 V3 见习任务（清掉测试残留的已领取记录，按条件重新解锁）。
+     * POST /admin/opv3/resetGuideV3?uid=10000001
+     */
+    @RequestMapping({"/opv3/resetGuideV3"})
+    public JSONObject opv3ResetGuide(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject mission = userData.getJSONObject("mission");
+        if (mission != null && mission.getJSONObject("missions") != null) {
+            mission.getJSONObject("missions").remove("GUIDE_V3");
+        }
+        com.hypergryph.arknights.core.function.MissionHelper.ensureGuideV3(userData);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
+        userDao.setUserData(account.getUid(), userData);
+        JSONObject bucket = userData.getJSONObject("mission").getJSONObject("missions").getJSONObject("GUIDE_V3");
+        int locked = 0, doing = 0, claimed = 0;
+        for (String id : bucket.keySet()) {
+            int s = bucket.getJSONObject(id).getIntValue("state");
+            if (s == 1) locked++; else if (s == 2) doing++; else if (s == 3) claimed++;
+        }
+        result.put("code", 200);
+        result.put("total", bucket.size());
+        result.put("locked", locked);
+        result.put("inProgress", doing);
+        result.put("claimed", claimed);
+        return result;
+    }
+    /**
      * 测试用：把某个账号的 V3 节点整个删掉（验证 syncData 自愈补齐）。
      * POST /admin/opv3/strip?uid=10000000
      */

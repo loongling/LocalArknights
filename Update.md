@@ -1,3 +1,8 @@
+# v0.5.5.1 Beta
+
+## 修复的BUG
+1. 修复了openServerV3的逻辑问题
+
 # v0.5.5.0 Beta
 
 ## 修复的BUG

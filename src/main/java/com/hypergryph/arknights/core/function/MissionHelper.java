@@ -88,7 +88,7 @@ public final class MissionHelper {
         return user.getJSONObject("mission");
     }
 
-    private static JSONObject missionsOfType(JSONObject user, String type, boolean create) {
+    public static JSONObject missionsOfType(JSONObject user, String type, boolean create) {
         JSONObject missions = missionRoot(user).getJSONObject("missions");
         JSONObject bucket = missions.getJSONObject(type);
         if (bucket == null && create) {
@@ -713,6 +713,24 @@ public final class MissionHelper {
             fo.put("remain", 0);
             v3.put("fullOpen", fo);
             changed = true;
+        }
+        JSONObject missionGroups = root.getJSONObject("missionGroups");
+        if (missionGroups == null) {
+            missionGroups = new JSONObject(true);
+            root.put("missionGroups", missionGroups);
+            changed = true;
+        }
+        if (!missionGroups.containsKey("newguide_g_1") || missionGroups.getIntValue("newguide_g_1") != 1) {
+            missionGroups.put("newguide_g_1", 1);
+            changed = true;
+        }
+        // 清掉历史遗留的 newguide_g_2..6 = 0（客户端里这些阶段应当「不存在」，而不是 0）
+        for (String stale : new String[]{"newguide_g_2", "newguide_g_3", "newguide_g_4",
+                "newguide_g_5", "newguide_g_6"}) {
+            if (missionGroups.containsKey(stale) && missionGroups.getIntValue(stale) == 0) {
+                missionGroups.remove(stale);
+                changed = true;
+            }
         }
         if (refreshGuideV3(user)) {
             changed = true;
@@ -1571,6 +1589,8 @@ public final class MissionHelper {
 
         boolean prevDone = true;
         for (String g : groupOrder) {
+            // 阶段页签开关就是 mission.missionGroups[newguide_g_N]：1=开放，0=锁定
+            writeMissionGroup(user, g, prevDone ? 1 : 0);
             for (String id : groups.get(g)) {
                 JSONObject node = bucket.getJSONObject(id);
                 if (node == null || node.getIntValue("state") == 3) {
@@ -1607,8 +1627,86 @@ public final class MissionHelper {
             }
             prevDone = prevDone && groupDone.getOrDefault(g, 0) == 1;
         }
+        if (recomputeV3Point(user)) {
+            changed = true;
+        }
         return changed;
     }
+
+    private static boolean writeMissionGroup(JSONObject user, String groupId, int open) {
+        if (open != 1) {
+            return false;                       // 锁定阶段不建 key
+        }
+        JSONObject mission = user.getJSONObject("mission");
+        if (mission == null) {
+            mission = new JSONObject(true);
+            user.put("mission", mission);
+        }
+        JSONObject groups = mission.getJSONObject("missionGroups");
+        if (groups == null) {
+            groups = new JSONObject(true);
+            mission.put("missionGroups", groups);
+        }
+        if (groups.containsKey(groupId) && groups.getIntValue(groupId) == 1) {
+            return false;
+        }
+        groups.put(groupId, 1);
+        ArknightsApplication.LOGGER.info("[V3见习] 阶段 {} 解锁", groupId);
+        return true;
+    }
+
+    public static boolean recomputeV3Point(JSONObject user) {
+        if (user == null) {
+            return false;
+        }
+        JSONObject v3 = user.getJSONObject("openServerV3");
+        if (v3 == null) {
+            return false;
+        }
+        JSONObject missionNode = v3.getJSONObject("mission");
+        if (missionNode == null) {
+            missionNode = new JSONObject(true);
+            v3.put("mission", missionNode);
+        }
+        JSONObject milestone = missionNode.getJSONObject("milestone");
+        if (milestone == null) {
+            milestone = new JSONObject(true);
+            milestone.put("groupId", "new_bp_g_1");
+            milestone.put("point", 0);
+            milestone.put("got", new JSONArray());
+            missionNode.put("milestone", milestone);
+        }
+        JSONObject bucket = missionsOfType(user, "GUIDE_V3", false);
+        JSONObject defs = openServerMissions();
+        int total = 0;
+        if (bucket != null) {
+            for (String id : bucket.keySet()) {
+                JSONObject node = bucket.getJSONObject(id);
+                if (node == null || node.getIntValue("state") != 3) {
+                    continue;
+                }
+                JSONObject def = defs.getJSONObject(id);
+                JSONArray rewards = def == null ? null : def.getJSONArray("rewards");
+                if (rewards == null) {
+                    continue;
+                }
+                for (int k = 0; k < rewards.size(); k++) {
+                    JSONObject r = rewards.getJSONObject(k);
+                    if ("OPEN_SERVER_CREDIT".equals(r.getString("type"))) {
+                        total += r.getIntValue("count");
+                    }
+                }
+            }
+        }
+        int old = milestone.getIntValue("point");
+        if (old != total) {
+            milestone.put("point", total);
+            ArknightsApplication.LOGGER.info("[V3见习] 积分重算 {} → {}", old, total);
+            return true;
+        }
+        return false;
+    }
+
     public static boolean dailyCheckInV3(JSONObject user) {
         if (user == null) {
             return false;

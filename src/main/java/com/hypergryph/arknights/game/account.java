@@ -237,15 +237,15 @@ public class account {
                     }
                 }
             }
-            try {
-                if (com.hypergryph.arknights.core.function.MissionHelper.dailyCheckInV3(UserSyncData)) {
-                    userDao.setUserData(uid, UserSyncData);
-                }
-            } catch (Exception e) {
-                LOGGER.warn("[syncData] V3 签到解锁失败: " + e.toString());
-            }
             if (canCheck) {
                 UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);
+                try {
+                    if (com.hypergryph.arknights.core.function.MissionHelper.dailyCheckInV3(UserSyncData)) {
+                        userDao.setUserData(uid, UserSyncData);
+                    }
+                } catch (Exception e) {
+                    LOGGER.warn("[syncData] V3 签到解锁失败: " + e.toString());
+                }
             }
             UserSyncData.getJSONObject("status").put("lastOnlineTs", System.currentTimeMillis() / 1000L);
             UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);

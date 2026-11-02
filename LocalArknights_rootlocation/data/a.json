@@ -19150,7 +19150,15 @@
         "curGroupId": "gM_95"
       },
       "oneTime": {
-        "info": []
+        "info": [
+          {
+            "id": "GP_Once_206",
+            "count": 1
+          },
+          {
+            "$ref": "$.shop.GP.oneTime.info[0]"
+          }
+        ]
       },
       "backflow": {
         "info": []
@@ -19305,9 +19313,15 @@
       }
     },
     "LS": {
-      "info": [],
+      "info": [
+        {
+          "id": "LS_lggShdShopnumber91_2",
+          "count": 1
+        }
+      ],
       "curShopId": "",
-      "curGroupId": ""
+      "curGroupId": "",
+      "lggCostTotal": 8
     },
     "CASH": {
       "info": []
@@ -19318,11 +19332,214 @@
       }
     },
     "FURNI": {
-      "info": []
+      "info": [
+        {
+          "id": "s1_01_3",
+          "count": 1
+        },
+        {
+          "id": "inkArt_1",
+          "count": 1
+        },
+        {
+          "id": "inkArt_2",
+          "count": 1
+        },
+        {
+          "id": "inkArt_3",
+          "count": 1
+        },
+        {
+          "id": "inkArt_4",
+          "count": 1
+        },
+        {
+          "id": "inkArt_6",
+          "count": 1
+        },
+        {
+          "id": "inkArt_5",
+          "count": 1
+        },
+        {
+          "id": "talulahCabin_1",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_2",
+          "count": 3
+        },
+        {
+          "id": "talulahCabin_3",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_4",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_5",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_6",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_7",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_9",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_10",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_11",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_15",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_8",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_12",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_13",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_14",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_16",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_17",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_18",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_19",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_20",
+          "count": 2
+        },
+        {
+          "id": "talulahCabin_21",
+          "count": 2
+        },
+        {
+          "id": "tsarPalace_4",
+          "count": 1
+        }
+      ]
     },
     "SOCIAL": {
-      "info": [],
-      "curShopId": ""
+      "info": [
+        {
+          "id": "SOCIAL20261028_T1_goods_17_1",
+          "count": 7
+        },
+        {
+          "id": "SOCIAL20261028_T2_exp_3_5",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261028_T1_complexcoin_3_9",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261028_T1_goods_3_8",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261028_T1_gold_2_7",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261028_T2_exp_3_6",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261028_T1_exp_2_10",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261028_T1_goods_13_4",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261028_T2_goods_16_3",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_T1_speed_3_2",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_char_char_198_blackd",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_char_187_ccheal",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_T4_goods_31094_1",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_T1_goods_30041_6",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_T4_goods_31014_7",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_T2_goods_3131_5",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_T4_goods_30054_10",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261029_T4_goods_30084_9",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261031_T3_goods_30093_1",
+          "count": 1
+        },
+        {
+          "id": "SOCIAL20261031_T1_goods_30051_2",
+          "count": 1
+        }
+      ],
+      "curShopId": "SOCIAL20261031",
+      "charPurchase": {
+        "char_187_ccheal": 0,
+        "char_198_blackd": 0
+      },
+      "costSocialPoint": 1180
     },
     "CLASSIC": {
       "info": [
@@ -19464,8 +19681,12 @@
     }
   },
   "skin": {
-    "skinTs": {},
-    "characterSkins": {}
+    "skinTs": {
+      "char_235_jesica@wild#2": 1793097332
+    },
+    "characterSkins": {
+      "char_235_jesica@wild#2": 1
+    }
   },
   "charm": {
     "squad": [],
@@ -19521,13 +19742,13 @@
     }
   },
   "event": {
-    "building": 1793304000
+    "building": 1793563200
   },
   "gacha": {
     "limit": {},
     "attain": {},
     "newbee": {
-      "cnt": 21,
+      "cnt": 20,
       "poolId": "BOOT_0_1_3",
       "openFlag": 1
     },
@@ -19548,7 +19769,7 @@
         "rts": -1,
         "val": [
           [
-            7,
+            10,
             360
           ]
         ]
@@ -19559,7 +19780,7 @@
         "rts": -1,
         "val": [
           [
-            7,
+            10,
             1000
           ]
         ]
@@ -19570,7 +19791,7 @@
         "rts": -1,
         "val": [
           [
-            7,
+            10,
             2000
           ]
         ]
@@ -20013,6 +20234,16 @@
   "share": {
     "shareMissions": {}
   },
+  "stage": {
+    "main_02-08": {
+      "state": 3,
+      "stageId": "main_02-08",
+      "progress": 100,
+      "practiceTimes": 0,
+      "completedTimes": 1,
+      "hasBattleReplay": 0
+    }
+  },
   "tower": {
     "outer": {
       "squad": null,
@@ -20123,7 +20354,7 @@
     "chars": {
       "2": {
         "exp": 0,
-        "skin": "char_002_amiya#1",
+        "skin": "char_002_amiya#1+",
         "equip": {
           "uniequip_001_amiya": {
             "hide": 1,
@@ -20151,7 +20382,7 @@
             "state": 0,
             "unlock": 1,
             "skillId": "skchr_amiya_2",
-            "specializeLevel": 0,
+            "specializeLevel": 1,
             "completeUpgradeTime": -1
           },
           {
@@ -20179,7 +20410,7 @@
         "charId": "char_009_12fce",
         "instId": 9,
         "skills": [],
-        "gainTime": 1792933874,
+        "gainTime": 1792984684,
         "starMark": 0,
         "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
@@ -20189,30 +20420,41 @@
         "potentialRank": 0,
         "defaultSkillIndex": -1
       },
-      "109": {
+      "102": {
         "exp": 0,
-        "skin": "char_109_fmout#1",
-        "equip": {},
+        "skin": "char_102_texas#1",
+        "equip": {
+          "uniequip_001_texas": {
+            "hide": 1,
+            "level": 1,
+            "locked": 0
+          },
+          "uniequip_002_texas": {
+            "hide": 1,
+            "level": 1,
+            "locked": 1
+          }
+        },
         "level": 1,
-        "charId": "char_109_fmout",
-        "instId": 109,
+        "charId": "char_102_texas",
+        "instId": 102,
         "skills": [
           {
             "state": 0,
             "unlock": 1,
-            "skillId": "skcom_magic_rage[2]",
+            "skillId": "skcom_charge_cost[3]",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           },
           {
             "state": 0,
             "unlock": 0,
-            "skillId": "skchr_fmout_2",
+            "skillId": "skchr_texas_2",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903381,
+        "gainTime": 1793614632,
         "starMark": 0,
         "voiceLan": "JP",
         "favorPoint": 0,
@@ -20220,65 +20462,32 @@
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
-      "117": {
+      "107": {
         "exp": 0,
-        "skin": "char_117_myrrh#1",
+        "skin": "char_107_liskam#1",
         "equip": {},
-        "level": 1,
-        "charId": "char_117_myrrh",
-        "instId": 117,
+        "level": 50,
+        "charId": "char_107_liskam",
+        "instId": 107,
         "skills": [
           {
             "state": 0,
             "unlock": 1,
-            "skillId": "skchr_myrrh_1",
+            "skillId": "skchr_liskam_1",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           },
           {
             "state": 0,
             "unlock": 0,
-            "skillId": "skchr_myrrh_2",
+            "skillId": "skchr_liskam_2",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903359,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "118": {
-        "exp": 0,
-        "skin": "char_118_yuki#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_118_yuki",
-        "instId": 118,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_yuki_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_yuki_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903346,
+        "gainTime": 1793079946,
         "starMark": 0,
         "voiceLan": "JP",
         "favorPoint": 0,
@@ -20304,7 +20513,7 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792933382,
+        "gainTime": 1792982171,
         "starMark": 0,
         "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
@@ -20330,7 +20539,7 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792935157,
+        "gainTime": 1792984726,
         "starMark": 0,
         "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
@@ -20356,21 +20565,21 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792933304,
+        "gainTime": 1792984792,
         "starMark": 0,
-        "voiceLan": "JP",
+        "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
         "evolvePhase": 0,
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
       "123": {
         "exp": 0,
         "skin": "char_123_fang#1",
         "equip": {},
-        "level": 1,
+        "level": 40,
         "charId": "char_123_fang",
         "instId": 123,
         "skills": [
@@ -20382,15 +20591,15 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903346,
+        "gainTime": 1792984544,
         "starMark": 0,
-        "voiceLan": "JP",
+        "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
         "evolvePhase": 0,
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
       "124": {
         "exp": 0,
@@ -20408,7 +20617,7 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903371,
+        "gainTime": 1793079600,
         "starMark": 0,
         "voiceLan": "JP",
         "favorPoint": 0,
@@ -20418,13 +20627,57 @@
         "potentialRank": 0,
         "defaultSkillIndex": -1
       },
-      "141": {
+      "126": {
         "exp": 0,
-        "skin": "char_141_nights#1",
+        "skin": "char_126_shotst#1",
         "equip": {},
         "level": 1,
-        "charId": "char_141_nights",
-        "instId": 141,
+        "charId": "char_126_shotst",
+        "instId": 126,
+        "skills": [
+          {
+            "state": 0,
+            "unlock": 1,
+            "skillId": "skchr_shotst_1",
+            "specializeLevel": 0,
+            "completeUpgradeTime": -1
+          },
+          {
+            "state": 0,
+            "unlock": 0,
+            "skillId": "skchr_shotst_2",
+            "specializeLevel": 0,
+            "completeUpgradeTime": -1
+          }
+        ],
+        "gainTime": 1793079583,
+        "starMark": 0,
+        "voiceLan": "JP",
+        "favorPoint": 0,
+        "evolvePhase": 0,
+        "currentEquip": null,
+        "mainSkillLvl": 1,
+        "potentialRank": 0,
+        "defaultSkillIndex": -1
+      },
+      "127": {
+        "exp": 0,
+        "skin": "char_127_estell#1",
+        "equip": {
+          "uniequip_001_estell": {
+            "hide": 1,
+            "level": 1,
+            "locked": 0
+          },
+          "uniequip_002_estell": {
+            "hide": 1,
+            "level": 1,
+            "locked": 1
+          }
+        },
+        "level": 45,
+        "charId": "char_127_estell",
+        "instId": 127,
         "skills": [
           {
             "state": 0,
@@ -20436,12 +20689,52 @@
           {
             "state": 0,
             "unlock": 0,
-            "skillId": "skchr_nights_2",
+            "skillId": "skchr_estell_2",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903371,
+        "gainTime": 1793194779,
+        "starMark": 0,
+        "voiceLan": "JP",
+        "favorPoint": 0,
+        "evolvePhase": 0,
+        "currentEquip": null,
+        "mainSkillLvl": 1,
+        "potentialRank": 0,
+        "defaultSkillIndex": -1
+      },
+      "136": {
+        "exp": 0,
+        "skin": "char_136_hsguma#1",
+        "equip": {},
+        "level": 50,
+        "charId": "char_136_hsguma",
+        "instId": 136,
+        "skills": [
+          {
+            "state": 0,
+            "unlock": 1,
+            "skillId": "skchr_hsguma_1",
+            "specializeLevel": 0,
+            "completeUpgradeTime": -1
+          },
+          {
+            "state": 0,
+            "unlock": 0,
+            "skillId": "skchr_hsguma_2",
+            "specializeLevel": 0,
+            "completeUpgradeTime": -1
+          },
+          {
+            "state": 0,
+            "unlock": 0,
+            "skillId": "skchr_hsguma_3",
+            "specializeLevel": 0,
+            "completeUpgradeTime": -1
+          }
+        ],
+        "gainTime": 1793079966,
         "starMark": 0,
         "voiceLan": "JP",
         "favorPoint": 0,
@@ -20474,7 +20767,7 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792933304,
+        "gainTime": 1792981732,
         "starMark": 0,
         "voiceLan": "JP",
         "favorPoint": 0,
@@ -20484,30 +20777,41 @@
         "potentialRank": 0,
         "defaultSkillIndex": -1
       },
-      "181": {
+      "187": {
         "exp": 0,
-        "skin": "char_181_flower#1",
-        "equip": {},
+        "skin": "char_187_ccheal#1",
+        "equip": {
+          "uniequip_001_ccheal": {
+            "hide": 1,
+            "level": 1,
+            "locked": 0
+          },
+          "uniequip_002_ccheal": {
+            "hide": 1,
+            "level": 1,
+            "locked": 1
+          }
+        },
         "level": 1,
-        "charId": "char_181_flower",
-        "instId": 181,
+        "charId": "char_187_ccheal",
+        "instId": 187,
         "skills": [
           {
             "state": 0,
             "unlock": 1,
-            "skillId": "skcom_heal_up[2]",
+            "skillId": "skchr_ccheal_1",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           },
           {
             "state": 0,
             "unlock": 0,
-            "skillId": "skchr_flower_2",
+            "skillId": "skchr_ccheal_2",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903346,
+        "gainTime": 1793283382,
         "starMark": 0,
         "voiceLan": "JP",
         "favorPoint": 0,
@@ -20515,79 +20819,13 @@
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "183": {
-        "exp": 0,
-        "skin": "char_183_skgoat#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_183_skgoat",
-        "instId": 183,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skcom_atk_up[2]",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_skgoat_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903359,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "190": {
-        "exp": 0,
-        "skin": "char_190_clour#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_190_clour",
-        "instId": 190,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skcom_atk_up[2]",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_clour_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903381,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
       "192": {
-        "exp": 0,
+        "exp": 35,
         "skin": "char_192_falco#1",
         "equip": {},
-        "level": 1,
+        "level": 11,
         "charId": "char_192_falco",
         "instId": 192,
         "skills": [
@@ -20599,40 +20837,51 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903346,
+        "gainTime": 1792984566,
         "starMark": 0,
-        "voiceLan": "JP",
+        "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
         "evolvePhase": 0,
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
-      "199": {
+      "198": {
         "exp": 0,
-        "skin": "char_199_yak#1",
-        "equip": {},
+        "skin": "char_198_blackd#1",
+        "equip": {
+          "uniequip_001_blackd": {
+            "hide": 1,
+            "level": 1,
+            "locked": 0
+          },
+          "uniequip_002_blackd": {
+            "hide": 1,
+            "level": 1,
+            "locked": 1
+          }
+        },
         "level": 1,
-        "charId": "char_199_yak",
-        "instId": 199,
+        "charId": "char_198_blackd",
+        "instId": 198,
         "skills": [
           {
             "state": 0,
             "unlock": 1,
-            "skillId": "skchr_yak_1",
+            "skillId": "skcom_charge_cost[2]",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           },
           {
             "state": 0,
             "unlock": 0,
-            "skillId": "skchr_yak_2",
+            "skillId": "skchr_blackd_2",
             "specializeLevel": 0,
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903346,
+        "gainTime": 1793283003,
         "starMark": 0,
         "voiceLan": "JP",
         "favorPoint": 0,
@@ -20640,7 +20889,7 @@
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
       "208": {
         "exp": 0,
@@ -20658,41 +20907,15 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903346,
+        "gainTime": 1792984871,
         "starMark": 0,
-        "voiceLan": "JP",
+        "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
         "evolvePhase": 0,
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "210": {
-        "exp": 0,
-        "skin": "char_210_stward#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_210_stward",
-        "instId": 210,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_stward_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903381,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
       "211": {
         "exp": 0,
@@ -20710,7 +20933,7 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792933434,
+        "gainTime": 1792984429,
         "starMark": 0,
         "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
@@ -20736,21 +20959,21 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792933304,
+        "gainTime": 1792984826,
         "starMark": 0,
-        "voiceLan": "JP",
+        "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
         "evolvePhase": 0,
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
       "235": {
         "exp": 0,
         "skin": "char_235_jesica#1",
         "equip": {},
-        "level": 1,
+        "level": 45,
         "charId": "char_235_jesica",
         "instId": 235,
         "skills": [
@@ -20769,284 +20992,15 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903359,
+        "gainTime": 1792984467,
         "starMark": 0,
-        "voiceLan": "JP",
+        "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
         "evolvePhase": 0,
         "currentEquip": null,
         "mainSkillLvl": 1,
         "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "236": {
-        "exp": 0,
-        "skin": "char_236_rope#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_236_rope",
-        "instId": 236,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_rope_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_rope_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903359,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "237": {
-        "exp": 0,
-        "skin": "char_237_gravel#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_237_gravel",
-        "instId": 237,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_gravel_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_gravel_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903371,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "240": {
-        "exp": 0,
-        "skin": "char_240_wyvern#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_240_wyvern",
-        "instId": 240,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_wyvern_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903371,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "258": {
-        "exp": 0,
-        "skin": "char_258_podego#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_258_podego",
-        "instId": 258,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_podego_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_podego_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903381,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "271": {
-        "exp": 0,
-        "skin": "char_271_spikes#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_271_spikes",
-        "instId": 271,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_spikes_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_spikes_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903346,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "272": {
-        "exp": 0,
-        "skin": "char_272_strong#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_272_strong",
-        "instId": 272,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_strong_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_strong_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903381,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "278": {
-        "exp": 0,
-        "skin": "char_278_orchid#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_278_orchid",
-        "instId": 278,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skcom_quickattack[1]",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903346,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "282": {
-        "exp": 0,
-        "skin": "char_282_catap#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_282_catap",
-        "instId": 282,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_catap_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903359,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "283": {
-        "exp": 0,
-        "skin": "char_283_midn#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_283_midn",
-        "instId": 283,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_midn_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903371,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
+        "defaultSkillIndex": 0
       },
       "284": {
         "exp": 0,
@@ -21064,7 +21018,7 @@
             "completeUpgradeTime": -1
           }
         ],
-        "gainTime": 1792903359,
+        "gainTime": 1793194765,
         "starMark": 0,
         "voiceLan": "JP",
         "favorPoint": 0,
@@ -21074,196 +21028,16 @@
         "potentialRank": 0,
         "defaultSkillIndex": -1
       },
-      "290": {
+      "376": {
         "exp": 0,
-        "skin": "char_290_vigna#1",
+        "skin": "char_376_therex#1",
         "equip": {},
         "level": 1,
-        "charId": "char_290_vigna",
-        "instId": 290,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_vigna_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_vigna_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903359,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "328": {
-        "exp": 0,
-        "skin": "char_328_cammou#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_328_cammou",
-        "instId": 328,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skcom_atk_up[2]",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_cammou_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792933304,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "337": {
-        "exp": 0,
-        "skin": "char_337_utage#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_337_utage",
-        "instId": 337,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_utage_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_utage_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903381,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "347": {
-        "exp": 0,
-        "skin": "char_347_jaksel#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_347_jaksel",
-        "instId": 347,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_jaksel_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_jaksel_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903381,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "446": {
-        "exp": 0,
-        "skin": "char_446_aroma#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_446_aroma",
-        "instId": 446,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_aroma_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_aroma_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903359,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "452": {
-        "exp": 0,
-        "skin": "char_452_bstalk#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_452_bstalk",
-        "instId": 452,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_bstalk_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_bstalk_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903346,
-        "starMark": 0,
+        "charId": "char_376_therex",
+        "instId": 376,
+        "skills": [],
+        "gainTime": 1793079565,
+        "starMark": -1,
         "voiceLan": "JP",
         "favorPoint": 0,
         "evolvePhase": 0,
@@ -21297,7 +21071,7 @@
         "charId": "char_501_durin",
         "instId": 501,
         "skills": [],
-        "gainTime": 1792933589,
+        "gainTime": 1792984627,
         "starMark": 0,
         "voiceLan": "CN_MANDARIN",
         "favorPoint": 0,
@@ -21340,178 +21114,6 @@
         "mainSkillLvl": 1,
         "potentialRank": 0,
         "defaultSkillIndex": -1
-      },
-      "1051": {
-        "exp": 0,
-        "skin": "char_1051_headb2#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_1051_headb2",
-        "instId": 1051,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_headb2_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_headb2_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_headb2_3",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903381,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "4062": {
-        "exp": 0,
-        "skin": "char_4062_totter#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_4062_totter",
-        "instId": 4062,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_totter_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_totter_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903359,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "4109": {
-        "exp": 0,
-        "skin": "char_4109_baslin#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_4109_baslin",
-        "instId": 4109,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_baslin_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_baslin_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792933304,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "4178": {
-        "exp": 0,
-        "skin": "char_4178_alanna#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_4178_alanna",
-        "instId": 4178,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_alanna_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_alanna_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903371,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
-      },
-      "4208": {
-        "exp": 0,
-        "skin": "char_4208_wintim#1",
-        "equip": {},
-        "level": 1,
-        "charId": "char_4208_wintim",
-        "instId": 4208,
-        "skills": [
-          {
-            "state": 0,
-            "unlock": 1,
-            "skillId": "skchr_wintim_1",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          },
-          {
-            "state": 0,
-            "unlock": 0,
-            "skillId": "skchr_wintim_2",
-            "specializeLevel": 0,
-            "completeUpgradeTime": -1
-          }
-        ],
-        "gainTime": 1792903359,
-        "starMark": 0,
-        "voiceLan": "JP",
-        "favorPoint": 0,
-        "evolvePhase": 0,
-        "currentEquip": null,
-        "mainSkillLvl": 1,
-        "potentialRank": 0,
-        "defaultSkillIndex": -1
       }
     },
     "squads": {
@@ -21519,65 +21121,61 @@
         "name": "第一编队",
         "slots": [
           {
-            "charInstId": 2,
+            "charInstId": 107,
+            "skillIndex": -1,
+            "currentEquip": null
+          },
+          {
+            "charInstId": 136,
+            "skillIndex": -1,
+            "currentEquip": null
+          },
+          {
+            "charInstId": 150,
+            "skillIndex": -1,
+            "currentEquip": null
+          },
+          {
+            "charInstId": 235,
             "skillIndex": 0,
             "currentEquip": null
           },
           {
-            "charInstId": 502,
+            "charInstId": 123,
+            "skillIndex": 0,
+            "currentEquip": null
+          },
+          {
+            "charInstId": 126,
             "skillIndex": -1,
             "currentEquip": null
           },
           {
-            "charInstId": 500,
-            "skillIndex": -1,
+            "charInstId": 192,
+            "skillIndex": 0,
             "currentEquip": null
           },
           {
-            "charInstId": 503,
-            "skillIndex": -1,
+            "charInstId": 122,
+            "skillIndex": 0,
             "currentEquip": null
           },
           {
-            "charInstId": 1051,
-            "skillIndex": -1,
+            "charInstId": 208,
+            "skillIndex": 0,
             "currentEquip": null
           },
           {
-            "charInstId": 446,
-            "skillIndex": -1,
+            "charInstId": 211,
+            "skillIndex": 0,
             "currentEquip": null
           },
           {
-            "charInstId": 4109,
+            "charInstId": 124,
             "skillIndex": -1,
             "currentEquip": null
           },
-          {
-            "charInstId": 4178,
-            "skillIndex": -1,
-            "currentEquip": null
-          },
-          {
-            "charInstId": 4208,
-            "skillIndex": -1,
-            "currentEquip": null
-          },
-          {
-            "charInstId": 290,
-            "skillIndex": -1,
-            "currentEquip": null
-          },
-          {
-            "charInstId": 452,
-            "skillIndex": -1,
-            "currentEquip": null
-          },
-          {
-            "charInstId": 271,
-            "skillIndex": -1,
-            "currentEquip": null
-          }
+          null
         ],
         "squadId": "0"
       },
@@ -21637,22 +21235,10 @@
       }
     },
     "charGroup": {
-      "char_199_yak": {
-        "favorPoint": 0
-      },
-      "char_118_yuki": {
-        "favorPoint": 0
-      },
       "char_121_lava": {
         "favorPoint": 0
       },
       "char_123_fang": {
-        "favorPoint": 0
-      },
-      "char_236_rope": {
-        "favorPoint": 0
-      },
-      "char_283_midn": {
         "favorPoint": 0
       },
       "char_284_spot": {
@@ -21667,16 +21253,10 @@
       "char_009_12fce": {
         "favorPoint": 0
       },
-      "char_109_fmout": {
-        "favorPoint": 0
-      },
-      "char_117_myrrh": {
+      "char_102_texas": {
         "favorPoint": 0
       },
       "char_124_kroos": {
-        "favorPoint": 0
-      },
-      "char_190_clour": {
         "favorPoint": 0
       },
       "char_192_falco": {
@@ -21688,22 +21268,13 @@
       "char_212_ansel": {
         "favorPoint": 0
       },
-      "char_282_catap": {
-        "favorPoint": 0
-      },
-      "char_290_vigna": {
-        "favorPoint": 0
-      },
-      "char_337_utage": {
-        "favorPoint": 0
-      },
-      "char_446_aroma": {
-        "favorPoint": 0
-      },
       "char_500_noirc": {
         "favorPoint": 0
       },
       "char_501_durin": {
+        "favorPoint": 0
+      },
+      "char_107_liskam": {
         "favorPoint": 0
       },
       "char_120_hibisc": {
@@ -21712,19 +21283,22 @@
       "char_122_beagle": {
         "favorPoint": 0
       },
-      "char_141_nights": {
+      "char_126_shotst": {
+        "favorPoint": 0
+      },
+      "char_127_estell": {
+        "favorPoint": 0
+      },
+      "char_136_hsguma": {
         "favorPoint": 0
       },
       "char_150_snakek": {
         "favorPoint": 0
       },
-      "char_181_flower": {
+      "char_187_ccheal": {
         "favorPoint": 0
       },
-      "char_183_skgoat": {
-        "favorPoint": 0
-      },
-      "char_210_stward": {
+      "char_198_blackd": {
         "favorPoint": 0
       },
       "char_211_adnach": {
@@ -21733,49 +21307,10 @@
       "char_235_jesica": {
         "favorPoint": 0
       },
-      "char_237_gravel": {
-        "favorPoint": 0
-      },
-      "char_240_wyvern": {
-        "favorPoint": 0
-      },
-      "char_258_podego": {
-        "favorPoint": 0
-      },
-      "char_271_spikes": {
-        "favorPoint": 0
-      },
-      "char_272_strong": {
-        "favorPoint": 0
-      },
-      "char_278_orchid": {
-        "favorPoint": 0
-      },
-      "char_328_cammou": {
-        "favorPoint": 0
-      },
-      "char_347_jaksel": {
-        "favorPoint": 0
-      },
-      "char_452_bstalk": {
+      "char_376_therex": {
         "favorPoint": 0
       },
       "char_502_nblade": {
-        "favorPoint": 0
-      },
-      "char_1051_headb2": {
-        "favorPoint": 0
-      },
-      "char_4062_totter": {
-        "favorPoint": 0
-      },
-      "char_4109_baslin": {
-        "favorPoint": 0
-      },
-      "char_4178_alanna": {
-        "favorPoint": 0
-      },
-      "char_4208_wintim": {
         "favorPoint": 0
       }
     },
@@ -21862,7 +21397,7 @@
         "mission_char_1028_texas2_1": 0
       }
     },
-    "curCharInstId": 5,
+    "curCharInstId": 199,
     "curSquadCount": 4
   },
   "tshop": {
@@ -22828,15 +22363,15 @@
     },
     "teamV2": {
       "rhodes": {
-        "1": 1,
         "2": 1,
-        "3": 1,
-        "4": 1
+        "500": 1,
+        "502": 1,
+        "503": 1
       },
       "action4": {
-        "2": 1,
-        "3": 1,
-        "4": 1
+        "500": 1,
+        "502": 1,
+        "503": 1
       }
     },
     "formula": {
@@ -22845,24 +22380,6 @@
       "manufacture": {}
     },
     "character": {
-      "char_199_yak": {
-        "$ref": "$.dexNav.character.char_181_flower"
-      },
-      "char_118_yuki": {
-        "$ref": "$.dexNav.character.char_181_flower"
-      },
-      "char_123_fang": {
-        "$ref": "$.dexNav.character.char_181_flower"
-      },
-      "char_236_rope": {
-        "$ref": "$.dexNav.character.char_235_jesica"
-      },
-      "char_283_midn": {
-        "$ref": "$.dexNav.character.char_4178_alanna"
-      },
-      "char_284_spot": {
-        "$ref": "$.dexNav.character.char_235_jesica"
-      },
       "char_503_rang": {
         "count": 1,
         "charInstId": 503,
@@ -22873,121 +22390,35 @@
         "charInstId": 2,
         "classicCount": 0
       },
-      "char_109_fmout": {
-        "$ref": "$.dexNav.character.char_1051_headb2"
-      },
-      "char_117_myrrh": {
-        "$ref": "$.dexNav.character.char_235_jesica"
-      },
-      "char_124_kroos": {
-        "$ref": "$.dexNav.character.char_4178_alanna"
-      },
-      "char_190_clour": {
-        "$ref": "$.dexNav.character.char_1051_headb2"
-      },
-      "char_192_falco": {
-        "$ref": "$.dexNav.character.char_181_flower"
-      },
-      "char_208_melan": {
-        "$ref": "$.dexNav.character.char_181_flower"
-      },
-      "char_212_ansel": {
+      "char_102_texas": {
         "count": 1,
-        "charInstId": 212,
+        "charInstId": 102,
         "classicCount": 0
-      },
-      "char_282_catap": {
-        "$ref": "$.dexNav.character.char_235_jesica"
-      },
-      "char_290_vigna": {
-        "$ref": "$.dexNav.character.char_235_jesica"
-      },
-      "char_337_utage": {
-        "$ref": "$.dexNav.character.char_1051_headb2"
-      },
-      "char_446_aroma": {
-        "$ref": "$.dexNav.character.char_235_jesica"
       },
       "char_500_noirc": {
         "count": 1,
         "charInstId": 500,
         "classicCount": 0
       },
-      "char_122_beagle": {
-        "$ref": "$.dexNav.character.char_212_ansel"
-      },
-      "char_141_nights": {
-        "$ref": "$.dexNav.character.char_4178_alanna"
-      },
       "char_150_snakek": {
-        "$ref": "$.dexNav.character.char_212_ansel"
-      },
-      "char_181_flower": {
-        "count": 3,
-        "charInstId": 208,
+        "count": 1,
+        "charInstId": 150,
         "classicCount": 0
       },
-      "char_183_skgoat": {
-        "$ref": "$.dexNav.character.char_235_jesica"
-      },
-      "char_210_stward": {
-        "$ref": "$.dexNav.character.char_1051_headb2"
-      },
-      "char_235_jesica": {
-        "count": 3,
-        "charInstId": 446,
+      "char_187_ccheal": {
+        "count": 1,
+        "charInstId": 187,
         "classicCount": 0
       },
-      "char_237_gravel": {
-        "$ref": "$.dexNav.character.char_4178_alanna"
-      },
-      "char_240_wyvern": {
-        "$ref": "$.dexNav.character.char_4178_alanna"
-      },
-      "char_258_podego": {
-        "$ref": "$.dexNav.character.char_1051_headb2"
-      },
-      "char_271_spikes": {
-        "$ref": "$.dexNav.character.char_181_flower"
-      },
-      "char_272_strong": {
-        "$ref": "$.dexNav.character.char_1051_headb2"
-      },
-      "char_278_orchid": {
-        "$ref": "$.dexNav.character.char_181_flower"
-      },
-      "char_328_cammou": {
-        "$ref": "$.dexNav.character.char_212_ansel"
-      },
-      "char_347_jaksel": {
-        "$ref": "$.dexNav.character.char_1051_headb2"
-      },
-      "char_452_bstalk": {
-        "$ref": "$.dexNav.character.char_181_flower"
+      "char_198_blackd": {
+        "count": 1,
+        "charInstId": 198,
+        "classicCount": 0
       },
       "char_502_nblade": {
         "count": 1,
         "charInstId": 502,
         "classicCount": 0
-      },
-      "char_1051_headb2": {
-        "count": 3,
-        "charInstId": 347,
-        "classicCount": 0
-      },
-      "char_4062_totter": {
-        "$ref": "$.dexNav.character.char_235_jesica"
-      },
-      "char_4109_baslin": {
-        "$ref": "$.dexNav.character.char_212_ansel"
-      },
-      "char_4178_alanna": {
-        "count": 7,
-        "charInstId": 4208,
-        "classicCount": 0
-      },
-      "char_4208_wintim": {
-        "$ref": "$.dexNav.character.char_235_jesica"
       }
     }
   },
@@ -23002,20 +22433,30 @@
         "charInstId": 2,
         "skillIndex": 0,
         "currentEquip": null
+      },
+      {
+        "charInstId": 136,
+        "skillIndex": 0,
+        "currentEquip": null
+      },
+      {
+        "charInstId": 107,
+        "skillIndex": 0,
+        "currentEquip": null
       }
     ],
     "yesterdayReward": {
-      "first": 1,
-      "canReceive": 1,
+      "first": 0,
+      "canReceive": 0,
       "assistAmount": 0,
       "comfortAmount": 0
     }
   },
   "status": {
-    "ap": 175,
-    "exp": 364,
-    "uid": 10000003,
-    "gold": 110898417,
+    "ap": 36,
+    "exp": 580,
+    "uid": 10000001,
+    "gold": 606588,
     "flags": {
       "init": 1,
       "obt/guide/train/tr_01": 1,
@@ -23023,7 +22464,27 @@
       "obt/guide/train/tr_04": 1,
       "obt/guide/train/tr_05": 1,
       "obt/guide/train/tr_06": 1,
+      "obt/guide/shop/1_furni": 1,
+      "obt/guide/bd/dorm_intro": 1,
+      "obt/guide/shop/2_social": 1,
+      "obt/guide/bd/workshop_op": 1,
       "obt/guide/l0-0/0_home_ui": 1,
+      "obt/tutorial/building_kit": 1,
+      "obt/guide/bd/control_intro": 1,
+      "obt/guide/l0-0/3_battle_ui": 1,
+      "obt/guide/l0-11/3b_op_manu": 1,
+      "obt/guide/misc/assist_char": 1,
+      "obt/guide/misc/auto_battle": 1,
+      "obt/guide/l0-0/2_make_squad": 1,
+      "obt/guide/l0-11/3d_op_trade": 1,
+      "obt/guide/l0-0/1_recruit_adv": 1,
+      "obt/guide/l0-1/0_mission_main": 1,
+      "obt/guide/l0-11/1a_slot_clean": 1,
+      "obt/guide/l0-11/1b_slot_clean": 1,
+      "obt/guide/l0-11/1c_slot_clean": 1,
+      "obt/guide/l0-11/1d_slot_clean": 1,
+      "obt/guide/l0-11/2b_build_manu": 1,
+      "obt/guide/l0-4/0_upgrade_char": 1,
       "obt/main/level_main_00-01_beg": 1,
       "obt/main/level_main_00-01_end": 1,
       "obt/main/level_main_00-02_beg": 1,
@@ -23035,58 +22496,83 @@
       "obt/main/level_main_00-08_beg": 1,
       "obt/main/level_main_00-09_end": 1,
       "obt/main/level_main_00-10_beg": 1,
-      "obt/main/level_main_00-11_end": 1
+      "obt/main/level_main_00-11_end": 1,
+      "obt/main/level_main_01-01_beg": 1,
+      "obt/main/level_main_01-01_end": 1,
+      "obt/main/level_main_01-03_beg": 1,
+      "obt/main/level_main_01-03_end": 1,
+      "obt/main/level_main_01-04_beg": 1,
+      "obt/guide/l0-10/0_weekly_daily": 1,
+      "obt/guide/l0-11/2a_build_elect": 1,
+      "obt/guide/l0-11/2c_build_trade": 1,
+      "obt/guide/l0-6/0_upgrade_skill": 1,
+      "obt/guide/l0-1/1_training_level": 1,
+      "obt/guide/l0-11/0_building_init": 1,
+      "obt/guide/l0-11/3a_station_manu": 1,
+      "obt/guide/l0-2/0_recruit_normal": 1,
+      "obt/guide/l0-9/0_mission_others": 1,
+      "obt/guide/l1-5/0_campaign_stage": 1,
+      "obt/guide/bd/meeting_intro_v2_np": 1,
+      "obt/guide/l0-11/3c_station_trade": 1,
+      "obt/guide/l1-1/0_building_control": 1,
+      "obt/guide/shop/0_main_and_extraqc": 1,
+      "obt/guide/stage/stagepage_v2_intro": 1,
+      "obt/guide/l1-2/0_upgrade_char_again": 1
     },
     "level": 2,
     "maxAp": 84,
     "avatar": {},
     "resume": "",
     "avatarId": "0",
-    "hggShard": 47,
-    "lggShard": 215,
+    "hggShard": 26,
+    "lggShard": 2,
     "nickName": "龙灵",
-    "progress": 0,
-    "secretary": "char_002_amiya",
-    "iosDiamond": 18,
-    "nickNumber": "0001",
-    "registerTs": 1791599176,
+    "progress": 20300,
+    "secretary": "char_208_melan",
+    "iosDiamond": 201,
+    "nickNumber": "0002",
+    "registerTs": 1792976296,
     "serverName": "泰拉",
-    "gachaTicket": 0,
-    "socialPoint": 0,
+    "gachaTicket": 5,
+    "socialPoint": 406,
     "classicShard": 0,
-    "diamondShard": 9976599,
-    "lastOnlineTs": 1793268745,
+    "diamondShard": 11775,
+    "lastOnlineTs": 1793614942,
     "apLimitUpFlag": 0,
-    "lastApAddTime": 1792933617,
-    "lastRefreshTs": 1793268745,
-    "androidDiamond": 18,
+    "lastApAddTime": 1793538206,
+    "lastRefreshTs": 1793614942,
+    "androidDiamond": 129,
     "friendNumLimit": 115,
     "practiceTicket": 999,
-    "recruitLicense": 3,
+    "recruitLicense": 46,
     "tenGachaTicket": 0,
-    "secretarySkinId": "char_002_amiya#1",
+    "secretarySkinId": "char_208_melan#1",
+    "secretarySkinSp": false,
     "buyApRemainTimes": 10,
-    "mainStageProgress": "main_01-01",
+    "mainStageProgress": "main_01-06",
     "classicGachaTicket": 0,
-    "instantFinishTicket": 5,
+    "instantFinishTicket": 24,
     "classicTenGachaTicket": 0,
-    "tipMonthlyCardExpireTs": 0,
-    "monthlySubscriptionEndTime": 0,
-    "monthlySubscriptionStartTime": 0
+    "tipMonthlyCardExpireTs": 1795692369,
+    "monthlySubscriptionEndTime": 1795692369,
+    "monthlySubscriptionStartTime": 1793100369
   },
   "ticket": {},
   "checkIn": {
-    "showCount": 7,
+    "showCount": 10,
     "canCheckIn": 0,
     "newbiePackage": {
-      "open": false,
-      "finish": 1793390399,
+      "open": true,
+      "finish": 1794194426,
       "groupId": "new_bp_g_2",
-      "stopSale": 1792785599,
+      "stopSale": 1794194426,
       "checkInHistory": []
     },
-    "checkInGroupId": "signin98",
+    "checkInGroupId": "signin100",
     "checkInHistory": [
+      0,
+      0,
+      0,
       0,
       0,
       0,
@@ -23100,7 +22586,7 @@
         "stopSale": 1792785599
       }
     },
-    "checkInRewardIndex": 7
+    "checkInRewardIndex": 10
   },
   "deepSea": {
     "logs": {},
@@ -23293,8 +22779,8 @@
         "state": 3,
         "stageId": "tr_02",
         "noCostCnt": 1,
-        "startTimes": 1,
-        "completeTimes": 1,
+        "startTimes": 2,
+        "completeTimes": 2,
         "practiceTimes": 0,
         "hasBattleReplay": 0
       },
@@ -23343,6 +22829,15 @@
         "practiceTimes": 0,
         "hasBattleReplay": 0
       },
+      "tr_08": {
+        "state": 0,
+        "stageId": "tr_08",
+        "noCostCnt": 1,
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
       "tr_s_1": {
         "state": 0,
         "stageId": "tr_s_1",
@@ -23352,10 +22847,35 @@
         "practiceTimes": 0,
         "hasBattleReplay": 0
       },
+      "camp_01": {
+        "state": 2,
+        "stageId": "camp_01",
+        "startTimes": 55,
+        "battleReplay": "UEsDBC0AAAAIAFOwX11quPJj//////////8NABQAZGVmYXVsdF9lbnRyeQEAEABEEAAAAAAAAFEDAAAAAAAA3ZdNb9s4EIb/C3us44qkPn3rBj0EDdCgLfawQUFMJVpmRVGOSLkNivz3HUpuYkfeSgssNk19skZD8nlnqOHwO8mh3oIqzTujb/+UrVWNISu2IE7V0jp8SVaEJhkPo4hHKVmQL03XGtBk9Z3U0kEBDvx/9DUFtMWVhtuPOJaseBwtI84XpIRavpe2046sggWxsJODB2EBi89ocMbpR8ZWAVvxcJlmnPIk/guXamUNyihTnjcWx8YHlku1lleNMmhOFqRSWsvijZG1kvbcG2mQLkitrD02I42WO6kvClz93Wf36nwv/1VvFj4aIqC4NuopZe/2YNuBVsXbU2vd4YCbDtD9GkO6gfbCWOdHYyRtpcwwEdpFEDABtbqFF/QlTunqbQ9jOq17Vz2w2SpvalFDqXLRIsk1/0R+vDeF/DZE0j9e7jAXdK8Lo4H27Qas7I3bxknjFOj3YKp+zBp2TfsHOKfl1eCGRmVfW6usO0dCslqDtnJBOqPkTae2PQ95eL4cFgruFsdSaZA8FosmoZWtoH5B/1ns4eOg7YweigvuxUUP4oL/WRyPR+J4LDa27Gp49uKiYCQuCoQ1UMnqvxFHn0ob49FjbWgSX6RV+U8T5z/BTbt3FHTe1xdGT5ZDxkc5ZFyswZRTKrHQeP9Sihzr7DWdWWnCp9uvbPwxsljYTeOse+b7lWajIwNNmEedNzMSiVPnFXJBXs1O5NNpZWOtjInPEkotZ4gt5Fp0219fJ/PNyKMaFKSilhrMDJngquchk9KRTEoFFAbyzW+kk7JwvG1DUbVNY59b9fmEazal7fvWg5afLWmMv9DXWeyOleta6bt8HH/TySHZYRKmPEmQtQ/O6Ngh2BQ3256tUK3MXX+14F6Q9XO1zdf+MW/8YYLO8ptr4cKsmyFUPuwHSNGARJNwkikNR0z3vdosKjqbimVLmmVZ0leyn1KlKX9M9dCIzKJis6l4sow5Z1kyGaooGoXqvmc/DUWPoeI9FJuEwiN6iQn0K05EKopHkfpRLv8VE59mSvkyw32esemNzsYbff/Rn4Zix1DhHiqe3lNh4vd6yNIpqNg37sdQ9/fL01DBaajkBBSWhhbv9E39QUqcPgkZZ77ytZ2Rl8pfyHu3u78BUEsBAjMALQAAAAgAU7BfXWq48mP//////////w0AFAAAAAAAAAAAAAAAAAAAAGRlZmF1bHRfZW50cnkBABAARBAAAAAAAABRAwAAAAAAAFBLBQYAAAAAAQABAE8AAACQAwAAAAA=",
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 1
+      },
+      "camp_02": {
+        "state": 2,
+        "stageId": "camp_02",
+        "startTimes": 17,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 1
+      },
+      "camp_03": {
+        "state": 2,
+        "stageId": "camp_03",
+        "startTimes": 7,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 1
+      },
       "pro_a_1": {
         "state": 0,
         "stageId": "pro_a_1",
-        "startTimes": 0,
+        "startTimes": 2,
         "completeTimes": 0,
         "practiceTimes": 0,
         "hasBattleReplay": 0
@@ -24504,6 +24024,14 @@
         "practiceTimes": 0,
         "hasBattleReplay": 0
       },
+      "sub_tr_2": {
+        "state": 0,
+        "stageId": "sub_tr_2",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
       "wk_fly_1": {
         "state": 0,
         "stageId": "wk_fly_1",
@@ -24512,10 +24040,282 @@
         "practiceTimes": 0,
         "hasBattleReplay": 0
       },
+      "camp_r_01": {
+        "state": 2,
+        "stageId": "camp_r_01",
+        "startTimes": 6,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 1
+      },
+      "camp_r_02": {
+        "state": 0,
+        "stageId": "camp_r_02",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_03": {
+        "state": 0,
+        "stageId": "camp_r_03",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_04": {
+        "state": 0,
+        "stageId": "camp_r_04",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_05": {
+        "state": 0,
+        "stageId": "camp_r_05",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_06": {
+        "state": 0,
+        "stageId": "camp_r_06",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_07": {
+        "state": 0,
+        "stageId": "camp_r_07",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_08": {
+        "state": 0,
+        "stageId": "camp_r_08",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_09": {
+        "state": 0,
+        "stageId": "camp_r_09",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_10": {
+        "state": 0,
+        "stageId": "camp_r_10",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_11": {
+        "state": 0,
+        "stageId": "camp_r_11",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_12": {
+        "state": 0,
+        "stageId": "camp_r_12",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_13": {
+        "state": 0,
+        "stageId": "camp_r_13",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_14": {
+        "state": 0,
+        "stageId": "camp_r_14",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_15": {
+        "state": 2,
+        "stageId": "camp_r_15",
+        "startTimes": 2,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 1
+      },
+      "camp_r_16": {
+        "state": 0,
+        "stageId": "camp_r_16",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_17": {
+        "state": 0,
+        "stageId": "camp_r_17",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_18": {
+        "state": 0,
+        "stageId": "camp_r_18",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_19": {
+        "state": 0,
+        "stageId": "camp_r_19",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_20": {
+        "state": 0,
+        "stageId": "camp_r_20",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_21": {
+        "state": 0,
+        "stageId": "camp_r_21",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_22": {
+        "state": 0,
+        "stageId": "camp_r_22",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_23": {
+        "state": 0,
+        "stageId": "camp_r_23",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_24": {
+        "state": 0,
+        "stageId": "camp_r_24",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_25": {
+        "state": 0,
+        "stageId": "camp_r_25",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_26": {
+        "state": 0,
+        "stageId": "camp_r_26",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_27": {
+        "state": 0,
+        "stageId": "camp_r_27",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_28": {
+        "state": 0,
+        "stageId": "camp_r_28",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_29": {
+        "state": 0,
+        "stageId": "camp_r_29",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_30": {
+        "state": 0,
+        "stageId": "camp_r_30",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_31": {
+        "state": 0,
+        "stageId": "camp_r_31",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_32": {
+        "state": 0,
+        "stageId": "camp_r_32",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_33": {
+        "state": 0,
+        "stageId": "camp_r_33",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "camp_r_34": {
+        "state": 2,
+        "stageId": "camp_r_34",
+        "startTimes": 8,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 1
+      },
       "main_00-01": {
         "state": 3,
         "stageId": "main_00-01",
-        "startTimes": 1,
+        "startTimes": 5,
         "completeTimes": 1,
         "practiceTimes": 0,
         "hasBattleReplay": 0
@@ -24524,7 +24324,7 @@
         "state": 3,
         "stageId": "main_00-02",
         "noCostCnt": 1,
-        "startTimes": 1,
+        "startTimes": 2,
         "completeTimes": 1,
         "practiceTimes": 0,
         "hasBattleReplay": 0
@@ -24533,7 +24333,7 @@
         "state": 3,
         "stageId": "main_00-03",
         "noCostCnt": 1,
-        "startTimes": 1,
+        "startTimes": 2,
         "completeTimes": 1,
         "practiceTimes": 0,
         "hasBattleReplay": 0
@@ -24578,8 +24378,8 @@
         "state": 3,
         "stageId": "main_00-08",
         "noCostCnt": 1,
-        "startTimes": 2,
-        "completeTimes": 2,
+        "startTimes": 1,
+        "completeTimes": 1,
         "practiceTimes": 0,
         "hasBattleReplay": 0
       },
@@ -24611,10 +24411,71 @@
         "hasBattleReplay": 0
       },
       "main_01-01": {
-        "state": 0,
+        "state": 3,
         "stageId": "main_01-01",
         "noCostCnt": 1,
+        "startTimes": 1,
+        "completeTimes": 1,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_01-02": {
+        "state": 3,
+        "stageId": "main_01-02",
+        "noCostCnt": 1,
+        "startTimes": 1,
+        "completeTimes": 1,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_01-03": {
+        "state": 3,
+        "stageId": "main_01-03",
+        "noCostCnt": 1,
+        "startTimes": 1,
+        "completeTimes": 1,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_01-04": {
+        "state": 3,
+        "stageId": "main_01-04",
+        "noCostCnt": 1,
+        "startTimes": 1,
+        "completeTimes": 1,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_01-05": {
+        "state": 3,
+        "stageId": "main_01-05",
+        "noCostCnt": 1,
+        "startTimes": 1,
+        "completeTimes": 1,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_02-08": {
+        "state": 3,
+        "stageId": "main_02-08",
+        "startTimes": 1,
+        "completeTimes": 1,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_02-09": {
+        "state": 0,
+        "stageId": "main_02-09",
         "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_03-04": {
+        "state": 0,
+        "stageId": "main_03-04",
+        "noCostCnt": 1,
+        "startTimes": 1,
         "completeTimes": 0,
         "practiceTimes": 0,
         "hasBattleReplay": 0
@@ -25646,6 +25507,50 @@
         "practiceTimes": 0,
         "hasBattleReplay": 0
       },
+      "main_01-01#f#": {
+        "state": 0,
+        "stageId": "main_01-01#f#",
+        "noCostCnt": 1,
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_01-03#f#": {
+        "state": 0,
+        "stageId": "main_01-03#f#",
+        "noCostCnt": 1,
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_01-04#f#": {
+        "state": 0,
+        "stageId": "main_01-04#f#",
+        "noCostCnt": 1,
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_01-05#f#": {
+        "state": 0,
+        "stageId": "main_01-05#f#",
+        "noCostCnt": 1,
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
+      "main_02-08#f#": {
+        "state": 0,
+        "stageId": "main_02-08#f#",
+        "startTimes": 0,
+        "completeTimes": 0,
+        "practiceTimes": 0,
+        "hasBattleReplay": 0
+      },
       "act17side_ex01": {
         "state": 0,
         "stageId": "act17side_ex01",
@@ -26193,37 +26098,37 @@
           ]
         },
         "sub_7": {
-          "state": 2,
+          "state": 3,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 1
             }
           ]
         },
         "sub_8": {
-          "state": 1,
+          "state": 3,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 1
             }
           ]
         },
         "sub_9": {
-          "state": 1,
+          "state": 3,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 1
             }
           ]
         },
         "sub_10": {
-          "state": 1,
+          "state": 3,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 1
             }
           ]
@@ -26429,6 +26334,69 @@
           ]
         },
         "main_13": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "main_14": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "main_15": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "main_16": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "main_17": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "main_18": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "main_19": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "main_20": {
           "state": 2,
           "progress": [
             {
@@ -26439,8 +26407,17 @@
         }
       },
       "DAILY": {
-        "daily_7101": {
-          "state": 2,
+        "daily_4801": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "daily_4802": {
+          "state": 1,
           "progress": [
             {
               "value": 0,
@@ -26448,12 +26425,30 @@
             }
           ]
         },
-        "daily_7102": {
+        "daily_4803": {
           "state": 1,
           "progress": [
             {
               "value": 0,
-              "target": 2
+              "target": 1
+            }
+          ]
+        },
+        "daily_7101": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "daily_7102": {
+          "state": 2,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
             }
           ]
         },
@@ -26494,28 +26489,28 @@
           ]
         },
         "daily_7107": {
-          "state": 1,
-          "progress": [
-            {
-              "value": 0,
-              "target": 3
-            }
-          ]
-        },
-        "daily_7108": {
           "state": 2,
           "progress": [
             {
               "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "daily_7108": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 100,
               "target": 100
             }
           ]
         },
         "daily_7109": {
-          "state": 1,
+          "state": 2,
           "progress": [
             {
-              "value": 0,
+              "value": 150,
               "target": 200
             }
           ]
@@ -26575,10 +26570,10 @@
           ]
         },
         "daily_7116": {
-          "state": 2,
+          "state": 3,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 1
             }
           ]
@@ -26706,7 +26701,7 @@
           "state": 2,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 1
             }
           ]
@@ -26742,7 +26737,7 @@
           "state": 2,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 1
             }
           ]
@@ -27097,7 +27092,7 @@
           "state": 2,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 10
             }
           ]
@@ -27160,7 +27155,7 @@
           "state": 2,
           "progress": [
             {
-              "value": 0,
+              "value": 150,
               "target": 1000
             }
           ]
@@ -27170,7 +27165,7 @@
           "progress": [
             {
               "value": 0,
-              "target": 2000
+              "target": 1
             }
           ]
         },
@@ -27179,25 +27174,25 @@
           "progress": [
             {
               "value": 0,
-              "target": 3000
+              "target": 1
             }
           ]
         },
         "weekly_711": {
-          "state": 1,
+          "state": 3,
           "progress": [
             {
-              "value": 0,
-              "target": 4000
+              "value": 1,
+              "target": 1
             }
           ]
         },
         "weekly_712": {
-          "state": 1,
+          "state": 2,
           "progress": [
             {
               "value": 0,
-              "target": 5000
+              "target": 1
             }
           ]
         },
@@ -27232,7 +27227,7 @@
           "state": 2,
           "progress": [
             {
-              "value": 0,
+              "value": 1,
               "target": 5
             }
           ]
@@ -61998,6 +61993,368 @@
           ]
         }
       },
+      "GUIDE_V3": {
+        "newguide_1_1": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_1_2": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_1_3": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_1_4": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_1_5": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_1_6": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_2_1": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_2_2": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_2_3": {
+          "state": 2,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_2_4": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_2_5": {
+          "state": 2,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_2_6": {
+          "state": 3,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_2_7": {
+          "state": 2,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_3_1": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_3_2": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_3_3": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_3_4": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_3_5": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_3_6": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_3_7": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_4_1": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_4_2": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_4_3": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_4_4": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_4_5": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_4_6": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_4_7": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_5_1": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_5_2": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_5_3": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_5_4": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_5_5": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_5_6": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_5_7": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_6_1": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_6_2": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_6_3": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_6_4": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_6_5": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 1,
+              "target": 1
+            }
+          ]
+        },
+        "newguide_6_6": {
+          "state": 1,
+          "progress": [
+            {
+              "value": 0,
+              "target": 1
+            }
+          ]
+        }
+      },
       "OPENSERVER": {
         "openserver_1_1": {
           "state": 2,
@@ -62075,9 +62432,16 @@
       "main_10": 1,
       "main_11": 1,
       "main_12": 1,
-      "main_13": 0,
+      "main_13": 1,
+      "main_14": 1,
+      "main_15": 1,
+      "main_16": 1,
+      "main_17": 1,
+      "main_18": 1,
+      "main_19": 1,
+      "main_20": 0,
       "sub_g_1": 0,
-      "sub_g_2": 0,
+      "sub_g_2": 1,
       "act10sre": 0,
       "act11sre": 0,
       "act12sre": 0,
@@ -62164,6 +62528,7 @@
       "act2vmulti": 0,
       "act3mainss": 0,
       "act4mainss": 0,
+      "daily_g_48": 1,
       "daily_g_71": 0,
       "weekly_g_7": 0,
       "act5d1day_1": 0,
@@ -62186,6 +62551,8 @@
       "act5d1day_12": 0,
       "act5d1day_13": 0,
       "act6bossrush": 0,
+      "newguide_g_1": 1,
+      "newguide_g_2": 1,
       "act1autochess": 0,
       "act1vhalfidle": 0,
       "act2autochess": 0,
@@ -62205,39 +62572,44 @@
       "permanent_main_2_Abnormal_Spectrum": 0,
       "permanent_main_1_Dissociative_Recombination": 0
     },
+    "lastDailyReset": 1793563200,
     "missionRewards": {
       "rewards": {
         "DAILY": {
-          "reward_daily_692": 0,
-          "reward_daily_693": 0,
-          "reward_daily_694": 0,
-          "reward_daily_695": 0,
-          "reward_daily_696": 0,
-          "reward_daily_697": 0,
-          "reward_daily_698": 0,
-          "reward_daily_699": 0,
-          "reward_daily_700": 0,
-          "reward_daily_701": 0
+          "reward_daily_600": 1,
+          "reward_daily_610": 1,
+          "reward_daily_623": 1,
+          "reward_daily_692": 1,
+          "reward_daily_693": 1,
+          "reward_daily_694": 1,
+          "reward_daily_695": 1,
+          "reward_daily_696": 1,
+          "reward_daily_697": 1,
+          "reward_daily_698": 1,
+          "reward_daily_699": 1,
+          "reward_daily_700": 1,
+          "reward_daily_701": 1
         },
         "WEEKLY": {
-          "reward_weekly_401": 0,
-          "reward_weekly_402": 0,
-          "reward_weekly_403": 0,
-          "reward_weekly_404": 0,
-          "reward_weekly_405": 0,
-          "reward_weekly_406": 0,
-          "reward_weekly_407": 0,
-          "reward_weekly_408": 0,
-          "reward_weekly_409": 0,
-          "reward_weekly_410": 0,
-          "reward_weekly_411": 0,
-          "reward_weekly_412": 0,
-          "reward_weekly_413": 0
+          "reward_weekly_401": 1,
+          "reward_weekly_402": 1,
+          "reward_weekly_403": 1,
+          "reward_weekly_404": 1,
+          "reward_weekly_405": 1,
+          "reward_weekly_406": 1,
+          "reward_weekly_407": 1,
+          "reward_weekly_408": 1,
+          "reward_weekly_409": 1,
+          "reward_weekly_410": 1,
+          "reward_weekly_411": 1,
+          "reward_weekly_412": 1,
+          "reward_weekly_413": 1
         }
       },
       "dailyPoint": 0,
       "weeklyPoint": 0
     },
+    "lastWeeklyReset": 1793563200,
     "pinnedSpecialOperator": "char_4195_radian"
   },
   "recruit": {
@@ -62245,11 +62617,11 @@
       "slots": {
         "0": {
           "tags": [
-            2,
-            4,
-            15,
-            17,
-            21
+            11,
+            16,
+            9,
+            8,
+            19
           ],
           "state": 1,
           "startTs": -1,
@@ -62260,11 +62632,11 @@
         },
         "1": {
           "tags": [
-            1,
-            3,
-            5,
-            6,
-            9
+            13,
+            1013,
+            24,
+            10,
+            29
           ],
           "state": 1,
           "startTs": -1,
@@ -62311,6 +62683,20 @@
     "consumable": {}
   },
   "activity": {
+    "act4video": {
+      "videoReward": {
+        "0": 1
+      }
+    },
+    "act64sign": {
+      "index": 1,
+      "checkIn": {
+        "1": 1
+      }
+    },
+    "act1reward": {
+      "choice": "pool_4"
+    },
     "TYPE_ACT9D0": {
       "act52side": {
         "coin": 0,
@@ -62342,8 +62728,8 @@
   "building": {
     "chars": {
       "2": {
-        "ap": 8640000,
-        "index": -1,
+        "ap": 6730800,
+        "index": 1,
         "bubble": {
           "assist": {
             "ts": 0,
@@ -62359,13 +62745,37 @@
           }
         },
         "charId": "char_002_amiya",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
+        "workTime": 19092,
+        "roomSlotId": "slot_34",
+        "changeScale": -100,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "9": {
+        "ap": 7416700,
+        "index": 0,
+        "bubble": {
+          "assist": {
+            "ts": 0,
+            "add": -1
+          },
+          "normal": {
+            "ts": 0,
+            "add": -1
+          },
+          "private": {
+            "ts": 0,
+            "add": -1
+          }
+        },
+        "charId": "char_009_12fce",
+        "workTime": 12235,
+        "roomSlotId": "slot_36",
+        "changeScale": -100,
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
+      },
+      "102": {
         "ap": 8640000,
         "index": -1,
         "bubble": {
@@ -62382,16 +62792,16 @@
             "add": -1
           }
         },
-        "charId": "char_009_12fce",
+        "charId": "char_102_texas",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793614632
       },
-      "109": {
-        "ap": 8640000,
-        "index": -1,
+      "107": {
+        "ap": 7376900,
+        "index": 0,
         "bubble": {
           "assist": {
             "ts": 0,
@@ -62402,49 +62812,11 @@
             "add": -1
           }
         },
-        "charId": "char_109_fmout",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "117": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_117_myrrh",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "118": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_118_yuki",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "charId": "char_107_liskam",
+        "workTime": 12631,
+        "roomSlotId": "slot_26",
+        "changeScale": -100,
+        "lastApAddTime": 1793537405
       },
       "120": {
         "ap": 8640000,
@@ -62468,7 +62840,7 @@
         "roomSlotId": "",
         "changeScale": 0,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "121": {
         "ap": 8640000,
@@ -62492,7 +62864,7 @@
         "roomSlotId": "",
         "changeScale": 0,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "122": {
         "ap": 8640000,
@@ -62505,13 +62877,18 @@
           "normal": {
             "ts": 0,
             "add": -1
+          },
+          "private": {
+            "ts": 0,
+            "add": -1
           }
         },
         "charId": "char_122_beagle",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
       },
       "123": {
         "ap": 8640000,
@@ -62524,13 +62901,18 @@
           "normal": {
             "ts": 0,
             "add": -1
+          },
+          "private": {
+            "ts": 0,
+            "add": -1
           }
         },
         "charId": "char_123_fang",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
       },
       "124": {
         "ap": 8640000,
@@ -62549,10 +62931,48 @@
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
-      "141": {
-        "ap": 8640000,
+      "126": {
+        "ap": 7444700,
+        "index": 1,
+        "bubble": {
+          "assist": {
+            "ts": 0,
+            "add": -1
+          },
+          "normal": {
+            "ts": 0,
+            "add": -1
+          }
+        },
+        "charId": "char_126_shotst",
+        "workTime": 11953,
+        "roomSlotId": "slot_36",
+        "changeScale": -100,
+        "lastApAddTime": 1793537405
+      },
+      "127": {
+        "ap": 8521200,
+        "index": 0,
+        "bubble": {
+          "assist": {
+            "ts": 0,
+            "add": -1
+          },
+          "normal": {
+            "ts": 0,
+            "add": -1
+          }
+        },
+        "charId": "char_127_estell",
+        "workTime": 1188,
+        "roomSlotId": "slot_32",
+        "changeScale": -100,
+        "lastApAddTime": 1793537405
+      },
+      "136": {
+        "ap": 8583900,
         "index": -1,
         "bubble": {
           "assist": {
@@ -62564,11 +62984,11 @@
             "add": -1
           }
         },
-        "charId": "char_141_nights",
-        "workTime": 0,
+        "charId": "char_136_hsguma",
+        "workTime": 561,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "150": {
         "ap": 8640000,
@@ -62587,9 +63007,9 @@
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
-      "181": {
+      "187": {
         "ap": 8640000,
         "index": -1,
         "bubble": {
@@ -62600,51 +63020,18 @@
           "normal": {
             "ts": 0,
             "add": -1
-          }
-        },
-        "charId": "char_181_flower",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "183": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
           },
-          "normal": {
+          "private": {
             "ts": 0,
             "add": -1
           }
         },
-        "charId": "char_183_skgoat",
+        "charId": "char_187_ccheal",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "190": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_190_clour",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
       },
       "192": {
         "ap": 8640000,
@@ -62657,15 +63044,20 @@
           "normal": {
             "ts": 0,
             "add": -1
+          },
+          "private": {
+            "ts": 0,
+            "add": -1
           }
         },
         "charId": "char_192_falco",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
       },
-      "199": {
+      "198": {
         "ap": 8640000,
         "index": -1,
         "bubble": {
@@ -62676,13 +63068,18 @@
           "normal": {
             "ts": 0,
             "add": -1
+          },
+          "private": {
+            "ts": 0,
+            "add": -1
           }
         },
-        "charId": "char_199_yak",
+        "charId": "char_198_blackd",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
       },
       "208": {
         "ap": 8640000,
@@ -62695,32 +63092,18 @@
           "normal": {
             "ts": 0,
             "add": -1
+          },
+          "private": {
+            "ts": 0,
+            "add": -1
           }
         },
         "charId": "char_208_melan",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "210": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_210_stward",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
       },
       "211": {
         "ap": 8640000,
@@ -62744,7 +63127,7 @@
         "roomSlotId": "",
         "changeScale": 0,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "212": {
         "ap": 8640000,
@@ -62757,203 +63140,42 @@
           "normal": {
             "ts": 0,
             "add": -1
+          },
+          "private": {
+            "ts": 0,
+            "add": -1
           }
         },
         "charId": "char_212_ansel",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
       },
       "235": {
-        "ap": 8640000,
-        "index": -1,
+        "ap": 8590900,
+        "index": 0,
         "bubble": {
           "assist": {
             "ts": 0,
             "add": -1
           },
           "normal": {
+            "ts": 0,
+            "add": -1
+          },
+          "private": {
             "ts": 0,
             "add": -1
           }
         },
         "charId": "char_235_jesica",
-        "workTime": 0,
-        "roomSlotId": "",
+        "workTime": 491,
+        "roomSlotId": "slot_25",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "236": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_236_rope",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "237": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_237_gravel",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "240": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_240_wyvern",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "258": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_258_podego",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "271": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_271_spikes",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "272": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_272_strong",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "278": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_278_orchid",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "282": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_282_catap",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "283": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_283_midn",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "privateRooms": [],
+        "lastApAddTime": 1793537405
       },
       "284": {
         "ap": 8640000,
@@ -62972,9 +63194,9 @@
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
-      "290": {
+      "376": {
         "ap": 8640000,
         "index": -1,
         "bubble": {
@@ -62987,106 +63209,11 @@
             "add": -1
           }
         },
-        "charId": "char_290_vigna",
+        "charId": "char_376_therex",
         "workTime": 0,
         "roomSlotId": "",
         "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "328": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_328_cammou",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "337": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_337_utage",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "347": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_347_jaksel",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "446": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_446_aroma",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "452": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_452_bstalk",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "500": {
         "ap": 8640000,
@@ -63110,7 +63237,7 @@
         "roomSlotId": "",
         "changeScale": 0,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "501": {
         "ap": 8640000,
@@ -63134,11 +63261,11 @@
         "roomSlotId": "",
         "changeScale": 0,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "502": {
-        "ap": 8640000,
-        "index": -1,
+        "ap": 7198000,
+        "index": 0,
         "bubble": {
           "assist": {
             "ts": 0,
@@ -63154,14 +63281,14 @@
           }
         },
         "charId": "char_502_nblade",
-        "workTime": 0,
-        "roomSlotId": "",
+        "workTime": 14420,
+        "roomSlotId": "slot_24",
         "changeScale": 0,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       },
       "503": {
-        "ap": 8640000,
+        "ap": 8583900,
         "index": -1,
         "bubble": {
           "assist": {
@@ -63178,110 +63305,15 @@
           }
         },
         "charId": "char_503_rang",
-        "workTime": 0,
+        "workTime": 561,
         "roomSlotId": "",
         "changeScale": 0,
         "privateRooms": [],
-        "lastApAddTime": 1793268800
-      },
-      "1051": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_1051_headb2",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "4062": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_4062_totter",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "4109": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_4109_baslin",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "4178": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_4178_alanna",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
-      },
-      "4208": {
-        "ap": 8640000,
-        "index": -1,
-        "bubble": {
-          "assist": {
-            "ts": 0,
-            "add": -1
-          },
-          "normal": {
-            "ts": 0,
-            "add": -1
-          }
-        },
-        "charId": "char_4208_wintim",
-        "workTime": 0,
-        "roomSlotId": "",
-        "changeScale": 0,
-        "lastApAddTime": 1793268800
+        "lastApAddTime": 1793537405
       }
     },
     "music": {
-      "inUse": false,
+      "inUse": true,
       "state": {
         "bgm_bg_ddd": {
           "unlock": false,
@@ -63530,6 +63562,27 @@
       "selected": "bgm_building_default"
     },
     "rooms": {
+      "POWER": {
+        "slot_26": {
+          "buff": {
+            "global": {
+              "apCost": {
+                "self": {}
+              },
+              "roomCnt": {},
+              "laborSpeed": 0,
+              "manufacture": {
+                "charSpeed": {}
+              }
+            },
+            "laborSpeed": 0.05
+          },
+          "state": 0,
+          "presetQueue": [],
+          "lastUpdateTime": 1792987887,
+          "completeWorkTime": -1
+        }
+      },
       "CONTROL": {
         "slot_34": {
           "buff": {
@@ -63586,25 +63639,533 @@
           "lastUpdateTime": 1791599176
         }
       },
+      "MEETING": {
+        "slot_36": {
+          "mfc": {},
+          "buff": {
+            "flag": {},
+            "owned": 0,
+            "speed": 0,
+            "apCost": {
+              "self": {}
+            },
+            "weight": {
+              "RHINE": 0,
+              "URSUS": 0,
+              "KJERAG": 0,
+              "RHODES": 0,
+              "GLASGOW": 0,
+              "PENGUIN": 0,
+              "BLACKSTEEL": 0
+            },
+            "notOwned": 0
+          },
+          "board": {
+            "GLASGOW": "10000001#1#1793448660"
+          },
+          "speed": 105,
+          "state": 0,
+          "ownStock": [
+            {
+              "id": "10000001#1#1793448660",
+              "ts": 1793448660,
+              "uid": "10000001",
+              "name": "龙灵",
+              "type": "GLASGOW",
+              "chars": [
+                {
+                  "skin": "char_192_falco#1",
+                  "level": 1,
+                  "charId": "char_192_falco",
+                  "evolvePhase": 0
+                },
+                {
+                  "skin": "char_150_snakek#1",
+                  "level": 1,
+                  "charId": "char_150_snakek",
+                  "evolvePhase": 0
+                }
+              ],
+              "inUse": 1,
+              "number": 5,
+              "nickNum": "0002"
+            },
+            {
+              "id": "10000001#2#1793448840",
+              "ts": 1793448840,
+              "uid": "10000001",
+              "name": "龙灵",
+              "type": "RHODES",
+              "chars": [
+                {
+                  "skin": "char_192_falco#1",
+                  "level": 1,
+                  "charId": "char_192_falco",
+                  "evolvePhase": 0
+                },
+                {
+                  "skin": "char_150_snakek#1",
+                  "level": 1,
+                  "charId": "char_150_snakek",
+                  "evolvePhase": 0
+                }
+              ],
+              "inUse": 0,
+              "number": 4,
+              "nickNum": "0002"
+            },
+            {
+              "id": "10000001#3#1793537405",
+              "ts": 1793537405,
+              "uid": "10000001",
+              "name": "龙灵",
+              "type": "PENGUIN",
+              "chars": [
+                {
+                  "skin": "char_192_falco#1",
+                  "level": 1,
+                  "charId": "char_192_falco",
+                  "evolvePhase": 0
+                },
+                {
+                  "skin": "char_150_snakek#1",
+                  "level": 1,
+                  "charId": "char_150_snakek",
+                  "evolvePhase": 0
+                }
+              ],
+              "inUse": 0,
+              "number": 2,
+              "nickNum": "0002"
+            }
+          ],
+          "received": 0,
+          "infoShare": {
+            "ts": 0,
+            "reward": 0
+          },
+          "dailyReward": {
+            "id": "10000001#1#1793537405",
+            "ts": 1793537405,
+            "uid": "10000001",
+            "name": "龙灵",
+            "type": "KJERAG",
+            "chars": [
+              {
+                "skin": "char_192_falco#1",
+                "level": 1,
+                "charId": "char_192_falco",
+                "evolvePhase": 0
+              },
+              {
+                "skin": "char_150_snakek#1",
+                "level": 1,
+                "charId": "char_150_snakek",
+                "evolvePhase": 0
+              }
+            ],
+            "inUse": 0,
+            "number": 1,
+            "nickNum": "0002"
+          },
+          "diySolution": {
+            "floor": null,
+            "other": [
+              {
+                "id": "furniM_basicRoom_chandelier_01",
+                "coordinate": {
+                  "x": 2,
+                  "y": 4
+                }
+              },
+              {
+                "id": "furniM_basicRoom_plant_01",
+                "coordinate": {
+                  "x": 12,
+                  "y": 0
+                }
+              },
+              {
+                "id": "furniM_basicRoom_cupboard_01",
+                "coordinate": {
+                  "x": 0,
+                  "y": 0
+                }
+              },
+              {
+                "id": "furniM_basicRoom_cupboard_02",
+                "coordinate": {
+                  "x": 3,
+                  "y": 0
+                }
+              },
+              {
+                "id": "furniM_basicRoom_cutoff_01",
+                "coordinate": {
+                  "x": 11,
+                  "y": 8
+                }
+              },
+              {
+                "id": "furniM_basicRoom_domelight_01",
+                "coordinate": {
+                  "x": 16,
+                  "y": 4
+                }
+              },
+              {
+                "id": "furniM_basicRoom_sofa_L_01",
+                "coordinate": {
+                  "x": 16,
+                  "y": 7
+                }
+              },
+              {
+                "id": "furniM_basicRoom_sofa_01",
+                "coordinate": {
+                  "x": 19,
+                  "y": 4
+                }
+              },
+              {
+                "id": "furniM_basicRoom_sofa_R_01",
+                "coordinate": {
+                  "x": 27,
+                  "y": 7
+                }
+              },
+              {
+                "id": "furniM_basicRoom_teatable_01",
+                "coordinate": {
+                  "x": 20,
+                  "y": 8
+                }
+              },
+              {
+                "id": "furniM_basicRoom_shelf_01",
+                "coordinate": {
+                  "x": 31,
+                  "y": 1
+                }
+              },
+              {
+                "id": "furniM_basicRoom_plant_02",
+                "coordinate": {
+                  "x": 38,
+                  "y": 5
+                }
+              },
+              {
+                "id": "furniM_basicRoom_desk_01",
+                "coordinate": {
+                  "x": 40,
+                  "y": 3
+                }
+              },
+              {
+                "id": "furniM_basicRoom_musicplayer_01",
+                "coordinate": {
+                  "x": 12,
+                  "y": 8
+                }
+              },
+              {
+                "id": "furniM_basicRoom_messageboard_01",
+                "coordinate": {
+                  "x": 33,
+                  "y": 1
+                }
+              }
+            ],
+            "carpet": [],
+            "wallPaper": null
+          },
+          "mustgetClue": [],
+          "presetQueue": [],
+          "messageLeave": {
+            "sp": {
+              "lastWeek": 0,
+              "thisWeek": 0,
+              "lastWeekSum": 31,
+              "thisWeekSum": 180
+            },
+            "inUse": true,
+            "lastShowTs": 1793449111,
+            "lastVisitTs": 1793336055,
+            "lastUpdateSpTs": 1793449111
+          },
+          "processPoint": 3585975,
+          "receiveStock": [],
+          "socialReward": {
+            "daily": 0,
+            "search": 0
+          },
+          "clueProduceTs": 1793476800,
+          "expiredReward": 0,
+          "lastUpdateTime": 1793537405,
+          "startApCounter": {},
+          "completeWorkTime": 1793571558,
+          "clueExchangeReady": true,
+          "clueExchangeDoneTs": 1793247763,
+          "clueExchangeStartedTs": 1793334024
+        }
+      },
+      "PRIVATE": {
+        "slot_47": {
+          "state": 0,
+          "owners": [
+            136
+          ],
+          "comfort": 295,
+          "lockQueue": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "diySolution": {
+            "floor": null,
+            "other": [
+              {
+                "id": "furni_inkArt_bambooInkArt_01",
+                "coordinate": {
+                  "x": 15,
+                  "y": 0,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_inkArt_incenseStand_01",
+                "coordinate": {
+                  "x": 13,
+                  "y": 0,
+                  "dir": 0
+                }
+              }
+            ],
+            "carpet": [],
+            "wallPaper": null
+          },
+          "presetQueue": [],
+          "lastUpdateTime": 1793187082,
+          "completeWorkTime": -1
+        }
+      },
+      "TRADING": {
+        "slot_24": {
+          "buff": {
+            "tgw": [],
+            "rate": {},
+            "limit": 0,
+            "point": {},
+            "speed": 0.31,
+            "apCost": {
+              "all": 0,
+              "self": {
+                "502": 25
+              },
+              "single": {}
+            },
+            "manuLines": {},
+            "orderBuff": [],
+            "orderWtBuff": [],
+            "speGoldOrder": {
+              "activated": false
+            },
+            "violatedInfo": {
+              "cntBuff": [],
+              "orderChecker": []
+            }
+          },
+          "state": 0,
+          "stock": [],
+          "apCost": 0,
+          "strategy": "O_GOLD",
+          "stockLimit": 6,
+          "presetQueue": [],
+          "lastUpdateTime": 1793537408
+        }
+      },
       "ELEVATOR": {
         "slot_37": {},
         "slot_38": {}
+      },
+      "WORKSHOP": {
+        "slot_32": {
+          "state": 0,
+          "presetQueue": [],
+          "lastUpdateTime": 1793187477,
+          "completeWorkTime": -1
+        }
+      },
+      "DORMITORY": {
+        "slot_28": {
+          "buff": {
+            "point": {},
+            "apCost": {
+              "all": 0,
+              "self": {},
+              "single": {
+                "value": 0,
+                "target": null
+              },
+              "exclude": {}
+            }
+          },
+          "state": 0,
+          "comfort": 1750,
+          "lockQueue": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "diySolution": {
+            "floor": null,
+            "other": [
+              {
+                "id": "furni_s1_clock_01",
+                "coordinate": {
+                  "x": 18,
+                  "y": 7,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_dropN001_vineColumn_01",
+                "coordinate": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_guotu_sofa_01",
+                "coordinate": {
+                  "x": 1,
+                  "y": 0,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_guotu_wallset_01",
+                "coordinate": {
+                  "x": 1,
+                  "y": 4,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_inkArt_bambooInkArt_01",
+                "coordinate": {
+                  "x": 6,
+                  "y": 0,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_inkArt_incenseStand_01",
+                "coordinate": {
+                  "x": 9,
+                  "y": 0,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_inkArt_table_01",
+                "coordinate": {
+                  "x": 11,
+                  "y": 1,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_inkArt_screen1_01",
+                "coordinate": {
+                  "x": 10,
+                  "y": 7,
+                  "dir": 0
+                }
+              }
+            ],
+            "carpet": [
+              {
+                "id": "furni_inkArt_carpet_01",
+                "coordinate": {
+                  "x": 0,
+                  "y": 0,
+                  "dir": 0
+                }
+              },
+              {
+                "id": "furni_inkArt_carpet_01",
+                "coordinate": {
+                  "x": 12,
+                  "y": 0,
+                  "dir": 0
+                }
+              }
+            ],
+            "wallPaper": null
+          },
+          "presetQueue": [],
+          "lastUpdateTime": 1793179105,
+          "completeWorkTime": -1
+        }
+      },
+      "MANUFACTURE": {
+        "slot_25": {
+          "buff": {
+            "flag": {},
+            "point": {},
+            "speed": 999,
+            "apCost": {
+              "all": 0,
+              "self": {}
+            },
+            "cSpeed": 0,
+            "sSpeed": 0,
+            "tSpeed": {},
+            "capFrom": {},
+            "capacity": 0,
+            "maxSpeed": -1,
+            "skillExtend": {}
+          },
+          "state": 0,
+          "apCost": -100,
+          "display": {
+            "base": -100,
+            "buff": 0
+          },
+          "capacity": 24,
+          "saveTime": 0,
+          "tailTime": 0,
+          "formulaId": "1",
+          "presetQueue": [],
+          "processPoint": 0,
+          "lastUpdateTime": 1793537405,
+          "completeWorkTime": -1,
+          "outputSolutionCnt": 0,
+          "remainSolutionCnt": 0
+        }
       }
     },
     "assist": [
-      -1,
-      -1,
+      2,
+      136,
       -1,
       -1,
       -1
     ],
     "status": {
       "labor": {
-        "value": 40,
-        "maxValue": 40,
-        "buffSpeed": 0,
+        "value": 99,
+        "maxValue": 99,
+        "buffSpeed": 0.05,
         "processPoint": 0,
-        "lastUpdateTime": 1793268800
+        "lastUpdateTime": 1793537405
       },
       "workshop": {
         "bonus": {},
@@ -63612,15 +64173,246 @@
       }
     },
     "solution": {
-      "furnitureTs": {}
+      "furnitureTs": {
+        "furni_s1_clock_01": 1793180494,
+        "furni_guotu_sofa_01": 1793180495,
+        "furni_s1_comdesk_01": 1793180146,
+        "furni_inkArt_rack_01": 1793180146,
+        "furni_inkArt_table_01": 1793180497,
+        "furni_guotu_wallset_01": 1793180495,
+        "furni_inkArt_carpet_01": 1793180494,
+        "furni_inkArt_screen1_01": 1793180497,
+        "furni_talulahCabin_sofa_01": 1793543327,
+        "furni_talulahCabin_bench_01": 1793543327,
+        "furni_talulahCabin_chair_01": 1793543327,
+        "furni_talulahCabin_floor_01": 1793543327,
+        "furni_dropN001_vineColumn_01": 1793180495,
+        "furni_inkArt_bambooInkArt_01": 1793180496,
+        "furni_inkArt_incenseStand_01": 1793180496,
+        "furni_talulahCabin_carpet_01": 1793543327,
+        "furni_tsarPalace_footrest_01": 1793543348,
+        "furni_talulahCabin_cabinet_01": 1793543327,
+        "furni_talulahCabin_hayRack_01": 1793543327,
+        "furni_talulahCabin_coatRack_01": 1793543327,
+        "furni_talulahCabin_toolRack_01": 1793543327,
+        "furni_talulahCabin_toolRack_02": 1793543327,
+        "furni_talulahCabin_fireplace_01": 1793543327,
+        "furni_talulahCabin_longTable_01": 1793543327,
+        "furni_talulahCabin_scarecrow_01": 1793543327,
+        "furni_talulahCabin_wallpaper_01": 1793543327,
+        "furni_talulahCabin_trackLight_01": 1793543327,
+        "furni_talulahCabin_candlestick_01": 1793543327,
+        "furni_talulahCabin_ceilinglamp_01": 1793543327,
+        "furni_talulahCabin_coffeeTable_01": 1793543327,
+        "furni_talulahCabin_produceCage_01": 1793543327,
+        "furni_talulahCabin_bucketBasket_01": 1793543338,
+        "furni_talulahCabin_firewoodRack_01": 1793543327
+      }
     },
-    "furniture": {},
+    "furniture": {
+      "furni_s1_clock_01": {
+        "count": 1,
+        "inUse": 1
+      },
+      "furni_guotu_sofa_01": {
+        "count": 1,
+        "inUse": 1
+      },
+      "furni_s1_comdesk_01": {
+        "count": 1,
+        "inUse": 0
+      },
+      "furni_inkArt_rack_01": {
+        "count": 1,
+        "inUse": 0
+      },
+      "furni_inkArt_table_01": {
+        "count": 2,
+        "inUse": 1
+      },
+      "furni_guotu_wallset_01": {
+        "count": 1,
+        "inUse": 1
+      },
+      "furni_inkArt_carpet_01": {
+        "count": 2,
+        "inUse": 2
+      },
+      "furni_inkArt_screen1_01": {
+        "count": 2,
+        "inUse": 1
+      },
+      "furni_talulahCabin_sofa_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_bench_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_chair_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_floor_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_dropN001_vineColumn_01": {
+        "count": 1,
+        "inUse": 1
+      },
+      "furni_inkArt_bambooInkArt_01": {
+        "count": 2,
+        "inUse": 2
+      },
+      "furni_inkArt_incenseStand_01": {
+        "count": 2,
+        "inUse": 2
+      },
+      "furni_talulahCabin_carpet_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_tsarPalace_footrest_01": {
+        "count": 1,
+        "inUse": 0
+      },
+      "furni_talulahCabin_cabinet_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_hayRack_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_coatRack_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_toolRack_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_toolRack_02": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_fireplace_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_longTable_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_scarecrow_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_wallpaper_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_trackLight_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_candlestick_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_ceilinglamp_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_coffeeTable_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_produceCage_01": {
+        "count": 2,
+        "inUse": 0
+      },
+      "furni_talulahCabin_bucketBasket_01": {
+        "count": 3,
+        "inUse": 0
+      },
+      "furni_talulahCabin_firewoodRack_01": {
+        "count": 2,
+        "inUse": 0
+      }
+    },
     "roomSlots": {
+      "slot_24": {
+        "level": 1,
+        "state": 2,
+        "roomId": "TRADING",
+        "charInstIds": [
+          502
+        ],
+        "completeConstructTime": -1
+      },
+      "slot_25": {
+        "level": 1,
+        "state": 2,
+        "roomId": "MANUFACTURE",
+        "charInstIds": [
+          235
+        ],
+        "completeConstructTime": -1
+      },
+      "slot_26": {
+        "level": 1,
+        "state": 2,
+        "roomId": "POWER",
+        "charInstIds": [
+          107
+        ],
+        "completeConstructTime": -1
+      },
       "slot_27": {
         "level": 1,
         "state": 2,
         "roomId": "ELEVATOR",
         "charInstIds": [],
+        "completeConstructTime": -1
+      },
+      "slot_28": {
+        "level": 2,
+        "state": 2,
+        "roomId": "DORMITORY",
+        "charInstIds": [],
+        "completeConstructTime": 1793182697
+      },
+      "slot_29": {
+        "level": 1,
+        "state": 2,
+        "roomId": "CORRIDOR",
+        "charInstIds": [],
+        "completeConstructTime": -1
+      },
+      "slot_30": {
+        "level": 1,
+        "state": 2,
+        "roomId": "ELEVATOR",
+        "charInstIds": [],
+        "completeConstructTime": -1
+      },
+      "slot_31": {
+        "level": 1,
+        "state": 2,
+        "roomId": "CORRIDOR",
+        "charInstIds": [],
+        "completeConstructTime": -1
+      },
+      "slot_32": {
+        "level": 1,
+        "state": 2,
+        "roomId": "WORKSHOP",
+        "charInstIds": [
+          127
+        ],
         "completeConstructTime": -1
       },
       "slot_33": {
@@ -63631,11 +64423,28 @@
         "completeConstructTime": -1
       },
       "slot_34": {
-        "level": 1,
+        "level": 2,
         "state": 2,
         "roomId": "CONTROL",
         "charInstIds": [
-          -1
+          2
+        ],
+        "completeConstructTime": 1793187481
+      },
+      "slot_35": {
+        "level": 1,
+        "state": 2,
+        "roomId": "ELEVATOR",
+        "charInstIds": [],
+        "completeConstructTime": -1
+      },
+      "slot_36": {
+        "level": 1,
+        "state": 2,
+        "roomId": "MEETING",
+        "charInstIds": [
+          9,
+          126
         ],
         "completeConstructTime": -1
       },
@@ -63652,9 +64461,50 @@
         "roomId": "ELEVATOR",
         "charInstIds": [],
         "completeConstructTime": -1
+      },
+      "slot_45": {
+        "level": 1,
+        "state": 2,
+        "roomId": "CORRIDOR",
+        "charInstIds": [],
+        "completeConstructTime": -1
+      },
+      "slot_46": {
+        "level": 1,
+        "state": 2,
+        "roomId": "ELEVATOR",
+        "charInstIds": [],
+        "completeConstructTime": -1
+      },
+      "slot_47": {
+        "level": 1,
+        "state": 2,
+        "roomId": "PRIVATE",
+        "charInstIds": [],
+        "completeConstructTime": -1
+      },
+      "slot_48": {
+        "level": 1,
+        "state": 2,
+        "roomId": "ELEVATOR",
+        "charInstIds": [],
+        "completeConstructTime": -1
       }
     },
     "diyPresetSolutions": {}
+  },
+  "carousel": {
+    "furnitureShop": {
+      "goods": {
+        "s1_01_3": 1,
+        "tsarPalace_4": 1,
+        "talulahCabin_2": 1
+      },
+      "groups": {
+        "inkArt_2021": 1,
+        "talulahCabin_2026": 1
+      }
+    }
   },
   "crisisV2": {
     "nst": -1,
@@ -64177,68 +65027,58 @@
     "selected": "tm_rhodes_day"
   },
   "inventory": {
-    "2001": 66,
-    "2003": 19,
-    "2004": 99881,
-    "3003": 15,
-    "3112": 6,
-    "3131": 110,
-    "3132": 110,
-    "3251": 9997,
-    "3252": 1000,
-    "3301": 36,
-    "4006": 8,
-    "30011": 6,
-    "30021": 7,
-    "30031": 4,
-    "30041": 4,
-    "30042": 1996,
-    "30051": 4,
-    "30061": 2005,
-    "30062": 1996,
-    "p_char_199_yak": 0,
-    "p_char_118_yuki": 0,
+    "2001": 646,
+    "2002": 175,
+    "2003": 185,
+    "2004": 33,
+    "3003": 82,
+    "3105": 0,
+    "3112": 9,
+    "3113": 6,
+    "3131": 36,
+    "3132": 29,
+    "3133": 18,
+    "3301": 162,
+    "3302": 50,
+    "3303": 5,
+    "3401": 25041,
+    "4006": 83,
+    "7001": 10,
+    "30011": 19,
+    "30012": 9,
+    "30021": 21,
+    "30022": 7,
+    "30031": 18,
+    "30032": 7,
+    "30041": 22,
+    "30042": 7,
+    "30051": 23,
+    "30052": 7,
+    "30054": 1,
+    "30061": 35,
+    "30062": 8,
+    "30063": 2,
+    "30084": 4,
+    "30093": 1,
+    "31014": 1,
+    "31023": 3,
+    "31094": 1,
     "p_char_121_lava": 0,
-    "p_char_123_fang": 1,
-    "p_char_236_rope": 0,
-    "p_char_283_midn": 0,
-    "p_char_284_spot": 1,
+    "p_char_123_fang": 0,
+    "mod_unlock_token": 2,
     "p_char_009_12fce": 0,
-    "p_char_109_fmout": 0,
-    "p_char_117_myrrh": 0,
-    "p_char_124_kroos": 3,
-    "p_char_190_clour": 0,
-    "p_char_192_falco": 1,
-    "p_char_208_melan": 3,
-    "p_char_212_ansel": 1,
-    "p_char_282_catap": 0,
-    "p_char_290_vigna": 0,
-    "p_char_337_utage": 1,
-    "p_char_446_aroma": 0,
+    "p_char_102_texas": 0,
+    "p_char_192_falco": 0,
+    "p_char_208_melan": 1,
+    "p_char_212_ansel": 0,
     "p_char_501_durin": 0,
-    "p_char_120_hibisc": 0,
-    "p_char_122_beagle": 1,
-    "p_char_141_nights": 0,
+    "p_char_120_hibisc": 1,
+    "p_char_122_beagle": 0,
     "p_char_150_snakek": 0,
-    "p_char_181_flower": 0,
-    "p_char_183_skgoat": 0,
-    "p_char_210_stward": 1,
+    "p_char_187_ccheal": 0,
+    "p_char_198_blackd": 0,
     "p_char_211_adnach": 0,
-    "p_char_235_jesica": 1,
-    "p_char_237_gravel": 2,
-    "p_char_240_wyvern": 1,
-    "p_char_258_podego": 0,
-    "p_char_271_spikes": 0,
-    "p_char_272_strong": 0,
-    "p_char_278_orchid": 0,
-    "p_char_328_cammou": 0,
-    "p_char_347_jaksel": 0,
-    "p_char_452_bstalk": 0,
-    "p_char_1051_headb2": 0,
-    "p_char_4062_totter": 0,
-    "p_char_4109_baslin": 0,
-    "p_char_4178_alanna": 0,
-    "p_char_4208_wintim": 1
+    "p_char_235_jesica": 0
   },
   "pushFlags": {
     "status": 1791599176,
@@ -64583,16 +65423,28 @@
     "selected": "bg_rhodes_day"
   },
   "consumable": {
+    "ap_supply_lt_80": {
+      "1": {
+        "ts": 1794544020,
+        "count": 3
+      }
+    },
+    "ap_supply_lt_120": {
+      "3": {
+        "ts": 1794747752,
+        "count": 4
+      }
+    },
     "voucher_elite_II_5": {
       "0": {
         "ts": -1,
-        "count": 2
+        "count": 0
       }
     },
     "voucher_recruitR6_pick5301": {
-      "1": {
+      "2": {
         "ts": -1,
-        "count": 1
+        "count": 2
       }
     }
   },
@@ -64603,7 +65455,9 @@
         0,
         0,
         0,
-        0
+        0,
+        0,
+        1
       ],
       "isAvailable": true
     },
@@ -64620,31 +65474,55 @@
         0,
         0,
         0,
-        0
+        0,
+        1,
+        1
       ],
-      "nowIndex": 5,
+      "nowIndex": 7,
       "finalReward": 0,
       "isAvailable": true
     }
   },
   "campaignsV2": {
     "open": {
-      "rGroup": "group_r_33",
-      "rotate": "camp_r_33",
-      "tGroup": "group_tr_74",
-      "tAllOpen": null,
+      "rGroup": "group_r_34",
+      "rotate": "camp_r_34",
+      "tGroup": "group_tr_75",
+      "tAllOpen": "group_tr_all_12",
       "training": [
         "camp_r_01",
+        "camp_r_02",
+        "camp_r_03",
         "camp_r_04",
+        "camp_r_05",
+        "camp_r_06",
         "camp_r_07",
+        "camp_r_08",
+        "camp_r_09",
         "camp_r_10",
+        "camp_r_11",
+        "camp_r_12",
         "camp_r_13",
+        "camp_r_14",
+        "camp_r_15",
         "camp_r_16",
+        "camp_r_17",
+        "camp_r_18",
         "camp_r_19",
+        "camp_r_20",
+        "camp_r_21",
         "camp_r_22",
+        "camp_r_23",
+        "camp_r_24",
         "camp_r_25",
+        "camp_r_26",
+        "camp_r_27",
         "camp_r_28",
-        "camp_r_31"
+        "camp_r_29",
+        "camp_r_30",
+        "camp_r_31",
+        "camp_r_32",
+        "camp_r_33"
       ],
       "permanent": [
         "camp_01",
@@ -64660,22 +65538,22 @@
     },
     "instances": {
       "camp_01": {
-        "maxKills": 0,
+        "maxKills": 400,
         "rewardStatus": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
         ]
       },
       "camp_02": {
-        "maxKills": 0,
+        "maxKills": 400,
         "rewardStatus": [
-          0,
+          1,
           0,
           0,
           0,
@@ -64686,7 +65564,7 @@
         ]
       },
       "camp_03": {
-        "maxKills": 0,
+        "maxKills": 400,
         "rewardStatus": [
           0,
           0,
@@ -64699,7 +65577,7 @@
         ]
       },
       "camp_r_01": {
-        "maxKills": 0,
+        "maxKills": 400,
         "rewardStatus": [
           0,
           0,
@@ -64881,7 +65759,7 @@
         ]
       },
       "camp_r_15": {
-        "maxKills": 0,
+        "maxKills": 400,
         "rewardStatus": [
           0,
           0,
@@ -65126,12 +66004,25 @@
           0,
           0
         ]
+      },
+      "camp_r_34": {
+        "maxKills": 400,
+        "rewardStatus": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       }
     },
-    "lastRefreshTs": 1791599176,
+    "lastRefreshTs": 1793327176,
     "sweepMaxKills": {},
     "campaignTotalFee": 1200,
-    "campaignCurrentFee": 0
+    "campaignCurrentFee": 490
   },
   "limitedBuff": {
     "inventory": {},
@@ -70737,25 +71628,56 @@
   },
   "charRotation": {
     "preset": {
-      "1": {
+      "4": {
         "name": "未命名界面配置",
         "slots": [
           {
-            "charId": "char_002_amiya",
-            "skinId": "char_002_amiya#1"
+            "charId": "char_235_jesica",
+            "skinId": "char_235_jesica@wild#2",
+            "skinSp": false
           }
         ],
-        "profile": "char_002_amiya#1",
+        "profile": "char_235_jesica@wild#2",
         "homeTheme": "tm_rhodes_day",
+        "profileSp": false,
         "background": "bg_rhodes_day",
-        "profileInst": 1
+        "profileInst": 235
       }
     },
-    "current": "1"
+    "current": "4"
+  },
+  "openServerV3": {
+    "checkIn": {
+      "groupId": "new_login_g_1",
+      "history": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "mission": {
+      "milestone": {
+        "got": [
+        ],
+        "point": 0,
+        "groupId": "new_bp_g_1"
+      }
+    },
+    "fullOpen": {
+      "today": false,
+      "remain": 0
+    }
   },
   "periodicShop": {
-    "weeklyResetAt": 1792944000,
-    "monthlyResetAt": 202610
+    "weeklyResetAt": 1793548800,
+    "monthlyResetAt": 202611
   },
   "nameCardStyle": {
     "misc": {
@@ -70821,7 +71743,7 @@
     "componentOrder": [
       "module_sign",
       "module_assist",
-      "module_medal"
+      "module_equip"
     ]
   },
   "trainingGround": {
@@ -70866,6 +71788,10 @@
   "autochessSeason": {
     "band": {},
     "trainingModeFin": {}
+  },
+  "localMonthlySub": {
+    "lastGrantTs": 1793614194,
+    "lastGrantDay": 20261102
   },
   "collectionReward": {
     "team": {}

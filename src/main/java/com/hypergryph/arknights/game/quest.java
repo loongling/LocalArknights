@@ -113,17 +113,15 @@ public class quest {
                     }
                     JSONObject stage_table = stageTable.getJSONObject(stageId);
                     JSONObject result;
-                    if (!UserSyncData.getJSONObject("dungeon").getJSONObject("stages").containsKey(stageId)) {
-                        result = new JSONObject(true);
-                        result.put("completeTimes", 0);
-                        result.put("hasBattleReplay", 0);
-                        result.put("noCostCnt", 1);
-                        result.put("practiceTimes", 0);
-                        result.put("stageId", stageId);
-                        result.put("startTimes", 0);
-                        result.put("state", 0);
-                        UserSyncData.getJSONObject("dungeon").getJSONObject("stages").put(stageId, result);
-                    }
+            if (!UserSyncData.getJSONObject("dungeon").getJSONObject("stages").containsKey(stageId)) {
+                // 未解锁：存档里没有这个关卡的记录就直接拒绝。
+                // 以前这里会自动建档，导致任何请求都能把后面的关卡塞进存档（提前开放）
+                ArknightsApplication.LOGGER.warn("[battleStart] uid={} 尝试打未解锁关卡 {}，已拒绝", uid, stageId);
+                result = new JSONObject(true);
+                result.put("result", 1);
+                result.put("error", "关卡未解锁: " + stageId);
+                return result;
+            }
 
                     if (usePracticeTicket == 1) {
                         UserSyncData.getJSONObject("status").put("practiceTicket", UserSyncData.getJSONObject("status").getIntValue("practiceTicket") - 1);
