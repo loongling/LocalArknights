@@ -1,5 +1,5 @@
 # ArknightsServer
-这是一个明日方舟本地服务端,对应的客户端是CN 2.7.81 Windows|CN 2.7.81 Android|Global 37.7.41 Android,该服务端理论上支持多人游戏.本仓库不提供将数据代理到本地的方法,请自行解决 
+这是一个明日方舟本地服务端,对应的客户端是CN 2.7.91 Windows|CN 2.7.91 Android|Global 37.7.41 Android,该服务端理论上支持多人游戏.本仓库不提供将数据代理到本地的方法,请自行解决 
 
 # 本仓库使用AGPL v3.0 开源协议
 
@@ -12,6 +12,12 @@
 |    Global Android   | Support 支持|
 |    Global Windows   | Not Support 暂不支持|
 |    Global IOS   | Not Planned 未计划|
+
+## 兼容版本
+|   版本  | 是否支持  |
+|:-------:|:---:|
+|  CN 2.7.61 | Support 支持|
+|  CN 2.7.81 | Support 支持|
 
 ## 如何在外部修改密码和注册？
 双击项目根目录的 `login.html` 在网页里完成
@@ -57,6 +63,13 @@
 "battle":{
 "dropRate":1, //掉落倍数
 "debug": //是否启动调试模式(战斗无论是否成功都是三星)
+},
+"campaign": {
+"permanent": ["camp_01", "camp_02", "camp_03"], //剿灭作战永久开放关卡
+"rotate": "camp_r_34", //当前开放的轮换关卡
+"rGroup": "group_r_34", //GroupId
+"tGroup": "group_tr_75",
+ "tAllOpen": "group_tr_all_12"
 },
 "basement": {
 "produceSpeed": 1000 //基建生产速率
