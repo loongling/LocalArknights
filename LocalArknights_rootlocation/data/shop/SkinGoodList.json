@@ -129,6 +129,22 @@
       "isRedeem": true
     },
     {
+      "goodId": "SS_char_4014_lunacu@yun#1_r8",
+      "skinName": "棠云巧梦",
+      "skinId": "char_4014_lunacu@yun#1",
+      "charId": "char_4014_lunacu",
+      "currencyUnit": "DIAMOND",
+      "originPrice": 18,
+      "price": 18,
+      "discount": 0,
+      "desc1": null,
+      "desc2": null,
+      "startDateTime": 1792785600,
+      "endDateTime": 1795204799,
+      "slotId": 3431,
+      "isRedeem": true
+    },
+    {
       "goodId": "SS_char_151_myrtle@summer#12_r8",
       "skinName": "夏卉 FA062",
       "skinId": "char_151_myrtle@summer#12",
@@ -350,6 +366,38 @@
       "startDateTime": 1792785600,
       "endDateTime": 1795204799,
       "slotId": 3326,
+      "isRedeem": true
+    },
+    {
+      "goodId": "SS_char_173_slchan@wild#1_r33",
+      "skinName": "孤攀客",
+      "skinId": "char_173_slchan@wild#1",
+      "charId": "char_173_slchan",
+      "currencyUnit": "DIAMOND",
+      "originPrice": 15,
+      "price": 15,
+      "discount": 0,
+      "desc1": null,
+      "desc2": null,
+      "startDateTime": 1792785600,
+      "endDateTime": 1795204799,
+      "slotId": 3325,
+      "isRedeem": true
+    },
+    {
+      "goodId": "SS_char_134_ifrit@summer#1_r33",
+      "skinName": "日晒 SS.SP",
+      "skinId": "char_134_ifrit@summer#1",
+      "charId": "char_134_ifrit",
+      "currencyUnit": "DIAMOND",
+      "originPrice": 15,
+      "price": 15,
+      "discount": 0,
+      "desc1": null,
+      "desc2": null,
+      "startDateTime": 1792785600,
+      "endDateTime": 1795204799,
+      "slotId": 3321,
       "isRedeem": true
     },
     {

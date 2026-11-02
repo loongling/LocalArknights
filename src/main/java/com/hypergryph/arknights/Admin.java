@@ -693,7 +693,8 @@ public class Admin {
                 }
             }
         }
-        int added = com.hypergryph.arknights.game.quest.unlockCampaignStages(userData, null, null);
+        int added = com.hypergryph.arknights.game.quest.unlockCampaignByConditions(userData, null, null);
+        added += com.hypergryph.arknights.game.quest.unlockCampaignStages(userData, null, null);
         // 永久剿灭（camp_01/02/03）由主表 stage.json 的 sub/star/next 链决定，这里一并重算
         int mainAdded = com.hypergryph.arknights.game.quest.applyStageUnlocks(userData);
         userDao.setUserData(account.getUid(), userData);
@@ -709,6 +710,237 @@ public class Admin {
         result.put("msg", "uid " + uid + " 清理 " + removed + " 张、campaignStages 解锁 " + added
                 + " 张、主表链解锁 " + mainAdded + " 张，当前共 " + camp.size() + " 张");
         result.put("campaignStages", camp);
+        return result;
+    }
+
+    /**
+     * 立刻重置某类任务（DAILY/WEEKLY），用于验证重置逻辑。
+     * POST /admin/mission/resetNow?uid=10000001&type=WEEKLY
+     */
+    @RequestMapping({"/mission/resetNow"})
+    public JSONObject resetMissionNow(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                      @RequestParam(required = false, defaultValue = "DAILY") String type) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        com.hypergryph.arknights.core.function.MissionHelper.forceResetGroup(userData, type);
+        userDao.setUserData(account.getUid(), userData);
+        JSONObject bucket = userData.getJSONObject("mission").getJSONObject("missions").getJSONObject(type);
+        java.util.Map<Integer, Integer> dist = new java.util.TreeMap<>();
+        if (bucket != null) {
+            for (String id : bucket.keySet()) {
+                int s = bucket.getJSONObject(id).getIntValue("state");
+                dist.merge(s, 1, Integer::sum);
+            }
+        }
+        result.put("code", 200);
+        result.put("msg", uid + " 的 " + type + " 已重置");
+        result.put("stateDistribution", dist);
+        return result;
+    }
+
+    /**
+     * 测试用：把某个账号的 V3 节点整个删掉（验证 syncData 自愈补齐）。
+     * POST /admin/opv3/strip?uid=10000000
+     */
+    @RequestMapping({"/opv3/strip"})
+    public JSONObject opv3Strip(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        userData.remove("openServerV3");
+        JSONObject mission = userData.getJSONObject("mission");
+        if (mission != null && mission.getJSONObject("missions") != null) {
+            mission.getJSONObject("missions").remove("GUIDE_V3");
+        }
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "已删除 openServerV3 + GUIDE_V3");
+        return result;
+    }
+    /**
+     * 模拟「新的一天登录」：跑一次 V3 签到解锁 + 见习任务刷新。
+     * POST /admin/opv3/tick?uid=10000001
+     */
+    @RequestMapping({"/opv3/tick"})
+    public JSONObject opv3Tick(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        boolean a = com.hypergryph.arknights.core.function.MissionHelper.dailyCheckInV3(userData);
+        boolean b = com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
+        if (a || b) {
+            userDao.setUserData(account.getUid(), userData);
+        }
+        JSONObject v3 = userData.getJSONObject("openServerV3");
+        result.put("code", 200);
+        result.put("checkInUnlocked", a);
+        result.put("guideV3Refreshed", b);
+        result.put("history", v3 == null ? null : v3.getJSONObject("checkIn").getJSONArray("history"));
+        result.put("milestone", v3 == null ? null : v3.getJSONObject("mission").getJSONObject("milestone"));
+        return result;
+    }
+    /**
+     * 给某个账号加任务点数（测试点数里程碑兑换用）。
+     * POST /admin/mission/addPoint?uid=10000001&type=DAILY&n=20
+     */
+    @RequestMapping({"/mission/addPoint"})
+    public JSONObject addMissionPoint(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                      @RequestParam(required = false, defaultValue = "DAILY") String type,
+                                      @RequestParam(required = false, defaultValue = "10") int n) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject mr = userData.getJSONObject("mission").getJSONObject("missionRewards");
+        String key = "DAILY".equals(type) ? "dailyPoint" : "weeklyPoint";
+        mr.put(key, mr.getIntValue(key) + n);
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", uid + " " + key + " +" + n + " → " + mr.getIntValue(key));
+        return result;
+    }
+
+    /**
+     * 查看/清空 account.assistCharList 列（验证助战自愈用）。
+     * POST /admin/social/assistColumn?uid=10000001&clear=true
+     */
+    @RequestMapping({"/social/assistColumn"})
+    public JSONObject assistColumn(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                   @RequestParam(required = false, defaultValue = "false") boolean clear) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        try {
+            java.util.List<com.hypergryph.arknights.core.pojo.UserInfo> infos = userDao.queryUserInfo(uid);
+            String current = infos == null || infos.isEmpty() ? null : infos.get(0).getAssistCharList();
+            result.put("code", 200);
+            result.put("assistCharList", current);
+            if (clear) {
+                userDao.setAssistCharListData(uid, new JSONObject(true));
+                result.put("msg", "已清空，下一次 syncData 会触发自愈");
+            }
+            return result;
+        } catch (Exception e) {
+            result.put("code", 500);
+            result.put("msg", e.toString());
+            return result;
+        }
+    }
+
+    /**
+     * 把剿灭的 lastRefreshTs 往前推 N 天，用来测周刷新。
+     * POST /admin/campaign/ageWeek?uid=10000001&days=8
+     */
+    @RequestMapping({"/campaign/ageWeek"})
+    public JSONObject ageCampaignWeek(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid,
+                                      @RequestParam(required = false, defaultValue = "8") int days) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject camp = userData.getJSONObject("campaignsV2");
+        if (camp == null) {
+            result.put("code", 404);
+            result.put("msg", "该账号没有 campaignsV2 数据");
+            return result;
+        }
+        long old = camp.getLongValue("lastRefreshTs");
+        long nu = old - (long) days * 86400L;
+        camp.put("lastRefreshTs", nu);
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", "lastRefreshTs 从 " + old + " 减到 " + nu + "（-" + days + " 天）");
+        return result;
+    }
+
+    /**
+     * 重置本周剿灭合成玉进度（把 currentFee 清零、上限回 1200），测试用。
+     * POST /admin/campaign/resetWeek?uid=10000001
+     */
+    @RequestMapping({"/campaign/resetWeek"})
+    public JSONObject resetCampaignWeek(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            result.put("msg", "Unauthorized");
+            return result;
+        }
+        List<Account> Accounts = userDao.queryAccountByUid(uid);
+        if (Accounts.size() != 1) {
+            result.put("code", 404);
+            result.put("msg", "无法找到该玩家的存档");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject camp = userData.getJSONObject("campaignsV2");
+        if (camp == null) {
+            result.put("code", 404);
+            result.put("msg", "该账号没有 campaignsV2 数据");
+            return result;
+        }
+        camp.put("campaignCurrentFee", 0);
+        camp.put("campaignTotalFee", 1200);
+        userDao.setUserData(account.getUid(), userData);
+        result.put("code", 200);
+        result.put("msg", uid + " 本周剿灭进度已清零（0 / 1200）");
         return result;
     }
 
@@ -734,22 +966,28 @@ public class Admin {
         }
         Account account = Accounts.get(0);
         JSONObject userData = JSONObject.parseObject(account.getUser());
-        JSONObject stageMap = userData.getJSONObject("stage");
+        // 阶段记录在 user.dungeon.stages（不是 user.stage）
+        JSONObject dungeon = userData.getJSONObject("dungeon");
+        if (dungeon == null) {
+            dungeon = new JSONObject(true);
+            userData.put("dungeon", dungeon);
+        }
+        JSONObject stageMap = dungeon.getJSONObject("stages");
         if (stageMap == null) {
             stageMap = new JSONObject(true);
-            userData.put("stage", stageMap);
+            dungeon.put("stages", stageMap);
         }
         JSONObject one = new JSONObject(true);
         one.put("stageId", stage);
-        one.put("completedTimes", 1);
+        one.put("completeTimes", 1);
+        one.put("startTimes", 1);
         one.put("practiceTimes", 0);
         one.put("state", 3);
-        one.put("progress", 100);
         one.put("hasBattleReplay", 0);
         stageMap.put(stage, one);
         userDao.setUserData(account.getUid(), userData);
         result.put("code", 200);
-        result.put("msg", "已标记 " + stage + " 通关（1-5 解锁常驻剿灭，2-8 解锁轮换/训练场）");
+        result.put("msg", "已标记 " + stage + " 通关（写入 dungeon.stages，state=3）");
         return result;
     }
 

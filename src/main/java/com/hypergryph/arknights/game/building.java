@@ -113,6 +113,16 @@ public class building {
                     needSave = true;
                 }
 
+                // 每日任务 RecoverCharBaseAp：有干员正在宿舍恢复心情就记一次
+                try {
+                    if (hasDormRecovering(userData)) {
+                        com.hypergryph.arknights.core.function.MissionHelper
+                                .addProgress(userData, "RecoverCharBaseAp", 1);
+                        needSave = true;
+                    }
+                } catch (Exception ignored) {
+                }
+
                 JSONObject buildingStatus = userData.getJSONObject("building").getJSONObject("status");
                 JSONObject buildingRoom = userData.getJSONObject("building").getJSONObject("rooms");
                 JSONObject buildingChar = userData.getJSONObject("building").getJSONObject("chars");
@@ -740,8 +750,35 @@ public class building {
         return dirty;
     }
 
-    private static synchronized void loadLayout() {
-        if (LAYOUT_SLOTS != null) {
+    /** 是否有干员正在宿舍恢复心情（changeScale > 0 且所在槽位是 DORMITORY） */
+    private static boolean hasDormRecovering(JSONObject userData) {
+        JSONObject building = userData.getJSONObject("building");
+        if (building == null) {
+            return false;
+        }
+        JSONObject chars = building.getJSONObject("chars");
+        JSONObject slots = building.getJSONObject("roomSlots");
+        if (chars == null || slots == null) {
+            return false;
+        }
+        for (String key : chars.keySet()) {
+            JSONObject c = chars.getJSONObject(key);
+            if (c == null || c.getIntValue("changeScale") <= 0) {
+                continue;
+            }
+            String slotId = c.getString("roomSlotId");
+            if (slotId == null) {
+                continue;
+            }
+            JSONObject slot = slots.getJSONObject(slotId);
+            if (slot != null && "DORMITORY".equals(slot.getString("roomId"))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static synchronized void loadLayout() {        if (LAYOUT_SLOTS != null) {
             return;
         }
         String path = System.getProperty("user.dir") + "/data/excel/building_data.json";
@@ -2261,9 +2298,9 @@ public class building {
         slot.put("level", targetLevel);
         slot.put("state", 2);
         String roomId = slot.getString("roomId");
-        // 升级后房间数?新等级重建（官服 rooms 里?房间节点也跟?变）
         repairRoomData(userData);
-        userDao.setUserData(account.getUid(), userData);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
+                        userDao.setUserData(account.getUid(), userData);
 
         JSONObject modified = new JSONObject(true);
         modified.put("building", buildingForDelta(building));
@@ -3038,6 +3075,7 @@ public class building {
         if (status != null) {
             status.put("socialPoint", status.getIntValue("socialPoint") + gain);
         }
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "VisitBuilding", 1);
         userDao.setUserData(account.getUid(), userData);
 
         JSONArray rewards = new JSONArray();
@@ -4619,6 +4657,7 @@ public class building {
         stock.remove(orderIndex);
         node.put("lastUpdateTime", ArknightsApplication.getTimestamp());
 
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "DeliveryOrder", 1);
         userDao.setUserData(account.getUid(), userData);
 
         JSONObject typeDelta = new JSONObject(true);
@@ -4904,6 +4943,7 @@ public class building {
             slotsDelta.put(slotId, node.clone());
         }
 
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "ManufactureItem", 1);
         userDao.setUserData(account.getUid(), userData);
 
         JSONObject typeDelta = new JSONObject(true);
@@ -5275,6 +5315,14 @@ public class building {
     }
 
     private static boolean finishTraining(JSONObject userData, JSONObject node) {
+        boolean trainingDone = doFinishTraining(userData, node);
+        if (trainingDone) {
+            com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
+        }
+        return trainingDone;
+    }
+
+    private static boolean doFinishTraining(JSONObject userData, JSONObject node) {
         JSONObject trainee = node.getJSONObject("trainee");
         if (trainee == null) {
             return false;
@@ -5719,6 +5767,7 @@ public class building {
             int favor = c.getIntValue("favorPoint") + 1;
             c.put("favorPoint", favor);
             charDelta.put(String.valueOf(instId), c);
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "GainIntimacy", 1);
             userDao.setUserData(account.getUid(), userData);
         }
         JSONObject modified = new JSONObject(true);

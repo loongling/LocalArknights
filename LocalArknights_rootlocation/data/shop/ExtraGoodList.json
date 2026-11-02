@@ -239,12 +239,46 @@
       "shopType": 1
     },
     {
-      "goodId": "ES_xShdShopMonth61_1",
+      "goodId": "ES_xShdShopPerm8_1",
+      "displayName": "行铃",
+      "originPrice": 150,
+      "price": 150,
+      "discount": 0,
+      "slotId": 7,
+      "availCount": 6,
+      "item": {
+        "id": "char_4170_hdbell",
+        "count": 1,
+        "type": "CHAR"
+      },
+      "newFlagTimeStamp": 1793487600,
+      "goodEndTime": -1,
+      "shopType": 1
+    },
+    {
+      "goodId": "ES_xShdShopPerm8_2",
+      "displayName": "镜匠",
+      "originPrice": 600,
+      "price": 600,
+      "discount": 0,
+      "slotId": 8,
+      "availCount": 6,
+      "item": {
+        "id": "char_4169_caledo",
+        "count": 1,
+        "type": "CHAR"
+      },
+      "newFlagTimeStamp": 1793487600,
+      "goodEndTime": -1,
+      "shopType": 1
+    },
+    {
+      "goodId": "ES_xShdShopMonth62_1",
       "displayName": "模组数据块",
       "originPrice": 120,
       "price": 120,
       "discount": 0,
-      "slotId": 61,
+      "slotId": 62,
       "availCount": 4,
       "item": {
         "id": "mod_unlock_token",
@@ -252,7 +286,7 @@
         "type": "MATERIAL"
       },
       "newFlagTimeStamp": -1,
-      "goodEndTime": 1793476799,
+      "goodEndTime": 1796068799,
       "shopType": 2
     },
     {
@@ -393,12 +427,12 @@
     }
   ],
   "newFlag": [],
-  "lastClick": 1785852727,
+  "lastClick": 1793535762,
   "playerDataDelta": {
     "modified": {
       "shop": {
         "ES": {
-          "lastClick": 1793095326
+          "lastClick": 1793542441
         }
       }
     },

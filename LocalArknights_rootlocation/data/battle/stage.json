@@ -2437,30 +2437,504 @@
             "hard": null
         },
         "easy_10-08": {
-            "next": null,
+            "next": "easy_10-09",
             "star": null,
             "sub": null,
             "hard": null
         },
         "main_10-08": {
-            "next": null,
+            "next": "main_10-09",
             "star": null,
             "sub": null,
             "hard": null
         },
         "tough_10-08": {
-            "next": null,
+            "next": "tough_10-09",
             "star": null,
             "sub": null,
             "hard": null
         },
-        "hard_10-01-unlock=tough_10-15 && st_10-04": {
+        "easy_10-09": {
+            "next": "easy_10-10",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "main_10-09": {
+            "next": "main_10-10",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "tough_10-09": {
+            "next": "tough_10-10",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "easy_10-10": {
+            "next": "easy_10-11",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "main_10-10": {
+            "next": "main_10-11",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "tough_10-10": {
+            "next": "tough_10-11",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "easy_10-11": {
+            "next": "st_10-02",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "main_10-11": {
+            "next": "main_10-12",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "tough_10-11": {
+            "next": "tough_10-12",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "st_10-02": {
+            "next": "easy_10-12",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "easy_10-12": {
+            "next": "easy_10-13",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "main_10-12": {
+            "next": "main_10-13",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "tough_10-12": {
+            "next": "tough_10-13",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "easy_10-13": {
+            "next": "easy_10-14",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "main_10-13": {
+            "next": "main_10-14",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "tough_10-13": {
+            "next": "tough_10-14",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "easy_10-14": {
+            "next": "easy_10-15",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "main_10-14": {
+            "next": "main_10-15",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "tough_10-14": {
+            "next": "tough_10-15",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "easy_10-15": {
+            "next": "st_10-03",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "main_10-15": {
+            "next": "main_11-01",
+            "star": null,
+            "sub": null,
+            "hard": "tough_11-01"
+        },
+        "tough_10-15": {
+            "next": null,
+            "star": null,
+            "sub": "hard_10-01",
+            "hard": null
+        },
+        "st_10-03": {
+            "next": "st_10-04",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "st_10-04": {
+            "next": "easy_11-01",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "hard_10-01": {
             "next": null,
             "star": null,
             "sub": "hard_10-02",
             "hard": null
         },
         "hard_10-02": {
+            "next": null,
+            "star": null,
+            "sub": "hard_10-03",
+            "hard": null
+        },
+        "hard_10-03": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "easy_11-01": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "main_11-01": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "tough_11-01": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "hard_11-01-unlock=tough_11-18 && st_11-03": {
+            "next": null,
+            "star": null,
+            "sub": "hard_11-02",
+            "hard": null
+        },
+        "hard_11-02": {
+            "next": null,
+            "star": null,
+            "sub": "hard_11-03",
+            "hard": null
+        },
+        "hard_11-03": {
+            "next": null,
+            "star": null,
+            "sub": "hard_11-04",
+            "hard": null
+        },
+        "hard_11-04": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "hard_12-01-unlock=tough_12-18": {
+            "next": null,
+            "star": null,
+            "sub": "hard_12-02",
+            "hard": null
+        },
+        "hard_12-02": {
+            "next": null,
+            "star": null,
+            "sub": "hard_12-03",
+            "hard": null
+        },
+        "hard_12-03": {
+            "next": null,
+            "star": null,
+            "sub": "hard_12-04",
+            "hard": null
+        },
+        "hard_12-04": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "hard_13-01-unlock=tough_13-19": {
+            "next": null,
+            "star": null,
+            "sub": "hard_13-02",
+            "hard": null
+        },
+        "hard_13-02":{
+            "next": null,
+            "star": null,
+            "sub": "hard_13-03",
+            "hard": null
+        },
+        "hard_13-03": {
+            "next": null,
+            "star": null,
+            "sub": "hard_13-04",
+            "hard": null
+        },
+        "hard_13-04": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "hard_14-01-unlock=main_14-20 && tough_14-19": {
+            "next": null,
+            "star": null,
+            "sub": "hard_14-02",
+            "hard": null
+        },
+        "hard_14-02": {
+            "next": null,
+            "star": null,
+            "sub": "hard_14-03",
+            "hard": null
+        },
+        "hard_14-03": {
+            "next": null,
+            "star": null,
+            "sub": "hard_14-04",
+            "hard": null
+        },
+        "hard_14-04": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_melee_1": {
+            "next": "wk_melee_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_melee_2": {
+            "next": "wk_melee_3",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_melee_3": {
+            "next": "wk_melee_4",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_melee_4": {
+            "next": "wk_melee_5",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_melee_5": {
+            "next": "wk_melee_6",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_melee_6": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_armor_1": {
+            "next": "wk_armor_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_armor_2": {
+            "next": "wk_armor_3",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_armor_3": {
+            "next": "wk_armor_4",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_armor_4": {
+            "next": "wk_armor_5",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_armor_5": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_kc_1": {
+            "next": "wk_kc_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_kc_2": {
+            "next": "wk_kc_3",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_kc_3": {
+            "next": "wk_kc_4",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_kc_4": {
+            "next": "wk_kc_5",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_kc_5": {
+            "next": "wk_kc_6",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_kc_6": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_toxic_1": {
+            "next": "wk_toxic_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_toxic_2": {
+            "next": "wk_toxic_3",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_toxic_3": {
+            "next": "wk_toxic_4",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_toxic_4": {
+            "next": "wk_toxic_5",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_toxic_5": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_fly_1": {
+            "next": "wk_fly_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_fly_2": {
+            "next": "wk_fly_3",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_fly_3": {
+            "next": "wk_fly_4",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_fly_4": {
+            "next": "wk_fly_5",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "wk_fly_5": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "pro_a_1": {
+            "next": "pro_a_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "pro_a_2": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "pro_b_1": {
+            "next": "pro_b_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "pro_b_2": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "pro_c_1": {
+            "next": "pro_c_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "pro_c_2": {
+            "next": null,
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "pro_d_1": {
+            "next": "pro_d_2",
+            "star": null,
+            "sub": null,
+            "hard": null
+        },
+        "pro_d_2": {
             "next": null,
             "star": null,
             "sub": null,

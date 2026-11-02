@@ -183,6 +183,8 @@ public class shop {
 
         JSONObject modified = new JSONObject(true);
         JSONArray items = grant(userData, good, account.getUid(), modified);
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "BuyShopItem", 1);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
         userDao.setUserData(account.getUid(), userData);
 
         JSONObject playerDataDelta = new JSONObject(true);
@@ -325,6 +327,7 @@ public class shop {
                     long nowTs = System.currentTimeMillis() / 1000L;
                     characterSkins.put(skinId, 1);
                     skinTs.put(skinId, nowTs);
+                    com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
                     userDao.setUserData(uid, UserSyncData);
                     JSONObject skinDelta = new JSONObject(true);
                     JSONObject skinsDelta = new JSONObject(true);
@@ -342,6 +345,7 @@ public class shop {
                     modified.put("skin", skinDelta);
                     modified.put("status", statusDelta);
                     recordPurchase(modified, UserSyncData, new String[]{"CASH"}, goodId, 1, null, 0);
+                    com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
                     userDao.setUserData(uid, UserSyncData);
 
                     JSONObject playerDataDelta = new JSONObject(true);
@@ -482,6 +486,7 @@ public class shop {
                         }
                     }
 
+                    com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
                     userDao.setUserData(uid, UserSyncData);
                     JSONObject result = new JSONObject(true);
                     JSONObject playerDataDelta = new JSONObject(true);
@@ -500,17 +505,6 @@ public class shop {
                 }
             }
         }
-    }
-
-    @RequestMapping({"/getGoodPurchaseState"})
-    public JSONObject getGoodPurchaseState() {
-        JSONObject result = new JSONObject(true);
-        JSONObject playerDataDelta = new JSONObject(true);
-        playerDataDelta.put("modified", new JSONObject(true));
-        playerDataDelta.put("deleted", new JSONObject(true));
-        result.put("playerDataDelta", playerDataDelta);
-        result.put("result", new JSONObject(true));
-        return result;
     }
 
     @RequestMapping({"/getCashGoodList"})
@@ -949,11 +943,14 @@ public class shop {
             items.add(grant);
         }
 
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
         userDao.setUserData(account.getUid(), userData);
 
         recordPurchase(modified, userData, shopPath, goodId, count,
                 "lggShard".equals(currencyField) ? "lggCostTotal" : null,
                 "lggShard".equals(currencyField) ? price : 0);
+        // 每日/周任务：在资质/高级/采购凭证区购买任意商品
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "BuyShopItem", 1);
         userDao.setUserData(account.getUid(), userData);
 
         JSONObject playerDataDelta = new JSONObject(true);
@@ -1166,6 +1163,7 @@ public class shop {
             charPurchase.put(charId, Math.max(0, left - count));
         }
 
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
         userDao.setUserData(account.getUid(), userData);
 
         JSONObject socialShopDelta = new JSONObject(true);
@@ -1287,10 +1285,150 @@ public class shop {
         return serveShopList("GPGoodList", "getGPGoodList", request);
     }
 
+    private static final java.util.Map<String, String> PURCHASE_CAT_FILE = new java.util.HashMap<>();
+
+    static {
+        PURCHASE_CAT_FILE.put("LS", "LowGoodList.json");
+        PURCHASE_CAT_FILE.put("HS", "HighGoodList.json");
+        PURCHASE_CAT_FILE.put("ES", "ExtraGoodList.json");
+        PURCHASE_CAT_FILE.put("CASH", "CashGoodList.json");
+        PURCHASE_CAT_FILE.put("CLASSIC", "ClassicGoodList.json");
+        PURCHASE_CAT_FILE.put("GP", "GPGoodList.json");
+    }
+
+    private static final java.util.Map<String, java.util.Map<String, Integer>> GOOD_LIMIT_CACHE = new java.util.HashMap<>();
+
+    private static synchronized java.util.Map<String, Integer> goodLimits(String cat) {
+        if (GOOD_LIMIT_CACHE.containsKey(cat)) {
+            return GOOD_LIMIT_CACHE.get(cat);
+        }
+        java.util.Map<String, Integer> limits = new java.util.HashMap<>();
+        String file = PURCHASE_CAT_FILE.get(cat);
+        if (file != null) {
+            String path = System.getProperty("user.dir") + "/data/shop/" + file;
+            try {
+                String content = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                        java.nio.charset.StandardCharsets.UTF_8);
+                collectGoodLimits(com.alibaba.fastjson.JSON.parse(content), limits);
+            } catch (Exception e) {
+                ArknightsApplication.LOGGER.warn("[shop] 读取 {} 失败: {}", file, e.toString());
+            }
+        }
+        GOOD_LIMIT_CACHE.put(cat, limits);
+        return limits;
+    }
+
+    private static void collectGoodLimits(Object node, java.util.Map<String, Integer> out) {
+        if (node == null) {
+            return;
+        }
+        if (node instanceof JSONArray) {
+            JSONArray arr = (JSONArray) node;
+            for (int i = 0; i < arr.size(); i++) {
+                collectGoodLimits(arr.get(i), out);
+            }
+            return;
+        }
+        if (node instanceof JSONObject) {
+            JSONObject obj = (JSONObject) node;
+            String goodId = obj.getString("goodId");
+            if (goodId != null && obj.containsKey("availCount")) {
+                out.put(goodId, obj.getIntValue("availCount"));
+            }
+            for (String k : obj.keySet()) {
+                Object v = obj.get(k);
+                if (v instanceof JSONObject || v instanceof JSONArray) {
+                    collectGoodLimits(v, out);
+                }
+            }
+        }
+    }
+
+    /** 玩家在 store 节点里某个类目已买次数（含 GP 的子分组），摊平成 goodId → count */
+    private static void collectBought(Object node, java.util.Map<String, Integer> out) {
+        if (node == null) {
+            return;
+        }
+        if (node instanceof JSONArray) {
+            JSONArray arr = (JSONArray) node;
+            for (int i = 0; i < arr.size(); i++) {
+                Object o = arr.get(i);
+                if (o instanceof JSONObject && ((JSONObject) o).getString("id") != null) {
+                    out.merge(((JSONObject) o).getString("id"), ((JSONObject) o).getIntValue("count"), Integer::sum);
+                } else {
+                    collectBought(o, out);
+                }
+            }
+            return;
+        }
+        if (node instanceof JSONObject) {
+            JSONObject obj = (JSONObject) node;
+            for (String k : obj.keySet()) {
+                Object v = obj.get(k);
+                if (v instanceof JSONObject || v instanceof JSONArray) {
+                    collectBought(v, out);
+                }
+            }
+        }
+    }
+
     @PostMapping(value = {"/getGoodPurchaseState"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getGoodPurchaseState(@RequestHeader(value = "secret", required = false) String secret,
-                                           @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("GoodPurchaseState", "getGoodPurchaseState", request);
+                                           @RequestBody(required = false) JSONObject jsonBody,
+                                           HttpServletRequest request, HttpServletResponse response) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /shop/getGoodPurchaseState");
+
+        JSONObject result = new JSONObject(true);
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            response.setStatus(401);
+            result.put("result", new JSONObject(true));
+            result.put("error", "账户验证失败");
+            return result;
+        }
+        JSONObject userData = JSONObject.parseObject(accounts.get(0).getUser());
+        JSONObject shopNode = userData.getJSONObject("shop");
+        JSONObject goodIdMap = jsonBody == null ? null : jsonBody.getJSONObject("goodIdMap");
+
+        JSONObject state = new JSONObject(true);   // 扁平：goodId → 剩余次数
+        if (goodIdMap != null && shopNode != null) {
+            for (String cat : goodIdMap.keySet()) {
+                JSONArray wanted = goodIdMap.getJSONArray(cat);
+                if (wanted == null || wanted.isEmpty()) {
+                    continue;
+                }
+                if (!PURCHASE_CAT_FILE.containsKey(cat)) {
+                    // SOCIAL 不在本接口返回；EPGS 等非法类目也直接忽略（官方会 400，这里宽松处理）
+                    continue;
+                }
+                java.util.Map<String, Integer> limits = goodLimits(cat);
+                java.util.Map<String, Integer> bought = new java.util.HashMap<>();
+                collectBought(shopNode.getJSONObject(cat), bought);
+                for (int i = 0; i < wanted.size(); i++) {
+                    String goodId = wanted.getString(i);
+                    Integer limit = limits.get(goodId);
+                    if (limit == null) {
+                        continue;                     // 商品表里没有
+                    }
+                    if (limit < 0) {
+                        state.put(goodId, -1);        // 不限购：官方原样返回 -1
+                    } else {
+                        int remaining = limit - bought.getOrDefault(goodId, 0);
+                        if (remaining > 0) {          // 剩余 <= 0（含买超）不返回
+                            state.put(goodId, remaining);
+                        }
+                    }
+                }
+            }
+        }
+
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", new JSONObject(true));
+        playerDataDelta.put("deleted", new JSONObject(true));
+        result.put("result", state);
+        result.put("playerDataDelta", playerDataDelta);
+        return result;
     }
 
     private static JSONObject FURNI_GOOD_TABLE;
@@ -1527,6 +1665,7 @@ public class shop {
 
         userData.put("carousel", mergeCarousel(userData.getJSONObject("carousel"), goodId, null));
 
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
         userDao.setUserData(account.getUid(), userData);
 
         JSONArray items = new JSONArray();
@@ -1680,6 +1819,7 @@ public class shop {
         modified.put("carousel", carouselDelta);
 
         userData.put("carousel", mergeCarousel(userData.getJSONObject("carousel"), null, groupId));
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(userData);
         userDao.setUserData(account.getUid(), userData);
 
         JSONObject delta = new JSONObject(true);

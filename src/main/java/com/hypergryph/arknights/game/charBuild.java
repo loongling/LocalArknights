@@ -362,6 +362,8 @@ public class charBuild {
 
             UpgradeCost = i + addExpCost - (levelexp + AddedExp);
             UserSyncData.getJSONObject("status").put("gold", UserSyncData.getJSONObject("status").getIntValue("gold") - UpgradeCost);
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(UserSyncData, "UpgradeChar", 1);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
             userDao.setUserData(uid, UserSyncData);
             JSONObject result = new JSONObject(true);
             JSONObject modified = new JSONObject(true);
@@ -437,6 +439,7 @@ public class charBuild {
                 }
 
                 UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)).put("mainSkillLvl", targetLevel);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
                 userDao.setUserData(uid, UserSyncData);
                 JSONObject result = new JSONObject(true);
                 JSONObject modified = new JSONObject(true);
@@ -489,6 +492,7 @@ public class charBuild {
                 // 每个模板各自记 defaultSkillIndex（官方实测：术师 2 / 近卫 1 / 医疗 1）
                 com.hypergryph.arknights.core.work.processArray
                         .activeCharData(defSkillChar).put("defaultSkillIndex", defaultSkillIndex);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
                 userDao.setUserData(uid, UserSyncData);
                 // 官方只回 {defaultSkillIndex}
                 JSONObject dsiDelta = new JSONObject(true);
@@ -548,6 +552,7 @@ public class charBuild {
                 }
 
                 UserSyncData.getJSONObject("troop").getJSONObject("chars").getJSONObject(String.valueOf(charInstId)).put("potentialRank", targetRank);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
                 userDao.setUserData(uid, UserSyncData);
                 JSONObject result = new JSONObject(true);
                 JSONObject modified = new JSONObject(true);
@@ -782,6 +787,7 @@ public class charBuild {
             com.hypergryph.arknights.core.work.processArray.setEquipHidden(tchar, false);
         }
         tchar.put("evolvePhase", destPhase);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
         userDao.setUserData(account.getUid(), UserSyncData);
 
         JSONObject charss = new JSONObject(true);
@@ -852,6 +858,7 @@ public class charBuild {
         int maxLevel = maxLevelOf(charId, phase);
         tchar.put("level", maxLevel);
         tchar.put("exp", 0);
+        com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);
         userDao.setUserData(account.getUid(), UserSyncData);
 
         JSONObject charDelta = new JSONObject(true);

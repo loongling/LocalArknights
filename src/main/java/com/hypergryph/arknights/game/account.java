@@ -170,6 +170,35 @@ public class account {
             } catch (Exception e) {
                 LOGGER.warn("[syncData] 修补消耗品过期时间失败: " + e.toString());
             }
+            try {
+                if (com.hypergryph.arknights.game.campaignV2.syncRotationAndWeekly(UserSyncData)) {
+                    userDao.setUserData(uid, UserSyncData);
+                    LOGGER.info("[syncData] 剿灭开放配置/周刷新已同步（open + campaignCurrentFee）");
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] 剿灭配置同步失败: " + e.toString());
+            }
+            try {
+                if (com.hypergryph.arknights.core.function.MissionHelper.resetPeriodicalMissions(UserSyncData)) {
+                    userDao.setUserData(uid, UserSyncData);
+                    LOGGER.info("[syncData] 每日/每周任务已重置");
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] 任务重置失败: " + e.toString());
+            }
+            try {
+                if (com.hypergryph.arknights.core.function.MissionHelper.ensureGuideV3(UserSyncData)) {
+                    userDao.setUserData(uid, UserSyncData);
+                    LOGGER.info("[syncData] 已补齐 V3 见习任务 / 里程碑节点");
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] V3 节点自愈失败: " + e.toString());
+            }
+            try {
+                com.hypergryph.arknights.game.social.repairAssistColumn(UserSyncData, uid);
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] 助战列自愈失败: " + e.toString());
+            }
             Long ts = ArknightsApplication.getTimestamp();
             Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
             boolean canCheck = canCheckIn(lastLogin, ts);
@@ -207,6 +236,13 @@ public class account {
                         UserSyncData.getJSONObject("openServer").getJSONObject("checkIn").getJSONArray("history").add(1);
                     }
                 }
+            }
+            try {
+                if (com.hypergryph.arknights.core.function.MissionHelper.dailyCheckInV3(UserSyncData)) {
+                    userDao.setUserData(uid, UserSyncData);
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] V3 签到解锁失败: " + e.toString());
             }
             if (canCheck) {
                 UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);

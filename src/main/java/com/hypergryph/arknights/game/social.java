@@ -519,7 +519,8 @@ public class social {
             JSONObject clean = new JSONObject(true);
             clean.put("charInstId", charInstId);
             // 模板干员的 defaultSkillIndex 在 patch 里（基节点是 -1）
-            clean.put("skillIndex", com.hypergryph.arknights.core.work.processArray.getDefaultSkillIndex(owned));
+            int skillIndex = com.hypergryph.arknights.core.work.processArray.getDefaultSkillIndex(owned);
+            clean.put("skillIndex", Math.max(0, skillIndex));   // 模板干员会返回 -1，兜底成 0
             String currentEquip = owned.getString("currentEquip");
             clean.put("currentEquip", (currentEquip == null || currentEquip.isEmpty()) ? null : currentEquip);
             stored.add(clean);
@@ -532,6 +533,44 @@ public class social {
         }
         social.put("assistCharList", stored);
         userDao.setUserData(account.getUid(), userData);
+
+        // 同步到 account.assistCharList 列（按职业分组），quest/getAssistList
+        // 给好友/路人展示助战时读的就是这一列；以前没人写，所以助战永远是空的。
+        try {
+            JSONObject byProfession = new JSONObject(true);
+            for (int i = 0; i < stored.size(); i++) {
+                JSONObject slot = stored.getJSONObject(i);
+                if (slot == null) {
+                    continue;
+                }
+                int instId = slot.getIntValue("charInstId");
+                JSONObject owned = chars == null ? null : chars.getJSONObject(String.valueOf(instId));
+                if (owned == null) {
+                    continue;
+                }
+                String charId = owned.getString("charId");
+                JSONObject charCfg = ArknightsApplication.characterJson.getJSONObject(charId);
+                String profession = charCfg == null ? null : charCfg.getString("profession");
+                if (profession == null) {
+                    continue;
+                }
+                JSONArray bucket = byProfession.getJSONArray(profession);
+                if (bucket == null) {
+                    bucket = new JSONArray();
+                    byProfession.put(profession, bucket);
+                }
+                JSONObject one = new JSONObject(true);
+                one.put("charId", charId);
+                one.put("charInstId", String.valueOf(instId));
+                one.put("skillIndex", Math.max(0, slot.getIntValue("skillIndex")));
+                one.put("currentEquip", slot.getString("currentEquip"));
+                bucket.add(one);
+            }
+            userDao.setAssistCharListData(account.getUid(), byProfession);
+            ArknightsApplication.LOGGER.info("[social] account.assistCharList 已同步: {}", byProfession);
+        } catch (Exception e) {
+            ArknightsApplication.LOGGER.warn("[social] 同步 account.assistCharList 失败: {}", e.toString());
+        }
 
         ArknightsApplication.LOGGER.info("[social] assistCharList -> {}", stored);
 
@@ -547,6 +586,65 @@ public class social {
         JSONObject result = new JSONObject(true);
         result.put("playerDataDelta", playerDataDelta);
         return result;
+    }
+
+    public static int repairAssistColumn(JSONObject userData, long uid) {
+        try {
+            java.util.List<com.hypergryph.arknights.core.pojo.UserInfo> infos = userDao.queryUserInfo(uid);
+            String current = infos == null || infos.isEmpty() ? null : infos.get(0).getAssistCharList();
+            boolean empty = current == null || current.trim().isEmpty() || "{}".equals(current.trim())
+                    || "null".equals(current.trim()) || "[]".equals(current.trim());
+            if (!empty) {
+                return 0;
+            }
+            JSONObject social = userData.getJSONObject("social");
+            JSONArray slots = social == null ? null : social.getJSONArray("assistCharList");
+            JSONObject chars = userData.getJSONObject("troop") == null ? null
+                    : userData.getJSONObject("troop").getJSONObject("chars");
+            if (slots == null || slots.isEmpty() || chars == null) {
+                return 0;
+            }
+            JSONObject byProfession = new JSONObject(true);
+            int n = 0;
+            for (int i = 0; i < slots.size(); i++) {
+                JSONObject slot = slots.getJSONObject(i);
+                if (slot == null) {
+                    continue;
+                }
+                int instId = slot.getIntValue("charInstId");
+                JSONObject owned = chars.getJSONObject(String.valueOf(instId));
+                if (owned == null) {
+                    continue;
+                }
+                String charId = owned.getString("charId");
+                JSONObject cfg = ArknightsApplication.characterJson.getJSONObject(charId);
+                String profession = cfg == null ? null : cfg.getString("profession");
+                if (profession == null) {
+                    continue;
+                }
+                JSONArray bucket = byProfession.getJSONArray(profession);
+                if (bucket == null) {
+                    bucket = new JSONArray();
+                    byProfession.put(profession, bucket);
+                }
+                JSONObject one = new JSONObject(true);
+                one.put("charId", charId);
+                one.put("charInstId", String.valueOf(instId));
+                one.put("skillIndex", Math.max(0, slot.getIntValue("skillIndex")));
+                one.put("currentEquip", slot.getString("currentEquip"));
+                bucket.add(one);
+                n++;
+            }
+            if (n == 0) {
+                return 0;
+            }
+            userDao.setAssistCharListData(uid, byProfession);
+            ArknightsApplication.LOGGER.info("[social] 自愈 account.assistCharList（uid={}）: {}", uid, byProfession);
+            return 1;
+        } catch (Exception e) {
+            ArknightsApplication.LOGGER.warn("[social] 自愈 assistCharList 列失败: {}", e.toString());
+            return 0;
+        }
     }
 
     @PostMapping("/processFriendRequest")
@@ -1079,6 +1177,7 @@ public class social {
         item.put("count", gain);
         rewardList.add(item);
 
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "ReceiveSocialPoint", 1);
         userDao.setUserData(account.getUid(), userData);
 
         JSONObject statusDelta = new JSONObject(true);

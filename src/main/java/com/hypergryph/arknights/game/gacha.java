@@ -104,6 +104,7 @@ public class gacha {
             userData.getJSONObject("status").put("recruitLicense", recruitLicense - 1);
 
             // 保存用户数据
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "NormalGacha", 1);
             userDao.setUserData(account.getUid(), userData);
 
             // 构建响应

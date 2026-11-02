@@ -36,6 +36,13 @@
     "dropRate": 1,
     "debug": true
   },
+  "campaign": {
+    "permanent": ["camp_01", "camp_02", "camp_03"],
+    "rotate": "camp_r_34",
+    "rGroup": "group_r_34",
+    "tGroup": "group_tr_75",
+    "tAllOpen": "group_tr_all_12"
+  },
   "basement": {
     "produceSpeed": 1000
   },
@@ -44,27 +51,27 @@
   },
   "version": {
     "Android": {
-      "resVersion": "26-10-22-14-02-11-51447808",
-      "clientVersion": "2.7.81"
+      "resVersion": "26-10-29-15-36-11-33649006",
+      "clientVersion": "2.7.91"
     },
     "ios": {
-      "resVersion": "26-10-22-13-48-45-09041897",
-      "clientVersion": "2.7.81"
+      "resVersion": "26-10-29-15-21-46-80877659",
+      "clientVersion": "2.7.91"
     },
     "Windows": {
-      "resVersion": "26-10-22-13-56-52-86025105",
-      "clientVersion": "2.7.81"
+      "resVersion": "26-10-29-15-35-15-96278206",
+      "clientVersion": "2.7.91"
     },
     "global_Android": {
-      "resVersion": "26-10-03-16-06-39_0a6acf",
+      "resVersion": "26-10-26-10-03-17_824ce7",
       "clientVersion": "37.7.41"
     },
     "global_Windows": {
-      "resVersion": "26-09-30-10-39-59_597fcc",
+      "resVersion": "26-10-26-09-27-51_eeb02e",
       "clientVersion": "37.7.41"
     },
     "global_IOS": {
-      "resVersion": "26-10-04-21-10-59_abd9cb",
+      "resVersion": "26-10-26-11-11-29_227960",
       "clientVersion": "37.7.41"
     }
   },
@@ -72,10 +79,12 @@
     "enableRedirect": true,
     "cdnBase": "https://ak.hycdn.cn/assetbundle/official",
     "redirectUrl": {
-      "Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-22-14-02-11-51447808",
-      "Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-22-13-56-52-86025105",
+      "Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-29-15-36-11-33649006",
+      "Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-29-15-35-15-96278206",
       "ios": "https://ak.hycdn.cn/assetbundle/official/IOS/assets/26-10-22-13-48-45-09041897",
-      "global": "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/26-10-03-16-06-39_0a6acf"
+      "global_And": "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/26-10-26-10-03-17_824ce7",
+      "global_Win": "",
+      "global_IOS": ""
     },
     "localFiles": []
   },
@@ -94,7 +103,7 @@
     "fapv2": 1
   },
   "YoStar_common": {},
-  "clientFuncVer": "78.0.0",
+  "clientFuncVer": "79.0.0",
   "file_path": "https://ak.hycdn.cn/GzD1CpaWgmSq1wew/77.0/update/1/1/Windows/77.0.0_o2Ri5AN2Z7XXjdtF/files",
   "global_net": {
     "sign": "Rq9cFaYoHvWwdbr6ROQfLu70+F+2BF3+vEmnDLdPmacTFHXTyNC0SEeaHfl9W1/D86iJrxLRhs9puNaoK2ArOu6xNyeNf8IL45KxCjhseuGKDNwG65HdOYpGKIRvi8EitL9S3AoRtlsSeEV44D2Q7Y8c5gcfdMXkFXxBkYEa5wk=",
@@ -123,9 +132,9 @@
   },
   "network": {
     "configVer": "5",
-    "funcVer": "V078",
+    "funcVer": "V079",
     "configs": {
-      "V078": {
+      "V079": {
         "override": true,
         "network": {
           "devsdk": false,

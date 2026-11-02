@@ -12,30 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 任务（mission）辅助工具。
- *
- * 状态约定（与官服一致）：
- *   进行中：{"state":2, "progress":[{"target":1,"value":0}]}
- *   可领取：{"state":2, "progress":[{"target":1,"value":1}]}   value >= target 时客户端出「领取」按钮
- *   已领取：{"state":3}                                        没有 progress 字段
- *
- * 解锁条件（严格按 mission_table.json）：
- *   1. preMissionIds   —— 列出的前置任务必须都已领取（state == 3）
- *   2. unlockCondition —— 目前只有 "StageCondition"，unlockParam = [minState, stageId]
- *                        要求 dungeon.stages[stageId].state >= minState（2 = 已通关）
- *   3. 两者都为 null   —— 无额外条件
- */
 public final class MissionHelper {
 
     private static JSONObject TABLE;
 
     private MissionHelper() {
     }
-
-    // ────────────────────────────────────────────────────────────
-    // mission_table
-    // ────────────────────────────────────────────────────────────
 
     public static synchronized JSONObject table() {
         if (TABLE == null) {
@@ -56,7 +38,44 @@ public final class MissionHelper {
             return null;
         }
         JSONObject missions = table().getJSONObject("missions");
-        return missions == null ? null : missions.getJSONObject(missionId);
+        JSONObject e = missions == null ? null : missions.getJSONObject(missionId);
+        if (e != null) {
+            return e;
+        }
+        // 新服开启活动 V3 的见习任务（newguide_*）不在 mission_table，而是在 open_server_table 里
+        return openServerMission(missionId);
+    }
+
+    private static JSONObject OPEN_SERVER_V3_MISSIONS;
+
+    private static synchronized JSONObject openServerMissions() {
+        if (OPEN_SERVER_V3_MISSIONS == null) {
+            String path = System.getProperty("user.dir") + "/data/excel/open_server_table.json";
+            try {
+                JSONObject table = JSONObject.parseObject(
+                        new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                                java.nio.charset.StandardCharsets.UTF_8));
+                JSONObject data = table.getJSONObject("openServerV3Data");
+                OPEN_SERVER_V3_MISSIONS = data == null ? new JSONObject(true) : data.getJSONObject("missionData");
+            } catch (Exception e) {
+                ArknightsApplication.LOGGER.error("[MissionHelper] 读取 open_server_table.json 失败", e);
+            }
+            if (OPEN_SERVER_V3_MISSIONS == null) {
+                OPEN_SERVER_V3_MISSIONS = new JSONObject(true);
+            }
+        }
+        return OPEN_SERVER_V3_MISSIONS;
+    }
+
+    private static JSONObject openServerMission(String missionId) {
+        JSONObject m = openServerMissions().getJSONObject(missionId);
+        if (m == null) {
+            return null;
+        }
+        if (m.getString("type") == null) {
+            m.put("type", "GUIDE_V3");
+        }
+        return m;
     }
 
     public static String typeOf(String missionId) {
@@ -64,9 +83,6 @@ public final class MissionHelper {
         return e == null ? null : e.getString("type");
     }
 
-    // ────────────────────────────────────────────────────────────
-    // 玩家数据
-    // ────────────────────────────────────────────────────────────
 
     private static JSONObject missionRoot(JSONObject user) {
         return user.getJSONObject("mission");
@@ -82,7 +98,6 @@ public final class MissionHelper {
         return bucket;
     }
 
-    /** 读某条任务在玩家数据里的节点（可能为 null） */
     public static JSONObject nodeOf(JSONObject user, String missionId) {
         String type = typeOf(missionId);
         if (type == null) {
@@ -92,7 +107,6 @@ public final class MissionHelper {
         return bucket == null ? null : bucket.getJSONObject(missionId);
     }
 
-    /** 读某条任务的状态：不存在算 0 */
     public static int stateOf(JSONObject user, String missionId) {
         JSONObject node = nodeOf(user, missionId);
         return node == null ? 0 : node.getIntValue("state");
@@ -110,11 +124,6 @@ public final class MissionHelper {
         return stages.getJSONObject(stageId).getIntValue("state");
     }
 
-    // ────────────────────────────────────────────────────────────
-    // 解锁条件判定
-    // ────────────────────────────────────────────────────────────
-
-    /** 严格按 mission_table 判断：该任务的解锁条件是否已满足（不看是否已领取） */
     public static boolean isUnlocked(JSONObject user, String missionId) {
         JSONObject e = entry(missionId);
         if (e == null) {
@@ -148,10 +157,6 @@ public final class MissionHelper {
         return true;
     }
 
-    // ────────────────────────────────────────────────────────────
-    // 状态写入
-    // ────────────────────────────────────────────────────────────
-
     public static JSONObject setProgress(JSONObject user, String missionId, int target, int value) {
         String type = typeOf(missionId);
         if (type == null) {
@@ -173,24 +178,14 @@ public final class MissionHelper {
         return node;
     }
 
-    /** 可领取：state=2 + progress=[{target:1, value:1}] */
     public static JSONObject setClaimable(JSONObject user, String missionId) {
         return setProgress(user, missionId, 1, 1);
     }
 
-    /** 进行中：state=2 + progress=[{target:1, value:0}] */
     public static JSONObject setInProgress(JSONObject user, String missionId) {
         return setProgress(user, missionId, 1, 0);
     }
 
-    /**
-     * 已领取：state=3。
-     *
-     * 【重要】必须保留 progress，并把 value 拉满到 target。
-     * 官服已领取任务是 {"state":3,"progress":[{"target":1,"value":1}]}，
-     * 如果写成 {"state":3}（没有 progress），客户端 MissionModel._DealWithMissionData
-     * 读 progress[0] 就会 ArgumentOutOfRangeException，整个任务页 OnStart 崩溃。
-     */
     public static void setClaimed(JSONObject user, String missionId) {
         String type = typeOf(missionId);
         if (type == null) {
@@ -223,12 +218,6 @@ public final class MissionHelper {
         markGroup(user, missionId, 1);
     }
 
-    /**
-     * 修复历史数据：state==3 但没有 progress 的任务补上 [{target:1,value:1}]。
-     * （早期的 setClaimed 会把 progress 删掉，导致任务页越界崩溃）
-     *
-     * @return 被修复的任务数
-     */
     public static int repairClaimedMissions(JSONObject user) {
         JSONObject root = user.getJSONObject("mission");
         if (root == null) {
@@ -268,7 +257,6 @@ public final class MissionHelper {
         return fixed;
     }
 
-    /** 写任意 state（1=锁定，2=进行中），progress 固定 [{target:1,value:0}] */
     public static void setState(JSONObject user, String missionId, int state) {
         String type = typeOf(missionId);
         if (type == null) {
@@ -285,18 +273,6 @@ public final class MissionHelper {
         missionsOfType(user, type, true).put(missionId, node);
     }
 
-    /**
-     * 初始化「新手任务」SUB 组（官服行为）。
-     *
-     * 官服在领取 main_1 时会一次性创建 sub_g_1 的 6 条任务：
-     *   sub_1        → {"state":2,"progress":[{"target":1,"value":0}]}   激活第一环
-     *   sub_2..sub_6 → {"state":1,...}                                   锁定
-     * 并且 missionGroups["sub_g_1"] = 0
-     *
-     * 不创建的话，任务页渲染 SUB 列表时会 list[index] 越界：
-     *   ArgumentOutOfRangeException at MissionModel._DealWithMissionData
-     *   → MissionPage.OnStart() 崩溃 → 卡在任务界面
-     */
     public static void ensureSubMissionGroup(JSONObject user, String groupId) {
         JSONObject missions = table().getJSONObject("missions");
         if (missions == null || groupId == null) {
@@ -339,7 +315,6 @@ public final class MissionHelper {
         ArknightsApplication.LOGGER.info("[MissionHelper] 初始化新手任务组 {}: {}", groupId, ids);
     }
 
-    /** SUB 桶为空时，补上最初的 sub_g_1（登录自愈和领取时都会调用） */
     public static void ensureNewbieSubMissions(JSONObject user) {
         JSONObject sub = missionsOfType(user, "SUB", false);
         if (sub != null && !sub.isEmpty()) {
@@ -348,13 +323,8 @@ public final class MissionHelper {
         ensureSubMissionGroup(user, "sub_g_1");
     }
 
-    // ────────────────────────────────────────────────────────────
-    // SUB 组逐组解锁（按 mission_table 的 unlockCondition）
-    // ────────────────────────────────────────────────────────────
-
     private static Map<String, List<String>> SUB_GROUPS;
 
-    /** 所有 SUB 组：group -> 按数字后缀排序的 missionId 列表（懒加载） */
     private static synchronized Map<String, List<String>> subGroups() {
         if (SUB_GROUPS == null) {
             Map<String, List<String>> map = new HashMap<>();
@@ -385,23 +355,6 @@ public final class MissionHelper {
         return SUB_GROUPS;
     }
 
-    /**
-     * 按 mission_table 的解锁条件逐组解锁「新手任务」SUB。
-     *
-     * 规则（以组内第一条任务为准）：
-     *   - 该组已有任意一条 → 跳过（幂等）
-     *   - 第一条任务既无 unlockCondition 又无 preMissionIds → 不自动创建
-     *     （无门槛的组由 haveSubMissionToUnlock / 具体玩法触发，
-     *       否则首次登录就会一次冒出几十个组，任务页会爆）
-     *   - 有门槛且条件已满足 → 按官服形态创建整组
-     *
-     * 例：
-     *   sub_g_1  无门槛             → 由领取 main_1 时创建
-     *   sub_g_2  head=sub_7 需 main_00-04 通关 → 打完 0-4 自动出现
-     *   sub_g_9  head=sub_34 HasChar 无门槛    → 不自动创建
-     *
-     * @return 本次新建的组名
-     */
     public static JSONArray unlockSubGroups(JSONObject user) {
         JSONArray created = new JSONArray();
 
@@ -444,7 +397,6 @@ public final class MissionHelper {
         return created;
     }
 
-    /** 统一入口：补基础 SUB + 按条件解锁新组（登录/领取/战斗中都会调用，幂等） */
     public static void syncSubMissions(JSONObject user) {
         ensureNewbieSubMissions(user);
         unlockSubGroups(user);
@@ -462,14 +414,6 @@ public final class MissionHelper {
         groups.put(group, value);
     }
 
-    // ────────────────────────────────────────────────────────────
-    // nextMission（带解锁条件检查）
-    // ────────────────────────────────────────────────────────────
-
-    /**
-     * 下一个任务（同前缀、数字后缀 +1），并且必须满足 mission_table 的解锁条件。
-     * 不满足 → 返回 null（绝不越过条件硬激活）。
-     */
     public static String nextMissionId(JSONObject user, String missionId) {
         if (missionId == null) {
             return null;
@@ -512,10 +456,6 @@ public final class MissionHelper {
         return isUnlocked(user, candidate) ? candidate : null;
     }
 
-    /**
-     * 扫描同类型任务，返回第一个「未领取 且 解锁条件已满足」的任务。
-     * 教程需要一个可领取任务时可用来兜底。
-     */
     public static String firstUnlockedUnclaimed(JSONObject user, String type) {
         JSONObject missions = table().getJSONObject("missions");
         if (missions == null) {
@@ -556,11 +496,6 @@ public final class MissionHelper {
         }
     }
 
-    // ────────────────────────────────────────────────────────────
-    // 奖励
-    // ────────────────────────────────────────────────────────────
-
-    /** 发放奖励并返回 items（客户端响应里的 items），同时写入 inventory / status */
     public static JSONArray grantRewards(JSONObject user, String missionId) {
         JSONArray items = new JSONArray();
         JSONObject e = entry(missionId);
@@ -577,36 +512,214 @@ public final class MissionHelper {
 
         for (int i = 0; i < rewards.size(); i++) {
             JSONObject r = rewards.getJSONObject(i);
-            String type = r.getString("type");
-            String id = r.getString("id");
-            int count = r.getIntValue("count");
-
-            JSONObject item = new JSONObject(true);
-            item.put("type", type);
-            item.put("id", id);
-            item.put("count", count);
-            items.add(item);
-
-            if ("GOLD".equals(type)) {
-                status.put("gold", status.getLongValue("gold") + count);
-            } else if ("DIAMOND".equals(type) || "DIAMOND_SHD".equals(type)) {
-                status.put("diamondShard", status.getIntValue("diamondShard") + count);
-            } else {
-                if (inventory == null) {
-                    inventory = new JSONObject(true);
-                    user.put("inventory", inventory);
-                }
-                inventory.put(id, inventory.getIntValue(id) + count);
-            }
+            grantOneReward(r, user, items);
         }
         return items;
     }
 
-    // ────────────────────────────────────────────────────────────
-    // 组合操作
-    // ────────────────────────────────────────────────────────────
+    private static void grantOneReward(JSONObject r, JSONObject user, JSONArray items) {
+        String type = r.getString("type");
+        String id = r.getString("id");
+        int count = r.getIntValue("count");
+        JSONObject status = user.getJSONObject("status");
+        JSONObject inventory = user.getJSONObject("inventory");
 
-    /** 领取并激活下一个（受解锁条件约束）。返回 {"claimed","next","items"} */
+        // 见习笔记：不进背包，直接累计到 V3 里程碑积分
+        if ("OPEN_SERVER_CREDIT".equals(type)) {
+            JSONObject v3 = user.getJSONObject("openServerV3");
+            if (v3 == null) {
+                v3 = new JSONObject(true);
+                user.put("openServerV3", v3);
+            }
+            JSONObject missionNode = v3.getJSONObject("mission");
+            if (missionNode == null) {
+                missionNode = new JSONObject(true);
+                v3.put("mission", missionNode);
+            }
+            JSONObject milestone = missionNode.getJSONObject("milestone");
+            if (milestone == null) {
+                milestone = new JSONObject(true);
+                milestone.put("groupId", "new_bp_g_1");
+                milestone.put("point", 0);
+                milestone.put("got", new JSONArray());
+                missionNode.put("milestone", milestone);
+            }
+            milestone.put("point", milestone.getIntValue("point") + count);
+            JSONObject shown = new JSONObject(true);
+            shown.put("type", type);
+            shown.put("id", id);
+            shown.put("count", count);
+            items.add(shown);
+            ArknightsApplication.LOGGER.info("[MissionHelper] 见习笔记 +{} → V3 积分 {}", count,
+                    milestone.getIntValue("point"));
+            return;
+        }
+
+        // 物资补给箱：展开内容物
+        if ("ITEM_PACK".equals(type)) {
+            JSONObject pack = itemPackInfos() == null ? null : itemPackInfos().getJSONObject(id);
+            JSONArray content = pack == null ? null : pack.getJSONArray("content");
+            if (content != null) {
+                for (int t = 0; t < Math.max(1, count); t++) {
+                    for (int i = 0; i < content.size(); i++) {
+                        grantOneReward(content.getJSONObject(i), user, items);
+                    }
+                }
+                return;
+            }
+            ArknightsApplication.LOGGER.warn("[MissionHelper] 未知礼包 {}", id);
+            return;
+        }
+
+        // 干员：交给 processArray（T==7 会往 items 里塞 charGet）
+        if ("CHAR".equals(type)) {
+            JSONObject grant = new JSONObject(true);
+            grant.put("type", type);
+            grant.put("id", id);
+            grant.put("count", count);
+            com.hypergryph.arknights.core.work.processArray.handleUserDataChange(grant, user, 0L, -1, items);
+            return;
+        }
+
+        JSONObject item = new JSONObject(true);
+        item.put("type", type);
+        item.put("id", id);
+        item.put("count", count);
+        items.add(item);
+
+        if ("GOLD".equals(type)) {
+            status.put("gold", status.getLongValue("gold") + count);
+        } else if ("DIAMOND".equals(type) || "DIAMOND_SHD".equals(type)) {
+            status.put("diamondShard", status.getIntValue("diamondShard") + count);
+        } else {
+            if (inventory == null) {
+                inventory = new JSONObject(true);
+                user.put("inventory", inventory);
+            }
+            inventory.put(id, inventory.getIntValue(id) + count);
+        }
+    }
+
+    private static JSONObject ITEM_PACK_INFOS;
+
+    private static synchronized JSONObject itemPackInfos() {
+        if (ITEM_PACK_INFOS == null) {
+            String path = System.getProperty("user.dir") + "/data/excel/item_table.json";
+            try {
+                JSONObject itemTable = JSONObject.parseObject(
+                        new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                                java.nio.charset.StandardCharsets.UTF_8));
+                ITEM_PACK_INFOS = itemTable.getJSONObject("itemPackInfos");
+            } catch (Exception e) {
+                ArknightsApplication.LOGGER.error("[MissionHelper] 读取 item_table.json 失败", e);
+            }
+            if (ITEM_PACK_INFOS == null) {
+                ITEM_PACK_INFOS = new JSONObject(true);
+            }
+        }
+        return ITEM_PACK_INFOS;
+    }
+
+    /**
+     * 自愈：确保玩家存档里有 V3 见习任务（GUIDE_V3）与里程碑积分节点。
+     * 这些任务的条件在表里只有文字描述（没有 template/param），私服按「可直接完成」处理，
+     * 领奖后会通过 OPEN_SERVER_CREDIT 累加里程碑积分。
+     */
+    public static boolean ensureGuideV3(JSONObject user) {
+        if (user == null) {
+            return false;
+        }
+        JSONObject root = user.getJSONObject("mission");
+        if (root == null) {
+            root = new JSONObject(true);
+            user.put("mission", root);
+        }
+        JSONObject missions = root.getJSONObject("missions");
+        if (missions == null) {
+            missions = new JSONObject(true);
+            root.put("missions", missions);
+        }
+        JSONObject bucket = missions.getJSONObject("GUIDE_V3");
+        boolean changed = false;
+        if (bucket == null) {
+            bucket = new JSONObject(true);
+            missions.put("GUIDE_V3", bucket);
+            changed = true;
+        }
+        JSONObject data = openServerMissions();
+        for (String id : data.keySet()) {
+            if (bucket.containsKey(id)) {
+                continue;
+            }
+            JSONObject node = new JSONObject(true);
+            node.put("state", 1);            // 先按未解锁建，随后 refreshGuideV3 按条件解锁
+            JSONArray progress = new JSONArray();
+            JSONObject p = new JSONObject(true);
+            p.put("target", 1);
+            p.put("value", 0);
+            progress.add(p);
+            node.put("progress", progress);
+            bucket.put(id, node);
+            changed = true;
+        }
+        // 里程碑积分节点
+        JSONObject v3 = user.getJSONObject("openServerV3");
+        if (v3 == null) {
+            v3 = new JSONObject(true);
+            user.put("openServerV3", v3);
+            changed = true;
+        }
+        JSONObject missionNode = v3.getJSONObject("mission");
+        if (missionNode == null) {
+            missionNode = new JSONObject(true);
+            v3.put("mission", missionNode);
+            changed = true;
+        }
+        JSONObject milestone = missionNode.getJSONObject("milestone");
+        if (milestone == null) {
+            milestone = new JSONObject(true);
+            milestone.put("groupId", "new_bp_g_1");
+            milestone.put("point", 0);
+            milestone.put("got", new JSONArray());
+            missionNode.put("milestone", milestone);
+            changed = true;
+        }
+        JSONObject checkIn = v3.getJSONObject("checkIn");
+        if (checkIn == null) {
+            checkIn = new JSONObject(true);
+            checkIn.put("groupId", "new_login_g_1");
+            checkIn.put("history", new JSONArray());
+            v3.put("checkIn", checkIn);
+            changed = true;
+        }
+        if (checkIn.getString("groupId") == null || checkIn.getString("groupId").isEmpty()) {
+            checkIn.put("groupId", "new_login_g_1");
+            changed = true;
+        }
+        JSONArray historyArr = checkIn.getJSONArray("history");
+        if (historyArr == null) {
+            historyArr = new JSONArray();
+            checkIn.put("history", historyArr);
+            changed = true;
+        }
+        // 补齐时给「第 1 天可领」的初始状态（history: 0=已领, 1=未领）
+        if (historyArr.isEmpty()) {
+            historyArr.add(1);
+            changed = true;
+        }
+        if (v3.getJSONObject("fullOpen") == null) {
+            JSONObject fo = new JSONObject(true);
+            fo.put("today", false);
+            fo.put("remain", 0);
+            v3.put("fullOpen", fo);
+            changed = true;
+        }
+        if (refreshGuideV3(user)) {
+            changed = true;
+        }
+        return changed;
+    }
+
     public static JSONObject claimAndAdvance(JSONObject user, String missionId) {
         setClaimed(user, missionId);
         JSONArray items = grantRewards(user, missionId);
@@ -632,18 +745,6 @@ public final class MissionHelper {
         return out;
     }
 
-    // ────────────────────────────────────────────────────────────
-    // 任务进度求值（按 template/param，和 mission_table 一致）
-    // ────────────────────────────────────────────────────────────
-
-    /**
-     * 按 mission_table 的 template/param 计算该任务当前应有的 value。
-     * 返回 -1 表示这个模板不支持自动求值（保持原样）。
-     *
-     *   CompleteMainStage  param = [_, stageId, count]        → 该关 completeTimes，封顶 count
-     *   CompleteAnyStage   param = [_, "a^b^c", count]        → 这些关 completeTimes 之和，封顶 count
-     *   HasRoom            param = [_, _, level, roomType]    → 有 roomType 且 level >= level 则 1
-     */
     public static int evaluateValue(JSONObject user, JSONObject entry) {
         if (entry == null) {
             return -1;
@@ -661,15 +762,60 @@ public final class MissionHelper {
         }
 
         if ("CompleteAnyStage".equals(template) && param.size() >= 3) {
+            // param = [_, "stageA^stageB^...", 需要的通关评价]
+            // 评价 2 = 通关，3 = 三星通关（如「在资源收集中以3星评价完成…」）。
+            // 达成条件：列表里任意一关达到该评价即可（客户端显示 0/1）。
             String joined = param.getString(1);
-            int target = intOrDefault(param.getString(2), 1);
-            int sum = 0;
+            int needState = intOrDefault(param.getString(2), 2);
+            if (needState > 3) {
+                needState = 3;
+            }
             if (joined != null) {
                 for (String s : joined.split("\\^")) {
-                    sum += stageCompleteTimes(user, s);
+                    if (stageStateOf(user, s) >= needState) {
+                        return 1;
+                    }
                 }
             }
-            return Math.min(sum, target);
+            return 0;
+        }
+
+        if ("HasChar".equals(template) && param.size() >= 5) {
+            // param = [_, 需要数量, ?, 需要的等级, 需要的星级, 职业(ALL=不限)]
+            // 例：将任意一个3星干员提升到10级 → [0,1,0,10,3,ALL]
+            int needCount = Math.max(1, intOrDefault(param.getString(1), 1));
+            int needLevel = intOrDefault(param.getString(3), 1);
+            int needRarity = intOrDefault(param.getString(4), 0);
+            String profession = param.size() > 5 ? param.getString(5) : "ALL";
+            JSONObject chars = user.getJSONObject("troop") == null ? null : user.getJSONObject("troop").getJSONObject("chars");
+            if (chars == null) {
+                return 0;
+            }
+            int matched = 0;
+            for (String key : chars.keySet()) {
+                JSONObject c = chars.getJSONObject(key);
+                if (c == null || c.getIntValue("level") < needLevel) {
+                    continue;
+                }
+                String charId = c.getString("charId");
+                JSONObject cfg = ArknightsApplication.characterJson.getJSONObject(charId);
+                if (cfg == null) {
+                    continue;
+                }
+                int rarity = rarityOf(cfg.getString("rarity"));
+                if (rarity < needRarity) {
+                    continue;
+                }
+                if (profession != null && !"ALL".equals(profession)
+                        && !profession.equals(cfg.getString("profession"))) {
+                    continue;
+                }
+                matched++;
+                if (matched >= needCount) {
+                    return 1;
+                }
+            }
+            return 0;
         }
 
         if ("HasRoom".equals(template) && param.size() >= 4) {
@@ -690,11 +836,6 @@ public final class MissionHelper {
         return -1;
     }
 
-    /**
-     * 重新求值并写入某个任务的进度（只在「该任务处于 state==2 且未达成」时才动它）。
-     *
-     * @return true 表示求值后已达到可领取
-     */
     public static boolean refreshMission(JSONObject user, String missionId) {
         JSONObject node = nodeOf(user, missionId);
         if (node == null || node.getIntValue("state") != 2) {
@@ -712,6 +853,12 @@ public final class MissionHelper {
         }
         JSONObject p = progress.getJSONObject(0);
         int target = p.getIntValue("target");
+        String template = e == null ? null : e.getString("template");
+        if ("CompleteAnyStage".equals(template) || "HasChar".equals(template)) {
+            // 这两种模板是「满足即 1」，target 归一成 1，避免历史存档里 target=3 导致永远完不成
+            target = 1;
+            p.put("target", 1);
+        }
         p.put("value", Math.min(value, target));
         return p.getIntValue("value") >= target;
     }
@@ -728,6 +875,17 @@ public final class MissionHelper {
         return stages.getJSONObject(stageId).getIntValue("completeTimes");
     }
 
+    private static int rarityOf(String rarity) {
+        if (rarity == null) {
+            return 0;
+        }
+        int idx = rarity.lastIndexOf('_');
+        try {
+            return Integer.parseInt(rarity.substring(idx + 1));
+        } catch (Exception e) {
+            return 0;
+        }
+    }
     private static int intOrDefault(String s, int def) {
         try {
             return Integer.parseInt(s);
@@ -736,14 +894,6 @@ public final class MissionHelper {
         }
     }
 
-    /**
-     * 自愈：按当前玩家数据重新求值所有「进行中(state==2)」的任务，
-     * 让任务进度始终跟真实进度一致（官服就是这么做的）。
-     *
-     * 只遍历玩家自己的任务桶，最多几十条，开销可忽略。
-     *
-     * @return 本次被推进到「可领取」的任务 id 列表
-     */
     public static JSONArray refreshActiveMissions(JSONObject user) {
         JSONArray became = new JSONArray();
         JSONObject root = user.getJSONObject("mission");
@@ -783,18 +933,6 @@ public final class MissionHelper {
         return became;
     }
 
-    /**
-     * 通关某关时自动推进对应任务（查表驱动，不写死 main_1）。
-     *
-     * 支持模板：
-     *   CompleteMainStage  param = [_, stageId, count]
-     *   CompleteAnyStage   param = [_, "stageA^stageB^...", count]
-     *
-     * value = min(completeTimes, count)，达到 count 即可领取。
-     * 跳过：已领取(state==3)、解锁条件未满足。
-     *
-     * @return 被推进到「可领取」的任务 id 列表
-     */
     public static JSONArray onStageCleared(JSONObject user, String stageId, int completeTimes) {
         JSONArray touched = new JSONArray();
         JSONObject missions = table().getJSONObject("missions");
@@ -858,5 +996,744 @@ public final class MissionHelper {
         syncSubMissions(user);
 
         return touched;
+    }
+
+    public static JSONArray addProgress(JSONObject user, String template, int delta) {
+        JSONArray touched = new JSONArray();
+        if (user == null || template == null || delta <= 0) {
+            return touched;
+        }
+        JSONObject root = user.getJSONObject("mission");
+        if (root == null) {
+            return touched;
+        }
+        JSONObject missionsTable = table().getJSONObject("missions");
+        if (missionsTable == null) {
+            return touched;
+        }
+        for (String missionId : missionsTable.keySet()) {
+            JSONObject e = missionsTable.getJSONObject(missionId);
+            if (e == null || !template.equals(e.getString("template"))) {
+                continue;
+            }
+            JSONObject node = nodeOf(user, missionId);
+            if (node == null || node.getIntValue("state") != 2) {
+                continue;
+            }
+            JSONArray progress = node.getJSONArray("progress");
+            if (progress == null || progress.isEmpty()) {
+                continue;
+            }
+            JSONObject p = progress.getJSONObject(0);
+            int target = p.getIntValue("target");
+            int value = p.getIntValue("value");
+            if (target <= 0 || value >= target) {
+                continue;
+            }
+            int nv = Math.min(target, value + delta);
+            p.put("value", nv);
+            if (nv >= target) {
+                touched.add(missionId);
+                ArknightsApplication.LOGGER.info("[MissionHelper] {} 达成（{} {}/{}）", missionId, template, nv, target);
+            }
+        }
+        return touched;
+    }
+
+    public static JSONArray grantPointRewards(JSONObject user, String type) {
+        JSONArray gained = new JSONArray();
+        if (user == null || type == null) {
+            return gained;
+        }
+        JSONObject root = user.getJSONObject("mission");
+        if (root == null) {
+            return gained;
+        }
+        JSONObject mr = root.getJSONObject("missionRewards");
+        if (mr == null) {
+            mr = new JSONObject(true);
+            root.put("missionRewards", mr);
+        }
+        String pointKey = "DAILY".equals(type) ? "dailyPoint" : "weeklyPoint";
+        int points = mr.getIntValue(pointKey);
+        JSONObject rewardsNode = mr.getJSONObject("rewards");
+        if (rewardsNode == null) {
+            rewardsNode = new JSONObject(true);
+            mr.put("rewards", rewardsNode);
+        }
+        JSONObject bucket = rewardsNode.getJSONObject(type);
+        if (bucket == null) {
+            bucket = new JSONObject(true);
+            rewardsNode.put(type, bucket);
+        }
+
+        JSONObject rewardTable = "DAILY".equals(type) ? table().getJSONObject("periodicalRewards")
+                : table().getJSONObject("weeklyRewards");
+        if (rewardTable == null) {
+            return gained;
+        }
+        // 只按「玩家存档里已初始化的那一期」的档位来算（bucket 的 key 就是当期档位 id），
+        // 否则会把历史上所有期的档位混在一起，累计阈值立刻爆掉。
+        List<JSONObject> ladder = new ArrayList<>();
+        for (String id : bucket.keySet()) {
+            JSONObject r = rewardTable.getJSONObject(id);
+            if (r == null || !type.equals(r.getString("type"))) {
+                continue;
+            }
+            ladder.add(r);
+        }
+        ladder.sort((a, b) -> Integer.compare(a.getIntValue("sortIndex"), b.getIntValue("sortIndex")));
+
+        long now = System.currentTimeMillis() / 1000L;
+        for (JSONObject r : ladder) {
+            String id = r.getString("id");
+            long endTime = r.getLongValue("endTime");
+            if (endTime > 0 && now > endTime) {
+                continue;    // 这一期已过期
+            }
+            if (bucket.getIntValue(id) == 1) {
+                continue;
+            }
+            // 每一档消耗自己的 periodicalPointCost，领完就扣（够就扣，不够也照发）
+            int cost = r.getIntValue("periodicalPointCost");
+            points = Math.max(0, points - cost);
+            JSONArray rs = r.getJSONArray("rewards");
+            if (rs != null) {
+                for (int i = 0; i < rs.size(); i++) {
+                    JSONObject one = rs.getJSONObject(i);
+                    JSONObject grant = new JSONObject(true);
+                    grant.put("id", one.getString("id"));
+                    grant.put("type", one.getString("type"));
+                    grant.put("count", one.getIntValue("count"));
+                    com.hypergryph.arknights.core.work.processArray.handleUserDataChange(grant, user, 0L, -1, null);
+                    gained.add(grant);
+                }
+            }
+            bucket.put(id, 1);
+            mr.put(pointKey, points);
+            ArknightsApplication.LOGGER.info("[MissionHelper] {} 点数里程碑 {} 已发放（剩余点数 {}）", type, id, points);
+        }
+        mr.put(pointKey, points);
+        return gained;
+    }
+
+    public static JSONArray exchangePointRewards(JSONObject user, String type, JSONArray wanted) {
+        JSONArray gained = new JSONArray();
+        JSONObject root = user == null ? null : user.getJSONObject("mission");
+        if (root == null || type == null || wanted == null) {
+            return gained;
+        }
+        JSONObject mr = root.getJSONObject("missionRewards");
+        if (mr == null) {
+            return gained;
+        }
+        String pointKey = "DAILY".equals(type) ? "dailyPoint" : "weeklyPoint";
+        int points = mr.getIntValue(pointKey);
+        JSONObject rewardsNode = mr.getJSONObject("rewards");
+        if (rewardsNode == null) {
+            rewardsNode = new JSONObject(true);
+            mr.put("rewards", rewardsNode);
+        }
+        JSONObject bucket = rewardsNode.getJSONObject(type);
+        if (bucket == null) {
+            bucket = new JSONObject(true);
+            rewardsNode.put(type, bucket);
+        }
+        JSONObject rewardTable = "DAILY".equals(type) ? table().getJSONObject("periodicalRewards")
+                : table().getJSONObject("weeklyRewards");
+        if (rewardTable == null) {
+            return gained;
+        }
+        // 当期档位 = 存档里已初始化的 key ∪ 客户端点名要的 rewardId（后者可能还没初始化）
+        java.util.Set<String> ladderIds = new java.util.LinkedHashSet<>(bucket.keySet());
+        for (int i = 0; i < wanted.size(); i++) {
+            Object w = wanted.get(i);
+            if (w != null && !(w instanceof Number)) {
+                ladderIds.add(String.valueOf(w));
+            }
+        }
+        List<JSONObject> ladder = new ArrayList<>();
+        for (String id : ladderIds) {
+            JSONObject r = rewardTable.getJSONObject(id);
+            if (r != null && type.equals(r.getString("type"))) {
+                ladder.add(r);
+                if (!bucket.containsKey(id)) {
+                    bucket.put(id, 0);      // 补一条当期记录
+                }
+            }
+        }
+        ladder.sort((a, b) -> Integer.compare(a.getIntValue("sortIndex"), b.getIntValue("sortIndex")));
+
+        java.util.Set<String> targets = new java.util.LinkedHashSet<>();
+        for (int i = 0; i < wanted.size(); i++) {
+            Object w = wanted.get(i);
+            if (w instanceof Number) {
+                int idx = ((Number) w).intValue();
+                if (idx >= 0 && idx < ladder.size()) {
+                    targets.add(ladder.get(idx).getString("id"));
+                }
+            } else if (w != null) {
+                targets.add(String.valueOf(w));
+            }
+        }
+        if (targets.isEmpty()) {
+            return gained;
+        }
+
+        long now = System.currentTimeMillis() / 1000L;
+        for (JSONObject r : ladder) {
+            String id = r.getString("id");
+            long endTime = r.getLongValue("endTime");
+            if (endTime > 0 && now > endTime) {
+                continue;
+            }
+            if (!targets.contains(id)) {
+                continue;
+            }
+            if (bucket.getIntValue(id) == 1) {
+                // 已经领过：把奖励内容原样回显到 items（不重复发货），
+                // 否则客户端会因为「items 为空」判定领取失败而一直重试刷「获取物资」。
+                JSONArray echo = r.getJSONArray("rewards");
+                if (echo != null) {
+                    for (int i = 0; i < echo.size(); i++) {
+                        JSONObject one = echo.getJSONObject(i);
+                        JSONObject shown = new JSONObject(true);
+                        shown.put("id", one.getString("id"));
+                        shown.put("type", one.getString("type"));
+                        shown.put("count", one.getIntValue("count"));
+                        gained.add(shown);
+                    }
+                }
+                continue;
+            }
+            // 每档消耗自己的点数（够就扣，不够也照发 —— 私服不卡点数，
+            // 否则客户端会一直重试同一个档位导致「获取物资」弹窗刷屏）
+            int cost = r.getIntValue("periodicalPointCost");
+            points = Math.max(0, points - cost);
+            JSONArray rs = r.getJSONArray("rewards");
+            if (rs != null) {
+                for (int i = 0; i < rs.size(); i++) {
+                    JSONObject one = rs.getJSONObject(i);
+                    JSONObject grant = new JSONObject(true);
+                    grant.put("id", one.getString("id"));
+                    grant.put("type", one.getString("type"));
+                    grant.put("count", one.getIntValue("count"));
+                    com.hypergryph.arknights.core.work.processArray.handleUserDataChange(grant, user, 0L, -1, null);
+                    gained.add(grant);
+                }
+            }
+            bucket.put(id, 1);
+            mr.put(pointKey, points);
+            ArknightsApplication.LOGGER.info("[MissionHelper] 兑换 {} 档位 {}（消耗 {}，剩余 {}）", type, id, cost, points);
+        }
+        mr.put(pointKey, points);
+        return gained;
+    }
+
+    public static int addPoint(JSONObject user, String missionId) {
+        JSONObject e = entry(missionId);
+        int point = e == null ? 0 : e.getIntValue("periodicalPoint");
+        if (point <= 0) {
+            return 0;
+        }
+        JSONObject root = user.getJSONObject("mission");
+        JSONObject mr = root.getJSONObject("missionRewards");
+        if (mr == null) {
+            mr = new JSONObject(true);
+            root.put("missionRewards", mr);
+        }
+        String type = e.getString("type");
+        String pointKey = "DAILY".equals(type) ? "dailyPoint" : "weeklyPoint";
+        mr.put(pointKey, mr.getIntValue(pointKey) + point);
+        return point;
+    }
+
+    public static long todayResetTs() {
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        c.set(java.util.Calendar.HOUR_OF_DAY, 4);
+        c.set(java.util.Calendar.MINUTE, 0);
+        c.set(java.util.Calendar.SECOND, 0);
+        c.set(java.util.Calendar.MILLISECOND, 0);
+        long ts = c.getTimeInMillis() / 1000L;
+        long now = System.currentTimeMillis() / 1000L;
+        if (ts > now) {
+            ts -= 86400L;
+        }
+        return ts;
+    }
+
+    public static long weekResetTs() {
+        long day = todayResetTs();
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        c.setTimeInMillis(day * 1000L);
+        int dow = c.get(java.util.Calendar.DAY_OF_WEEK);   // 周日=1 … 周六=7
+        int back = (dow == java.util.Calendar.SUNDAY) ? 6 : dow - java.util.Calendar.MONDAY;
+        return day - back * 86400L;
+    }
+
+    public static int guideV3Value(JSONObject user, JSONObject def) {
+        if (user == null || def == null) {
+            return 0;
+        }
+        String jumpType = def.getString("jumpType");
+        String place = def.getString("jumpPlace");
+        String desc = def.getString("description") == null ? "" : def.getString("description");
+        JSONObject dungeon = user.getJSONObject("dungeon");
+        JSONObject stages = dungeon == null ? null : dungeon.getJSONObject("stages");
+
+        if ("MAIN_STAGE".equals(jumpType)) {
+            if (stages == null) {
+                return 0;
+            }
+            if (desc.contains("突袭")) {
+                for (String id : stages.keySet()) {
+                    if (id.startsWith("main_00-") && id.endsWith("#s")
+                            && stages.getJSONObject(id).getIntValue("state") >= 2) {
+                        return 1;
+                    }
+                }
+                return 0;
+            }
+            return stageState(stages, place) >= 2 ? 1 : 0;
+        }
+
+        if ("NONE".equals(jumpType)) {
+            int need = parseIntAfter(desc, "博士等级达到", "级");
+            if (need > 0) {
+                return user.getJSONObject("status").getIntValue("level") >= need ? 1 : 0;
+            }
+            return 0;
+        }
+
+        if ("WEEKLY".equals(jumpType)) {
+            if (stages == null) {
+                return 0;
+            }
+            if (desc.contains("芯片")) {
+                for (String id : stages.keySet()) {
+                    if (id.startsWith("pro_") && stages.getJSONObject(id).getIntValue("state") >= 2) {
+                        return 1;
+                    }
+                }
+                return 0;
+            }
+            int diff = parseIntAfter(desc, "难度", "的");
+            if (diff > 0) {
+                String[] prefixes = {"wk_melee_", "wk_armor_", "wk_kc_", "wk_toxic_", "wk_fly_",
+                        "pro_a_", "pro_b_", "pro_c_", "pro_d_"};
+                for (String p : prefixes) {
+                    String id = p + diff;
+                    if (stages.containsKey(id) && stages.getJSONObject(id).getIntValue("state") >= 2) {
+                        return 1;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        if ("SHOP".equals(jumpType)) {
+            JSONObject shop = user.getJSONObject("shop");
+            if (shop == null) {
+                return 0;
+            }
+            java.util.Map<String, Integer> bought = new java.util.HashMap<>();
+            collectGoodsBought(shop, bought);
+            for (Integer v : bought.values()) {
+                if (v != null && v > 0) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        if ("BUILDING".equals(jumpType)) {
+            JSONObject building = user.getJSONObject("building");
+            if (building == null) {
+                return 0;
+            }
+            if (desc.contains("专精")) {
+                JSONObject chars = user.getJSONObject("troop") == null ? null
+                        : user.getJSONObject("troop").getJSONObject("chars");
+                if (chars == null) {
+                    return 0;
+                }
+                for (String k : chars.keySet()) {
+                    JSONArray skills = chars.getJSONObject(k).getJSONArray("skills");
+                    if (skills == null) {
+                        continue;
+                    }
+                    for (int i = 0; i < skills.size(); i++) {
+                        if (skills.getJSONObject(i).getIntValue("specializeLevel") > 0) {
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }
+            int need = parseIntAfter(desc, "中枢升级至LV.", "");
+            if (need > 0) {
+                JSONObject slots = building.getJSONObject("roomSlots");
+                if (slots == null) {
+                    return 0;
+                }
+                for (String id : slots.keySet()) {
+                    JSONObject slot = slots.getJSONObject(id);
+                    if ("CONTROL".equals(slot.getString("roomId")) && slot.getIntValue("level") >= need) {
+                        return 1;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        if ("CAMPAIGN_STAGE".equals(jumpType)) {
+            JSONObject v2 = user.getJSONObject("campaignsV2");
+            JSONObject instances = v2 == null ? null : v2.getJSONObject("instances");
+            if (instances == null) {
+                return 0;
+            }
+            for (String campId : instances.keySet()) {
+                JSONObject one = instances.getJSONObject(campId);
+                if (one == null) {
+                    continue;
+                }
+                if (desc.contains("100名")) {
+                    if (one.getIntValue("maxKills") >= 100) {
+                        return 1;
+                    }
+                } else if (desc.contains("全部进度奖励")) {
+                    JSONArray status = one.getJSONArray("rewardStatus");
+                    if (status != null && !status.isEmpty()) {
+                        boolean all = true;
+                        for (int i = 0; i < status.size(); i++) {
+                            if (status.getIntValue(i) != 1) {
+                                all = false;
+                                break;
+                            }
+                        }
+                        if (all) {
+                            return 1;
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
+        if ("CHAR_REPO".equals(jumpType)) {
+            JSONObject chars = user.getJSONObject("troop") == null ? null
+                    : user.getJSONObject("troop").getJSONObject("chars");
+            if (chars == null) {
+                return 0;
+            }
+            int needCount = Math.max(1, parseIntAfter(desc, "任意", "名"));
+            int needLevel = parseIntAfter(desc, "等级提升至", "级");
+            int needRank = parseIntAfter(desc, "Rank", "");
+            int eliteStage = parseIntAfter(desc, "精英", "阶段");
+            int eliteLevel = parseIntAfter(desc, "阶段", "级");
+            int matched = 0;
+            for (String k : chars.keySet()) {
+                JSONObject c = chars.getJSONObject(k);
+                if (c == null) {
+                    continue;
+                }
+                int level = c.getIntValue("level");
+                int evolve = c.getIntValue("evolvePhase");
+                boolean ok;
+                if (needRank > 0) {
+                    ok = c.getIntValue("mainSkillLvl") >= needRank;
+                } else if (eliteLevel > 0) {
+                    ok = evolve >= Math.max(1, eliteStage) && level >= eliteLevel;
+                } else if (desc.contains("精英化")) {
+                    ok = evolve >= 1;
+                } else if (needLevel > 0) {
+                    ok = level >= needLevel;
+                } else {
+                    ok = false;
+                }
+                if (ok) {
+                    matched++;
+                    if (matched >= needCount) {
+                        return 1;
+                    }
+                }
+            }
+            return 0;
+        }
+        return 0;
+    }
+
+    private static void collectGoodsBought(Object node, java.util.Map<String, Integer> out) {
+        if (node == null) {
+            return;
+        }
+        if (node instanceof JSONArray) {
+            JSONArray arr = (JSONArray) node;
+            for (int i = 0; i < arr.size(); i++) {
+                Object o = arr.get(i);
+                if (o instanceof JSONObject && ((JSONObject) o).getString("id") != null) {
+                    out.merge(((JSONObject) o).getString("id"), ((JSONObject) o).getIntValue("count"), Integer::sum);
+                } else {
+                    collectGoodsBought(o, out);
+                }
+            }
+            return;
+        }
+        if (node instanceof JSONObject) {
+            JSONObject obj = (JSONObject) node;
+            for (String k : obj.keySet()) {
+                Object v = obj.get(k);
+                if (v instanceof JSONObject || v instanceof JSONArray) {
+                    collectGoodsBought(v, out);
+                }
+            }
+        }
+    }
+
+    private static int stageState(JSONObject stages, String stageId) {
+        if (stages == null || stageId == null) {
+            return 0;
+        }
+        JSONObject s = stages.getJSONObject(stageId);
+        if (s == null) {
+            return 0;
+        }
+        return s.getIntValue("state");
+    }
+
+    private static int parseIntAfter(String desc, String prefix, String suffix) {
+        try {
+            int i = desc.indexOf(prefix);
+            if (i < 0) {
+                return 0;
+            }
+            int from = i + prefix.length();
+            int end = desc.length();
+            if (suffix != null && !suffix.isEmpty()) {
+                int j = desc.indexOf(suffix, from);
+                if (j > from) {
+                    end = j;
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int k = from; k < end; k++) {
+                char c = desc.charAt(k);
+                if (c >= '0' && c <= '9') {
+                    sb.append(c);
+                } else if (sb.length() > 0) {
+                    break;
+                }
+            }
+            return sb.length() == 0 ? 0 : Integer.parseInt(sb.toString());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public static boolean refreshGuideV3(JSONObject user) {
+        if (user == null) {
+            return false;
+        }
+        ArknightsApplication.LOGGER.info("[V3见习] refresh 被调用");
+        JSONObject bucket = missionsOfType(user, "GUIDE_V3", false);
+        if (bucket == null || bucket.isEmpty()) {
+            return false;
+        }
+        JSONObject defs = openServerMissions();
+        // 计算每组的 NORMAL 任务是否已全部领取
+        java.util.Map<String, Boolean> groupClaimed = new java.util.HashMap<>();
+        java.util.Map<String, java.util.List<String>> groups = new java.util.LinkedHashMap<>();
+        for (String id : defs.keySet()) {
+            JSONObject def = defs.getJSONObject(id);
+            String g = def.getString("missionGroup");
+            groups.computeIfAbsent(g, k -> new java.util.ArrayList<>()).add(id);
+        }
+        java.util.List<String> groupOrder = new java.util.ArrayList<>(groups.keySet());
+        groupOrder.sort(String::compareTo);
+
+        boolean changed = false;
+        java.util.Map<String, Integer> groupDone = new java.util.HashMap<>();
+        for (String g : groupOrder) {
+            boolean allClaimed = true;
+            for (String id : groups.get(g)) {
+                JSONObject def = defs.getJSONObject(id);
+                if (!"NORMAL".equals(def.getString("openServerMissionType"))) {
+                    continue;
+                }
+                JSONObject node = bucket.getJSONObject(id);
+                if (node == null || node.getIntValue("state") != 3) {
+                    allClaimed = false;
+                    break;
+                }
+            }
+            groupDone.put(g, allClaimed ? 1 : 0);
+        }
+
+        boolean prevDone = true;
+        for (String g : groupOrder) {
+            for (String id : groups.get(g)) {
+                JSONObject node = bucket.getJSONObject(id);
+                if (node == null || node.getIntValue("state") == 3) {
+                    continue;
+                }
+                JSONObject def = defs.getJSONObject(id);
+                int value = guideV3Value(user, def);
+                int newState = prevDone ? 2 : 1;
+                JSONArray progress = node.getJSONArray("progress");
+                if (progress == null || progress.isEmpty()) {
+                    progress = new JSONArray();
+                    JSONObject p = new JSONObject(true);
+                    p.put("target", 1);
+                    p.put("value", 0);
+                    progress.add(p);
+                    node.put("progress", progress);
+                    changed = true;
+                }
+                JSONObject p = progress.getJSONObject(0);
+                if (p.getIntValue("target") != 1) {
+                    p.put("target", 1);
+                    changed = true;
+                }
+                int oldValue = p.getIntValue("value");
+                if (oldValue != value) {
+                    p.put("value", value);
+                    changed = true;
+                    ArknightsApplication.LOGGER.info("[V3见习] {} 进度 {} → {}", id, oldValue, value);
+                }
+                if (node.getIntValue("state") != newState) {
+                    node.put("state", newState);
+                    changed = true;
+                }
+            }
+            prevDone = prevDone && groupDone.getOrDefault(g, 0) == 1;
+        }
+        return changed;
+    }
+    public static boolean dailyCheckInV3(JSONObject user) {
+        if (user == null) {
+            return false;
+        }
+        JSONObject v3 = user.getJSONObject("openServerV3");
+        if (v3 == null) {
+            return false;
+        }
+        JSONObject checkIn = v3.getJSONObject("checkIn");
+        if (checkIn == null) {
+            return false;
+        }
+        JSONArray history = checkIn.getJSONArray("history");
+        if (history == null) {
+            history = new JSONArray();
+            checkIn.put("history", history);
+        }
+        String groupId = checkIn.getString("groupId");
+        if (groupId == null || groupId.isEmpty()) {
+            groupId = "new_login_g_1";
+            checkIn.put("groupId", groupId);
+        }
+        int total = 14;
+        try {
+            JSONObject table = JSONObject.parseObject(new String(
+                    java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(
+                            System.getProperty("user.dir") + "/data/excel/open_server_table.json")),
+                    java.nio.charset.StandardCharsets.UTF_8));
+            JSONArray list = table.getJSONObject("openServerV3Data")
+                    .getJSONObject("checkInData").getJSONObject(groupId).getJSONArray("checkInItemList");
+            if (list != null && !list.isEmpty()) {
+                total = list.size();
+            }
+        } catch (Exception ignored) {
+        }
+        if (history.size() >= total) {
+            return false;
+        }
+        boolean hasUnclaimed = false;
+        for (int i = 0; i < history.size(); i++) {
+            Integer v = history.getInteger(i);
+            if (v != null && v == 1) {
+                hasUnclaimed = true;
+                break;
+            }
+        }
+        if (hasUnclaimed) {
+            return false;
+        }
+        history.add(1);
+        ArknightsApplication.LOGGER.info("[MissionHelper] V3 签到解锁第 {} 天（未领取）", history.size());
+        return true;
+    }
+    public static void forceResetGroup(JSONObject user, String type) {
+        resetGroup(user, type);
+    }
+    private static void resetGroup(JSONObject user, String type) {
+        JSONObject bucket = missionsOfType(user, type, false);
+        if (bucket == null) {
+            return;
+        }
+        for (String id : new ArrayList<>(bucket.keySet())) {
+            JSONObject node = bucket.getJSONObject(id);
+            if (node == null) {
+                continue;
+            }
+            JSONArray progress = node.getJSONArray("progress");
+            int target = 1;
+            if (progress != null && !progress.isEmpty()) {
+                target = Math.max(1, progress.getJSONObject(0).getIntValue("target"));
+            } else {
+                JSONObject e = entry(id);
+                JSONArray param = e == null ? null : e.getJSONArray("param");
+                if (param != null && param.size() >= 2) {
+                    target = Math.max(1, intOrDefault(param.getString(1), 1));
+                }
+            }
+            JSONArray fresh = new JSONArray();
+            JSONObject p = new JSONObject(true);
+            p.put("target", target);
+            p.put("value", 0);
+            fresh.add(p);
+            node.put("progress", fresh);
+            // 前置没做完的保持「未解锁(1)」，否则会把整条每周任务链一次性全放开
+            node.put("state", isUnlocked(user, id) ? 2 : 1);
+        }
+        // 点数与里程碑领取状态一起清空
+        JSONObject root = user.getJSONObject("mission");
+        JSONObject mr = root.getJSONObject("missionRewards");
+        if (mr != null) {
+            mr.put("DAILY".equals(type) ? "dailyPoint" : "weeklyPoint", 0);
+            JSONObject rewards = mr.getJSONObject("rewards");
+            if (rewards != null) {
+                JSONObject group = rewards.getJSONObject(type);
+                if (group != null) {
+                    for (String rid : new ArrayList<>(group.keySet())) {
+                        group.put(rid, 0);
+                    }
+                }
+            }
+        }
+    }
+
+    public static boolean resetPeriodicalMissions(JSONObject user) {
+        JSONObject root = user == null ? null : user.getJSONObject("mission");
+        if (root == null) {
+            return false;
+        }
+        boolean changed = false;
+        long today = todayResetTs();
+        long lastDaily = root.getLongValue("lastDailyReset");
+        if (lastDaily < today) {
+            resetGroup(user, "DAILY");
+            root.put("lastDailyReset", today);
+            changed = true;
+            ArknightsApplication.LOGGER.info("[MissionHelper] 每日任务已重置（本地 {}）", today);
+        }
+        long week = weekResetTs();
+        long lastWeekly = root.getLongValue("lastWeeklyReset");
+        if (lastWeekly < week) {
+            resetGroup(user, "WEEKLY");
+            root.put("lastWeeklyReset", week);
+            changed = true;
+            ArknightsApplication.LOGGER.info("[MissionHelper] 每周任务已重置（本地 {}）", week);
+        }
+        return changed;
     }
 }

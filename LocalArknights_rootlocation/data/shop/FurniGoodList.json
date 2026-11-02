@@ -10809,6 +10809,370 @@
       "sequence": 0
     },
     {
+      "goodId": "tsarPalace_1",
+      "furniId": "furni_tsarPalace_column_01",
+      "shopDisplay": 1,
+      "displayName": "“睡吧，小熊”",
+      "priceCoin": 465,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 465,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": 1,
+      "sequence": 101
+    },
+    {
+      "goodId": "tsarPalace_2",
+      "furniId": "furni_tsarPalace_shelf_01",
+      "shopDisplay": 1,
+      "displayName": "翡绿伞架",
+      "priceCoin": 315,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 315,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": 1,
+      "sequence": 102
+    },
+    {
+      "goodId": "tsarPalace_3",
+      "furniId": "furni_tsarPalace_sofa_01",
+      "shopDisplay": 1,
+      "displayName": "翡绿沙发",
+      "priceCoin": 405,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 405,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": 1,
+      "sequence": 103
+    },
+    {
+      "goodId": "tsarPalace_4",
+      "furniId": "furni_tsarPalace_footrest_01",
+      "shopDisplay": 1,
+      "displayName": "翡绿搁脚凳",
+      "priceCoin": 265,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 265,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": 1,
+      "sequence": 104
+    },
+    {
+      "goodId": "tsarPalace_5",
+      "furniId": "furni_tsarPalace_stool_01",
+      "shopDisplay": 1,
+      "displayName": "翡绿鞋凳",
+      "priceCoin": 245,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 245,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": 1,
+      "sequence": 105
+    },
+    {
+      "goodId": "talulahCabin_1",
+      "furniId": "furni_talulahCabin_toolRack_01",
+      "shopDisplay": 1,
+      "displayName": "“播种”",
+      "priceCoin": 335,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 335,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 201
+    },
+    {
+      "goodId": "talulahCabin_2",
+      "furniId": "furni_talulahCabin_bucketBasket_01",
+      "shopDisplay": 1,
+      "displayName": "饮水处",
+      "priceCoin": 245,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 245,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 202
+    },
+    {
+      "goodId": "talulahCabin_3",
+      "furniId": "furni_talulahCabin_longTable_01",
+      "shopDisplay": 1,
+      "displayName": "“烛火与回忆”",
+      "priceCoin": 775,
+      "priceDia": 4,
+      "discount": 0,
+      "originPriceCoin": 775,
+      "originPriceDia": 4,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 203
+    },
+    {
+      "goodId": "talulahCabin_4",
+      "furniId": "furni_talulahCabin_produceCage_01",
+      "shopDisplay": 1,
+      "displayName": "“只能放南瓜！”",
+      "priceCoin": 200,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 200,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 204
+    },
+    {
+      "goodId": "talulahCabin_5",
+      "furniId": "furni_talulahCabin_hayRack_01",
+      "shopDisplay": 1,
+      "displayName": "无轮稻草车",
+      "priceCoin": 255,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 255,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 205
+    },
+    {
+      "goodId": "talulahCabin_6",
+      "furniId": "furni_talulahCabin_toolRack_02",
+      "shopDisplay": 1,
+      "displayName": "“第二次尝试”",
+      "priceCoin": 430,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 430,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 206
+    },
+    {
+      "goodId": "talulahCabin_7",
+      "furniId": "furni_talulahCabin_bench_01",
+      "shopDisplay": 1,
+      "displayName": "“信与信”",
+      "priceCoin": 255,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 255,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 207
+    },
+    {
+      "goodId": "talulahCabin_8",
+      "furniId": "furni_talulahCabin_chair_01",
+      "shopDisplay": 1,
+      "displayName": "“在我身边”",
+      "priceCoin": 270,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 270,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 208
+    },
+    {
+      "goodId": "talulahCabin_9",
+      "furniId": "furni_talulahCabin_coatRack_01",
+      "shopDisplay": 1,
+      "displayName": "木制挂衣架",
+      "priceCoin": 220,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 220,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 209
+    },
+    {
+      "goodId": "talulahCabin_10",
+      "furniId": "furni_talulahCabin_cabinet_01",
+      "shopDisplay": 1,
+      "displayName": "木制杂物柜",
+      "priceCoin": 300,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 300,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 210
+    },
+    {
+      "goodId": "talulahCabin_11",
+      "furniId": "furni_talulahCabin_trackLight_01",
+      "shopDisplay": 1,
+      "displayName": "可调滑轨灯",
+      "priceCoin": 310,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 310,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 211
+    },
+    {
+      "goodId": "talulahCabin_12",
+      "furniId": "furni_talulahCabin_sofa_01",
+      "shopDisplay": 1,
+      "displayName": "“在你身边”",
+      "priceCoin": 445,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 445,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 212
+    },
+    {
+      "goodId": "talulahCabin_13",
+      "furniId": "furni_talulahCabin_carpet_01",
+      "shopDisplay": 1,
+      "displayName": "碎布地毯",
+      "priceCoin": 245,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 245,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 213
+    },
+    {
+      "goodId": "talulahCabin_14",
+      "furniId": "furni_talulahCabin_coffeeTable_01",
+      "shopDisplay": 1,
+      "displayName": "“礼物”",
+      "priceCoin": 295,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 295,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 214
+    },
+    {
+      "goodId": "talulahCabin_15",
+      "furniId": "furni_talulahCabin_ceilinglamp_01",
+      "shopDisplay": 1,
+      "displayName": "羽兽笼吊灯",
+      "priceCoin": 110,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 110,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 215
+    },
+    {
+      "goodId": "talulahCabin_16",
+      "furniId": "furni_talulahCabin_scarecrow_01",
+      "shopDisplay": 1,
+      "displayName": "“一位同伴”",
+      "priceCoin": 245,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 245,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 216
+    },
+    {
+      "goodId": "talulahCabin_17",
+      "furniId": "furni_talulahCabin_candlestick_01",
+      "shopDisplay": 1,
+      "displayName": "可手持烛台",
+      "priceCoin": 180,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 180,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 217
+    },
+    {
+      "goodId": "talulahCabin_18",
+      "furniId": "furni_talulahCabin_firewoodRack_01",
+      "shopDisplay": 1,
+      "displayName": "木制置物架",
+      "priceCoin": 275,
+      "priceDia": 1,
+      "discount": 0,
+      "originPriceCoin": 275,
+      "originPriceDia": 1,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 218
+    },
+    {
+      "goodId": "talulahCabin_19",
+      "furniId": "furni_talulahCabin_fireplace_01",
+      "shopDisplay": 1,
+      "displayName": "简易面包炉",
+      "priceCoin": 340,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 340,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 219
+    },
+    {
+      "goodId": "talulahCabin_20",
+      "furniId": "furni_talulahCabin_wallpaper_01",
+      "shopDisplay": 1,
+      "displayName": "农庄印象壁纸",
+      "priceCoin": 395,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 395,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 220
+    },
+    {
+      "goodId": "talulahCabin_21",
+      "furniId": "furni_talulahCabin_floor_01",
+      "shopDisplay": 1,
+      "displayName": "拼接木地板",
+      "priceCoin": 395,
+      "priceDia": 2,
+      "discount": 0,
+      "originPriceCoin": 395,
+      "originPriceDia": 2,
+      "end": 1795895999,
+      "count": -1,
+      "sequence": 221
+    },
+    {
       "goodId": "obsidian_1",
       "furniId": "furni_obsidianFestival_DJBooth_01",
       "shopDisplay": 1,
@@ -17499,6 +17863,346 @@
         },
         {
           "picId": "villagemanor_2025_6",
+          "index": 5
+        }
+      ]
+    },
+    {
+      "packageId": "tsarPalace_2026",
+      "icon": "icon_furngroup_tsarPalace_2026",
+      "name": "行宫一隅",
+      "description": "依照干员冻河的描述复原的乌萨斯皇室行宫风格房间。他的童年曾在相似的居所中度过，最大的区别可能在于，那个房间的窗外，有片一望无际的苹果林。",
+      "sequence": 100,
+      "saleBegin": 1793487600,
+      "saleEnd": 1795895999,
+      "decoration": 5000,
+      "goodList": [
+        {
+          "goodId": "tsarPalace_1",
+          "count": 1,
+          "set": "温暖的新梦",
+          "sequence": 1
+        },
+        {
+          "goodId": "tsarPalace_2",
+          "count": 1,
+          "set": "温暖的新梦",
+          "sequence": 1
+        },
+        {
+          "goodId": "tsarPalace_3",
+          "count": 1,
+          "set": "温暖的新梦",
+          "sequence": 1
+        },
+        {
+          "goodId": "tsarPalace_4",
+          "count": 1,
+          "set": "温暖的新梦",
+          "sequence": 1
+        },
+        {
+          "goodId": "tsarPalace_5",
+          "count": 1,
+          "set": "温暖的新梦",
+          "sequence": 1
+        }
+      ],
+      "eventGoodList": [
+        {
+          "name": "垂式烛台吊灯",
+          "count": 2,
+          "furniId": "furni_tsarPalace_ceilinglamp_01",
+          "set": "到来的新日",
+          "sequence": 4
+        },
+        {
+          "name": "粗绒纹样地毯\n",
+          "count": 1,
+          "furniId": "furni_tsarPalace_carpet_01",
+          "set": "到来的新日",
+          "sequence": 4
+        },
+        {
+          "name": "“新生”\n",
+          "count": 1,
+          "furniId": "furni_tsarPalace_plant_01",
+          "set": "简练的新诗",
+          "sequence": 2
+        },
+        {
+          "name": "斑驳铜镜",
+          "count": 1,
+          "furniId": "furni_tsarPalace_mirror_01",
+          "set": "简练的新诗",
+          "sequence": 2
+        },
+        {
+          "name": "悬式烛台吊灯",
+          "count": 1,
+          "furniId": "furni_tsarPalace_ceilinglamp_02",
+          "set": "到来的新日",
+          "sequence": 4
+        },
+        {
+          "name": "“梦中人？”",
+          "count": 1,
+          "furniId": "furni_tsarPalace_fireplace_01",
+          "set": "简练的新诗",
+          "sequence": 2
+        },
+        {
+          "name": "“属于明日”",
+          "count": 1,
+          "furniId": "furni_tsarPalace_shelf_02",
+          "set": "简练的新诗",
+          "sequence": 2
+        },
+        {
+          "name": "“只余一人”",
+          "count": 1,
+          "furniId": "furni_tsarPalace_coffeeTable_01",
+          "set": "简练的新诗",
+          "sequence": 2
+        },
+        {
+          "name": "念诗处",
+          "count": 1,
+          "furniId": "furni_tsarPalace_table_01",
+          "set": "悠长的新歌",
+          "sequence": 3
+        },
+        {
+          "name": "冬衣陈列柜",
+          "count": 1,
+          "furniId": "furni_tsarPalace_wardrobe_01",
+          "set": "悠长的新歌",
+          "sequence": 3
+        },
+        {
+          "name": "细绒纹样地毯",
+          "count": 1,
+          "furniId": "furni_tsarPalace_carpet_02",
+          "set": "悠长的新歌",
+          "sequence": 3
+        },
+        {
+          "name": "翡绿花瓶",
+          "count": 1,
+          "furniId": "furni_tsarPalace_plant_02",
+          "set": "悠长的新歌",
+          "sequence": 3
+        },
+        {
+          "name": "公用唱片机",
+          "count": 1,
+          "furniId": "furni_tsarPalace_recordplayer_01",
+          "set": "悠长的新歌",
+          "sequence": 3
+        },
+        {
+          "name": "乌萨斯行宫壁纸",
+          "count": 1,
+          "furniId": "furni_tsarPalace_wallpaper_01",
+          "set": "到来的新日",
+          "sequence": 4
+        },
+        {
+          "name": "白桦木地板",
+          "count": 1,
+          "furniId": "furni_tsarPalace_floor_01",
+          "set": "到来的新日",
+          "sequence": 4
+        }
+      ],
+      "imageList": [
+        {
+          "picId": "tsarPalace_2026_1",
+          "index": 0
+        },
+        {
+          "picId": "tsarPalace_2026_2",
+          "index": 1
+        },
+        {
+          "picId": "tsarPalace_2026_3",
+          "index": 2
+        },
+        {
+          "picId": "tsarPalace_2026_4",
+          "index": 3
+        },
+        {
+          "picId": "tsarPalace_2026_5",
+          "index": 4
+        },
+        {
+          "picId": "tsarPalace_2026_6",
+          "index": 5
+        }
+      ]
+    },
+    {
+      "packageId": "talulahCabin_2026",
+      "icon": "icon_furngroup_talulahCabin_2026",
+      "name": "“并肩之人”",
+      "description": "根据整合运动在乌卡边境农庄的据点复原出的房间。他们曾在这里度过了一个严苛的冬天，不过好在，这里的人心中拥有火焰——而它足够炽热，也足够明亮。",
+      "sequence": 200,
+      "saleBegin": 1793487600,
+      "saleEnd": 1795895999,
+      "decoration": 5000,
+      "goodList": [
+        {
+          "goodId": "talulahCabin_1",
+          "count": 1,
+          "set": "苦热的长夏",
+          "sequence": 1
+        },
+        {
+          "goodId": "talulahCabin_2",
+          "count": 1,
+          "set": "苦热的长夏",
+          "sequence": 1
+        },
+        {
+          "goodId": "talulahCabin_3",
+          "count": 1,
+          "set": "苦热的长夏",
+          "sequence": 1
+        },
+        {
+          "goodId": "talulahCabin_4",
+          "count": 1,
+          "set": "苦热的长夏",
+          "sequence": 1
+        },
+        {
+          "goodId": "talulahCabin_5",
+          "count": 1,
+          "set": "苦热的长夏",
+          "sequence": 1
+        },
+        {
+          "goodId": "talulahCabin_6",
+          "count": 1,
+          "set": "蛰伏的秋日",
+          "sequence": 2
+        },
+        {
+          "goodId": "talulahCabin_7",
+          "count": 1,
+          "set": "蛰伏的秋日",
+          "sequence": 2
+        },
+        {
+          "goodId": "talulahCabin_8",
+          "count": 1,
+          "set": "涉雪的冬夜",
+          "sequence": 3
+        },
+        {
+          "goodId": "talulahCabin_9",
+          "count": 1,
+          "set": "蛰伏的秋日",
+          "sequence": 2
+        },
+        {
+          "goodId": "talulahCabin_10",
+          "count": 1,
+          "set": "蛰伏的秋日",
+          "sequence": 2
+        },
+        {
+          "goodId": "talulahCabin_11",
+          "count": 1,
+          "set": "蛰伏的秋日",
+          "sequence": 2
+        },
+        {
+          "goodId": "talulahCabin_12",
+          "count": 1,
+          "set": "涉雪的冬夜",
+          "sequence": 3
+        },
+        {
+          "goodId": "talulahCabin_13",
+          "count": 1,
+          "set": "涉雪的冬夜",
+          "sequence": 3
+        },
+        {
+          "goodId": "talulahCabin_14",
+          "count": 1,
+          "set": "涉雪的冬夜",
+          "sequence": 3
+        },
+        {
+          "goodId": "talulahCabin_15",
+          "count": 1,
+          "set": "蛰伏的秋日",
+          "sequence": 2
+        },
+        {
+          "goodId": "talulahCabin_16",
+          "count": 1,
+          "set": "涉雪的冬夜",
+          "sequence": 3
+        },
+        {
+          "goodId": "talulahCabin_17",
+          "count": 1,
+          "set": "烁亮的春景",
+          "sequence": 4
+        },
+        {
+          "goodId": "talulahCabin_18",
+          "count": 1,
+          "set": "烁亮的春景",
+          "sequence": 4
+        },
+        {
+          "goodId": "talulahCabin_19",
+          "count": 1,
+          "set": "烁亮的春景",
+          "sequence": 4
+        },
+        {
+          "goodId": "talulahCabin_20",
+          "count": 1,
+          "set": "烁亮的春景",
+          "sequence": 4
+        },
+        {
+          "goodId": "talulahCabin_21",
+          "count": 1,
+          "set": "烁亮的春景",
+          "sequence": 4
+        }
+      ],
+      "eventGoodList": [],
+      "imageList": [
+        {
+          "picId": "talulahCabin_2026_1",
+          "index": 0
+        },
+        {
+          "picId": "talulahCabin_2026_2",
+          "index": 1
+        },
+        {
+          "picId": "talulahCabin_2026_3",
+          "index": 2
+        },
+        {
+          "picId": "talulahCabin_2026_4",
+          "index": 3
+        },
+        {
+          "picId": "talulahCabin_2026_5",
+          "index": 4
+        },
+        {
+          "picId": "talulahCabin_2026_6",
           "index": 5
         }
       ]

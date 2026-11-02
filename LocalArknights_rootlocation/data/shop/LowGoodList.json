@@ -1,13 +1,13 @@
 {
   "groups": [
-    "lggShdShopnumber90_Group_1",
-    "lggShdShopnumber90_Group_2",
-    "lggShdShopnumber90_Group_3"
+    "lggShdShopnumber91_Group_1",
+    "lggShdShopnumber91_Group_2",
+    "lggShdShopnumber91_Group_3"
   ],
   "goodList": [
     {
-      "goodId": "LS_lggShdShopnumber90_1",
-      "groupId": "lggShdShopnumber90_Group_1",
+      "goodId": "LS_lggShdShopnumber91_1",
+      "groupId": "lggShdShopnumber91_Group_1",
       "displayName": "寻访凭证",
       "originPrice": 240,
       "price": 240,
@@ -22,8 +22,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_2",
-      "groupId": "lggShdShopnumber90_Group_1",
+      "goodId": "LS_lggShdShopnumber91_2",
+      "groupId": "lggShdShopnumber91_Group_1",
       "displayName": "招聘许可",
       "originPrice": 8,
       "price": 8,
@@ -38,8 +38,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_3",
-      "groupId": "lggShdShopnumber90_Group_1",
+      "goodId": "LS_lggShdShopnumber91_3",
+      "groupId": "lggShdShopnumber91_Group_1",
       "displayName": "合成玉",
       "originPrice": 40,
       "price": 40,
@@ -54,8 +54,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_4",
-      "groupId": "lggShdShopnumber90_Group_1",
+      "goodId": "LS_lggShdShopnumber91_4",
+      "groupId": "lggShdShopnumber91_Group_1",
       "displayName": "中级作战记录",
       "originPrice": 10,
       "price": 10,
@@ -70,8 +70,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_5",
-      "groupId": "lggShdShopnumber90_Group_1",
+      "goodId": "LS_lggShdShopnumber91_5",
+      "groupId": "lggShdShopnumber91_Group_1",
       "displayName": "龙门币",
       "originPrice": 10,
       "price": 10,
@@ -86,8 +86,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_6",
-      "groupId": "lggShdShopnumber90_Group_1",
+      "goodId": "LS_lggShdShopnumber91_6",
+      "groupId": "lggShdShopnumber91_Group_1",
       "displayName": "赤金",
       "originPrice": 10,
       "price": 10,
@@ -102,8 +102,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_7",
-      "groupId": "lggShdShopnumber90_Group_1",
+      "goodId": "LS_lggShdShopnumber91_7",
+      "groupId": "lggShdShopnumber91_Group_1",
       "displayName": "家具零件",
       "originPrice": 40,
       "price": 40,
@@ -118,8 +118,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_8",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_8",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "公开招募★3兑换券·I",
       "originPrice": 200,
       "price": 200,
@@ -134,8 +134,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_9",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_9",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "公开招募★4兑换券·I",
       "originPrice": 750,
       "price": 750,
@@ -150,8 +150,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_10",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_10",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "寻访凭证",
       "originPrice": 450,
       "price": 450,
@@ -166,8 +166,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_11",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_11",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "招聘许可",
       "originPrice": 15,
       "price": 15,
@@ -182,8 +182,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_12",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_12",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "龙门币",
       "originPrice": 25,
       "price": 25,
@@ -198,8 +198,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_13",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_13",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "高级作战记录",
       "originPrice": 25,
       "price": 25,
@@ -214,8 +214,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_14",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_14",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "技巧概要·卷2",
       "originPrice": 20,
       "price": 20,
@@ -230,8 +230,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_15",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_15",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "固源岩组",
       "originPrice": 25,
       "price": 25,
@@ -246,8 +246,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_16",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_16",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "糖组",
       "originPrice": 30,
       "price": 30,
@@ -262,8 +262,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_17",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_17",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "聚酸酯组",
       "originPrice": 30,
       "price": 30,
@@ -278,8 +278,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_18",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_18",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "异铁组",
       "originPrice": 35,
       "price": 35,
@@ -294,8 +294,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_19",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_19",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "酮凝集组",
       "originPrice": 35,
       "price": 35,
@@ -310,8 +310,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_20",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_20",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "全新装置",
       "originPrice": 45,
       "price": 45,
@@ -326,72 +326,72 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_21",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_21",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "扭转醇",
       "originPrice": 30,
       "price": 30,
       "discount": 0,
       "slotId": 14,
-      "availCount": 15,
+      "availCount": -1,
       "item": {
         "id": "30073",
         "count": 1,
         "type": "MATERIAL"
       },
-      "disableMax": false
+      "disableMax": true
     },
     {
-      "goodId": "LS_lggShdShopnumber90_22",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_22",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "轻锰矿",
       "originPrice": 35,
       "price": 35,
       "discount": 0,
       "slotId": 15,
-      "availCount": 15,
+      "availCount": -1,
       "item": {
         "id": "30083",
         "count": 1,
         "type": "MATERIAL"
       },
-      "disableMax": false
+      "disableMax": true
     },
     {
-      "goodId": "LS_lggShdShopnumber90_23",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_23",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "研磨石",
       "originPrice": 40,
       "price": 40,
       "discount": 0,
       "slotId": 16,
-      "availCount": 15,
+      "availCount": -1,
       "item": {
         "id": "30093",
         "count": 1,
         "type": "MATERIAL"
       },
-      "disableMax": false
+      "disableMax": true
     },
     {
-      "goodId": "LS_lggShdShopnumber90_24",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_24",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "RMA70-12",
       "originPrice": 45,
       "price": 45,
       "discount": 0,
       "slotId": 17,
-      "availCount": 10,
+      "availCount": -1,
       "item": {
         "id": "30103",
         "count": 1,
         "type": "MATERIAL"
       },
-      "disableMax": false
+      "disableMax": true
     },
     {
-      "goodId": "LS_lggShdShopnumber90_25",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_25",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "凝胶",
       "originPrice": 40,
       "price": 40,
@@ -406,8 +406,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_26",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_26",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "炽合金",
       "originPrice": 35,
       "price": 35,
@@ -422,8 +422,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_27",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_27",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "晶体元件",
       "originPrice": 30,
       "price": 30,
@@ -438,8 +438,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_28",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_28",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "半自然溶剂",
       "originPrice": 40,
       "price": 40,
@@ -454,8 +454,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_29",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_29",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "化合切削液",
       "originPrice": 40,
       "price": 40,
@@ -470,8 +470,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_30",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_30",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "转质盐组",
       "originPrice": 45,
       "price": 45,
@@ -486,8 +486,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_31",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_31",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "褐素纤维",
       "originPrice": 40,
       "price": 40,
@@ -502,8 +502,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_32",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_32",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "环烃聚质",
       "originPrice": 45,
       "price": 45,
@@ -518,8 +518,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_33",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_33",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "类凝结核",
       "originPrice": 40,
       "price": 40,
@@ -534,8 +534,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_34",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_34",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "液化高能气体",
       "originPrice": 45,
       "price": 45,
@@ -550,8 +550,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_35",
-      "groupId": "lggShdShopnumber90_Group_2",
+      "goodId": "LS_lggShdShopnumber91_35",
+      "groupId": "lggShdShopnumber91_Group_2",
       "displayName": "电极单元",
       "originPrice": 40,
       "price": 40,
@@ -566,8 +566,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_36",
-      "groupId": "lggShdShopnumber90_Group_3",
+      "goodId": "LS_lggShdShopnumber91_36",
+      "groupId": "lggShdShopnumber91_Group_3",
       "displayName": "龙门币",
       "originPrice": 100,
       "price": 100,
@@ -582,8 +582,8 @@
       "disableMax": false
     },
     {
-      "goodId": "LS_lggShdShopnumber90_37",
-      "groupId": "lggShdShopnumber90_Group_3",
+      "goodId": "LS_lggShdShopnumber91_37",
+      "groupId": "lggShdShopnumber91_Group_3",
       "displayName": "合成玉",
       "originPrice": 50,
       "price": 50,
@@ -598,19 +598,19 @@
       "disableMax": false
     }
   ],
-  "shopEndTime": 1793476799,
+  "shopEndTime": 1796068799,
   "newFlag": [],
   "groupsInfo": [
     {
-      "groupId": "lggShdShopnumber90_Group_1",
+      "groupId": "lggShdShopnumber91_Group_1",
       "lggThreshold": 0
     },
     {
-      "groupId": "lggShdShopnumber90_Group_2",
+      "groupId": "lggShdShopnumber91_Group_2",
       "lggThreshold": 1490
     },
     {
-      "groupId": "lggShdShopnumber90_Group_3",
+      "groupId": "lggShdShopnumber91_Group_3",
       "lggThreshold": 11990
     }
   ],

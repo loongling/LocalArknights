@@ -32,6 +32,9 @@ public class quest {
 
     private static final java.util.concurrent.ConcurrentHashMap<String, String> BATTLE_STAGE =
             new java.util.concurrent.ConcurrentHashMap<>();
+    /** 本次战斗是否用了助战（uid → true），battleStart 写、battleFinish 读 */
+    private static final java.util.concurrent.ConcurrentHashMap<Long, Boolean> ASSIST_BATTLES =
+            new java.util.concurrent.ConcurrentHashMap<>();
     private static final java.util.concurrent.ConcurrentHashMap<String, Long> BATTLE_CREATED =
             new java.util.concurrent.ConcurrentHashMap<>();
     private static final long BATTLE_ID_TTL_SECONDS = 6 * 3600L;
@@ -99,6 +102,15 @@ public class quest {
                     return UserSyncData;
                 } else {
                     UserSyncData = JSONObject.parseObject(((Account)Accounts.get(0)).getUser());
+                    // 助战：客户端在 battleStart 里带 assistFriend（含助战干员信息）。
+                    // 记一下这场用了助战，battleFinish 里推进「使用助战通关」任务。
+                    if (JsonBody.getJSONObject("assistFriend") != null) {
+                        ASSIST_BATTLES.put(uid, Boolean.TRUE);
+                        ArknightsApplication.LOGGER.info("[quest] uid={} 本场使用助战: {}", uid,
+                                JsonBody.getJSONObject("assistFriend").getString("nickName"));
+                    } else {
+                        ASSIST_BATTLES.remove(uid);
+                    }
                     JSONObject stage_table = stageTable.getJSONObject(stageId);
                     JSONObject result;
                     if (!UserSyncData.getJSONObject("dungeon").getJSONObject("stages").containsKey(stageId)) {
@@ -212,8 +224,23 @@ public class quest {
 
         // 3. 获取用户数据
         JSONObject UserSyncData = JSON.parseObject(account.getUser());
-        JSONObject BattleData = Utils.BattleData_decrypt(JsonBody.getString("data"),
-                UserSyncData.getJSONObject("pushFlags").getString("status"));
+        JSONObject BattleData = null;
+        try {
+            BattleData = Utils.BattleData_decrypt(JsonBody.getString("data"),
+                    UserSyncData.getJSONObject("pushFlags").getString("status"));
+        } catch (Exception e) {
+            ArknightsApplication.LOGGER.warn("[battleFinish] 解密对战数据抛错 uid={}: {}", uid, e.toString());
+        }
+
+        // 解密失败（payload 被篡改 / 字段不匹配）时优雅返回，别让 500 冒到客户端
+        if (BattleData == null) {
+            String rawData = JsonBody.getString("data");
+            ArknightsApplication.LOGGER.warn("[battleFinish] 对战数据解密失败 uid={} dataLen={}", uid,
+                    rawData == null ? 0 : rawData.length());
+            result.put("result", 1);
+            result.put("error", "无效的对战数据");
+            return result;
+        }
 
         String battleId = BattleData.getString("battleId");
         String stageId = /*resolveBattleStage(battleId);*/ battleId;
@@ -271,6 +298,20 @@ public class quest {
         int missionCompleteTimes = UserSyncData.getJSONObject("dungeon")
                 .getJSONObject("stages").getJSONObject(stageId).getIntValue("completeTimes") + 1;
         JSONArray touchedMissions = MissionHelper.onStageCleared(UserSyncData, stageId, missionCompleteTimes);
+        // 每日/周任务：通关次数、击杀数（事件驱动）
+        MissionHelper.addProgress(UserSyncData, "CompleteStageAnyType", 1);
+        // StageWithEnemyKill = 击败敌方领袖(boss)，用 stage_table.bossMark 判定，不是「有击杀就算」
+        JSONObject stageCfgForMission = stageTable.getJSONObject(stageId);
+        if (stageCfgForMission != null && stageCfgForMission.getBooleanValue("bossMark")
+                && BattleData.getIntValue("killCnt") > 0) {
+            MissionHelper.addProgress(UserSyncData, "StageWithEnemyKill", 1);
+        }
+        MissionHelper.addProgress(UserSyncData, "EnemyKillInAnyStage", BattleData.getIntValue("killCnt"));
+        if (Boolean.TRUE.equals(ASSIST_BATTLES.remove(uid))) {
+            MissionHelper.addProgress(UserSyncData, "StageWithAssistChar", 1);
+        }
+        // 新服开启活动 V3：打完一局立刻重算见习任务进度（不用等重进主界面）
+        MissionHelper.refreshGuideV3(UserSyncData);
         if (!touchedMissions.isEmpty()) {
             ArknightsApplication.LOGGER.info("[MissionHelper] 本次达成任务: " + touchedMissions.toJSONString());
         }
@@ -490,19 +531,30 @@ public class quest {
         return result;
     }
 
+    /**
+     * 战斗结算后写关卡状态。
+     * 只要打赢了（completeState >= 2）就一律记 3 = 已通关，
+     * 这样依赖「已通关」的判定（日常 CompleteAnyStage、见习任务 stage 条件）立刻生效，
+     * 不必等客户端再走一次 finishStoryStage。
+     */
     private void updateStageState(JSONObject UserSyncData, String stageId, int completeState) {
-        JSONObject stages_data = UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId);
-
-        if (stages_data.getIntValue("state") == 0) {
-            stages_data.put("state", 1);
+        JSONObject stages = UserSyncData.getJSONObject("dungeon").getJSONObject("stages");
+        JSONObject stages_data = stages.getJSONObject(stageId);
+        if (stages_data == null) {
+            stages_data = new JSONObject(true);
+            stages_data.put("hasBattleReplay", 0);
+            stages_data.put("noCostCnt", 0);
+            stages_data.put("practiceTimes", 0);
+            stages_data.put("completeTimes", 0);
+            stages_data.put("state", 0);
+            stages_data.put("stageId", stageId);
+            stages_data.put("startTimes", 0);
+            stages.put(stageId, stages_data);
         }
-
-        if (stages_data.getIntValue("state") != 3) {
-            stages_data.put("state", completeState);
-        }
-
-        if (completeState == 4) {
-            stages_data.put("state", completeState);
+        if (completeState >= 2) {
+            stages_data.put("state", 3);   // 已通关
+        } else if (stages_data.getIntValue("state") == 0) {
+            stages_data.put("state", 1);   // 只是解锁
         }
     }
 
@@ -892,7 +944,8 @@ public class quest {
         java.util.Collections.sort(cleared);
         for (String id : cleared) {
             JSONObject entry = stages.getJSONObject(id);
-            if (entry == null || entry.getIntValue("state") != 3) {
+            // 官服「PASS」= state > 0（剿灭关通关后是 2，没有三星概念）
+            if (entry == null || entry.getIntValue("state") <= 0) {
                 continue;
             }
             JSONObject cfg = table.getJSONObject(id);
@@ -922,6 +975,61 @@ public class quest {
         return added;
     }
 
+    public static int unlockCampaignByConditions(JSONObject UserSyncData, JSONArray unlockStages,
+                                                 JSONArray unlockStagesObject) {
+        JSONObject dungeon = UserSyncData.getJSONObject("dungeon");
+        JSONObject stages = dungeon == null ? null : dungeon.getJSONObject("stages");
+        JSONObject table = ArknightsApplication.stageTable;
+        if (stages == null || table == null) {
+            return 0;
+        }
+        int added = 0;
+        java.util.List<String> ids = new java.util.ArrayList<>(table.keySet());
+        java.util.Collections.sort(ids);
+        for (String id : ids) {
+            JSONObject stage = table.getJSONObject(id);
+            if (stage == null || !"CAMPAIGN".equals(stage.getString("stageType"))) {
+                continue;
+            }
+            if (stages.containsKey(id)) {
+                continue;
+            }
+            JSONArray conds = stage.getJSONArray("unlockCondition");
+            if (conds == null || conds.isEmpty()) {
+                continue;
+            }
+            boolean ok = true;
+            for (int i = 0; i < conds.size(); i++) {
+                JSONObject cond = conds.getJSONObject(i);
+                String needId = cond.getString("stageId");
+                JSONObject needStage = needId == null ? null : stages.getJSONObject(needId);
+                if (needStage == null || needStage.getIntValue("state") <= 0) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (!ok) {
+                continue;
+            }
+            JSONObject entry = new JSONObject(true);
+            entry.put("stageId", id);
+            entry.put("hasBattleReplay", 0);
+            entry.put("practiceTimes", 0);
+            entry.put("completeTimes", 0);
+            entry.put("state", 0);
+            entry.put("startTimes", 0);
+            stages.put(id, entry);
+            if (unlockStages != null) {
+                unlockStages.add(id);
+            }
+            if (unlockStagesObject != null) {
+                unlockStagesObject.add(entry);
+            }
+            added++;
+        }
+        return added;
+    }
+
     public static int unlockCampaignStages(JSONObject UserSyncData, JSONArray unlockStages,
                                            JSONArray unlockStagesObject) {
         JSONObject dungeon = UserSyncData.getJSONObject("dungeon");
@@ -943,7 +1051,7 @@ public class quest {
                 continue;
             }
             JSONObject needStage = stages.getJSONObject(needId);
-            if (needStage == null || needStage.getIntValue("state") != 3) {
+            if (needStage == null || needStage.getIntValue("state") <= 0) {
                 continue;
             }
             JSONObject entry = new JSONObject(true);
@@ -1655,6 +1763,86 @@ public class quest {
         }
     }
 
+    private static String professionOf(String charId) {
+        try {
+            JSONObject cfg = ArknightsApplication.characterJson.getJSONObject(charId);
+            return cfg == null ? null : cfg.getString("profession");
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static JSONObject buildAssistEntry(String uidStr, String aliasName, JSONObject status, JSONObject chars,
+                                               JSONArray slots, String profession, boolean isFriend,
+                                               java.util.Set<String> usedCharIds) {
+        if (chars == null || slots == null || slots.isEmpty()) {
+            return null;
+        }
+        JSONArray assistCharList = new JSONArray();
+        int slotIndex = -1;
+        String matchedCharId = null;
+        for (int i = 0; i < slots.size(); i++) {
+            JSONObject slot = slots.getJSONObject(i);
+            if (slot == null) {
+                continue;
+            }
+            String instId = slot.getString("charInstId");
+            JSONObject owned = instId == null ? null : chars.getJSONObject(instId);
+            if (owned == null) {
+                continue;
+            }
+            // 干员数据基本照搬 troop.chars（skills/unlock/equip/starMark 都在里面），
+            // 只做三件事：skin → skinId（客户端立绘读这个）、写入助战技能位、补空记录字段。
+            JSONObject assistChar = JSONObject.parseObject(owned.toJSONString());
+            String skin = owned.getString("skin");
+            if (skin == null || skin.isEmpty()) {
+                skin = owned.getString("charId") + "#1";
+            }
+            // skin 原样透传成 skinId（尾部 '+' 是存档里的正常标记，不能去掉）
+            assistChar.put("skinId", skin);
+            assistChar.put("skillIndex", Math.max(0, slot.getIntValue("skillIndex")));
+            String equip = slot.getString("currentEquip");
+            if (equip != null && !equip.isEmpty()) {
+                assistChar.put("currentEquip", equip);
+            }
+            if (!assistChar.containsKey("crisisRecord") || assistChar.get("crisisRecord") == null) {
+                assistChar.put("crisisRecord", new JSONObject(true));
+            }
+            if (!assistChar.containsKey("crisisV2Record") || assistChar.get("crisisV2Record") == null) {
+                assistChar.put("crisisV2Record", new JSONObject(true));
+            }
+            assistCharList.add(assistChar);
+            String charId = owned.getString("charId");
+            if (slotIndex < 0 && profession != null && profession.equals(professionOf(charId))) {
+                slotIndex = assistCharList.size() - 1;
+                matchedCharId = charId;
+            }
+        }
+        if (slotIndex < 0 || assistCharList.isEmpty()) {
+            return null;      // 这个职业没有助战
+        }
+        if (usedCharIds != null && matchedCharId != null && !usedCharIds.add(matchedCharId)) {
+            return null;      // 同一个干员不重复出现
+        }
+        JSONObject entry = new JSONObject(true);
+        entry.put("uid", uidStr);
+        entry.put("aliasName", aliasName == null ? "" : aliasName);
+        entry.put("nickName", status == null ? "" : status.getString("nickName"));
+        entry.put("nickNumber", status == null ? "" : status.getString("nickNumber"));
+        entry.put("level", status == null ? 1 : status.getIntValue("level"));
+        entry.put("avatarId", status == null ? "0" : status.getString("avatarId"));
+        entry.put("avatar", status == null ? null : status.getJSONObject("avatar"));
+        entry.put("lastOnlineTime", status == null ? 0 : status.getLongValue("lastOnlineTs"));
+        entry.put("assistCharList", assistCharList);
+        entry.put("assistSlotIndex", slotIndex);
+        entry.put("powerScore", 140);
+        entry.put("isFriend", isFriend);
+        entry.put("canRequestFriend", !isFriend);
+        entry.put("secretary", status == null ? null : status.getString("secretary"));
+        entry.put("secretarySkinId", status == null ? null : status.getString("secretarySkinId"));
+        return entry;
+    }
+
     @PostMapping(
             value = {"/getAssistList"},
             produces = {"application/json;charset=UTF-8"}
@@ -1686,129 +1874,93 @@ public class quest {
                 result.put("message", "error");
                 return result;
             } else {
-                JSONArray assistCharArray = new JSONArray();
                 JSONArray assistList = new JSONArray();
-                long uid = ((Account)Accounts.get(0)).getUid();
-                JSONArray FriendList = JSONObject.parseObject(((Account)Accounts.get(0)).getFriend()).getJSONArray("list");
-                JSONArray FriendArray = new JSONArray();
+                JSONArray starFriendAssistList = new JSONArray();
+                long uid = ((Account) Accounts.get(0)).getUid();
+                JSONArray FriendList = JSONObject.parseObject(((Account) Accounts.get(0)).getFriend())
+                        .getJSONArray("list");
+                java.util.Set<Long> friendUids = new java.util.HashSet<>();
+                java.util.Set<String> usedCharIds = new java.util.HashSet<>();
                 Collections.shuffle(FriendList);
 
-                JSONArray charList;
-                JSONObject userStatus;
-                JSONObject chars;
-                JSONObject assistCharData;
-                JSONObject charData;
-                for(int i = 0; i < FriendList.size() && assistList.size() != 6; ++i) {
-                    long friendUid = FriendList.getJSONObject(i).getLongValue("uid");
-                    String friendAlias = FriendList.getJSONObject(i).getString("alias");
-                    FriendArray.add(friendUid);
+                // ① 好友的助战（最多 6 个）
+                for (int i = 0; i < FriendList.size() && assistList.size() < 6; i++) {
+                    // friend.list 里的元素可能是对象 {uid, alias}，也可能直接是 uid 数字
+                    Object el = FriendList.get(i);
+                    long friendUid = 0L;
+                    String friendAlias = "";
+                    if (el instanceof JSONObject) {
+                        friendUid = ((JSONObject) el).getLongValue("uid");
+                        String a = ((JSONObject) el).getString("alias");
+                        if (a != null) {
+                            friendAlias = a;
+                        }
+                    } else if (el instanceof Number) {
+                        friendUid = ((Number) el).longValue();
+                    } else if (el != null) {
+                        try {
+                            friendUid = Long.parseLong(String.valueOf(el).trim());
+                        } catch (Exception ignored) {
+                            continue;
+                        }
+                    }
+                    if (friendUid <= 0) {
+                        continue;
+                    }
+                    friendUids.add(friendUid);
+                    if (friendUid == uid) {
+                        continue;
+                    }
                     List<UserInfo> userInfo = userDao.queryUserInfo(friendUid);
-                    charList = JSONArray.parseArray(((UserInfo)userInfo.get(0)).getSocialAssistCharList());
-                    userStatus = JSONObject.parseObject(((UserInfo)userInfo.get(0)).getAssistCharList());
-                    chars = JSONObject.parseObject(((UserInfo)userInfo.get(0)).getStatus());
-                    assistCharData = JSONObject.parseObject(((UserInfo)userInfo.get(0)).getChars());
-                    if (userStatus.containsKey(profession)) {
-                        charList = userStatus.getJSONArray(profession);
-                        Collections.shuffle(charList);
-                        assistCharData = charList.getJSONObject(0);
-                        String charId = assistCharData.getString("charId");
-                        String charInstId = assistCharData.getString("charInstId");
-                        if (!assistCharArray.contains(charId)) {
-                            assistCharArray.add(charId);
-                            JSONArray assistCharList = new JSONArray();
-                            charData = new JSONObject();
-                            charData.put("aliasName", friendAlias);
-                            charData.put("avatarId", chars.getIntValue("avatarId"));
-                            charData.put("avatar", chars.getJSONObject("avatar"));
-                            charData.put("canRequestFriend", false);
-                            charData.put("isFriend", true);
-                            charData.put("lastOnlineTime", chars.getIntValue("lastOnlineTs"));
-                            charData.put("level", chars.getIntValue("level"));
-                            charData.put("nickName", chars.getString("nickName"));
-                            charData.put("nickNumber", chars.getString("nickNumber"));
-                            charData.put("uid", friendUid);
-                            charData.put("powerScore", 140);
-
-                            for(int m = 0; m < charList.size(); ++m) {
-                                if (charList.getJSONObject(m) != null) {
-                                    charData = assistCharData.getJSONObject(charList.getJSONObject(m).getString("charInstId"));
-                                    charData.put("skillIndex", charList.getJSONObject(m).getIntValue("skillIndex"));
-                                    assistCharList.add(charData);
-                                    if (charList.getJSONObject(m).getString("charInstId").equals(charInstId)) {
-                                        charData.put("assistSlotIndex", m);
-                                    }
-                                }
-                            }
-
-                            charData.put("assistCharList", assistCharList);
-                            assistList.add(charData);
-                        }
+                    if (userInfo == null || userInfo.isEmpty()) {
+                        continue;
+                    }
+                    JSONObject fStatus = JSONObject.parseObject(((UserInfo) userInfo.get(0)).getStatus());
+                    JSONObject fChars = JSONObject.parseObject(((UserInfo) userInfo.get(0)).getChars());
+                    JSONArray fSlots = JSONArray.parseArray(((UserInfo) userInfo.get(0)).getSocialAssistCharList());
+                    JSONObject entry = buildAssistEntry(String.valueOf(friendUid), friendAlias, fStatus, fChars,
+                            fSlots, profession, true, usedCharIds);
+                    if (entry != null) {
+                        assistList.add(entry);
                     }
                 }
 
+                // ② 路人的助战（凑到 9 个）
                 List<SearchAssistCharList> searchAssist = userDao.SearchAssistCharList("$." + profession);
-
-                int i;
-                for(i = 0; i < searchAssist.size(); ++i) {
-                    if (((SearchAssistCharList)searchAssist.get(i)).getUid() == uid) {
-                        ((SearchAssistCharList)searchAssist.get(i)).setUid(-1L);
-                    }
-
-                    if (FriendArray.contains(((SearchAssistCharList)searchAssist.get(i)).getUid())) {
-                        ((SearchAssistCharList)searchAssist.get(i)).setUid(-1L);
-                    }
-                }
-
-                Collections.shuffle(searchAssist);
-
-                for(i = 0; i < searchAssist.size(); ++i) {
-                    long friendUid = ((SearchAssistCharList)searchAssist.get(i)).getUid();
-                    if (friendUid != -1L) {
-                        if (assistList.size() == 9) {
-                            break;
+                ArknightsApplication.LOGGER.info("[quest] getAssistList prof={} 好友={} 搜索命中={} 已凑={}",
+                        profession, FriendList.size(), searchAssist == null ? -1 : searchAssist.size(),
+                        assistList.size());
+                if (searchAssist != null) {
+                    Collections.shuffle(searchAssist);
+                    for (int i = 0; i < searchAssist.size() && assistList.size() < 9; i++) {
+                        long thatUid;
+                        try {
+                            thatUid = searchAssist.get(i).getUid();
+                        } catch (Exception e) {
+                            continue;
                         }
-
-                        JSONArray userSocialAssistCharList = JSONArray.parseArray(((SearchAssistCharList)searchAssist.get(i)).getSocialAssistCharList());
-                        charList = JSONArray.parseArray(((SearchAssistCharList)searchAssist.get(i)).getAssistCharList());
-                        userStatus = JSONObject.parseObject(((SearchAssistCharList)searchAssist.get(i)).getStatus());
-                        chars = JSONObject.parseObject(((SearchAssistCharList)searchAssist.get(i)).getChars());
-                        Collections.shuffle(charList);
-                        assistCharData = charList.getJSONObject(0);
-                        String charId = assistCharData.getString("charId");
-                        String charInstId = assistCharData.getString("charInstId");
-                        if (!assistCharArray.contains(charId)) {
-                            assistCharArray.add(charId);
-                            JSONArray assistCharList = new JSONArray();
-                            JSONObject assistInfo = new JSONObject();
-                            assistInfo.put("aliasName", "");
-                            assistInfo.put("avatarId", userStatus.getIntValue("avatarId"));
-                            assistInfo.put("avatar", userStatus.getJSONObject("avatar"));
-                            assistInfo.put("canRequestFriend", true);
-                            assistInfo.put("isFriend", false);
-                            assistInfo.put("lastOnlineTime", userStatus.getIntValue("lastOnlineTs"));
-                            assistInfo.put("level", userStatus.getIntValue("level"));
-                            assistInfo.put("nickName", userStatus.getString("nickName"));
-                            assistInfo.put("nickNumber", userStatus.getString("nickNumber"));
-                            assistInfo.put("uid", friendUid);
-                            assistInfo.put("powerScore", 140);
-
-                            for(int m = 0; m < userSocialAssistCharList.size(); ++m) {
-                                if (userSocialAssistCharList.getJSONObject(m) != null) {
-                                    charData = chars.getJSONObject(userSocialAssistCharList.getJSONObject(m).getString("charInstId"));
-                                    charData.put("skillIndex", userSocialAssistCharList.getJSONObject(m).getIntValue("skillIndex"));
-                                    assistCharList.add(charData);
-                                    if (userSocialAssistCharList.getJSONObject(m).getString("charInstId").equals(charInstId)) {
-                                        assistInfo.put("assistSlotIndex", m);
-                                    }
-                                }
+                        if (thatUid <= 0 || thatUid == uid || friendUids.contains(thatUid)) {
+                            continue;
+                        }
+                        // 搜索结果里的 JSON 列映射不稳定，统一用 queryUserInfo 重新取一次（和好友分支一致）
+                        try {
+                            List<UserInfo> info = userDao.queryUserInfo(thatUid);
+                            if (info == null || info.isEmpty()) {
+                                continue;
                             }
-
-                            assistInfo.put("assistCharList", assistCharList);
-                            assistList.add(assistInfo);
+                            JSONObject sStatus = JSONObject.parseObject(info.get(0).getStatus());
+                            JSONObject sChars = JSONObject.parseObject(info.get(0).getChars());
+                            JSONArray sSlots = JSONArray.parseArray(info.get(0).getSocialAssistCharList());
+                            JSONObject entry = buildAssistEntry(String.valueOf(thatUid), "", sStatus, sChars,
+                                    sSlots, profession, false, usedCharIds);
+                            if (entry != null) {
+                                assistList.add(entry);
+                            }
+                        } catch (Exception e) {
+                            ArknightsApplication.LOGGER.warn("[quest] 路人助战 {} 组装失败: {}", thatUid, e.toString());
                         }
                     }
                 }
-
                 result = new JSONObject(true);
                 JSONObject playerDataDelta = new JSONObject(true);
                 JSONObject modified = new JSONObject(true);
@@ -1817,6 +1969,7 @@ public class quest {
                 result.put("playerDataDelta", playerDataDelta);
                 result.put("allowAskTs", 1636483552);
                 result.put("assistList", assistList);
+                result.put("starFriendAssistList", starFriendAssistList);
                 return result;
             }
         }
