@@ -194,6 +194,15 @@ public class account {
             } catch (Exception e) {
                 LOGGER.warn("[syncData] V3 节点自愈失败: " + e.toString());
             }
+        try {
+            // 集成战略（RL v2）：补齐 rlv2 存档节点（outer 六主题 + 空 current）
+            if (com.hypergryph.arknights.core.function.Rlv2Helper.ensure(UserSyncData)) {
+                userDao.setUserData(uid, UserSyncData);
+                LOGGER.info("[syncData] 已补齐 rlv2（集成战略）节点");
+            }
+        } catch (Exception e) {
+            LOGGER.warn("[syncData] rlv2 节点自愈失败: " + e.toString());
+        }
             try {
                 com.hypergryph.arknights.game.social.repairAssistColumn(UserSyncData, uid);
             } catch (Exception e) {
