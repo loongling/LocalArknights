@@ -9,25 +9,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
-/**
- * 集成战略结算历史（写入独立的 DSH 库，供 bp 得分公式回归分析）。
- *
- * 连接信息来自 config.json → "dsh": {host, port, dbname, user, password}。
- * 写入失败只记日志，绝不影响正常结算。
- *
- * 表结构：
- * CREATE TABLE roguelike_run_history (
- *   id BIGINT AUTO_INCREMENT PRIMARY KEY,
- *   uid BIGINT, theme VARCHAR(32), mode VARCHAR(32), mode_grade INT, seed VARCHAR(80),
- *   success TINYINT, removed TINYINT, level INT, end_zone VARCHAR(32),
- *   cnt_zone INT, cnt_arrived INT, cnt_battle_normal INT, cnt_battle_elite INT, cnt_battle_boss INT,
- *   cnt_kill INT, cnt_perfect INT, cnt_shop_buy INT, cnt_recruit INT, cnt_upgrade INT,
- *   cnt_recruit_free INT, cnt_recruit_assist INT, cnt_recruit_npc INT,
- *   cnt_gain_relic INT, cnt_use_gold INT, cnt_save_gold INT,
- *   bp_from INT, bp_to INT, score_from INT, score_to INT, bonus DOUBLE,
- *   start_ts BIGINT, end_ts BIGINT, record_json LONGTEXT, created_at BIGINT
- * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
- */
 public class RogueRunHistoryDao {
 
     private static volatile boolean ready = false;
@@ -37,14 +18,32 @@ public class RogueRunHistoryDao {
     }
 
     private static JSONObject cfg() {
-        JSONObject server = ArknightsApplication.serverConfig;
-        return server == null ? null : server.getJSONObject("dsh");
+        JSONObject env = new JSONObject(true);
+        String host = System.getenv("DSH_DB_HOST");
+        if (host != null && !host.isEmpty()) {
+            env.put("host", host);
+            env.put("port", System.getenv("DSH_DB_PORT") == null ? 3306 : Integer.parseInt(System.getenv("DSH_DB_PORT")));
+            env.put("dbname", System.getenv("DSH_DB_NAME") == null ? "DSH" : System.getenv("DSH_DB_NAME"));
+            env.put("user", System.getenv("DSH_DB_USER"));
+            env.put("password", System.getenv("DSH_DB_PASSWORD"));
+            return env;
+        }
+        java.io.File f = new java.io.File(System.getProperty("user.home"), ".dsh/rogue_db.json");
+        if (!f.isFile()) {
+            return null;
+        }
+        try {
+            return JSONObject.parseObject(new String(java.nio.file.Files.readAllBytes(f.toPath()),
+                    java.nio.charset.StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private static Connection connect() throws Exception {
         JSONObject c = cfg();
         if (c == null) {
-            throw new IllegalStateException("config.json 缺少 dsh 段");
+            throw new IllegalStateException("未配置 DSH 存档库（环境变量或 ~/.dsh/rogue_db.json）");
         }
         String url = "jdbc:mysql://" + c.getString("host") + ":" + c.getIntValue("port") + "/" + c.getString("dbname")
                 + "?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai"
@@ -103,14 +102,6 @@ public class RogueRunHistoryDao {
         }
     }
 
-    /**
-     * 记录一局结算。
-     *
-     * @param uid    账号
-     * @param brief  结算 brief
-     * @param record 结算 record
-     * @param bpFrom/bpTo/scoreFrom/scoreTo 局外 bp / score 前后值
-     */
     public static void save(long uid, JSONObject brief, JSONObject record,
                             int bpFrom, int bpTo, int scoreFrom, int scoreTo, double bonus) {
         if (disabled) {

@@ -80,6 +80,9 @@
 "building": {
 "tradingOrderBaseSeconds": 3600 // 贸易站获取订单时间
 },
+"rogue": {
+"choiceChanceSuccess": 0.5 //肉鸽选项成功概率
+},
 "network": //设置network配置，如果更改端口这里需要更改URL
 ```
 

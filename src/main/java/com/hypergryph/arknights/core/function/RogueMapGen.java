@@ -8,20 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * 集成战略地图生成（种子驱动）。
- *
- * 抓包实测的布局语法（17 个 zone 样本归纳）：
- *   - 地图是「列」结构的 DAG：列数 4~6（第 1~3 层），深层层数会更多（最多 8）
- *   - 每列节点数 1~5（首列 1~2，末列 1~2 且带 zone_end）
- *   - 相邻列之间每个节点有 1~4 条出边，且下一列每个节点至少有一条入边
- *   - 节点 type 是位掩码：type = 1 << 节点类型下标（类型名单来自
- *     roguelike_topic_table.details.<theme>.nodeTypeData 的键顺序）
- *       战例 rogue_1：BATTLE_NORMAL=1, BATTLE_ELITE=2, BATTLE_BOSS=4, SHOP=8,
- *                     REST=16, INCIDENT=32, TREASURE=64, ENTERTAINMENT=128, UNKNOWN=256
- *
- * 同一个 seed 必定生成同一张图（seed 形如 "<20 位 base62>,<theme>,<modeGrade>"）。
- */
 public final class RogueMapGen {
     
     private static final String SEED_ALPHABET = "0123456789AEIOUaeiou";
@@ -386,6 +372,39 @@ public final class RogueMapGen {
                 node.put("type", type);
                 if (lastColumn) {
                     node.put("zone_end", true);
+                }
+            }
+        }
+
+        // 一次性节点（官服 gameConst.onceNodeTypeList，如 rogue_2 = ["PORTAL","MISSION"]）：
+        // 每层放 1 个到中间列，替换掉一个普通事件/商店节点，保证委托/传送门能被走到。
+        JSONObject details = themeDetails(theme);
+        JSONObject gameConst = details == null ? null : details.getJSONObject("gameConst");
+        JSONArray onceList = gameConst == null ? null : gameConst.getJSONArray("onceNodeTypeList");
+        if (onceList != null && !onceList.isEmpty() && columns >= 3) {
+            java.util.Set<String> used = new java.util.HashSet<>();
+            for (int oi = 0; oi < onceList.size(); oi++) {
+                String onceName = onceList.getString(oi);
+                int onceBit = typeBit(theme, onceName);
+                if (onceBit == 0) {
+                    continue;
+                }
+                // 每种 once 节点各占一个中间列节点（PORTAL=传送门、MISSION=地区委托）
+                for (int attempt = 0; attempt < 8; attempt++) {
+                    int col = 1 + rnd.nextInt(Math.max(1, columns - 2));
+                    int ry = rnd.nextInt(shape[col].length);
+                    String idx = String.valueOf(col * 100 + ry);
+                    if (used.contains(idx)) {
+                        continue;
+                    }
+                    JSONObject onceNode = nodes.getJSONObject(idx);
+                    if (onceNode == null || onceNode.getBooleanValue("zone_end")) {
+                        continue;
+                    }
+                    onceNode.put("type", onceBit);
+                    onceNode.remove("stage");
+                    used.add(idx);
+                    break;
                 }
             }
         }

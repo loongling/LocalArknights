@@ -161,12 +161,5 @@
         }
       }
     }
-  },
-  "dsh": {
-    "host": "10.60.116.201",
-    "port": 3306,
-    "dbname": "DSH",
-    "user": "account",
-    "password": "lG00YkjVP8CBTNTLrWGTsy1x"
   }
 }

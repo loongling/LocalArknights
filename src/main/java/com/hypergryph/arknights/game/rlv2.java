@@ -19,16 +19,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-/**
- * 集成战略 RL v2（接口前缀 /rlv2/）
- *
- * 抓包结论（官服 2026-11-03）：
- *   - 客户端接口共 55 个，主循环实测用到的都在这里实现。
- *   - 局内推进是「客户端上报 + 服务端记账」：客户端决定走哪个节点/选什么，服务端维护 current。
- *   - 状态机：NONE → INIT（初始四步）→ WAIT_MOVE → PENDING（事件/战斗）→ …
- *
- * 存档结构见 {@link Rlv2Helper}。
- */
 @RestController
 @RequestMapping("/rlv2")
 public class rlv2 {
@@ -37,7 +27,6 @@ public class rlv2 {
 
     private static JSONObject ZONE_TEMPLATES;
 
-    /** 分层区域模板：{"1000": zone_1, "1001": zone_2, "1002": zone_3}（抓包抠出来的节点布局） */
     private static synchronized JSONObject zoneTemplates() {
         if (ZONE_TEMPLATES == null) {
             String path = System.getProperty("user.dir") + "/data/rlv2_zones.json";
@@ -52,7 +41,6 @@ public class rlv2 {
         return ZONE_TEMPLATES;
     }
 
-    /** 取第 level 层（1 基）的模板；超出模板范围就复用最后一个 */
     private static JSONObject zoneTemplateFor(int level) {
         JSONObject all = zoneTemplates();
         int index = 1000 + (level - 1);
@@ -93,7 +81,6 @@ public class rlv2 {
         return result;
     }
 
-    /** 概率类事件选项的成功率（config.json → rogue.choiceChanceSuccess，默认 0.5） */
     private static double choiceChanceSuccess() {
         try {
             JSONObject cfg = ArknightsApplication.serverConfig;
@@ -108,7 +95,6 @@ public class rlv2 {
 
     private static JSONObject CHOICE_EFFECTS;
 
-    /** 事件选项真实效果表（由 _build_choice_effects2.py 从描述 + 抓包生成） */
     private static synchronized JSONObject choiceEffects() {
         if (CHOICE_EFFECTS == null) {
             String path = System.getProperty("user.dir") + "/data/rlv2_choice_effects.json";
@@ -166,15 +152,10 @@ public class rlv2 {
         return "";
     }
 
-    /** 造一个 rlv2 干员结构（从玩家自己的干员里随机取，保证客户端能正常显示） */
     private static JSONObject buildChar(JSONObject userData, int population) {
         return buildChar(userData, population, null);
     }
 
-    /**
-     * 构造一名可加入队伍的干员。
-     * charId 非空时优先从该账号自己的干员里找同 id（助战招募用），找不到再随机。
-     */
     private static JSONObject buildChar(JSONObject userData, int population, String charId) {
         JSONObject chars = userData.getJSONObject("troop") == null ? null
                 : userData.getJSONObject("troop").getJSONObject("chars");
@@ -244,7 +225,6 @@ public class rlv2 {
         enterZone(cur, 1);
     }
 
-    /** 进入第 level 层（1 基），index = 1000 + level - 1，地图按 seed 生成 */
     private static void enterZone(JSONObject cur, int level) {
         JSONObject map = cur.getJSONObject("map");
         JSONObject zones = map.getJSONObject("zones");
@@ -268,7 +248,6 @@ public class rlv2 {
         player.put("state", "WAIT_MOVE");
     }
 
-    /** 当前所在层（1 基） */
     private static int currentLevel(JSONObject cur) {
         JSONObject cursor = cur.getJSONObject("player").getJSONObject("cursor");
         int zone = cursor == null ? 0 : cursor.getIntValue("zone");
@@ -360,6 +339,15 @@ public class rlv2 {
 
         JSONArray pending = new JSONArray();
 
+        // 月度小队（官服 018_00 抓包）：{"theme":"rogue_2","mode":"MONTH_TEAM","predefinedId":"month_team_8"}
+        //   → pending 第一条 GAME_INIT_TEAM，content.initTeam = {step:[1,4], chars:[{charId,type:"MONTHLY"}], team}
+        if ("MONTH_TEAM".equals(mode) && predefinedId != null && !predefinedId.isEmpty()) {
+            JSONObject teamPend = buildInitTeamPending(theme, predefinedId);
+            if (teamPend != null) {
+                pending.add(teamPend);
+            }
+        }
+
         JSONObject step0 = new JSONObject(true);
         step0.put("index", "e_0");
         step0.put("type", "GAME_INIT_MODE_RELIC");
@@ -397,6 +385,11 @@ public class rlv2 {
         step1.put("content", c1);
         pending.add(step1);
 
+        JSONObject supportPend = buildInitSupportPending(theme);
+        if (supportPend != null) {
+            pending.add(supportPend);
+        }
+
         JSONObject step2 = new JSONObject(true);
         step2.put("index", "e_2");
         step2.put("type", "GAME_INIT_RECRUIT_SET");
@@ -433,6 +426,9 @@ public class rlv2 {
         // rogue_4（萨卡兹）：构想系统 module.fragment —— 开局给几枚碎片，
         // 让 alchemy（解读）/ rerollNode（重掷）有资源可用
         seedFragmentModule(cur, theme);
+        seedDiceModule(cur, theme);
+        seedScrapModule(cur, theme);
+        seedGridZoneModule(cur, theme);
         rl.put("current", cur);
         com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
         JSONObject themeOuter = Rlv2Helper.outerTheme(userData, theme);
@@ -458,7 +454,6 @@ public class rlv2 {
         return result;
     }
 
-    /** details.<theme>.relics 里第一个 INIT 类型的遗物 */
     private static String firstInitRelic(String theme) {
         JSONObject details = themeDetails(theme);
         JSONObject relics = details == null ? null : details.getJSONObject("relics");
@@ -483,7 +478,6 @@ public class rlv2 {
         return theme + "_relic_a01";
     }
 
-    /** 指定坐标（本层）是不是终点节点（zone_end） */
     private static boolean isZoneEndAt(JSONObject cur, JSONObject position) {
         if (position == null) {
             return false;
@@ -507,7 +501,439 @@ public class rlv2 {
         return false;
     }
 
-    /** 目标坐标是不是本层终点节点（nodes[*].zone_end == true） */
+    @PostMapping(value = {"/gridZone/readStepZero"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject gridZoneReadStepZero(@RequestHeader(value = "secret", required = false) String secret,
+                                          @RequestBody(required = false) JSONObject body,
+                                          HttpServletRequest request, HttpServletResponse response) {
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            return bad("无法查询到此账户", 2);
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        Rlv2Helper.ensure(userData);
+        JSONObject cur = userData.getJSONObject("rlv2").getJSONObject("current");
+        JSONObject player = cur.getJSONObject("player");
+        JSONObject module = cur.getJSONObject("module");
+        JSONObject grid = module == null ? null : module.getJSONObject("gridZone");
+        if (grid != null) {
+            grid.put("needConfirmStepZero", false);
+        }
+        JSONArray pend = new JSONArray();
+        JSONObject one = new JSONObject(true);
+        one.put("index", "e_9");
+        String nodeType = nodeTypeNameAt(cur, player.getJSONObject("cursor").getJSONObject("position"));
+        if (nodeType != null && nodeType.startsWith("BATTLE")) {
+            JSONObject content = new JSONObject(true);
+            JSONObject battle = new JSONObject(true);
+            battle.put("state", 0);
+            content.put("battle", battle);
+            one.put("type", "BATTLE");
+            one.put("content", content);
+        } else {
+            JSONObject content = new JSONObject(true);
+            JSONObject battle = new JSONObject(true);
+            battle.put("state", 0);
+            content.put("battle", battle);
+            one.put("type", "BATTLE");
+            one.put("content", content);
+        }
+        pend.add(one);
+        player.put("pending", pend);
+        player.put("state", "PENDING");
+        userDao.setUserData(account.getUid(), userData);
+        com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
+        return delta(cur);
+    }
+
+    @PostMapping(value = {"/gridZone/emptyStep"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject gridZoneEmptyStep(@RequestHeader(value = "secret", required = false) String secret,
+                                       @RequestBody(required = false) JSONObject body,
+                                       HttpServletRequest request, HttpServletResponse response) {
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            return bad("无法查询到此账户", 2);
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        Rlv2Helper.ensure(userData);
+        JSONObject cur = userData.getJSONObject("rlv2").getJSONObject("current");
+        JSONObject module = cur.getJSONObject("module");
+        JSONObject grid = module == null ? null : module.getJSONObject("gridZone");
+        if (grid != null) {
+            int remain = Math.max(0, grid.getIntValue("stepRemain") - 1);
+            grid.put("stepRemain", remain);
+            if (remain == 0) {
+                grid.put("needConfirmStepZero", true);
+            }
+        }
+        cur.getJSONObject("player").put("state", "WAIT_MOVE");
+        userDao.setUserData(account.getUid(), userData);
+        com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
+        return delta(cur);
+    }
+
+    private static int gridMoveCost(JSONObject cur, JSONObject targetNode) {
+        String theme = themeOf(cur);
+        JSONObject module = cur.getJSONObject("module");
+        JSONObject scrap = module == null ? null : module.getJSONObject("scrap");
+        JSONObject vehicle = scrap == null ? null : scrap.getJSONObject("activeVehicle");
+        boolean isWalk = vehicle == null || !vehicle.containsKey("isWalk") || vehicle.getBooleanValue("isWalk");
+        if (!isWalk) {
+            String instId = vehicle.getString("instId");
+            JSONObject inv = scrap.getJSONObject("inventory");
+            JSONObject item = inv == null || instId == null ? null : inv.getJSONObject(instId);
+            int step = 1;
+            if (item != null) {
+                String scrapId = item.getString("id");
+                step = scrapMoveStep(theme, scrapId);
+                item.put("useCnt", item.getIntValue("useCnt") + 1);
+            }
+            return Math.max(0, step);
+        }
+        JSONObject cursor = cur.getJSONObject("player").getJSONObject("cursor");
+        JSONObject from = cursor.getJSONObject("position");
+        JSONObject to = targetNode == null ? null : targetNode.getJSONObject("pos");
+        if (from == null || to == null) {
+            return 1;
+        }
+        int dx = Math.abs(from.getIntValue("x") - to.getIntValue("x"));
+        int dy = Math.abs(from.getIntValue("y") - to.getIntValue("y"));
+        return Math.max(1, dx + dy);
+    }
+
+    private static int scrapMoveStep(String theme, String scrapId) {
+        JSONObject mods = themeModules(theme);
+        JSONObject scrapData = mods == null ? null : mods.getJSONObject("scrap");
+        JSONObject moves = scrapData == null ? null : scrapData.getJSONObject("moveScrapData");
+        JSONObject def = moves == null || scrapId == null ? null : moves.getJSONObject(scrapId);
+        return def == null ? 1 : def.getIntValue("step");
+    }
+
+    private static void seedGridZoneModule(JSONObject cur, String theme) {
+        JSONObject mods = themeModules(theme);
+        if (mods == null || mods.getJSONObject("gridZone") == null) {
+            return;
+        }
+        JSONObject module = cur.getJSONObject("module");
+        if (module == null) {
+            module = new JSONObject(true);
+            cur.put("module", module);
+        }
+        JSONObject grid = new JSONObject(true);
+        JSONObject gridZones = new JSONObject(true);
+        JSONObject mapZones = cur.getJSONObject("map").getJSONObject("zones");
+        if (mapZones != null) {
+            for (String zk : mapZones.keySet()) {
+                JSONObject src = mapZones.getJSONObject(zk);
+                JSONObject nodes = src.getJSONObject("nodes");
+                JSONObject gz = new JSONObject(true);
+                JSONObject gNodes = new JSONObject(true);
+                if (nodes != null) {
+                    for (String nk : nodes.keySet()) {
+                        JSONObject gNode = new JSONObject(true);
+                        gNode.put("content", new JSONObject(true));
+                        gNode.put("state", 0);
+                        gNode.put("show", true);
+                        gNode.put("island", false);
+                        gNodes.put(nk, gNode);
+                    }
+                }
+                gz.put("nodes", gNodes);
+                gridZones.put(src.getString("id") == null ? ("zone_" + zk) : src.getString("id"), gz);
+            }
+        }
+        grid.put("zones", gridZones);
+        grid.put("stepRemain", 6);
+        grid.put("needConfirmStepZero", false);
+        module.put("gridZone", grid);
+        ArknightsApplication.LOGGER.info("[rlv2] 初始化网格地图模块（theme={}，zones={}）", theme, gridZones.size());
+    }
+
+    /**
+     * 废品鉴定。官方抓包（016_05，rogue_6）：
+     *   请求 {"count":2}
+     *   → 消耗 count 个 identifyScrapId（moduleConsts.identifyScrapId = rogue_6_scrap_G_01）
+     *   → deleted.rlv2.current.module.scrap.inventory = ["s_1","s_2"]
+     *   → 鉴定后价值提升（实测 s_4 的 value 2 → 12，2 件各 +5）
+     */
+    @PostMapping(value = {"/scrap/identify"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject scrapIdentify(@RequestHeader(value = "secret", required = false) String secret,
+                                    @RequestBody(required = false) JSONObject body,
+                                    HttpServletRequest request, HttpServletResponse response) {
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            return bad("无法查询到此账户", 2);
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        Rlv2Helper.ensure(userData);
+        JSONObject cur = userData.getJSONObject("rlv2").getJSONObject("current");
+        String theme = themeOf(cur);
+        int count = body == null ? 1 : Math.max(1, body.getIntValue("count"));
+        JSONObject module = cur.getJSONObject("module");
+        JSONObject scrap = module == null ? null : module.getJSONObject("scrap");
+        JSONArray removed = new JSONArray();
+        int upgraded = 0;
+        if (scrap != null) {
+            JSONObject inv = scrap.getJSONObject("inventory");
+            String identifyId = identifyScrapId(theme);
+            if (inv != null && identifyId != null) {
+                java.util.List<String> keys = new java.util.ArrayList<>(inv.keySet());
+                for (String k : keys) {
+                    if (removed.size() >= count) {
+                        break;
+                    }
+                    if (identifyId.equals(inv.getJSONObject(k).getString("id"))) {
+                        inv.remove(k);
+                        removed.add(k);
+                    }
+                }
+                // 每鉴定 1 件，随机让一件自然物价值 +5（最高 12，与抓包 2→12 的上限一致）
+                JSONObject best = null;
+                for (String k : inv.keySet()) {
+                    JSONObject it = inv.getJSONObject(k);
+                    if (it.getString("id") != null && it.getString("id").startsWith(theme + "_scrap_G_")) {
+                        if (best == null || it.getIntValue("value") > best.getIntValue("value")) {
+                            best = it;
+                        }
+                    }
+                }
+                for (int i = 0; i < removed.size(); i++) {
+                    if (best != null) {
+                        best.put("value", Math.min(12, best.getIntValue("value") + 5));
+                        upgraded++;
+                    } else {
+                        JSONObject fresh = new JSONObject(true);
+                        String instId = "s_" + (inv.size() + 100 + i);
+                        fresh.put("instId", instId);
+                        fresh.put("id", theme + "_scrap_G_03");
+                        fresh.put("value", 5);
+                        fresh.put("useCnt", 0);
+                        fresh.put("ts", ArknightsApplication.getTimestamp());
+                        inv.put(instId, fresh);
+                        upgraded++;
+                    }
+                }
+            }
+        }
+        recInc(cur, "cntScrapIdentify", removed.size());
+        userDao.setUserData(account.getUid(), userData);
+        com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
+        JSONObject out = delta(cur);
+        if (!removed.isEmpty()) {
+            JSONObject invDel = new JSONObject(true);
+            invDel.put("inventory", removed);
+            JSONObject scrapDel = new JSONObject(true);
+            scrapDel.put("scrap", invDel);
+            JSONObject moduleDel = new JSONObject(true);
+            moduleDel.put("module", scrapDel);
+            JSONObject curDel = new JSONObject(true);
+            curDel.put("current", moduleDel);
+            JSONObject rlDel = new JSONObject(true);
+            rlDel.put("rlv2", curDel);
+            out.getJSONObject("playerDataDelta").put("deleted", rlDel);
+        }
+        ArknightsApplication.LOGGER.info("[rlv2] 废品鉴定：消耗 {} 件，提升 {} 次", removed.size(), upgraded);
+        return out;
+    }
+
+    private static String identifyScrapId(String theme) {
+        JSONObject mods = themeModules(theme);
+        JSONObject scrapData = mods == null ? null : mods.getJSONObject("scrap");
+        JSONObject consts = scrapData == null ? null : scrapData.getJSONObject("moduleConsts");
+        return consts == null ? null : consts.getString("identifyScrapId");
+    }
+
+    private static void seedScrapModule(JSONObject cur, String theme) {
+        JSONObject mods = themeModules(theme);
+        JSONObject scrapData = mods == null ? null : mods.getJSONObject("scrap");
+        if (scrapData == null) {
+            return;
+        }
+        JSONObject module = cur.getJSONObject("module");
+        if (module == null) {
+            module = new JSONObject(true);
+            cur.put("module", module);
+        }
+        JSONObject scrap = new JSONObject(true);
+        JSONObject vehicle = new JSONObject(true);
+        vehicle.put("isWalk", true);
+        scrap.put("activeVehicle", vehicle);
+        scrap.put("inventory", new JSONObject(true));
+        scrap.put("limit", 8);
+        module.put("scrap", scrap);
+        ArknightsApplication.LOGGER.info("[rlv2] 初始化废品模块（theme={}，limit=8）", theme);
+    }
+
+    @PostMapping(value = {"/scrap/loseScrap"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject scrapLoseScrap(@RequestHeader(value = "secret", required = false) String secret,
+                                     @RequestBody(required = false) JSONObject body,
+                                     HttpServletRequest request, HttpServletResponse response) {
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            return bad("无法查询到此账户", 2);
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        Rlv2Helper.ensure(userData);
+        JSONObject cur = userData.getJSONObject("rlv2").getJSONObject("current");
+        String instId = body == null ? null : body.getString("instId");
+        JSONObject module = cur.getJSONObject("module");
+        JSONObject scrap = module == null ? null : module.getJSONObject("scrap");
+        JSONArray removed = new JSONArray();
+        if (scrap != null && instId != null) {
+            JSONObject inv = scrap.getJSONObject("inventory");
+            if (inv != null && inv.containsKey(instId)) {
+                inv.remove(instId);
+                removed.add(instId);
+                ArknightsApplication.LOGGER.info("[rlv2] 丢失废品 {}（剩余 {}）", instId, inv.size());
+            }
+        }
+        userDao.setUserData(account.getUid(), userData);
+        com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
+        JSONObject out = delta(cur);
+        if (!removed.isEmpty()) {
+            JSONObject invDel = new JSONObject(true);
+            invDel.put("inventory", removed);
+            JSONObject scrapDel = new JSONObject(true);
+            scrapDel.put("scrap", invDel);
+            JSONObject moduleDel = new JSONObject(true);
+            moduleDel.put("module", scrapDel);
+            JSONObject curDel = new JSONObject(true);
+            curDel.put("current", moduleDel);
+            JSONObject rlDel = new JSONObject(true);
+            rlDel.put("rlv2", curDel);
+            JSONObject deleted = new JSONObject(true);
+            deleted.put("rlv2", curDel.getJSONObject("rlv2"));
+            out.getJSONObject("playerDataDelta").put("deleted", deleted);
+        }
+        return out;
+    }
+
+    private static JSONObject buildInitSupportPending(String theme) {
+        JSONObject details = themeDetails(theme);
+        JSONObject scenes = details == null ? null : details.getJSONObject("choiceScenes");
+        JSONObject choices = details == null ? null : details.getJSONObject("choices");
+        if (scenes == null || choices == null) {
+            return null;
+        }
+        String themeNum = theme.substring(theme.length() - 1);
+        String sceneId = "scene_ro" + themeNum + "_startbuff_enter";
+        if (!scenes.containsKey(sceneId)) {
+            return null;
+        }
+        String prefix = "choice_ro" + themeNum + "_startbuff_";
+        java.util.List<String> pool = new java.util.ArrayList<>();
+        for (String cid : choices.keySet()) {
+            if (cid.startsWith(prefix)) {
+                pool.add(cid);
+            }
+        }
+        if (pool.isEmpty()) {
+            return null;
+        }
+        java.util.Collections.shuffle(pool, RANDOM);
+        JSONObject choiceMap = new JSONObject(true);
+        for (int i = 0; i < Math.min(3, pool.size()); i++) {
+            choiceMap.put(pool.get(i), 1);
+        }
+        JSONObject scene = new JSONObject(true);
+        scene.put("id", sceneId);
+        scene.put("choices", choiceMap);
+        JSONObject initSupport = new JSONObject(true);
+        JSONArray step = new JSONArray();
+        step.add(3);
+        step.add(5);
+        initSupport.put("step", step);
+        initSupport.put("scene", scene);
+        JSONObject content = new JSONObject(true);
+        content.put("initSupport", initSupport);
+        JSONObject pend = new JSONObject(true);
+        pend.put("index", "e_3");
+        pend.put("type", "GAME_INIT_SUPPORT");
+        pend.put("content", content);
+        return pend;
+    }
+
+    private static void addMonthTeamChars(JSONObject userData, JSONObject cur, JSONObject initTeamPend) {
+        JSONObject content = initTeamPend.getJSONObject("content");
+        JSONObject initTeam = content == null ? null : content.getJSONObject("initTeam");
+        JSONArray chars = initTeam == null ? null : initTeam.getJSONArray("chars");
+        if (chars == null) {
+            return;
+        }
+        JSONObject troop = cur.getJSONObject("troop");
+        JSONObject owned = troop.getJSONObject("chars");
+        if (owned == null) {
+            owned = new JSONObject(true);
+            troop.put("chars", owned);
+        }
+        for (int i = 0; i < chars.size(); i++) {
+            String charId = chars.getJSONObject(i).getString("charId");
+            if (charId == null) {
+                continue;
+            }
+            // 月度小队干员是「预设满配」，不依赖玩家是否拥有：
+            // 官服实测 evolvePhase=1 / level=80 / potentialRank=5 / mainSkillLvl=7 / favorPoint=25570
+            JSONObject one = new JSONObject(true);
+            one.put("charId", charId);
+            one.put("type", "MONTHLY");
+            one.put("evolvePhase", 1);
+            one.put("level", 80);
+            one.put("exp", 0);
+            one.put("favorPoint", 25570);
+            one.put("potentialRank", 5);
+            one.put("mainSkillLvl", 7);
+            one.put("skills", new JSONArray());
+            one.put("skin", charId + "#2");
+            one.put("isUpgrade", false);
+            one.put("upgradePhase", 0);
+            one.put("population", 6);
+            int instId = 1 + owned.size();
+            one.put("instId", String.valueOf(instId));
+            one.put("troopInstId", String.valueOf(instId));
+            owned.put(String.valueOf(instId), one);
+            ArknightsApplication.LOGGER.info("[rlv2] 月度小队加入干员 {} (instId={})", charId, instId);
+        }
+    }
+
+    private static JSONObject buildInitTeamPending(String theme, String predefinedId) {
+        JSONObject details = themeDetails(theme);
+        JSONObject squads = details == null ? null : details.getJSONObject("monthSquad");
+        JSONObject squad = squads == null ? null : squads.getJSONObject(predefinedId);
+        if (squad == null) {
+            return null;
+        }
+        JSONObject initTeam = new JSONObject(true);
+        JSONArray step = new JSONArray();
+        step.add(1);
+        step.add(4);
+        initTeam.put("step", step);
+        JSONArray chars = new JSONArray();
+        JSONArray teamChars = squad.getJSONArray("teamChars");
+        if (teamChars != null) {
+            for (int i = 0; i < teamChars.size(); i++) {
+                JSONObject tc = teamChars.getJSONObject(i);
+                JSONObject one = new JSONObject(true);
+                one.put("charId", tc.getString("teamCharId"));
+                one.put("tmplId", null);
+                one.put("uniEquipIdOfChar", null);
+                one.put("type", "MONTHLY");
+                chars.add(one);
+            }
+        }
+        initTeam.put("chars", chars);
+        initTeam.put("team", predefinedId);
+        JSONObject content = new JSONObject(true);
+        content.put("initTeam", initTeam);
+        JSONObject pend = new JSONObject(true);
+        pend.put("index", "e_0");
+        pend.put("type", "GAME_INIT_TEAM");
+        pend.put("content", content);
+        return pend;
+    }
+
     private static boolean isZoneEnd(JSONObject cur, JSONObject to) {
         JSONObject map = cur.getJSONObject("map");
         JSONObject zones = map == null ? null : map.getJSONObject("zones");
@@ -531,11 +957,6 @@ public class rlv2 {
         return false;
     }
 
-    /**
-     * 设置种子（参数预设 / 种子输入）。
-     * 请求 {"seed":"U2i1e6oa183iOo4O90,rogue_1,0"} 或 {"seed":"<20位>"}
-     * 只影响「还没生成过的层」，已生成的 zone 不变。
-     */
     @PostMapping(value = {"/setSeed"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject setSeed(@RequestHeader(value = "secret", required = false) String secret,
                               @RequestBody(required = false) JSONObject body,
@@ -680,7 +1101,10 @@ public class rlv2 {
                                   HttpServletRequest request, HttpServletResponse response) {
         // 埋点：招募消耗希望（UsePopulation 任务）
         String ticketIndex = body == null ? null : body.getString("ticketIndex");
-        ArknightsApplication.LOGGER.info("[/" + ArknightsApplication.getIpAddr(request) + "] /rlv2/recruitChar ticket=" + ticketIndex);
+        // 官服抓包（2026-11-04 rogue_2）：{"ticketIndex":"t_9","optionId":"8"} —— 选的是券内候选的下标
+        String optionId = body == null ? null : body.getString("optionId");
+        ArknightsApplication.LOGGER.info("[/" + ArknightsApplication.getIpAddr(request) + "] /rlv2/recruitChar ticket="
+                + ticketIndex + " optionId=" + optionId);
         List<Account> accounts = userDao.queryAccountBySecret(secret);
         if (accounts.size() != 1) {
             return bad("无法查询到此账户", 2);
@@ -720,20 +1144,18 @@ public class rlv2 {
         return result;
     }
 
-    /**
-     * 助战招募：把好友的助战干员招进队伍（对应月度任务 HelpfulGainCharacter）。
-     *
-     * 请求体（按官服惯例，字段取宽松匹配）：{"charId":"char_xxx","assistUid":123,"ticketIndex":"t_3"}
-     * 数据来源：quest 的 /quest/getAssistList（好友助战列表）。
-     * 行为：加入 troop.chars → 券 state=2、result=该干员 → 移除 RECRUIT 待办 →
-     *       cntRecruitAssist + 1、cntRecruitChar + 1。
-     */
     @PostMapping(value = {"/recruitAssistChar"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject recruitAssistChar(@RequestHeader(value = "secret", required = false) String secret,
                                         @RequestBody(required = false) JSONObject body,
                                         HttpServletRequest request, HttpServletResponse response) {
-        String charId = body == null ? null : body.getString("charId");
-        long assistUid = body == null ? 0L : body.getLongValue("assistUid");
+        // 官服抓包（2026-11-04 rogue_2）：
+        // {"ticketIndex":"t_3","profession":"SNIPER","assistUid":"172925215","assistCharId":"char_1035_wisdel"}
+        String charId = body == null ? null : body.getString("assistCharId");
+        if (charId == null && body != null) {
+            charId = body.getString("charId");
+        }
+        String profession = body == null ? null : body.getString("profession");
+        long assistUid = body == null ? 0 : body.getLongValue("assistUid");
         String ticketIndex = body == null ? null : body.getString("ticketIndex");
         if (ticketIndex == null && body != null) {
             ticketIndex = body.getString("index");
@@ -773,7 +1195,7 @@ public class rlv2 {
             if (charId != null) {
                 newChar.put("charId", charId);
             }
-            newChar.put("type", "NORMAL");
+            newChar.put("type", "ASSIST");   // 助战干员（官方 chars[].type = "ASSIST"）
             int instId = chars.size();
             newChar.put("instId", String.valueOf(instId));
             newChar.put("troopInstId", String.valueOf(instId));
@@ -804,9 +1226,12 @@ public class rlv2 {
                 prof = new JSONObject(true);
                 cur.getJSONObject("record").put("cntRecruitProfession", prof);
             }
-            String profession = professionOf(charId);
-            if (profession != null) {
-                prof.put(profession, prof.getIntValue(profession) + 1);
+            String profName = professionOf(charId);
+            if (profName == null) {
+                profName = profession;   // 请求里带的 profession（官方抓包字段）
+            }
+            if (profName != null) {
+                prof.put(profName, prof.getIntValue(profName) + 1);
             }
         }
         userDao.setUserData(account.getUid(), userData);
@@ -816,7 +1241,6 @@ public class rlv2 {
         return result;
     }
 
-    /** 干员职业（从 character_table 读），失败返回 null */
     private static String professionOf(String charId) {
         try {
             JSONObject table = ArknightsApplication.characterJson;
@@ -827,11 +1251,6 @@ public class rlv2 {
         }
     }
 
-    /**
-     * 关闭招募券（即招即用，不用则废）。
-     * 请求 {"id":"t_19"} → 券 state 置 2、候选清空、结果 null，并移除 RECRUIT pending；
-     * 券本身仍留在 inventory.recruit 里（官服实测：券总数不变）。
-     */
     @PostMapping(value = {"/closeRecruitTicket"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject closeRecruitTicket(@RequestHeader(value = "secret", required = false) String secret,
                                          @RequestBody(required = false) JSONObject body,
@@ -862,13 +1281,11 @@ public class rlv2 {
         return delta(cur);
     }
 
-    /** 当前局主题 */
     private static String themeOf(JSONObject cur) {
         JSONObject game = cur.getJSONObject("game");
         return game == null ? "" : String.valueOf(game.getString("theme"));
     }
 
-    /** 存券上限（官服实测：rogue_6 = 3、rogue_5 = 5；其余主题默认 3） */
     private static int stashedRecruitLimit(String theme) {
         if ("rogue_5".equals(theme)) {
             return 5;
@@ -887,11 +1304,6 @@ public class rlv2 {
         return 3;
     }
 
-    /**
-     * 存券（岁/黑流主题的「留存招募」）。
-     * 官服实测（B服 2026-11-04）：券 state 1→2、list 清空、result null，券仍留在 inventory.recruit；
-     * pending 里的 RECRUIT 被移除。同时把券的物品 id 记入 inventory.stashRecruit（供 useStashedTicket 取回）。
-     */
     @PostMapping(value = {"/stashRecruitTicket"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject stashRecruitTicket(@RequestHeader(value = "secret", required = false) String secret,
                                          @RequestBody(required = false) JSONObject body,
@@ -937,10 +1349,6 @@ public class rlv2 {
         return delta(cur);
     }
 
-    /**
-     * 取用留存券。请求 {"id":"rogue_6_recruit_ticket_support"}（物品 id）
-     * → 从 stashRecruit 移除，生成一张新的 state=1 招募券并弹 RECRUIT 待办。
-     */
     @PostMapping(value = {"/useStashedTicket"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject useStashedTicket(@RequestHeader(value = "secret", required = false) String secret,
                                        @RequestBody(required = false) JSONObject body,
@@ -1010,7 +1418,96 @@ public class rlv2 {
         return delta(cur);
     }
 
-    /** 移除 pending 里的 RECRUIT 条目 */
+    private static void grantDiceCount(JSONObject cur, String theme, String choice) {
+        JSONObject module = cur.getJSONObject("module");
+        JSONObject diceState = module == null ? null : module.getJSONObject("dice");
+        if (diceState == null) {
+            return;
+        }
+        JSONObject choiceDef = choiceDef(theme, choice);
+        if (choiceDef == null) {
+            return;
+        }
+        JSONObject display = choiceDef.getJSONObject("displayData");
+        String itemId = display == null ? null : display.getString("itemId");
+        if (itemId == null || !itemId.endsWith("_dice")) {
+            return;
+        }
+        int gain = parseGainCount(choiceDef.getString("description"));
+        if (gain > 0) {
+            diceState.put("count", diceState.getIntValue("count") + gain);
+            ArknightsApplication.LOGGER.info("[rlv2] 事件选项发放掷骰次数 +{} → {}", gain, diceState.getIntValue("count"));
+        }
+    }
+
+    private static boolean choiceTriggersDice(String theme, String choice) {
+        if (choice == null) {
+            return false;
+        }
+        if ("choice_leave".equals(choice)) {
+            return true;
+        }
+        JSONObject def = choiceDef(theme, choice);
+        return def != null && "DICE".equalsIgnoreCase(def.getString("leftDecoType"));
+    }
+
+    private static JSONObject choiceDef(String theme, String choice) {
+        JSONObject details = themeDetails(theme);
+        JSONObject choices = details == null ? null : details.getJSONObject("choices");
+        return choices == null || choice == null ? null : choices.getJSONObject(choice);
+    }
+
+    private static int parseGainCount(String desc) {
+        if (desc == null) {
+            return 0;
+        }
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("<@[^>]*get>\\s*(\\d+)\\s*</>").matcher(desc);
+        return m.find() ? Integer.parseInt(m.group(1)) : 1;
+    }
+
+    private static void seedDiceModule(JSONObject cur, String theme) {
+        JSONObject mods = themeModules(theme);
+        JSONObject diceData = mods == null ? null : mods.getJSONObject("dice");
+        JSONObject defs = diceData == null ? null : diceData.getJSONObject("dice");
+        if (defs == null) {
+            return;
+        }
+        String diceId = theme + "_dice_1";
+        if (!defs.containsKey(diceId)) {
+            java.util.List<String> keys = new java.util.ArrayList<>(defs.keySet());
+            if (keys.isEmpty()) {
+                return;
+            }
+            diceId = keys.get(0);
+        }
+        JSONObject module = cur.getJSONObject("module");
+        if (module == null) {
+            module = new JSONObject(true);
+            cur.put("module", module);
+        }
+        JSONObject dice = new JSONObject(true);
+        dice.put("id", diceId);
+        dice.put("count", 1);
+        module.put("dice", dice);
+        ArknightsApplication.LOGGER.info("[rlv2] 初始化骰子模块 {} count=1（theme={}）", diceId, theme);
+    }
+
+    private static String randomRelicId(String theme) {
+        JSONObject details = themeDetails(theme);
+        JSONObject relics = details == null ? null : details.getJSONObject("relics");
+        if (relics == null || relics.isEmpty()) {
+            return null;
+        }
+        java.util.List<String> ids = new java.util.ArrayList<>();
+        for (String k : relics.keySet()) {
+            String id = relics.getJSONObject(k).getString("id");
+            if (id != null && !id.contains("_band_")) {
+                ids.add(id);
+            }
+        }
+        return ids.isEmpty() ? null : ids.get(RANDOM.nextInt(ids.size()));
+    }
+
     private static void removeRecruitPending(JSONObject cur) {
         JSONArray pending = cur.getJSONObject("player").getJSONArray("pending");
         if (pending == null) {
@@ -1039,6 +1536,12 @@ public class rlv2 {
         JSONObject player = cur.getJSONObject("player");
         JSONArray pending = player.getJSONArray("pending");
         if (pending != null && !pending.isEmpty()) {
+            // 月度小队：消费 GAME_INIT_TEAM 时把固定小队干员加进队伍
+            // 官服 018_01：finishEvent 后 troop.chars 多出 type=MONTHLY 的干员
+            JSONObject head = pending.getJSONObject(0);
+            if (head != null && "GAME_INIT_TEAM".equals(head.getString("type"))) {
+                addMonthTeamChars(userData, cur, head);
+            }
             pending.remove(0);
         }
         if (pending == null || pending.isEmpty()) {
@@ -1056,11 +1559,6 @@ public class rlv2 {
 
     // ───────────────────────── gridZone（新主题网格地图）─────────────────────────
 
-    /**
-     * 网格地图移动/开战。请求体用 route:["303"]（节点 id 路径），
-     * 官方语义：取 route 最后一个节点 id → 换成坐标 → 等同普通 moveTo。
-     * 参考实现同样做法（convert_gridZone_req → rlv2_moveTo）。
-     */
     @PostMapping(value = {"/gridZone/moveTo"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject gridZoneMoveTo(@RequestHeader(value = "secret", required = false) String secret,
                                      @RequestBody(required = false) JSONObject body,
@@ -1083,7 +1581,6 @@ public class rlv2 {
         return moveInternal(secret, translated, true);
     }
 
-    /** route:["303"] → {to:{x,y}, stageId}（顺便扣网格行动力） */
     private static JSONObject translateRoute(JSONObject body, String secret) {
         if (body == null) {
             return null;
@@ -1110,14 +1607,21 @@ public class rlv2 {
             ArknightsApplication.LOGGER.warn("[rlv2] gridZone 找不到节点 {}", nodeId);
             return null;
         }
-        // 扣网格行动力（步数 = route 长度 - 1）
-        int steps = Math.max(1, route.size() - 1);
+        // 扣网格行动力。官方实测（15 条抓包 100% 吻合）：
+        //   步行 (isWalk=true)      → 扣「曼哈顿距离」步
+        //   装了零件 (isWalk=false)  → 扣「零件的 step 值」步（moveScrapData[scrapId].step，0 或 1）
         JSONObject module = cur.getJSONObject("module");
         if (module != null) {
             JSONObject grid = module.getJSONObject("gridZone");
             if (grid != null) {
-                int left = grid.getIntValue("step");
-                grid.put("step", Math.max(0, left - steps));
+                int cost = gridMoveCost(cur, node);
+                int left = grid.getIntValue("stepRemain");
+                int remain = Math.max(0, left - cost);
+                grid.put("stepRemain", remain);
+                // 步数扣到 0 → needConfirmStepZero = true，客户端随后调 gridZone/readStepZero
+                if (remain == 0) {
+                    grid.put("needConfirmStepZero", true);
+                }
             }
         }
         JSONObject out = new JSONObject(true);
@@ -1205,7 +1709,6 @@ public class rlv2 {
         return result;
     }
 
-    /** 按节点类型推送对应待办（SHOP / SCENE / TREASURE），参考官服 wire */
     private static void pushNodePending(JSONObject cur) {
         String theme = cur.getJSONObject("game").getString("theme");
         int type = cursorNodeType(cur);
@@ -1214,6 +1717,20 @@ public class rlv2 {
         int incidentBit = com.hypergryph.arknights.core.function.RogueMapGen.typeBit(theme, "INCIDENT");
         int restBit = com.hypergryph.arknights.core.function.RogueMapGen.typeBit(theme, "REST");
         int treasureBit = com.hypergryph.arknights.core.function.RogueMapGen.typeBit(theme, "TREASURE");
+        // 地区委托（MISSION）/传送门（PORTAL）等 once 节点：同样走 SCENE 流程
+        // 官服抓包（012_12 rogue_2）：进入委托节点 → scene_ro2_task_enter
+        int missionBit = com.hypergryph.arknights.core.function.RogueMapGen.typeBit(theme, "MISSION");
+        int portalBit = com.hypergryph.arknights.core.function.RogueMapGen.typeBit(theme, "PORTAL");
+        if (type != 0 && ((missionBit != 0 && type == missionBit) || (portalBit != 0 && type == portalBit))) {
+            JSONArray scene = buildScenePending(cur);
+            if (scene != null) {
+                player.put("pending", scene);
+                player.put("state", "PENDING");
+            } else {
+                player.put("state", "WAIT_MOVE");
+            }
+            return;
+        }
         if (type != 0 && type == shopBit) {
             player.put("pending", buildShopPending(cur));
             player.put("state", "PENDING");
@@ -1245,7 +1762,6 @@ public class rlv2 {
         }
     }
 
-    /** choices[choiceId].nextSceneId → 合法场景 id（存在于 choiceScenes 才返回） */
     private static String nextSceneId(String theme, String choiceId) {
         JSONObject details = themeDetails(theme);
         if (details == null || choiceId == null) {
@@ -1264,11 +1780,6 @@ public class rlv2 {
         return next;
     }
 
-    /**
-     * 该事件选项是否直接引发战斗。
-     * 官服数据判据（rogue_3 实证）：choices[id].icon == "battle" 或 displayData.funcIconId == "battle"。
-     * 命中时官方下发 pending = [{type:"BATTLE", content:{"battle":{"state":0}}}]（state:0 = 尚未开始）。
-     */
     private static boolean choiceTriggersBattle(String theme, String choiceId) {
         if (choiceId == null) {
             return false;
@@ -1286,7 +1797,6 @@ public class rlv2 {
         return display != null && "battle".equalsIgnoreCase(display.getString("funcIconId"));
     }
 
-    /** 按指定场景 id 构造 SCENE 待办（选项按 scene 前缀匹配） */
     private static JSONArray buildSceneByPrefix(JSONObject cur, String sceneId) {
         String theme = cur.getJSONObject("game").getString("theme");
         JSONObject details = themeDetails(theme);
@@ -1361,8 +1871,6 @@ public class rlv2 {
         return arr;
     }
 
-    /** 商店待办（goods 5 件，价格 4~12 源石锭） */
-    /** 生成 n 件商店商品（价格区间按参考实现：遗物 6~12 / 招募券 4~6 / 生命 3~5 / 源石锭 2~4） */
     private static JSONArray generateShopGoods(String theme, JSONObject details, String goldId, int n) {
         JSONArray goods = new JSONArray();
         JSONObject relics = details == null ? null : details.getJSONObject("relics");
@@ -1463,7 +1971,6 @@ public class rlv2 {
         return arr;
     }
 
-    /** 事件场景待办：从 choiceScenes 里挑一个非 final 场景，选项按前缀匹配 */
     private static JSONArray buildScenePending(JSONObject cur) {
         String theme = cur.getJSONObject("game").getString("theme");
         JSONObject details = themeDetails(theme);
@@ -1499,6 +2006,29 @@ public class rlv2 {
         if (candidates.isEmpty()) {
             return null;
         }
+        // 节点类型感知（官服抓包 012_12）：地区委托节点（MISSION）→ scene_ro2_task_enter
+        //   其它节点不能随机抽到 task_enter，否则普通事件会误变成委托
+        String nodeType = nodeTypeNameAt(cur, cur.getJSONObject("player").getJSONObject("cursor").getJSONObject("position"));
+        String taskScene = "scene_ro" + themeNum + "_task_enter";
+        java.util.List<String> prefer = new java.util.ArrayList<>();
+        java.util.List<String> others = new java.util.ArrayList<>();
+        for (String id : candidates) {
+            if (id.contains("_task_enter")) {
+                if ("MISSION".equalsIgnoreCase(nodeType)) {
+                    prefer.add(id);
+                }
+            } else if (!"MISSION".equalsIgnoreCase(nodeType)) {
+                others.add(id);
+            }
+        }
+        if (!prefer.isEmpty()) {
+            candidates = prefer;
+        } else if (!others.isEmpty()) {
+            candidates = others;
+        } else if ("MISSION".equalsIgnoreCase(nodeType) && scenes.containsKey(taskScene)) {
+            candidates = new java.util.ArrayList<>();
+            candidates.add(taskScene);
+        }
         String sceneId = candidates.get(RANDOM.nextInt(candidates.size()));
         String prefix = sceneId.startsWith("scene_") ? sceneId.substring(6) : sceneId;
         if (prefix.endsWith("_enter")) {
@@ -1508,12 +2038,27 @@ public class rlv2 {
 
         JSONObject choiceMap = new JSONObject(true);
         JSONObject additional = new JSONObject(true);
+        boolean missionScene = sceneId.contains("_task_enter");
         for (String cid : choices.keySet()) {
             if (!cid.startsWith(choicePrefix)) {
                 continue;
             }
-            String ctype = choices.getJSONObject(cid).getString("type");
+            JSONObject cdef = choices.getJSONObject(cid);
+            String ctype = cdef.getString("type");
             if ("HIDDEN".equals(ctype)) {
+                continue;
+            }
+            // 委托选择页只要 4 个 leftDecoType=TASK 的选项；
+            // taskreward* 是「完成委托后的奖励」，不能出现在这里（官服只给 4 个）
+            if (missionScene) {
+                // 委托页 = 3 个 TASK 难度选项 + 1 个 NEXT（关闭终端）
+                // 官服抓包 012_12：choice_ro2_task_1..4，其中 task_4 是 type=NEXT / leftDecoType=NONE
+                boolean isTask = "TASK".equalsIgnoreCase(cdef.getString("leftDecoType"));
+                boolean isNext = "NEXT".equalsIgnoreCase(ctype) && !cid.contains("taskreward");
+                if (!isTask && !isNext) {
+                    continue;
+                }
+            } else if (cid.contains("taskreward")) {
                 continue;
             }
             choiceMap.put(cid, 1);
@@ -1544,7 +2089,6 @@ public class rlv2 {
         return arr;
     }
 
-    /** 战斗待办（对齐官服 wire：state=1 + 宝箱/陷阱满值 + 骰子序列 + 战斗种子） */
     private static JSONArray buildBattlePending(JSONObject cur) {
         String theme = cur.getJSONObject("game").getString("theme");
         JSONObject details = themeDetails(theme);
@@ -1581,7 +2125,6 @@ public class rlv2 {
         return arr;
     }
 
-    /** 从 cursor 所在节点取 type 位值 */
     private static int cursorNodeType(JSONObject cur) {
         JSONObject player = cur.getJSONObject("player");
         JSONObject cursor = player.getJSONObject("cursor");
@@ -1604,7 +2147,7 @@ public class rlv2 {
         return 0;
     }
 
-    /** 按节点类型算经验（普通 12 / 紧急 24 / 首领 36） */
+    // 按节点类型算经验（普通 12 / 紧急 24 / 首领 36）
     private static int expGainFor(JSONObject cur, String theme) {
         int type = cursorNodeType(cur);
         int elite = com.hypergryph.arknights.core.function.RogueMapGen.typeBit(theme, "BATTLE_ELITE");
@@ -1814,7 +2357,6 @@ public class rlv2 {
         return delta(cur);
     }
 
-    /** 解 battleLog：base64 → ZIP（单条 default_entry，deflate）→ JSON → journal.metadata */
     private static JSONObject parseBattleLog(String base64) throws Exception {
         byte[] zip = java.util.Base64.getDecoder().decode(base64);
         if (zip.length < 4 || zip[0] != 0x50 || zip[1] != 0x4b) {
@@ -1838,7 +2380,6 @@ public class rlv2 {
         }
     }
 
-    /** 生成一局的 brief（官服字段顺序/命名照抄） */
     private static JSONObject buildBrief(JSONObject cur, int success) {
         JSONObject player = cur.getJSONObject("player");
         JSONObject prop = player.getJSONObject("property");
@@ -1976,6 +2517,25 @@ public class rlv2 {
         String theme = cur.getJSONObject("game").getString("theme");
 
         // 官服实测（024_26 rogue_3）：选项本身是「进入战斗」→ 推 BATTLE 待办（state:0）
+        // 水月（rogue_2）：选项 displayData.itemId 以 _dice 结尾 → 「获得N掷骰次数」（此处只加次数，
+        // 掷骰待办在 pending 落定后再推，否则会被场景分支覆盖）
+        grantDiceCount(cur, theme, choice);
+
+        // 地区委托：选中 choice_ro2_task_N → 记下难度档与委托 id（官服 record.nodeMission={"rogue_2_task_016":2}）
+        if (choice != null && choice.matches("choice_ro\\d+_task_\\d+")) {
+            JSONObject rec = cur.getJSONObject("record");
+            if (rec == null) {
+                rec = new JSONObject(true);
+                cur.put("record", rec);
+            }
+            String tierStr = choice.substring(choice.lastIndexOf('_') + 1);
+            try {
+                rec.put("pendingTaskTier", Integer.parseInt(tierStr));
+            } catch (Exception ignored) {
+            }
+            rec.put("pendingTaskId", theme + "_task_" + String.format("%03d", 1 + RANDOM.nextInt(99)));
+        }
+
         if (choiceTriggersBattle(theme, choice)) {
             JSONObject battleContent = new JSONObject(true);
             JSONObject battle = new JSONObject(true);
@@ -2003,6 +2563,10 @@ public class rlv2 {
             if (scene != null) {
                 player.put("pending", scene);
                 player.put("state", "PENDING");
+                // 官服实测（009_10 rogue_2）：许愿类选项（leftDecoType=DICE）→ pending 变成 ["DICE","SCENE"]
+                if (choiceTriggersDice(theme, choice)) {
+                    pushDiceIfNeeded(cur, theme, player);
+                }
                 userDao.setUserData(account.getUid(), userData);
                 com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
                 JSONObject result = delta(cur);
@@ -2015,6 +2579,10 @@ public class rlv2 {
         if (leave) {
             player.put("pending", new JSONArray());
             player.put("state", "WAIT_MOVE");
+            // 官服实测（009_12 rogue_2）：离开场景时若还有剩余掷骰次数，会再弹 DICE
+            if (choiceTriggersDice(theme, choice)) {
+                pushDiceIfNeeded(cur, theme, player);
+            }
         } else {
             player.put("state", "PENDING");
         }
@@ -2025,7 +2593,6 @@ public class rlv2 {
         return result;
     }
 
-    /** 抓包实测到的选项效果（精确值），表里只有描述文本时用它兜底 */
     private static final java.util.Map<String, Object[]> CHOICE_SAMPLES = new java.util.HashMap<>();
 
     static {
@@ -2053,7 +2620,6 @@ public class rlv2 {
         return def != null && "LEAVE".equals(def.getString("type"));
     }
 
-    /** 应用选项效果，返回 items（与官服 items 结构一致：{id,count} 或 {type,id,count}） */
     private static JSONArray applyChoiceEffect(JSONObject userData, JSONObject cur, String choice) {
         JSONArray items = new JSONArray();
         if (choice == null) {
@@ -2275,7 +2841,6 @@ public class rlv2 {
         return items;
     }
 
-    /** 随机取一个本主题、还没拥有的收藏品 */
     private static String randomRelic(String theme, JSONObject cur) {
         JSONObject details = themeDetails(theme);
         JSONObject relics = details == null ? null : details.getJSONObject("relics");
@@ -2431,8 +2996,6 @@ public class rlv2 {
         result.put("items", new JSONArray());
         return result;
     }
-
-    /** 把某个券压成 RECRUIT 待办（放到 pending 最前） */
     private static void pushRecruitPending(JSONObject cur, String ticketKey) {
         JSONObject player = cur.getJSONObject("player");
         JSONArray pending = player.getJSONArray("pending");
@@ -2458,11 +3021,137 @@ public class rlv2 {
         player.put("state", "PENDING");
     }
 
-    /**
-     * 该主题是否有「预测/视界」系统。
-     * 判据（数据驱动）：module.vision/predict 存在，或 gameConst.dsPredictTips 非空
-     * （rogue_3/4/5/6 有该字段，rogue_1/2 没有 → 官方也只有这四主题会推 PREDICT）。
-     */
+    private static JSONObject player(JSONObject cur) {
+        return cur.getJSONObject("player");
+    }
+
+    private static JSONObject themeModules(String theme) {
+        if (ArknightsApplication.roguelikeTopicTable == null) {
+            return null;
+        }
+        JSONObject modules = ArknightsApplication.roguelikeTopicTable.getJSONObject("modules");
+        return modules == null ? null : modules.getJSONObject(theme);
+    }
+
+    private static void pushDiceIfNeeded(JSONObject cur, String theme, JSONObject player) {
+        JSONObject module = cur.getJSONObject("module");
+        JSONObject diceState = module == null ? null : module.getJSONObject("dice");
+        if (diceState == null) {
+            return;
+        }
+        int count = diceState.getIntValue("count");
+        if (count <= 0) {
+            return;
+        }
+        JSONObject mods = themeModules(theme);
+        JSONObject diceData = mods == null ? null : mods.getJSONObject("dice");
+        if (diceData == null) {
+            return;
+        }
+        JSONObject diceDefs = diceData.getJSONObject("dice");
+        JSONObject def = diceDefs == null ? null : diceDefs.getJSONObject(diceState.getString("id"));
+        int faces = def == null ? 6 : def.getIntValue("diceFaceCount");
+        if (faces <= 0) {
+            faces = 6;
+        }
+        int roll = 1 + RANDOM.nextInt(faces);
+        JSONObject events = diceData.getJSONObject("diceEvents");
+        // 官方规则（6 次抓包验证）：
+        //   ① 先定组（每次不同，按上下文/随机）
+        //   ② 组内取 dicePointMax >= roll 且最小的那个
+        //   例：roll=5 → group_1 命中 e2@5(GOOD)、group_13 命中 e28@5、group_16 命中 e34@5
+        java.util.Map<String, java.util.List<JSONObject>> byGroup = new java.util.LinkedHashMap<>();
+        if (events != null) {
+            for (String key : events.keySet()) {
+                JSONObject ev = events.getJSONObject(key);
+                String g = ev.getString("diceGroupId");
+                byGroup.computeIfAbsent(g, k -> new java.util.ArrayList<>()).add(ev);
+            }
+        }
+        String eventId = null;
+        String groupId = null;
+        if (!byGroup.isEmpty()) {
+            java.util.List<String> groups = new java.util.ArrayList<>(byGroup.keySet());
+            // 优先选「本组能匹配到事件」的组，再从中随机
+            java.util.List<String> usable = new java.util.ArrayList<>();
+            for (String g : groups) {
+                int best = Integer.MAX_VALUE;
+                for (JSONObject ev : byGroup.get(g)) {
+                    int max = ev.getIntValue("dicePointMax");
+                    if (max >= roll && max < best) {
+                        best = max;
+                    }
+                }
+                if (best != Integer.MAX_VALUE) {
+                    usable.add(g);
+                }
+            }
+            java.util.List<String> pool = usable.isEmpty() ? groups : usable;
+            groupId = pool.get(RANDOM.nextInt(pool.size()));
+            int bestMax = Integer.MAX_VALUE;
+            for (JSONObject ev : byGroup.get(groupId)) {
+                int max = ev.getIntValue("dicePointMax");
+                if (max >= roll && max < bestMax) {
+                    bestMax = max;
+                    eventId = ev.getString("diceEventId");
+                }
+            }
+        }
+        if (eventId == null) {
+            return;
+        }
+        JSONObject result = new JSONObject(true);
+        result.put("diceRoll", roll);
+        result.put("diceEventId", eventId);
+        result.put("diceRuleGroupId", groupId);
+        // 官服抓包（diceEve_19 结果 GOOD）里 result 带 reward，表里 diceEvents 没有 reward 字段
+        // → 按 diceResultClass 推断：GOOD/BEST 发一件收藏品
+        String resultClass = null;
+        if (events != null && eventId != null) {
+            for (String key : events.keySet()) {
+                JSONObject ev = events.getJSONObject(key);
+                if (eventId.equals(ev.getString("diceEventId"))) {
+                    resultClass = ev.getString("diceResultClass");
+                    break;
+                }
+            }
+        }
+        if ("GOOD".equalsIgnoreCase(resultClass) || "BEST".equalsIgnoreCase(resultClass)) {
+            String relicId = randomRelicId(theme);
+            if (relicId != null) {
+                JSONArray reward = new JSONArray();
+                JSONObject one = new JSONObject(true);
+                one.put("id", relicId);
+                one.put("type", "ITEM");
+                one.put("count", 1);
+                reward.add(one);
+                result.put("reward", reward);
+                addRelic(cur, relicId, 1);
+                ArknightsApplication.LOGGER.info("[rlv2] 掷骰 {} → 发收藏品 {}", resultClass, relicId);
+            }
+        }
+        JSONObject dice = new JSONObject(true);
+        dice.put("result", result);
+        dice.put("rerollCount", 0);
+        dice.put("_isSancheck", false);
+        dice.put("_done", false);
+        dice.put("_history", new JSONArray());
+        JSONObject content = new JSONObject(true);
+        content.put("dice", dice);
+        JSONObject pend = new JSONObject(true);
+        pend.put("index", "e_18");
+        pend.put("type", "DICE");
+        pend.put("content", content);
+        JSONArray pending = player.getJSONArray("pending");
+        if (pending == null) {
+            pending = new JSONArray();
+            player.put("pending", pending);
+        }
+        pending.add(0, pend);
+        diceState.put("count", count - 1);
+        ArknightsApplication.LOGGER.info("[rlv2] 掷骰 {} 面 → 点数 {} 事件 {}", faces, roll, eventId);
+    }
+
     private static boolean hasPredictModule(JSONObject cur) {
         JSONObject module = cur.getJSONObject("module");
         if (module != null && (module.getJSONObject("vision") != null || module.getJSONObject("predict") != null)) {
@@ -2475,10 +3164,6 @@ public class rlv2 {
         return tips != null && !tips.isEmpty();
     }
 
-    /**
-     * 从 pending 里找正在进行的商店。
-     * 官服实测（B服 2026-11-04）：SHOP 用 content.shop，BATTLE_SHOP 用 content.battleShop。
-     */
     private static JSONObject findShop(JSONObject cur) {
         JSONArray pending = cur.getJSONObject("player").getJSONArray("pending");
         if (pending == null) {
@@ -2505,7 +3190,6 @@ public class rlv2 {
         return null;
     }
 
-    /** 购买/获得一件物品，落到对应的存档位置（优先按 gameConst 的物品 id 映射） */
     private static void applyShopItem(JSONObject userData, JSONObject cur, String itemId, int count) {
         if (itemId == null) {
             return;
@@ -2581,12 +3265,6 @@ public class rlv2 {
         }
     }
 
-    /**
-     * 局内累积 bp / 天赋点。官服实测（B服 2026-11-04 rogue_6 结算）：
-     *   score Δ=245，bp.point Δ=274 → bp 增量带收藏品加成（bp_reward_increase）
-     *   pointOwned：rogue_1 用 bp/10，其余主题用 score/200（六主题实测比值 200~202）
-     */
-    /** 取某坐标节点的类型名（BATTLE_NORMAL / INCIDENT / SHOP …） */
     private static String nodeTypeNameAt(JSONObject cur, JSONObject pos) {
         if (pos == null) {
             return null;
@@ -2621,7 +3299,6 @@ public class rlv2 {
         return null;
     }
 
-    /** 当前战斗待办里的关卡 id（用于 PassBattleStage 任务统计） */
     private static String journalStageId(JSONObject cur) {
         JSONArray pending = cur.getJSONObject("player").getJSONArray("pending");
         if (pending == null) {
@@ -2648,7 +3325,6 @@ public class rlv2 {
         return null;
     }
 
-    /** record 计数器 +delta（不存在则建），供月度任务埋点用 */
     private static void recInc(JSONObject cur, String key, int delta) {
         if (cur == null || delta == 0) {
             return;
@@ -2661,7 +3337,6 @@ public class rlv2 {
         record.put(key, record.getIntValue(key) + delta);
     }
 
-    /** 按节点类型名计数（PassNodeType / PassNodeSkyType 用） */
     private static void recIncNodeType(JSONObject cur, String typeName) {
         if (cur == null || typeName == null) {
             return;
@@ -2716,7 +3391,6 @@ public class rlv2 {
         buff.put("pointOwned", computePointOwned(theme, bp.getIntValue("point"), buff.getIntValue("score")));
     }
 
-    /** 官方「通过层数」查表（PRTS）：层数 0..7；rogue_6 第 1 档是 40 */
     private static int layerScore(String theme, int zones) {
         int[] table = "rogue_6".equals(theme)
                 ? new int[]{0, 40, 80, 150, 270, 400, 550, 650}
@@ -2725,13 +3399,6 @@ public class rlv2 {
         return table[idx];
     }
 
-    /**
-     * 难度倍率。按主题分别取值（PRTS 各主题「得分效率 / 累计得分倍率」表）：
-     *  rogue_1(傀影)  : 古堡观光 -50%；正式调查 0%；1..15 = +5/10/15/20/30/40/50…（封顶+50%）
-     *  rogue_2(水月)  : 简单 -50%；0%..；1..18 = +5/10/15/20/30/40/50…（同 rogue_1 曲线）
-     *  rogue_3(银凇)  : 挑战自然 0 级即 -40%（无简单难度），1=-20%，2=0%，3..=+10/20/25/30/…最大+50%
-     *  rogue_4/5/6    : 0 级 ±0%，1..=+5/10/15/20/25/30/35/40/45/50…（最大+50%）
-     */
     private static double difficultyMultiplier(String theme, String mode, int modeGrade) {
         if ("EASY".equals(mode) && !"rogue_3".equals(theme)) {
             return 0.5;   // rogue_3 没有简单难度
@@ -2748,7 +3415,6 @@ public class rlv2 {
         return 1.0 + table[g] / 100.0;
     }
 
-    /** 官方公式的加数部分（未乘倍率） */
     private static int officialBaseScore(JSONObject cur, JSONObject record, String mode) {
         String theme = themeOf(cur);
         int zones = record.getIntValue("cntZone");
@@ -2762,16 +3428,12 @@ public class rlv2 {
                 + recruit * 2 + items * 5;
     }
 
-    /**
-     * 「获得物品数」：官方口径 = 收藏品 + 战术道具 + 单个剧目（不含源石锭与招募券）。
-     * 优先用结算 record 里的 relicList/capsuleList/activeToolList/exploreToolList，
-     * 没有就退回 inventory.relic 数量。
-     */
     private static int gainedItemCount(JSONObject cur, JSONObject record) {
         int sum = -1;          // -1：官方口径不含「初始收藏品」，见下方 initRelic
         boolean any = false;
         if (record != null) {
-            for (String key : new String[]{"relicList", "capsuleList", "activeToolList", "exploreToolList", "legacyList"}) {
+            // 实测核对（7 个官服样本）：capsuleList 不计入「获得物品数」，含它平均误差 2.91%、不含 1.45%
+            for (String key : new String[]{"relicList", "activeToolList", "exploreToolList", "legacyList"}) {
                 JSONArray arr = record.getJSONArray(key);
                 if (arr != null) {
                     sum += arr.size();
@@ -2800,7 +3462,27 @@ public class rlv2 {
         return Math.max(0, sum - initRelic + 1);
     }
 
-    /** 天赋点：rogue_1 = bp/10；其余主题 = score/200；再被 outerBuffTokenSum 截断 */
+    private static int rlv2ScoreCap(String theme) {
+        try {
+            JSONObject cfg = ArknightsApplication.serverConfig;
+            if (cfg != null) {
+                JSONObject rogue = cfg.getJSONObject("rogue");
+                JSONObject caps = rogue == null ? null : rogue.getJSONObject("scoreCap");
+                int override = caps == null ? 0 : caps.getIntValue(theme);
+                if (override > 0) {
+                    return override;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        int sum = buffTokenSum(theme);
+        if (sum <= 0) {
+            return 0;
+        }
+        int ratio = "rogue_1".equals(theme) ? outerBuffTokenRatio() : 200;
+        return sum * ratio;
+    }
+
     private static int computePointOwned(String theme, int bpPoint, int score) {
         int ratioBase;
         int value;
@@ -2819,7 +3501,6 @@ public class rlv2 {
         return Math.max(0, owned);
     }
 
-    /** 全局 outerBuffTokenRatio（默认 10） */
     private static int outerBuffTokenRatio() {
         JSONObject constant = ArknightsApplication.roguelikeTopicTable == null ? null
                 : ArknightsApplication.roguelikeTopicTable.getJSONObject("constant");
@@ -2829,7 +3510,6 @@ public class rlv2 {
         return 10;
     }
 
-    /** 收藏品提供的 bp 加成（buffs 里 key = bp_reward_increase 的 value 之和） */
     private static double bpBonus(JSONObject cur, String theme) {
         JSONObject details = themeDetails(theme);
         JSONObject relicsTable = details == null ? null : details.getJSONObject("relics");
@@ -2866,14 +3546,12 @@ public class rlv2 {
         return sum;
     }
 
-    /** 该主题天赋点上限（details.<theme>.detailConst.outerBuffTokenSum） */
     private static int buffTokenSum(String theme) {
         JSONObject details = themeDetails(theme);
         JSONObject dc = details == null ? null : details.getJSONObject("detailConst");
         return dc == null ? 0 : dc.getIntValue("outerBuffTokenSum");
     }
 
-    /** 招募助战列表（私服没有好友助战，返回空列表即可让客户端继续） */
     @PostMapping(value = {"/getTicketAssistList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getTicketAssistList(@RequestHeader(value = "secret", required = false) String secret,
                                           @RequestBody(required = false) JSONObject body,
@@ -2886,18 +3564,13 @@ public class rlv2 {
 
     // ──────────────────── 主题专属系统兜底路由 ────────────────────
 
-    /**
-     * 六主题专属机制（骰子 / 炼金 / 图腾 / 铜钱 / 废品 / 献祭 / 远征 / 预测 …）
-     * 私服暂未实现具体效果，统一按「清待办 + 回待移动」处理，避免客户端 404 中断。
-     */
     @PostMapping(value = {
             "/useInspiration",
-            "/setPinned", "/shopBattleStart",
+            "/shopBattleStart",
             "/confirmTraderReturn",
             "/readEndingChange", "/chooseInitialExploreTool", "/confirmZoneReward",
             "/finishGame", "/specialZone/leave",
-            "/upgradeNode", "/normal/refreshMission",
-            "/gridZone/emptyStep", "/gridZone/readStepZero", "/scrap/identify", "/scrap/loseScrap"
+            "/upgradeNode", "/normal/refreshMission"
     }, produces = {"application/json;charset=UTF-8"})
     public JSONObject themeFallback(@RequestHeader(value = "secret", required = false) String secret,
                                     @RequestBody(required = false) JSONObject body,
@@ -2959,7 +3632,6 @@ public class rlv2 {
         return result;
     }
 
-    /** 把 [{id,count,type?}] 形式的奖励入账，并回填到 items 响应里 */
     private static void grantRewardArray(JSONObject userData, JSONObject cur, JSONArray rewards, JSONArray out) {
         if (rewards == null) {
             return;
@@ -2987,12 +3659,6 @@ public class rlv2 {
 
     // ───────────────────────────── battlePass ────────────────────────────
 
-    /**
-     * 领取 BP（里程碑）奖励。
-     * 请求 {"theme":"rogue_1","rewards":["bp_level_2"]}
-     * 响应 {items, playerDataDelta:{modified:{rlv2, inventory/status}}}
-     * 表来源：details.<theme>.milestones[]，tokenNum = 需要的 bp 分数。
-     */
     @PostMapping(value = {"/battlePass/getReward"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject battlePassGetReward(@RequestHeader(value = "secret", required = false) String secret,
                                           @RequestBody(required = false) JSONObject body,
@@ -3000,11 +3666,6 @@ public class rlv2 {
         return battlePassReward(secret, body, false);
     }
 
-    /**
-     * 购买 BP 奖励（花源石换分并直接领）。
-     * 请求 {"theme":"rogue_1","reward":"bp_level_3","cost":1}
-     * 实测：cost 1 → bp.point += 200、status.androidDiamond -= cost、并发放该级奖励。
-     */
     @PostMapping(value = {"/battlePass/buyReward"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject battlePassBuyReward(@RequestHeader(value = "secret", required = false) String secret,
                                           @RequestBody(required = false) JSONObject body,
@@ -3149,7 +3810,6 @@ public class rlv2 {
         return result;
     }
 
-    /** details.<theme>.milestones[] 里按 id 找 */
     private static JSONObject milestoneDef(String theme, String id) {
         JSONObject details = themeDetails(theme);
         JSONArray list = details == null ? null : details.getJSONArray("milestones");
@@ -3165,7 +3825,6 @@ public class rlv2 {
         return null;
     }
 
-    /** 发 BP 奖励物品：GOLD → status.gold，其余 → inventory */
     private static void grantBpItem(JSONArray items, JSONObject inventory, JSONObject status, JSONObject def) {
         String type = def.getString("itemType");
         String itemId = def.getString("itemID");
@@ -3187,14 +3846,6 @@ public class rlv2 {
 
     // ───────────────────────────── unlockBuff ────────────────────────────
 
-    /**
-     * 局外天赋升级（normal 主题变体）。
-     * 请求 {"theme":"rogue_1","buff":"outbuff_5"}
-     * 响应只回 outer.<theme>.buff：{pointOwned, pointCost, unlocked{id:1}, score}
-     *
-     * 实测：pointOwned 不变（总量），pointCost 累加（46→30→40），unlocked 增加。
-     * 单点天赋的价格从表 details.<theme>.buff? 里取；取不到就用 10 兜底。
-     */
     @PostMapping(value = {"/normal/unlockBuff"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject unlockBuff(@RequestHeader(value = "secret", required = false) String secret,
                                  @RequestBody(required = false) JSONObject body,
@@ -3263,7 +3914,6 @@ public class rlv2 {
         return result;
     }
 
-    /** 天赋单价：优先读表 details.<theme>.buff 的 price，取不到按层级兜底（10/20/30…） */
     private static int buffPrice(String theme, String buffId, int remain) {
         JSONObject details = themeDetails(theme);
         JSONObject buffs = details == null ? null : details.getJSONObject("buff");
@@ -3276,13 +3926,6 @@ public class rlv2 {
 
     // ───────────────────────── 月度任务（monthMission）─────────────────────────
 
-    /**
-     * 月度任务存档结构（官服 B服 实测）：
-     * outer.<theme>.mission = {"updateId":"rogue_6_update_5","refresh":4,
-     *   "list":[{"type":"A","mission":{"type":"A","tmpl":"PassBattleStage","id":"rogue_6_task_29",
-     *                                 "state":1,"target":3,"value":3}}, ...]}
-     * 任务定义来自 details.<theme>.monthMission（template / paramList[0]=target / tokenRewardNum）。
-     */
     private static JSONObject ensureMonthMission(JSONObject userData, String theme) {
         JSONObject themeOuter = Rlv2Helper.outerTheme(userData, theme);
         if (themeOuter == null) {
@@ -3355,11 +3998,6 @@ public class rlv2 {
         return mission;
     }
 
-    /**
-     * 本局给某个月度任务贡献多少进度。
-     * 模板清单来自 details.<theme>.monthMission（六主题共 37 种），
-     * 这里按本局 record 里已有的计数器映射；未埋点的（主题专属机制）返回 0。
-     */
     private static int missionDelta(JSONObject def, JSONObject record, int level) {
         if (def == null) {
             return 0;
@@ -3460,7 +4098,6 @@ public class rlv2 {
         }
     }
 
-    /** 结算月度任务：累加进度、置 state、返回 {before, after, token} */
     private static JSONObject settleMonthMission(JSONObject userData, String theme, JSONObject record, int level, int shopBuy) {
         JSONObject out = new JSONObject(true);
         JSONArray before = new JSONArray();
@@ -3533,10 +4170,6 @@ public class rlv2 {
 
     // ─────────────────── 主题专属机制（照参考实现，含埋点）───────────────────
 
-    /**
-     * rogue_3 密文板/图腾：{"totemIndex":[..],"nodeIndex":[..]}
-     * 官方语义（参考实现 capture_new r3 实证）：每枚图腾 +3 混沌值，到达 curMaxValue 升级。
-     */
     @PostMapping(value = {"/useTotem"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject useTotem(@RequestHeader(value = "secret", required = false) String secret,
                                @RequestBody(required = false) JSONObject body,
@@ -3607,10 +4240,6 @@ public class rlv2 {
         return result;
     }
 
-    /**
-     * rogue_4 解读/炼金：{"fragmentIndex":["f_a","f_b"],"leave":0}
-     * 官方语义（参考实现）：消耗构想碎片合成收藏品，碎片总价值 >= 8 触发终末收藏品（SSR）。
-     */
     @PostMapping(value = {"/alchemy"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject alchemy(@RequestHeader(value = "secret", required = false) String secret,
                               @RequestBody(required = false) JSONObject body,
@@ -3694,7 +4323,6 @@ public class rlv2 {
         return delta(cur);
     }
 
-    /** rogue_4 解读结算：{index} → 入账并关闭待办 */
     @PostMapping(value = {"/alchemyReward"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject alchemyReward(@RequestHeader(value = "secret", required = false) String secret,
                                     @RequestBody(required = false) JSONObject body,
@@ -3726,11 +4354,6 @@ public class rlv2 {
         return result;
     }
 
-    /**
-     * rogue_2 骰子：{"choice":"..."|"REROLL"}
-     * 官方语义（参考实现）：结果由服务端预投在待办里，choice 仅确认；
-     * REROLL 消耗 1 次重投机会。
-     */
     @PostMapping(value = {"/diceChoice"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject diceChoice(@RequestHeader(value = "secret", required = false) String secret,
                                  @RequestBody(required = false) JSONObject body,
@@ -3777,7 +4400,6 @@ public class rlv2 {
 
     // ─────────────────── 主题专属：废品载具 / 铜钱（照参考实现 + B服抓包结构）───────────────────
 
-    /** 找铜钱袋（不同主题放在 inventory.copper / module.copper 之一） */
     private static JSONObject copperBag(JSONObject cur) {
         JSONObject inv = cur.getJSONObject("inventory");
         if (inv != null && inv.getJSONObject("copper") != null) {
@@ -3793,10 +4415,6 @@ public class rlv2 {
         return null;
     }
 
-    /**
-     * rogue_6 废品载具切换：{"scrapInstId":"s_3","toWalk":0}
-     * 官服 B服 抓包实证：module.scrap = {activeVehicle:{isWalk,instId}, inventory:{s_N:{...}}, limit:8}
-     */
     @PostMapping(value = {"/scrap/changeVehicle"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject scrapChangeVehicle(@RequestHeader(value = "secret", required = false) String secret,
                                          @RequestBody(required = false) JSONObject body,
@@ -3810,7 +4428,16 @@ public class rlv2 {
         Rlv2Helper.ensure(userData);
         JSONObject cur = userData.getJSONObject("rlv2").getJSONObject("current");
         String instId = body == null ? null : body.getString("scrapInstId");
-        boolean toWalk = body != null && body.getBooleanValue("toWalk");
+        // 官方抓包：{"scrapInstId":"s_4","toWalk":0} 上车 / {"scrapInstId":"","toWalk":1} 下车步行
+        boolean toWalk = false;
+        if (body != null) {
+            Object tv = body.get("toWalk");
+            if (tv instanceof Number) {
+                toWalk = ((Number) tv).intValue() != 0;
+            } else {
+                toWalk = body.getBooleanValue("toWalk");
+            }
+        }
         JSONObject module = cur.getJSONObject("module");
         JSONObject scrap = module == null ? null : module.getJSONObject("scrap");
         if (scrap != null && instId != null) {
@@ -3819,8 +4446,15 @@ public class rlv2 {
                 vehicle = new JSONObject(true);
                 scrap.put("activeVehicle", vehicle);
             }
-            vehicle.put("instId", instId);
-            vehicle.put("isWalk", toWalk);
+            if (toWalk) {
+                vehicle.remove("instId");
+                vehicle.put("isWalk", true);
+            } else {
+                vehicle.put("isWalk", false);
+                if (instId != null && !instId.isEmpty()) {
+                    vehicle.put("instId", instId);
+                }
+            }
             JSONObject inv = scrap.getJSONObject("inventory");
             JSONObject item = inv == null ? null : inv.getJSONObject(instId);
             if (item != null) {
@@ -3833,13 +4467,26 @@ public class rlv2 {
         }
         userDao.setUserData(account.getUid(), userData);
         com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
-        return delta(cur);
+        JSONObject vehicleOut = delta(cur);
+        if (toWalk) {
+            // 官服实测：deleted.rlv2.current.module.scrap.activeVehicle = ["instId"]
+            JSONArray fields = new JSONArray();
+            fields.add("instId");
+            JSONObject vehDel = new JSONObject(true);
+            vehDel.put("activeVehicle", fields);
+            JSONObject scrapDel = new JSONObject(true);
+            scrapDel.put("scrap", vehDel);
+            JSONObject moduleDel = new JSONObject(true);
+            moduleDel.put("module", scrapDel);
+            JSONObject curDel = new JSONObject(true);
+            curDel.put("current", moduleDel);
+            JSONObject rlDel = new JSONObject(true);
+            rlDel.put("rlv2", curDel);
+            vehicleOut.getJSONObject("playerDataDelta").put("deleted", rlDel);
+        }
+        return vehicleOut;
     }
 
-    /**
-     * rogue_5 投钱确认（铜钱）：关闭 DRAW_COPPER 待办。
-     * 参考实现语义：按投出的铜钱族给奖 —— H(花钱)→源石锭+1 / L(厉钱)→3 张招募券 / E(衡钱)→希望+3 / 其余→随机收藏品。
-     */
     @PostMapping(value = {"/copper/confirmDraw", "/copper/draw"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject copperDraw(@RequestHeader(value = "secret", required = false) String secret,
                                  @RequestBody(required = false) JSONObject body,
@@ -3920,10 +4567,6 @@ public class rlv2 {
         return result;
     }
 
-    /**
-     * rogue_5 换签：{"index":"c_1"} → 移除该签，补一枚新签（袋数不变）。
-     * 参考实现：优先用 CHANGE_COPPER 待办预定的 newCopper，否则随机 F 族基础签。
-     */
     @PostMapping(value = {"/copper/change"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject copperChange(@RequestHeader(value = "secret", required = false) String secret,
                                    @RequestBody(required = false) JSONObject body,
@@ -3992,11 +4635,6 @@ public class rlv2 {
 
     // ─────────────────── 主题专属：献祭 / 预测 / 远征（照参考实现 wire 语义）───────────────────
 
-    /**
-     * 献祭：{"choice":"r_0"} → 移除指定收藏品槽位并关闭 SACRIFICE 待办。
-     * 参考实现（capture_new r2/r4 实证）：pending[0].type==SACRIFICE → 清待办、state=WAIT_MOVE、
-     * choice 命中的收藏品从 inventory.relic 删除。
-     */
     @PostMapping(value = {"/sacrificeChoice"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject sacrificeChoice(@RequestHeader(value = "secret", required = false) String secret,
                                       @RequestBody(required = false) JSONObject body,
@@ -4010,31 +4648,128 @@ public class rlv2 {
         Rlv2Helper.ensure(userData);
         JSONObject cur = userData.getJSONObject("rlv2").getJSONObject("current");
         JSONObject player = cur.getJSONObject("player");
-        JSONArray pending = player.getJSONArray("pending");
-        if (pending != null && !pending.isEmpty()
-                && "SACRIFICE".equals(pending.getJSONObject(0).getString("type"))) {
-            player.put("pending", new JSONArray());
-        }
-        player.put("state", "WAIT_MOVE");
+        String theme = themeOf(cur);
         String choiceId = body == null ? null : body.getString("choice");
+        boolean leave = body != null && body.getIntValue("leave") == 1;
+        JSONArray removed = new JSONArray();
         if (choiceId != null) {
             JSONObject relicInv = cur.getJSONObject("inventory").getJSONObject("relic");
             if (relicInv != null && relicInv.containsKey(choiceId)) {
                 String relicId = relicInv.getJSONObject(choiceId).getString("id");
                 relicInv.remove(choiceId);
+                removed.add(choiceId);
                 ArknightsApplication.LOGGER.info("[rlv2] 献祭收藏品 {}={}", choiceId, relicId);
+            }
+        }
+        if (leave) {
+            player.put("pending", new JSONArray());
+            player.put("state", "WAIT_MOVE");
+        } else {
+            // 官服实测（032_15，rogue_2）：{"choice":"r_12","leave":0}
+            //   → pending SCENE scene_ro2_sacrifice_2，choices 为 2 个回礼交易项（实测 sacrifice_5/6）
+            //   → deleted.inventory.relic = ["r_12"]
+            JSONArray scene = buildSacrificeResultPending(cur, theme);
+            if (scene != null) {
+                player.put("pending", scene);
+                player.put("state", "PENDING");
+            } else {
+                player.put("pending", new JSONArray());
+                player.put("state", "WAIT_MOVE");
             }
         }
         userDao.setUserData(account.getUid(), userData);
         com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
         JSONObject result = delta(cur);
-        result.put("result", 1);
+        if (!removed.isEmpty()) {
+            JSONObject relicDel = new JSONObject(true);
+            relicDel.put("relic", removed);
+            JSONObject invDel = new JSONObject(true);
+            invDel.put("inventory", relicDel);
+            JSONObject curDel = new JSONObject(true);
+            curDel.put("current", invDel);
+            JSONObject rlDel = new JSONObject(true);
+            rlDel.put("rlv2", curDel);
+            result.getJSONObject("playerDataDelta").put("deleted", rlDel);
+        }
         return result;
     }
 
-    /**
-     * 预测确认：{} → 关闭 PREDICT 待办，回 WAIT_MOVE（参考实现 capture_new r3 实证）。
-     */
+    private static JSONArray buildSacrificeResultPending(JSONObject cur, String theme) {
+        JSONObject details = themeDetails(theme);
+        JSONObject scenes = details == null ? null : details.getJSONObject("choiceScenes");
+        JSONObject choices = details == null ? null : details.getJSONObject("choices");
+        if (scenes == null || choices == null) {
+            return null;
+        }
+        String themeNum = theme.substring(theme.length() - 1);
+        // 官服 2 次样本（r_12 / r_19，都是 rogue_2_relic_fight_*）都是 scene_ro2_sacrifice_2 + {5,6}，
+        // 暂定固定为该回礼页；表里没有「献祭物档位 → 场景」的映射字段可查。
+        String sceneId = "scene_ro" + themeNum + "_sacrifice_2";
+        if (!scenes.containsKey(sceneId)) {
+            for (int i = 2; i <= 5; i++) {
+                String id = "scene_ro" + themeNum + "_sacrifice_" + i;
+                if (scenes.containsKey(id)) {
+                    sceneId = id;
+                    break;
+                }
+            }
+        }
+        String prefix = "choice_ro" + themeNum + "_sacrifice_";
+        java.util.List<String> pool = new java.util.ArrayList<>();
+        for (String cid : choices.keySet()) {
+            if (!cid.startsWith(prefix)) {
+                continue;
+            }
+            JSONObject cdef = choices.getJSONObject(cid);
+            if ("SACRIFICE".equals(cdef.getString("type"))) {
+                continue;
+            }
+            if (cid.endsWith("_1") || cid.endsWith("_2")) {
+                continue;
+            }
+            pool.add(cid);
+        }
+        if (pool.isEmpty()) {
+            return null;
+        }
+        // 官服样本固定给「交换情报」两项（sacrifice_5 / sacrifice_6）
+        String p5 = "choice_ro" + themeNum + "_sacrifice_5";
+        String p6 = "choice_ro" + themeNum + "_sacrifice_6";
+        java.util.List<String> picked = new java.util.ArrayList<>();
+        if (pool.contains(p5) && pool.contains(p6)) {
+            picked.add(p5);
+            picked.add(p6);
+        } else {
+            java.util.Collections.shuffle(pool, RANDOM);
+            for (int i = 0; i < Math.min(2, pool.size()); i++) {
+                picked.add(pool.get(i));
+            }
+        }
+        JSONObject choiceMap = new JSONObject(true);
+        JSONObject additional = new JSONObject(true);
+        for (int i = 0; i < picked.size(); i++) {
+            String cid = picked.get(i);
+            choiceMap.put(cid, 1);
+            JSONObject extra = new JSONObject(true);
+            extra.put("rewards", new JSONArray());
+            extra.put("costs", new JSONArray());
+            additional.put(cid, extra);
+        }
+        JSONObject scene = new JSONObject(true);
+        scene.put("id", sceneId);
+        scene.put("choices", choiceMap);
+        scene.put("choiceAdditional", additional);
+        JSONObject content = new JSONObject(true);
+        content.put("scene", scene);
+        JSONObject pend = new JSONObject(true);
+        pend.put("index", "e_40");
+        pend.put("type", "SCENE");
+        pend.put("content", content);
+        JSONArray arr = new JSONArray();
+        arr.add(pend);
+        return arr;
+    }
+
     @PostMapping(value = {"/confirmPredict"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject confirmPredict(@RequestHeader(value = "secret", required = false) String secret,
                                      @RequestBody(required = false) JSONObject body,
@@ -4061,9 +4796,6 @@ public class rlv2 {
         return result;
     }
 
-    /**
-     * 远征选项：{"choice":"N","leave":0} → leave=0 时发一件随机收藏品并关闭 EXPEDITION 待办。
-     */
     @PostMapping(value = {"/expeditionChoice"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject expeditionChoice(@RequestHeader(value = "secret", required = false) String secret,
                                        @RequestBody(required = false) JSONObject body,
@@ -4106,11 +4838,6 @@ public class rlv2 {
 
     // ─────────────────── 商店刷新 / 碎片装载 / 丢失碎片 / 放弃（官服 B服 抓包）───────────────────
 
-    /**
-     * 刷新商店：{} → 整批换新商品。
-     * 消耗按 gameConst.shopRefreshCostId（rogue_5 = rogue_5_divinationkit 占卜签，
-     * rogue_6 = rogue_6_gold 源石锭；rogue_4 无该字段 → 免费）。
-     */
     @PostMapping(value = {"/refreshShop"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject refreshShop(@RequestHeader(value = "secret", required = false) String secret,
                                   @RequestBody(required = false) JSONObject body,
@@ -4157,6 +4884,7 @@ public class rlv2 {
         if (shop.getJSONObject("bank") != null) {
             shop.getJSONObject("bank").put("withdraw", 0);
         }
+        pushDiceIfNeeded(cur, theme, player(cur));
         ArknightsApplication.LOGGER.info("[/" + ArknightsApplication.getIpAddr(request) + "] /rlv2/refreshShop theme={}", theme);
         userDao.setUserData(account.getUid(), userData);
         com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
@@ -4165,10 +4893,6 @@ public class rlv2 {
         return out;
     }
 
-    /**
-     * 装载构想碎片：{"troopCarry":["6","7","8"]} → 指定碎片 used=true，ei 按顺序 0..n，
-     * 重算 totalWeight / overWeight（官服 B服 抓包 2026-11-04 rogue_4）。
-     */
     @PostMapping(value = {"/setTroopCarry"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject setTroopCarry(@RequestHeader(value = "secret", required = false) String secret,
                                     @RequestBody(required = false) JSONObject body,
@@ -4233,7 +4957,6 @@ public class rlv2 {
         return delta(cur);
     }
 
-    /** 丢失构想碎片：{"fragmentIndex":"f_7"} → 从 fragments 删除 */
     @PostMapping(value = {"/loseFragment"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject loseFragment(@RequestHeader(value = "secret", required = false) String secret,
                                    @RequestBody(required = false) JSONObject body,
@@ -4263,16 +4986,167 @@ public class rlv2 {
         return delta(cur);
     }
 
+    @PostMapping(value = {"/setPinned"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject setPinned(@RequestHeader(value = "secret", required = false) String secret,
+                               @RequestBody(required = false) JSONObject body,
+                               HttpServletRequest request, HttpServletResponse response) {
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            return bad("无法查询到此账户", 2);
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        Rlv2Helper.ensure(userData);
+        JSONObject rl = userData.getJSONObject("rlv2");
+        String id = body == null ? null : body.getString("id");
+        if (id == null || id.isEmpty()) {
+            rl.put("pinned", null);
+        } else {
+            rl.put("pinned", id);
+        }
+        userDao.setUserData(account.getUid(), userData);
+        ArknightsApplication.LOGGER.info("[/" + ArknightsApplication.getIpAddr(request) + "] /rlv2/setPinned id=" + id);
+        JSONObject modified = new JSONObject(true);
+        JSONObject rlv2Delta = new JSONObject(true);
+        // 官服：current 的每个字段都下发 null（表示局内无变化）
+        JSONObject current = new JSONObject(true);
+        for (String k : new String[]{"player", "map", "troop", "inventory", "game", "buff", "record", "module"}) {
+            current.put(k, null);
+        }
+        rlv2Delta.put("current", current);
+        rlv2Delta.put("outer", rl.getJSONObject("outer"));
+        rlv2Delta.put("pinned", rl.get("pinned"));
+        modified.put("rlv2", rlv2Delta);
+        JSONObject pdd = new JSONObject(true);
+        pdd.put("modified", modified);
+        pdd.put("deleted", new JSONObject(true));
+        JSONObject out = new JSONObject(true);
+        out.put("playerDataDelta", pdd);
+        return out;
+    }
+
+    // ─────────────────── 地区委托（nodeMission，官服 2026-11-04 抓包）───────────────────
+
+    @PostMapping(value = {"/nodeMission/closeTip"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject nodeMissionCloseTip(@RequestHeader(value = "secret", required = false) String secret,
+                                          @RequestBody(required = false) JSONObject body,
+                                          HttpServletRequest request, HttpServletResponse response) {
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            return bad("无法查询到此账户", 2);
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        Rlv2Helper.ensure(userData);
+        JSONObject cur = userData.getJSONObject("rlv2").getJSONObject("current");
+        JSONObject player = cur.getJSONObject("player");
+        player.put("pending", new JSONArray());
+        player.put("state", "WAIT_MOVE");
+        userDao.setUserData(account.getUid(), userData);
+        com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
+        return delta(cur);
+    }
+
+    @PostMapping(value = {"/nodeMission/confirm"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject nodeMissionConfirm(@RequestHeader(value = "secret", required = false) String secret,
+                                         @RequestBody(required = false) JSONObject body,
+                                         HttpServletRequest request, HttpServletResponse response) {
+        List<Account> accounts = userDao.queryAccountBySecret(secret);
+        if (accounts.size() != 1) {
+            return bad("无法查询到此账户", 2);
+        }
+        Account account = accounts.get(0);
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        Rlv2Helper.ensure(userData);
+        JSONObject cur = userData.getJSONObject("rlv2").getJSONObject("current");
+        String theme = cur.getJSONObject("game").getString("theme");
+        JSONObject player = cur.getJSONObject("player");
+        int tier = 1;
+        JSONObject rec = cur.getJSONObject("record");
+        if (rec != null && rec.containsKey("pendingTaskTier")) {
+            tier = Math.max(1, Math.min(3, rec.getIntValue("pendingTaskTier")));
+        }
+        JSONArray scene = buildTaskRewardPending(cur, theme, tier);
+        if (scene != null) {
+            player.put("pending", scene);
+            player.put("state", "PENDING");
+        } else {
+            player.put("pending", new JSONArray());
+            player.put("state", "WAIT_MOVE");
+        }
+        // 记录完成的委托（官服 record.nodeMission = {"rogue_2_task_016": 2}）
+        if (rec != null) {
+            JSONObject nm = rec.getJSONObject("nodeMission");
+            if (nm == null) {
+                nm = new JSONObject(true);
+                rec.put("nodeMission", nm);
+            }
+            String taskId = rec.getString("pendingTaskId");
+            if (taskId != null) {
+                nm.put(taskId, nm.getIntValue(taskId) + 1);
+                rec.remove("pendingTaskId");
+            }
+        }
+        userDao.setUserData(account.getUid(), userData);
+        com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
+        return delta(cur);
+    }
+
+    /** 委托奖励三选一：scene_ro{N}_taskreward<tier>_enter + 随机 3 个 taskrewardN_* 选项 */
+    private static JSONArray buildTaskRewardPending(JSONObject cur, String theme, int tier) {
+        JSONObject details = themeDetails(theme);
+        JSONObject scenes = details == null ? null : details.getJSONObject("choiceScenes");
+        JSONObject choices = details == null ? null : details.getJSONObject("choices");
+        if (scenes == null || choices == null) {
+            return null;
+        }
+        String themeNum = theme.substring(theme.length() - 1);
+        String sceneId = "scene_ro" + themeNum + "_taskreward" + tier + "_enter";
+        if (!scenes.containsKey(sceneId)) {
+            for (String id : scenes.keySet()) {
+                if (id.contains("taskreward") && id.endsWith("_enter")) {
+                    sceneId = id;
+                    break;
+                }
+            }
+        }
+        String prefix = "choice_ro" + themeNum + "_taskreward" + tier + "_";
+        java.util.List<String> pool = new java.util.ArrayList<>();
+        for (String cid : choices.keySet()) {
+            if (cid.startsWith(prefix)) {
+                pool.add(cid);
+            }
+        }
+        java.util.Collections.shuffle(pool, RANDOM);
+        JSONObject choiceMap = new JSONObject(true);
+        JSONObject additional = new JSONObject(true);
+        int n = Math.min(3, pool.size());
+        for (int i = 0; i < n; i++) {
+            String cid = pool.get(i);
+            choiceMap.put(cid, 1);
+            JSONObject extra = new JSONObject(true);
+            extra.put("rewards", new JSONArray());
+            extra.put("costs", new JSONArray());
+            additional.put(cid, extra);
+        }
+        JSONObject scene = new JSONObject(true);
+        scene.put("id", sceneId);
+        scene.put("choices", choiceMap);
+        scene.put("choiceAdditional", additional);
+        scene.put("independent", true);
+        JSONObject content = new JSONObject(true);
+        content.put("scene", scene);
+        JSONObject pend = new JSONObject(true);
+        pend.put("index", "e_" + (60 + tier));
+        pend.put("type", "SCENE");
+        pend.put("content", content);
+        JSONArray arr = new JSONArray();
+        arr.add(pend);
+        return arr;
+    }
+
     // ─────────────────── 节点重掷（rerollNode，仅 rogue_4 开放）───────────────────
 
-    /**
-     * 重掷节点。官服 B服 抓包（2026-11-04 rogue_4）：
-     *   请求 {"nodeIndex":"0"}，响应只带 rlv2（nodes 全量替换，pending/state 不变）；
-     *   消耗 gameConst.refreshNodeItemId（rogue_4 = rogue_4_fragment_I_1 构想碎片，
-     *   rogue_1/2/3 无该字段、rogue_5/6 为空串 → 不开放）。
-     * 新类型：保持本层节点类型分布（按出现频次加权），排除
-     *   ① 自身当前类型（重掷必须换）② onceNodeTypeList（PORTAL/MISSION 等一次性节点）。
-     */
     @PostMapping(value = {"/rerollNode"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject rerollNode(@RequestHeader(value = "secret", required = false) String secret,
                                  @RequestBody(required = false) JSONObject body,
@@ -4358,7 +5232,6 @@ public class rlv2 {
         return out;
     }
 
-    /** 类型位 → 类型名 */
     private static String nodeTypeName(String theme, int type) {
         java.util.List<String> names = com.hypergryph.arknights.core.function.RogueMapGen.nodeTypeNames(theme);
         for (int i = 0; i < names.size(); i++) {
@@ -4369,11 +5242,6 @@ public class rlv2 {
         return null;
     }
 
-    /**
-     * 初始化 rogue_4 的构想系统：module.fragment =
-     * {totalWeight, limitWeight, overWeight, fragments, troopWeights, troopCarry, currInspiration}
-     * 开局发 3 枚 refreshNodeItemId 碎片（rogue_4_fragment_I_1）。
-     */
     private static void seedFragmentModule(JSONObject cur, String theme) {
         if (!"rogue_4".equals(theme)) {
             return;
@@ -4450,12 +5318,6 @@ public class rlv2 {
 
     // ───────────────────────── 跨局银行（bankPut / bankWithdraw）─────────────────────────
 
-    /**
-     * 存钱进「前瞻性投资系统」。
-     * 官服实测（B服 2026-11-04）：请求体为空 {}，一次移动 bank.cost(=1) 枚源石锭；
-     * bank.current 增加，gold 减少；bankMaxGold(gameConst, 默认 999) 为上限。
-     * 本轮存入总额记在 bank.totalPut（用于 bankRewards 里程碑结算）。
-     */
     @PostMapping(value = {"/bankPut"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject bankPut(@RequestHeader(value = "secret", required = false) String secret,
                               @RequestBody(required = false) JSONObject body,
@@ -4463,7 +5325,6 @@ public class rlv2 {
         return bankMove(secret, true);
     }
 
-    /** 从银行取钱：一次取 bank.cost 枚，受 bank.withdrawLimit 限制（rogue_6 = 12）。 */
     @PostMapping(value = {"/bankWithdraw"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject bankWithdraw(@RequestHeader(value = "secret", required = false) String secret,
                                    @RequestBody(required = false) JSONObject body,
@@ -4548,8 +5409,6 @@ public class rlv2 {
         com.hypergryph.arknights.core.dao.RogueRunDao.save(account.getUid(), cur);
         return delta(cur);
     }
-
-    /** 从 pending 里找正在进行的商店 */
 
     @PostMapping(value = {"/giveUpGame"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject giveUpGame(@RequestHeader(value = "secret", required = false) String secret,
@@ -4750,7 +5609,14 @@ public class rlv2 {
             // buff.score 累加本局得分；pointOwned 按主题规则换算（rogue_1 用 bp/10，其余 score/200）
             scoreFrom = buff.getIntValue("score");
             bonusForHistory = relicBonus;
-            buff.put("score", scoreFrom + score);
+            // 探索分数有主题上限（官服 B服 2026-11-04 实测：rogue_2 停在 22400，
+            // 且 pointOwned = 22400/200 = 112，正好对应 gpScoreRatio=200）
+            int scoreCap = rlv2ScoreCap(theme == null ? "" : theme);
+            int scoreNext = scoreFrom + score;
+            if (scoreCap > 0 && scoreNext > scoreCap) {
+                scoreNext = scoreCap;
+            }
+            buff.put("score", scoreNext);
             scoreTo = buff.getIntValue("score");
             buff.put("pointOwned", computePointOwned(theme == null ? "" : theme, bpTo, buff.getIntValue("score")));
 
