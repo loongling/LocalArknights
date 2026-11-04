@@ -53,6 +53,7 @@ public class ArknightsApplication {
     public static JSONObject monthlyPass;
     public static JSONObject DefaultSyncData;
     public static JSONObject characterJson;
+    public static JSONObject roguelikeTopicTable;
     public static JSONObject roguelikeTable;
     public static JSONObject stageTable;
     public static JSONObject itemTable;
@@ -347,6 +348,39 @@ public class ArknightsApplication {
     }
     */
 
+    /**
+     * 宽松读取 JSON：官方 topic 表里有「对象缺开头花括号」的写法（fastjson 老式宽松输出），
+     * fastjson2 直接解析会抛异常，这里补上缺失的 { 后重试。
+     */
+    public static JSONObject readJsonLenient(String path) {
+        try {
+            return IOTools.ReadJsonFile(path);
+        } catch (Exception first) {
+            try {
+                String text = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(path)),
+                        java.nio.charset.StandardCharsets.UTF_8);
+                java.util.regex.Pattern p = java.util.regex.Pattern.compile(
+                        "((?:\"(?:[^\"\\\\]|\\\\.)*\")\\s*:\\s*)(?=(?:\"(?:[^\"\\\\]|\\\\.)*\")\\s*:)");
+                java.util.regex.Matcher m = p.matcher(text);
+                StringBuilder sb = new StringBuilder();
+                int fixed = 0;
+                int last = 0;
+                while (m.find()) {
+                    sb.append(text, last, m.start());
+                    sb.append(m.group(1)).append('{');
+                    last = m.end();
+                    fixed++;
+                }
+                sb.append(text.substring(last));
+                LOGGER.warn("[宽松解析] {} 补了 {} 个花括号（{}）", path, fixed, first.toString());
+                return JSONObject.parseObject(sb.toString(), com.alibaba.fastjson.parser.Feature.OrderedField);
+            } catch (Exception second) {
+                LOGGER.error("[宽松解析] {} 彻底失败：{}", path, second.toString());
+                return new JSONObject();
+            }
+        }
+    }
+
     public static void reloadServerConfig() {
         long startTime = System.currentTimeMillis();
         LOGGER.info("载入服务器配置...");
@@ -360,7 +394,12 @@ public class ArknightsApplication {
         DefaultSyncData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/defaultSyncData.json");
         characterJson = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/character_table.json");
         storyTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/story_table.json");
-        roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
+        // topic 表是 fastjson 老式宽松格式（部分对象缺开头花括号），走宽松读取
+        roguelikeTopicTable = readJsonLenient(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
+        roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_table.json");
+        LOGGER.info("roguelike_topic_table 主题数：" + (roguelikeTopicTable.getJSONObject("details") == null ? 0
+                : roguelikeTopicTable.getJSONObject("details").size())
+                + "，roguelike_table 键数：" + (roguelikeTable == null ? 0 : roguelikeTable.size()));
         stageTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/stage_table.json").getJSONObject("stages");
         itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json").getJSONObject("items");
         mainStage = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/stage.json").getJSONObject("MainStage");
@@ -409,6 +448,7 @@ public class ArknightsApplication {
         monthlyPass = new JSONObject();
         openServer = new JSONObject();
         characterJson = new JSONObject();
+        roguelikeTopicTable = new JSONObject();
         roguelikeTable = new JSONObject();
         stageTable = new JSONObject();
         itemTable = new JSONObject();

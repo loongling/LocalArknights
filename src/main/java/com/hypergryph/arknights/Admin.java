@@ -151,6 +151,74 @@ public class Admin {
 
     }
 
+    /** 集成战略：按点分路径读取已加载的 roguelike_topic_table（调试用） */
+    @RequestMapping({"/rogue/table"})
+    public JSONObject rogueTable(@RequestHeader("GMKey") String GMKey, @RequestParam String path,
+                                 @RequestParam(defaultValue = "3000") int maxLen) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            return result;
+        }
+        Object cur = ArknightsApplication.roguelikeTopicTable;
+        java.util.List<String> missing = new java.util.ArrayList<>();
+        if (cur != null) {
+            for (String seg : path.split("\\.")) {
+                if (seg.isEmpty()) {
+                    continue;
+                }
+                if (!(cur instanceof JSONObject)) {
+                    missing.add(seg);
+                    cur = null;
+                    break;
+                }
+                Object next = ((JSONObject) cur).get(seg);
+                if (next == null) {
+                    missing.add(seg);
+                    cur = null;
+                    break;
+                }
+                cur = next;
+            }
+        }
+        result.put("code", 200);
+        result.put("found", cur != null);
+        result.put("missing", missing);
+        if (cur != null) {
+            String text = com.alibaba.fastjson.JSON.toJSONString(cur);
+            result.put("length", text.length());
+            result.put("value", text.length() > maxLen ? text.substring(0, maxLen) : text);
+        }
+        return result;
+    }
+
+    /** 集成战略：查询某账号当前一局（roguelike_run 表） */
+    @RequestMapping({"/rogue/run"})
+    public JSONObject rogueRun(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            return result;
+        }
+        JSONObject run = com.hypergryph.arknights.core.dao.RogueRunDao.load(uid);
+        result.put("code", 200);
+        result.put("run", run);
+        return result;
+    }
+
+    /** 集成战略：按 seed 查询历史对局 */
+    @RequestMapping({"/rogue/seed"})
+    public JSONObject rogueSeed(@RequestHeader("GMKey") String GMKey, @RequestParam String seed) {
+        JSONObject result = new JSONObject(true);
+        if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {
+            result.put("code", 401);
+            return result;
+        }
+        result.put("code", 200);
+        result.put("runs", com.hypergryph.arknights.core.dao.RogueRunDao.findBySeed(seed));
+        return result;
+    }
+
     @RequestMapping({"/send/character"})
     public JSONObject character(@RequestHeader("GMKey") String GMKey, @RequestParam Long uid, @RequestParam String charId) {
         if (!ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey").equals(GMKey)) {

@@ -37,7 +37,11 @@
     "debug": true
   },
   "campaign": {
-    "permanent": ["camp_01", "camp_02", "camp_03"],
+    "permanent": [
+      "camp_01",
+      "camp_02",
+      "camp_03"
+    ],
     "rotate": "camp_r_34",
     "rGroup": "group_r_34",
     "tGroup": "group_tr_75",
@@ -48,6 +52,9 @@
   },
   "building": {
     "tradingOrderBaseSeconds": 3600
+  },
+  "rogue": {
+    "choiceChanceSuccess": 0.5
   },
   "version": {
     "Android": {
@@ -154,5 +161,12 @@
         }
       }
     }
+  },
+  "dsh": {
+    "host": "10.60.116.201",
+    "port": 3306,
+    "dbname": "DSH",
+    "user": "account",
+    "password": "lG00YkjVP8CBTNTLrWGTsy1x"
   }
 }
