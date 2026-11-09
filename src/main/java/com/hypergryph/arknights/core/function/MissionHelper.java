@@ -1266,8 +1266,13 @@ public final class MissionHelper {
         return point;
     }
 
+    /** 服务器固定用 Asia/Shanghai 判断 04:00 边界，避免 JVM 时区是 UTC 时错位 8 小时 */
+    private static java.util.Calendar shanghaiCalendar() {
+        return java.util.Calendar.getInstance(java.util.TimeZone.getTimeZone("Asia/Shanghai"));
+    }
+
     public static long todayResetTs() {
-        java.util.Calendar c = java.util.Calendar.getInstance();
+        java.util.Calendar c = shanghaiCalendar();
         c.set(java.util.Calendar.HOUR_OF_DAY, 4);
         c.set(java.util.Calendar.MINUTE, 0);
         c.set(java.util.Calendar.SECOND, 0);
@@ -1282,7 +1287,7 @@ public final class MissionHelper {
 
     public static long weekResetTs() {
         long day = todayResetTs();
-        java.util.Calendar c = java.util.Calendar.getInstance();
+        java.util.Calendar c = shanghaiCalendar();
         c.setTimeInMillis(day * 1000L);
         int dow = c.get(java.util.Calendar.DAY_OF_WEEK);   // 周日=1 … 周六=7
         int back = (dow == java.util.Calendar.SUNDAY) ? 6 : dow - java.util.Calendar.MONDAY;

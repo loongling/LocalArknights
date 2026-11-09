@@ -54,7 +54,13 @@
     "tradingOrderBaseSeconds": 3600
   },
   "rogue": {
-    "choiceChanceSuccess": 0.5
+    "choiceChanceSuccess": 0.5,
+    "ignoreShopBossKill": false,
+    "enableAllChar": false,
+    "freeVehicle": true,
+    "grantVehicle": {
+      "rogue_6": "rogue_6_scrap_M_08"
+    }
   },
   "version": {
     "Android": {

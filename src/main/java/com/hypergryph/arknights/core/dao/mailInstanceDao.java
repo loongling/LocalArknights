@@ -314,7 +314,7 @@ public class mailInstanceDao {
     }
 
     private static String toJsonString(Object value) {
-        return value == null ? null : JSON.toJSONString(value);
+        return value == null ? null : JSON.toJSONString(value, new com.alibaba.fastjson.serializer.SerializerFeature[]{com.alibaba.fastjson.serializer.SerializerFeature.DisableCircularReferenceDetect});
     }
 
     private static JSONObject parseObject(String raw) {

@@ -152,6 +152,49 @@ public class Admin {
     }
 
     /** 集成战略：按点分路径读取已加载的 roguelike_topic_table（调试用） */
+    /**
+     * 热重载全部 JSON：config.json + data/excel/* + data/shop/* + data/battle/* + 券池
+     * 用法：POST /admin/reload   Header: GMKey: <config.server.GMKey>
+     * 不重启进程即可让改动后的表生效。
+     */
+    @RequestMapping({"/reload"})
+    public JSONObject reload(@RequestHeader(value = "GMKey", required = false) String GMKey) {
+        JSONObject result = new JSONObject(true);
+        String expect = ArknightsApplication.serverConfig.getJSONObject("server").getString("GMKey");
+        if (expect == null || !expect.equals(GMKey)) {
+            result.put("result", 1);
+            result.put("error", "GMKey 不正确");
+            return result;
+        }
+        try {
+            ArknightsApplication.reloadServerConfig();
+            result.put("result", 0);
+            result.put("costMs", ArknightsApplication.lastReloadMs);
+            result.put("ts", ArknightsApplication.lastReloadTs);
+            JSONObject counts = new JSONObject(true);
+            counts.put("character", ArknightsApplication.characterJson == null ? 0 : ArknightsApplication.characterJson.size());
+            counts.put("item", ArknightsApplication.itemTable == null ? 0 : ArknightsApplication.itemTable.size());
+            counts.put("stage", ArknightsApplication.stageTable == null ? 0 : ArknightsApplication.stageTable.size());
+            counts.put("skin", ArknightsApplication.skinTable == null ? 0 : ArknightsApplication.skinTable.size());
+            counts.put("allProduct", ArknightsApplication.AllProductList == null ? 0
+                    : ArknightsApplication.AllProductList.getJSONArray("productList") == null ? 0
+                    : ArknightsApplication.AllProductList.getJSONArray("productList").size());
+            counts.put("skinGood", ArknightsApplication.skinGoodList == null ? 0
+                    : ArknightsApplication.skinGoodList.getJSONArray("goodList") == null ? 0
+                    : ArknightsApplication.skinGoodList.getJSONArray("goodList").size());
+            counts.put("cashGood", ArknightsApplication.CashGoodList == null ? 0 : ArknightsApplication.CashGoodList.size());
+            counts.put("furniGood", ArknightsApplication.FurniGoodList == null ? 0
+                    : ArknightsApplication.FurniGoodList.getJSONArray("goods") == null ? 0
+                    : ArknightsApplication.FurniGoodList.getJSONArray("goods").size());
+            counts.put("voucher", com.hypergryph.arknights.core.voucher.VoucherTable.size());
+            result.put("counts", counts);
+        } catch (Exception e) {
+            result.put("result", 2);
+            result.put("error", e.toString());
+        }
+        return result;
+    }
+
     @RequestMapping({"/rogue/table"})
     public JSONObject rogueTable(@RequestHeader("GMKey") String GMKey, @RequestParam String path,
                                  @RequestParam(defaultValue = "3000") int maxLen) {

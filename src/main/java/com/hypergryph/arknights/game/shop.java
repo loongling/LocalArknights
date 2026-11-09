@@ -390,6 +390,18 @@ public class shop {
     }
 
     @PostMapping(
+            value = {"/buyClassicGood"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject buyClassicGood(@RequestHeader(value = "secret", required = false) String secret,
+            @RequestBody JSONObject JsonBody,
+            HttpServletResponse response, HttpServletRequest request) {
+        ArknightsApplication.LOGGER.info("[" + ArknightsApplication.getIpAddr(request) + "] /shop/buyClassicGood");
+        return buyShardGood(secret, JsonBody, response,
+                ArknightsApplication.ClassicGoodList.getJSONArray("goodList"), "classicShard", false, "CLASSIC");
+    }
+
+    @PostMapping(
             value = {"/buyExtraGood"},
             produces = {"application/json;charset=UTF-8"}
     )
@@ -728,8 +740,10 @@ public class shop {
         JSONArray info = new JSONArray();
         JSONObject charPurchase = new JSONObject(true);
         if (socialShop != null) {
+            // costSocialPoint 是「累计」消费（决定信用等级 1→2、干员解锁），跨天不清；
+            // 只有当天货架（info）才随 curShopId 一起刷新
+            spent = socialShop.getIntValue("costSocialPoint");
             if (shopId.equals(socialShop.getString("curShopId"))) {
-                spent = socialShop.getIntValue("costSocialPoint");
                 JSONArray old = socialShop.getJSONArray("info");
                 if (old != null) {
                     info = old;
@@ -847,6 +861,13 @@ public class shop {
 
     private JSONObject buyShardGood(String secret, JSONObject JsonBody, HttpServletResponse response,
                                     JSONArray goodList, String currencyField, boolean currencyInInventory) {
+        return buyShardGood(secret, JsonBody, response, goodList, currencyField, currencyInInventory,
+                "lggShard".equals(currencyField) ? "LS" : "HS");
+    }
+
+    private JSONObject buyShardGood(String secret, JSONObject JsonBody, HttpServletResponse response,
+                                    JSONArray goodList, String currencyField, boolean currencyInInventory,
+                                    String shopKey) {
         if (!ArknightsApplication.enableServer) {
             response.setStatus(400);
             JSONObject closed = new JSONObject(true);
@@ -889,6 +910,10 @@ public class shop {
         if (good == null) {
             return badRequest(response, "good not found: " + goodId);
         }
+        // 进度商品（goodType=PROGRESS）：item/price 都是 null，奖励来自 progressGoodList 的当前档位
+        if ("PROGRESS".equals(good.getString("goodType"))) {
+            return buyProgressGood(account, good, count, shopKey, currencyField, currencyInInventory, response);
+        }
         JSONObject itemDef = good.getJSONObject("item");
         if (itemDef == null) {
             return badRequest(response, "good has no item: " + goodId);
@@ -897,8 +922,7 @@ public class shop {
         int price = good.getIntValue("price") * count;
         JSONObject userData = JSONObject.parseObject(account.getUser());
 
-        String[] shopPath = currencyInInventory ? new String[]{"ES"}
-                : ("lggShard".equals(currencyField) ? new String[]{"LS"} : new String[]{"HS"});
+        String[] shopPath = new String[]{shopKey};
         String soldOut = checkAvailCount(good, userData, shopPath, goodId, count);
         if (soldOut != null) {
             return badRequest(response, soldOut);
@@ -906,6 +930,8 @@ public class shop {
 
         JSONObject status = userData.getJSONObject("status");
         JSONObject inventory = userData.getJSONObject("inventory");
+        JSONObject statusSnap = JSONObject.parseObject(status.toJSONString());
+        JSONObject inventorySnap = JSONObject.parseObject(inventory.toJSONString());
 
         int balance = currencyInInventory ? inventory.getIntValue(currencyField)
                 : status.getIntValue(currencyField);
@@ -953,6 +979,20 @@ public class shop {
         com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "BuyShopItem", 1);
         userDao.setUserData(account.getUid(), userData);
 
+        // 只回真正变化的字段（之前会把整个 status/inventory 塞回去，几十 KB）
+        JSONObject slimStatus = diffChanged(statusSnap, userData.getJSONObject("status"));
+        if (slimStatus.isEmpty()) {
+            modified.remove("status");
+        } else {
+            modified.put("status", slimStatus);
+        }
+        JSONObject slimInv = diffChanged(inventorySnap, userData.getJSONObject("inventory"));
+        if (slimInv.isEmpty()) {
+            modified.remove("inventory");
+        } else if (modified.getJSONObject("inventory") != null) {
+            modified.put("inventory", slimInv);
+        }
+
         JSONObject playerDataDelta = new JSONObject(true);
         playerDataDelta.put("modified", modified);
         playerDataDelta.put("deleted", new JSONObject(true));
@@ -964,6 +1004,222 @@ public class shop {
         ArknightsApplication.LOGGER.info("[shop] uid={} 购买 {} x{} 花费 {}{}，modified={}",
                 account.getUid(), goodId, count, price, currencyField, modified.toJSONString());
         return result;
+    }
+
+    /**
+     * 进度商品购买（高级凭证店 HS_3091 / 采购凭证店同构）
+     * 官方抓包 032_06/032_08：每买一次推进一档
+     *   user.shop.HS.progressInfo[progressGoodId] = {count, order}
+     *   花掉 levels[order-1].price，发 levels[order-1].item，order += 1
+     */
+    private JSONObject buyProgressGood(Account account, JSONObject good, int count,
+            String shopKey, String currencyField, boolean currencyInInventory,
+            HttpServletResponse response) {
+        String progressId = good.getString("progressGoodId");
+        if (progressId == null) {
+            return badRequest(response, "progress good has no progressGoodId: " + good.getString("goodId"));
+        }
+        if (count != 1) {
+            return badRequest(response, "进度商品一次只能买 1 个");
+        }
+        JSONObject table;
+        if ("CLASSIC".equals(shopKey)) {
+            table = ArknightsApplication.ClassicGoodList;
+        } else if ("ES".equals(shopKey)) {
+            table = ArknightsApplication.ExtraGoodList;
+        } else {
+            table = ArknightsApplication.HighGoodList;
+        }
+        JSONObject chains = table == null ? null : table.getJSONObject("progressGoodList");
+        JSONArray levels = chains == null ? null : chains.getJSONArray(progressId);
+        if (levels == null || levels.isEmpty()) {
+            return badRequest(response, "progressGoodList 里没有: " + progressId);
+        }
+
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject shopNode = userData.getJSONObject("shop");
+        if (shopNode == null) {
+            shopNode = new JSONObject(true);
+            userData.put("shop", shopNode);
+        }
+        JSONObject shopState = shopNode.getJSONObject(shopKey);
+        if (shopState == null) {
+            shopState = new JSONObject(true);
+            shopState.put("curShopId", "");
+            shopState.put("info", new JSONArray());
+            shopState.put("progressInfo", new JSONObject(true));
+            shopNode.put(shopKey, shopState);
+        }
+        JSONObject progressInfo = shopState.getJSONObject("progressInfo");
+        if (progressInfo == null) {
+            progressInfo = new JSONObject(true);
+            shopState.put("progressInfo", progressInfo);
+        }
+        JSONObject node = progressInfo.getJSONObject(progressId);
+        if (node == null) {
+            node = new JSONObject(true);
+            node.put("count", 0);
+            node.put("order", 1);
+            progressInfo.put(progressId, node);
+        }
+        int order = node.getIntValue("order");
+        if (order < 1) {
+            order = 1;
+        }
+        if (order > levels.size()) {
+            return badRequest(response, "该进度奖励已买完（" + progressId + " 共 " + levels.size() + " 档）");
+        }
+
+        JSONObject level = levels.getJSONObject(order - 1);
+        int price = level.getIntValue("price");
+        JSONObject itemDef = level.getJSONObject("item");
+        if (itemDef == null) {
+            return badRequest(response, "该档位没有物品: " + progressId + "#" + order);
+        }
+
+        JSONObject status = userData.getJSONObject("status");
+        JSONObject inventory = userData.getJSONObject("inventory");
+        int balance = currencyInInventory ? inventory.getIntValue(currencyField)
+                : status.getIntValue(currencyField);
+        if (balance < price) {
+            return badRequest(response, "not enough " + currencyField + ": need " + price + ", have " + balance);
+        }
+
+        JSONObject modified = new JSONObject(true);
+        JSONObject currencyDelta = new JSONObject(true);
+        currencyDelta.put(currencyField, balance - price);
+        if (currencyInInventory) {
+            inventory.put(currencyField, balance - price);
+            mergeNode(modified, "inventory", currencyDelta);
+        } else {
+            status.put(currencyField, balance - price);
+            mergeNode(modified, "status", currencyDelta);
+        }
+
+        JSONObject grant = new JSONObject(true);
+        grant.put("id", itemDef.getString("id"));
+        grant.put("type", itemDef.getString("type"));
+        grant.put("count", itemDef.getIntValue("count"));
+        JSONArray items = new JSONArray();
+        if ("CHAR".equals(grant.getString("type"))) {
+            java.util.Map<String, String> before = snapshotUserNodes(userData);
+            userData = handleUserDataChange(grant, userData, account.getUid(), 0, items);
+            mergeShopCharGrant(modified, before, userData);
+        } else {
+            // 只走 handleUserDataChange（handleModifiedBuild 也会改 userData，两个都调会发双份）
+            userData = handleUserDataChange(grant, userData, account.getUid(), 0);
+            items.add(grant);
+        }
+
+        node.put("order", order + 1);
+        node.put("count", node.getIntValue("count") + 1);
+        // 货币变化后 status 里的值可能又被 grant 改过，重新取一遍
+        JSONObject statusDelta = modified.getJSONObject("status");
+        if (statusDelta == null) {
+            statusDelta = new JSONObject(true);
+            modified.put("status", statusDelta);
+        }
+        statusDelta.put(currencyField, userData.getJSONObject("status").getIntValue(currencyField));
+        statusDelta.put("gachaTicket", userData.getJSONObject("status").getIntValue("gachaTicket"));
+        statusDelta.put("tenGachaTicket", userData.getJSONObject("status").getIntValue("tenGachaTicket"));
+
+        JSONObject shopDelta = new JSONObject(true);
+        JSONObject one = new JSONObject(true);
+        one.put("curShopId", shopState.getString("curShopId"));
+        one.put("info", shopState.getJSONArray("info"));
+        one.put("progressInfo", progressInfo);
+        shopDelta.put(shopKey, one);
+        modified.put("shop", shopDelta);
+
+        // 注意：官服 tshop 里只有模板商店（shop_actXXX），凭证店(HS/LS/CLASSIC/ES)不进 tshop
+
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "BuyShopItem", 1);
+        userDao.setUserData(account.getUid(), userData);
+
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+        JSONObject result = new JSONObject(true);
+        result.put("playerDataDelta", playerDataDelta);
+        result.put("items", items);
+        result.put("result", 0);
+        ArknightsApplication.LOGGER.info("[shop] uid={} 买进度商品 {} 第 {} 档，花费 {}{}，下一档 {}",
+                account.getUid(), good.getString("goodId"), order, price, currencyField, order + 1);
+        return result;
+    }
+
+    /** 发干员时把 troop/dexNav/building 变化并进 modified（简化版） */
+    private static void mergeShopCharGrant(JSONObject modified, Map<String, String> before, JSONObject userData) {
+        JSONObject troop = userData.getJSONObject("troop");
+        JSONObject chars = troop == null ? null : troop.getJSONObject("chars");
+        if (chars != null) {
+            JSONObject modChars = new JSONObject(true);
+            for (String k : chars.keySet()) {
+                if (!before.containsKey("troop." + k)) {
+                    modChars.put(k, chars.getJSONObject(k));
+                }
+            }
+            if (!modChars.isEmpty()) {
+                JSONObject t = new JSONObject(true);
+                t.put("chars", modChars);
+                modified.put("troop", t);
+            }
+        }
+        JSONObject dex = userData.getJSONObject("dexNav");
+        JSONObject dexChars = dex == null ? null : dex.getJSONObject("character");
+        if (dexChars != null) {
+            JSONObject modDex = new JSONObject(true);
+            for (String k : dexChars.keySet()) {
+                if (!before.containsKey("dexNav." + k)) {
+                    modDex.put(k, dexChars.getJSONObject(k));
+                }
+            }
+            if (!modDex.isEmpty()) {
+                JSONObject d = new JSONObject(true);
+                d.put("character", modDex);
+                modified.put("dexNav", d);
+            }
+        }
+    }
+
+    /** user.tshop.<shopKey> = {coin, info:[], progressInfo:{}}（官服格式） */
+    private static JSONObject templateShopRecords(JSONObject userData, String shopKey) {
+        JSONObject tshop = userData.getJSONObject("tshop");
+        if (tshop == null) {
+            tshop = new JSONObject(true);
+            userData.put("tshop", tshop);
+        }
+        JSONObject node = tshop.getJSONObject(shopKey);
+        if (node == null) {
+            node = new JSONObject(true);
+            node.put("coin", 0);
+            node.put("info", new JSONArray());
+            node.put("progressInfo", new JSONObject(true));
+            tshop.put(shopKey, node);
+        }
+        if (node.getJSONArray("info") == null) {
+            node.put("info", new JSONArray());
+        }
+        if (node.getJSONObject("progressInfo") == null) {
+            node.put("progressInfo", new JSONObject(true));
+        }
+        return node;
+    }
+
+    /** 前后快照的差异键（值不同才回） */
+    private static JSONObject diffChanged(JSONObject before, JSONObject after) {
+        JSONObject out = new JSONObject(true);
+        if (after == null) {
+            return out;
+        }
+        for (String k : after.keySet()) {
+            Object a = after.get(k);
+            Object b = before == null ? null : before.get(k);
+            if (b == null || !String.valueOf(a).equals(String.valueOf(b))) {
+                out.put(k, a);
+            }
+        }
+        return out;
     }
 
     private static JSONObject loadUserData(String secret) {
@@ -1026,6 +1282,171 @@ public class shop {
         r.put("info", info);
         r.put("message", "server error");
         return r;
+    }
+
+    @PostMapping(value = {"/buyEPGSGood"}, produces = {"application/json;charset=UTF-8"})
+    public JSONObject buyEPGSGood(@RequestHeader(value = "secret", required = false) String secret,
+            @RequestBody JSONObject JsonBody,
+            HttpServletResponse response, HttpServletRequest request) {
+        ArknightsApplication.LOGGER.info("[" + ArknightsApplication.getIpAddr(request) + "] /shop/buyEPGSGood");
+        if (!ArknightsApplication.enableServer) {
+            response.setStatus(400);
+            JSONObject closed = new JSONObject(true);
+            closed.put("statusCode", 400);
+            closed.put("error", "Bad Request");
+            closed.put("message", "server is close");
+            return closed;
+        }
+        String goodId = JsonBody.getString("goodId");
+        int count = Math.max(1, JsonBody.getIntValue("count"));
+        List<Account> Accounts = userDao.queryAccountBySecret(secret);
+        if (Accounts.size() != 1) {
+            JSONObject result = new JSONObject(true);
+            result.put("result", 2);
+            result.put("error", "无法查询到此账户");
+            return result;
+        }
+        Account account = Accounts.get(0);
+        if (account.getBan() == 1L) {
+            response.setStatus(403);
+            JSONObject banned = new JSONObject(true);
+            banned.put("statusCode", 403);
+            banned.put("error", "Bad Request");
+            banned.put("message", "account banned");
+            return banned;
+        }
+        JSONObject table = ArknightsApplication.EPGSGoodList;
+        JSONArray goodList = table == null ? null : table.getJSONArray("goodList");
+        JSONObject good = null;
+        if (goodList != null && goodId != null) {
+            for (int i = 0; i < goodList.size(); i++) {
+                JSONObject g = goodList.getJSONObject(i);
+                if (g != null && goodId.equals(g.getString("goodId"))) {
+                    good = g;
+                    break;
+                }
+            }
+        }
+        if (good == null) {
+            return badRequest(response, "good not found: " + goodId);
+        }
+        JSONObject itemDef = good.getJSONObject("item");
+        if (itemDef == null) {
+            return badRequest(response, "good has no item: " + goodId);
+        }
+
+        JSONObject userData = JSONObject.parseObject(account.getUser());
+        JSONObject inventory = userData.getJSONObject("inventory");
+        JSONObject shopNode = userData.getJSONObject("shop");
+        if (shopNode == null) {
+            shopNode = new JSONObject(true);
+            userData.put("shop", shopNode);
+        }
+        JSONObject epgsShop = shopNode.getJSONObject("EPGS");
+        if (epgsShop == null) {
+            epgsShop = new JSONObject(true);
+            epgsShop.put("info", new JSONArray());
+            shopNode.put("EPGS", epgsShop);
+        }
+        JSONArray info = epgsShop.getJSONArray("info");
+        if (info == null) {
+            info = new JSONArray();
+            epgsShop.put("info", info);
+        }
+
+        // 限购：availCount < 0 无限；否则与已买次数比
+        int avail = good.getIntValue("availCount");
+        int bought = 0;
+        for (int i = 0; i < info.size(); i++) {
+            JSONObject e = info.getJSONObject(i);
+            if (e != null && goodId.equals(e.getString("id"))) {
+                bought = e.getIntValue("count");
+                break;
+            }
+        }
+        if (avail >= 0 && bought + count > avail) {
+            return badRequest(response, "good sold out: " + goodId + " availCount=" + avail + ", already bought=" + bought);
+        }
+
+        int unitPrice = good.getIntValue("price");
+        int total = unitPrice * count;
+        int balance = inventory.getIntValue("EPGS_COIN");
+        if (balance < total) {
+            return badRequest(response, "not enough EPGS_COIN: need " + total + ", have " + balance);
+        }
+
+        JSONObject inventorySnap = JSONObject.parseObject(inventory.toJSONString());
+        inventory.put("EPGS_COIN", balance - total);
+
+        JSONObject grant = new JSONObject(true);
+        grant.put("id", itemDef.getString("id"));
+        grant.put("type", itemDef.getString("type"));
+        grant.put("count", itemDef.getIntValue("count") * count);
+        JSONArray items = new JSONArray();
+        java.util.Map<String, String> before = snapshotUserNodes(userData);
+        userData = handleUserDataChange(grant, userData, account.getUid(), 0, items);
+        if (items.isEmpty()) {
+            items.add(grant);
+        }
+
+        // 记账 shop.EPGS.info
+        boolean merged = false;
+        for (int i = 0; i < info.size(); i++) {
+            JSONObject e = info.getJSONObject(i);
+            if (e != null && goodId.equals(e.getString("id"))) {
+                e.put("count", e.getIntValue("count") + count);
+                merged = true;
+                break;
+            }
+        }
+        if (!merged) {
+            JSONObject e = new JSONObject(true);
+            e.put("id", goodId);
+            e.put("count", count);
+            info.add(e);
+        }
+
+        JSONObject modified = new JSONObject(true);
+        mergeNodeDiff(modified, userData, before);
+        // inventory 最后覆盖成精确增量（官服就是 {物品id: 数量, EPGS_COIN: 余额}）
+        JSONObject invDelta = diffChanged(inventorySnap, userData.getJSONObject("inventory"));
+        if (invDelta.isEmpty()) {
+            invDelta = singleItemInventoryDelta(itemDef.getString("id"),
+                    userData.getJSONObject("inventory"), inventory.getIntValue("EPGS_COIN"));
+        }
+        modified.put("inventory", invDelta);
+        modified.remove("troop");
+        modified.remove("dexNav");
+        modified.remove("status");
+        JSONObject epgsDelta = new JSONObject(true);
+        JSONObject epgsOne = new JSONObject(true);
+        epgsOne.put("info", info);
+        epgsDelta.put("EPGS", epgsOne);
+        modified.put("shop", epgsDelta);
+
+        com.hypergryph.arknights.core.function.MissionHelper.addProgress(userData, "BuyShopItem", 1);
+        userDao.setUserData(account.getUid(), userData);
+
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject(true));
+        JSONObject result = new JSONObject(true);
+        result.put("items", items);
+        result.put("playerDataDelta", playerDataDelta);
+        result.put("result", 0);
+        ArknightsApplication.LOGGER.info("[shop] uid={} 买 EPGS 商品 {} x{}，花 {} EPGS_COIN，余额 {}",
+                account.getUid(), goodId, count, total, userData.getJSONObject("inventory").getIntValue("EPGS_COIN"));
+        return result;
+    }
+
+    /** 单物品 + EPGS_COIN 的 inventory 增量 */
+    private static JSONObject singleItemInventoryDelta(String itemId, JSONObject inventory, int coin) {
+        JSONObject out = new JSONObject(true);
+        if (inventory.get(itemId) != null) {
+            out.put(itemId, inventory.getIntValue(itemId));
+        }
+        out.put("EPGS_COIN", coin);
+        return out;
     }
 
     @PostMapping({"/buySocialGood"})
@@ -1097,6 +1518,7 @@ public class shop {
             }
         }
 
+        JSONObject statusSnap = JSONObject.parseObject(status.toJSONString());
         JSONObject modified = new JSONObject(true);
         status.put("socialPoint", balance - price);
         JSONObject statusDelta = new JSONObject(true);
@@ -1127,10 +1549,14 @@ public class shop {
             socialShop = new JSONObject(true);
             shopNode.put("SOCIAL", socialShop);
         }
+        // 换天就先清上一天的货架记录（costSocialPoint 是累计值，不动）
+        String todayShopId = "SOCIAL" + java.time.ZonedDateTime.now(java.time.ZoneId.of("Asia/Shanghai"))
+                .format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
         JSONArray info = socialShop.getJSONArray("info");
-        if (info == null) {
+        if (info == null || !todayShopId.equals(socialShop.getString("curShopId"))) {
             info = new JSONArray();
             socialShop.put("info", info);
+            socialShop.put("curShopId", todayShopId);
         }
         boolean merged = false;
         for (int i = 0; i < info.size(); i++) {
@@ -1147,10 +1573,8 @@ public class shop {
             e.put("count", count);
             info.add(e);
         }
-        // 当日已消费信用点累计（官服 costSocialPoint）
+        // 累计消费信用点（跨天不清，决定信用等级与干员解锁）
         socialShop.put("costSocialPoint", socialShop.getIntValue("costSocialPoint") + price);
-        socialShop.put("curShopId", "SOCIAL" + java.time.ZonedDateTime.now(java.time.ZoneId.of("Asia/Shanghai"))
-                .format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         // 干员商品扣 charPurchase
         if (charId != null) {
@@ -1176,6 +1600,15 @@ public class shop {
         JSONObject shopDelta = new JSONObject(true);
         shopDelta.put("SOCIAL", socialShopDelta);
         modified.put("shop", shopDelta);
+
+        modified.remove("troop");
+        modified.remove("dexNav");
+        JSONObject slimStatus = diffChanged(statusSnap, userData.getJSONObject("status"));
+        if (slimStatus.isEmpty()) {
+            modified.remove("status");
+        } else {
+            modified.put("status", slimStatus);
+        }
 
         JSONObject playerDataDelta = new JSONObject(true);
         playerDataDelta.put("modified", modified);

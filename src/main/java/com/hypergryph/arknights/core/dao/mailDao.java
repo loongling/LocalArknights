@@ -58,7 +58,7 @@ public class mailDao {
 
     public static int setMailItems(int id, JSONArray items) {
         String sql = "UPDATE mail SET items = ? where id = ?";
-        Object[] params = new Object[]{JSON.toJSONString(items, new SerializerFeature[]{SerializerFeature.WriteMapNullValue}), id};
+        Object[] params = new Object[]{JSON.toJSONString(items, new SerializerFeature[]{SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect}), id};
         return ArknightsApplication.jdbcTemplate.update(sql, params);
     }
 
@@ -82,7 +82,7 @@ public class mailDao {
 
     /** 按 name 幂等写入模板（有则更新，无则插入） */
     public static int upsertTemplate(String name, String from, String subject, String content, JSONArray items) {
-        String itemsJson = JSON.toJSONString(items, new SerializerFeature[]{SerializerFeature.WriteMapNullValue});
+        String itemsJson = JSON.toJSONString(items, new SerializerFeature[]{SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect});
         Integer id = queryIdByName(name);
         if (id == null) {
             return ArknightsApplication.jdbcTemplate.update(

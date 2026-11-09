@@ -104,7 +104,8 @@ public class depot {
                                        @RequestBody JSONObject JsonBody,
                                        HttpServletResponse response,
                                        HttpServletRequest request) {
-        LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request) + "] /depot/useOptionVoucher");
+        LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request) + "] /depot/useOptionVoucher body="
+                + (JsonBody == null ? "{}" : JsonBody.toJSONString()));
         return useVoucher(secret, JsonBody, response, false);
     }
 
@@ -157,7 +158,20 @@ public class depot {
         playerDataDelta.put("deleted", deleted);
 
         JSONObject result = new JSONObject(true);
-        result.put("itemGet", applied.getJSONArray("itemGet"));
+        JSONArray gotItems = applied.getJSONArray("itemGet");
+        result.put("itemGet", gotItems);
+        // 官方干员类券（depot/voucherGacha 抓包）用的是 items 键，材料券用 itemGet；
+        // 两个都带上，客户端取哪个都能弹「获得干员」
+        boolean hasChar = false;
+        for (int i = 0; i < gotItems.size(); i++) {
+            if ("CHAR".equals(gotItems.getJSONObject(i).getString("type"))) {
+                hasChar = true;
+                break;
+            }
+        }
+        if (hasChar) {
+            result.put("items", gotItems);
+        }
         result.put("playerDataDelta", playerDataDelta);
         return result;
     }
@@ -241,18 +255,121 @@ public class depot {
             UserSyncData.put("inventory", inventory);
         }
         JSONObject invDelta = new JSONObject(true);
-        for (int i = 0; i < grants.size(); i++) {
+        JSONObject troopDelta = new JSONObject(true);
+        JSONObject buildingDelta = new JSONObject(true);
+        JSONObject skinDelta = new JSONObject(true);
+        JSONObject skinTsDelta = new JSONObject(true);
+        for (int i = grants.size() - 1; i >= 0; i--) {
             JSONObject g = grants.getJSONObject(i);
-            if (!"MATERIAL".equals(g.getString("type"))) {
-                continue;
-            }
+            String type = g.getString("type");
             String id = g.getString("id");
-            int now = inventory.getIntValue(id) + g.getIntValue("count");
-            inventory.put(id, now);
-            invDelta.put(id, now);
+            if ("MATERIAL".equals(type)) {
+                int now = inventory.getIntValue(id) + g.getIntValue("count");
+                inventory.put(id, now);
+                invDelta.put(id, now);
+            } else if ("SKIN".equals(type)) {
+                // 时装自选凭证：官服 user.skin.characterSkins 是扁平表 {skinId: 1}
+                JSONObject skin = UserSyncData.getJSONObject("skin");
+                if (skin == null) {
+                    skin = new JSONObject(true);
+                    UserSyncData.put("skin", skin);
+                }
+                JSONObject characterSkins = skin.getJSONObject("characterSkins");
+                if (characterSkins == null) {
+                    characterSkins = new JSONObject(true);
+                    skin.put("characterSkins", characterSkins);
+                }
+                JSONObject skinTs = skin.getJSONObject("skinTs");
+                if (skinTs == null) {
+                    skinTs = new JSONObject(true);
+                    skin.put("skinTs", skinTs);
+                }
+                long skinNow = ArknightsApplication.getTimestamp();
+                characterSkins.put(id, 1);
+                skinTs.put(id, skinNow);
+                skinDelta.put(id, 1);
+                skinTsDelta.put(id, skinNow);
+            } else if ("CHAR".equals(type) || "OPERATOR".equals(type)) {
+                // 干员调用凭证：必须真的入库，并把 troop / building / status 变化带回去。
+                // itemGet 用 grantChar 的完整产出（CHAR + 首次获得的高凭 HGG_SHD），
+                // 官服的发货列表就是这个形状，客户端靠它弹「获得干员」。
+                int hggBefore = UserSyncData.getJSONObject("status").getIntValue("hggShard");
+                JSONArray got = com.hypergryph.arknights.core.work.processArray.grantChar(UserSyncData, id, g.getIntValue("count"));
+                grants.remove(i);
+                int grantedInstId = 0;
+                for (int q = 0; q < got.size(); q++) {
+                    JSONObject one2 = got.getJSONObject(q);
+                    JSONObject cg = one2.getJSONObject("charGet");
+                    if (cg != null) {
+                        grantedInstId = cg.getIntValue("charInstId");
+                    }
+                    grants.add(one2);
+                }
+                int hggAfter = UserSyncData.getJSONObject("status").getIntValue("hggShard");
+                if (hggAfter != hggBefore) {
+                    JSONObject st = new JSONObject(true);
+                    st.put("hggShard", hggAfter);
+                    modified.put("status", st);
+                }
+                // 官服发货 delta 还带 dexNav.character（图鉴/干员获得界面靠它，
+                // 抓包 parsed_1205/004_10 depot/voucherGacha：modified 键 = consumable,dexNav,troop,building,status,medal）
+                JSONObject dexNav = UserSyncData.getJSONObject("dexNav");
+                if (dexNav != null) {
+                    JSONObject dexChars = dexNav.getJSONObject("character");
+                    if (dexChars == null) {
+                        dexChars = new JSONObject(true);
+                        dexNav.put("character", dexChars);
+                    }
+                    JSONObject entry = dexChars.getJSONObject(id);
+                    if (entry == null) {
+                        entry = new JSONObject(true);
+                        entry.put("charInstId", grantedInstId);
+                        entry.put("count", 1);
+                        entry.put("classicCount", 0);
+                        dexChars.put(id, entry);
+                    } else if (entry.getIntValue("charInstId") == 0) {
+                        entry.put("charInstId", grantedInstId);
+                    }
+                    JSONObject dexDelta = new JSONObject(true);
+                    dexDelta.put(id, entry);
+                    JSONObject dexMod = new JSONObject(true);
+                    dexMod.put("character", dexDelta);
+                    modified.put("dexNav", dexMod);
+                }
+                JSONObject chars = UserSyncData.getJSONObject("troop").getJSONObject("chars");
+                for (String k : chars.keySet()) {
+                    JSONObject c = chars.getJSONObject(k);
+                    if (c != null && id.equals(c.getString("charId"))) {
+                        troopDelta.put(k, c);
+                    }
+                }
+                JSONObject bChars = UserSyncData.getJSONObject("building").getJSONObject("chars");
+                for (String k : troopDelta.keySet()) {
+                    JSONObject b = bChars.getJSONObject(k);
+                    if (b != null) {
+                        buildingDelta.put(k, b);
+                    }
+                }
+            }
         }
         if (!invDelta.isEmpty()) {
             modified.put("inventory", invDelta);
+        }
+        if (!troopDelta.isEmpty()) {
+            JSONObject troopMod = new JSONObject(true);
+            troopMod.put("chars", troopDelta);
+            modified.put("troop", troopMod);
+        }
+        if (!buildingDelta.isEmpty()) {
+            JSONObject buildingMod = new JSONObject(true);
+            buildingMod.put("chars", buildingDelta);
+            modified.put("building", buildingMod);
+        }
+        if (!skinDelta.isEmpty()) {
+            JSONObject skinMod = new JSONObject(true);
+            skinMod.put("characterSkins", skinDelta);
+            skinMod.put("skinTs", skinTsDelta);
+            modified.put("skin", skinMod);
         }
 
         out.put("itemGet", grants);
@@ -262,40 +379,24 @@ public class depot {
     }
 
     public static JSONObject applyVoucherGacha(JSONObject UserSyncData, String itemId, String instId, String charId) {
-        JSONObject out = new JSONObject(true);
         JSONArray allowed = VoucherTable.itemList(itemId);
         if (allowed == null || allowed.isEmpty()) {
+            JSONObject out = new JSONObject(true);
             out.put("error", "券池数据缺失: " + itemId + "（voucher_detail_table.json 里没有 itemList）");
             return out;
         }
         if (charId == null || !containsId(allowed, charId)) {
+            JSONObject out = new JSONObject(true);
             out.put("error", "这个券换不了该干员: " + charId);
             return out;
         }
-
-        JSONObject consumable = UserSyncData.getJSONObject("consumable");
-        JSONObject itemStack = consumable == null ? null : consumable.getJSONObject(itemId);
-        JSONObject slot = itemStack == null ? null : itemStack.getJSONObject(instId);
-        if (slot == null || slot.getIntValue("count") < 1) {
-            out.put("error", "没有这张券: " + itemId + "/" + instId);
-            return out;
-        }
-
-        int left = slot.getIntValue("count") - 1;
-        slot.put("count", Math.max(0, left));
-
-        JSONArray granted = processArray.grantChar(UserSyncData, charId, 1);
-
-        JSONObject modified = new JSONObject(true);
-        JSONObject consumableDelta = new JSONObject(true);
-        JSONObject stackDelta = new JSONObject(true);
-        stackDelta.put(instId, slot);
-        consumableDelta.put(itemId, stackDelta);
-        modified.put("consumable", consumableDelta);
-
-        out.put("items", granted);
-        out.put("modified", modified);
-        return out;
+        // 直接复用自选券的发货逻辑：干员入库 + troop/building/dexNav/status 增量 + charGet 形状
+        JSONArray choices = new JSONArray();
+        JSONObject one = new JSONObject(true);
+        one.put("id", charId);
+        one.put("count", 1);
+        choices.add(one);
+        return applyUseVoucher(UserSyncData, itemId, instId, 1, choices, false);
     }
 
     @PostMapping(value = {"/voucherGacha"}, produces = {"application/json;charset=UTF-8"})
@@ -303,7 +404,8 @@ public class depot {
                                    @RequestBody JSONObject JsonBody,
                                    HttpServletResponse response,
                                    HttpServletRequest request) {
-        LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request) + "] /depot/voucherGacha");
+        LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request) + "] /depot/voucherGacha body="
+                + (JsonBody == null ? "{}" : JsonBody.toJSONString()));
         String itemId = JsonBody.getString("itemId");
         String instId = JsonBody.getString("instId");
         String charId = JsonBody.getString("charId");
@@ -335,12 +437,14 @@ public class depot {
         }
         userDao.setUserData(uid, UserSyncData);
 
+        JSONObject modified = applied.getJSONObject("modified");
         JSONObject playerDataDelta = new JSONObject(true);
-        playerDataDelta.put("modified", applied.getJSONObject("modified"));
+        playerDataDelta.put("modified", modified);
         playerDataDelta.put("deleted", new JSONObject(true));
 
         JSONObject result = new JSONObject(true);
-        result.put("items", applied.getJSONArray("items"));
+        result.put("items", applied.getJSONArray("itemGet"));
+        result.put("itemGet", applied.getJSONArray("itemGet"));
         result.put("playerDataDelta", playerDataDelta);
         return result;
     }

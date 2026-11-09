@@ -470,15 +470,47 @@ public class gacha {
             userDao.setUserData(uid, userdata);
         }
 
-        else if(poolId.startsWith("CLASSIC")){
-            gacha.getJSONObject("fesClassic").put(poolId, defaultGacha);
-            userdata.put("gacha", gacha);
-            userDao.setUserData(uid, userdata);
-        } else if(poolId.startsWith("NORM")){
-            gacha.getJSONObject("normal").put(poolId, defaultGacha);
-            userdata.put("gacha", gacha);
-            userDao.setUserData(uid, userdata);
-        } else if(poolId.startsWith("GACHA")){}
+        if(poolId.startsWith("CLASSIC")){
+            if (gacha.getJSONObject("normal").getJSONObject(poolId) == null || gacha.getJSONObject("normal").getJSONObject(poolId).isEmpty()) {
+                gacha.getJSONObject("normal").put(poolId, defaultGacha);
+                userdata.put("gacha", gacha);
+                userDao.setUserData(uid, userdata);
+            }
+            else{
+                int cnt = gacha.getJSONObject("normal").getJSONObject(poolId).getInteger("cnt");
+                gacha.getJSONObject("normal").getJSONObject(poolId).put("cnt", cnt + 1);
+                userdata.put("gacha", gacha);
+                userDao.setUserData(uid, userdata);
+            }
+        }
+
+        if(poolId.startsWith("NORM")){
+            if (gacha.getJSONObject("normal").getJSONObject(poolId) == null || gacha.getJSONObject("normal").getJSONObject(poolId).isEmpty()) {
+                gacha.getJSONObject("normal").put(poolId, defaultGacha);
+                userdata.put("gacha", gacha);
+                userDao.setUserData(uid, userdata);
+            }
+            else{
+                int cnt = gacha.getJSONObject("normal").getJSONObject(poolId).getInteger("cnt");
+                gacha.getJSONObject("normal").getJSONObject(poolId).put("cnt", cnt + 1);
+                userdata.put("gacha", gacha);
+                userDao.setUserData(uid, userdata);
+            }
+        }
+
+        if(poolId.startsWith("LIMITED")){
+            if (gacha.getJSONObject("limit").getJSONObject(poolId) == null || gacha.getJSONObject("limit").getJSONObject(poolId).isEmpty()) {
+                gacha.getJSONObject("limit").put(poolId, defaultGacha);
+                userdata.put("gacha", gacha);
+                userDao.setUserData(uid, userdata);
+            }
+            else{
+                int cnt = gacha.getJSONObject("limit").getJSONObject(poolId).getInteger("cnt");
+                gacha.getJSONObject("limit").getJSONObject(poolId).put("cnt", cnt + 1);
+                userdata.put("gacha", gacha);
+                userDao.setUserData(uid, userdata);
+            }
+        }
         return performAdvancedGacha(account, poolId, itemId, diamondCost, 1, useTkt, response, new JSONArray());
     }
 
@@ -1205,7 +1237,6 @@ public class gacha {
         playerDataDelta.put("modified", modified);
         playerDataDelta.put("deleted", new JSONObject());
         result.put("playerDataDelta", playerDataDelta);
-        ArknightsApplication.LOGGER.info("result" + result);
         return result;
     }
 
@@ -1365,41 +1396,53 @@ public class gacha {
         return result;
     }
 
-    private JSONObject performDexNav(JSONArray gachaResultList,JSONObject userData) {
+    private JSONObject performDexNav(JSONArray gachaResultList, JSONObject userData) {
         JSONObject result = new JSONObject();
-        JSONObject dexNav = new JSONObject();
-        JSONObject character = new JSONObject();
-        JSONObject id = new JSONObject();
-        JSONObject add = new JSONObject();
-        if (gachaResultList != null && !gachaResultList.isEmpty()) {
-            for (int i = 0; i < gachaResultList.size(); i++) {
-                if (gachaResultList.get(i) instanceof JSONObject item) {
-                    String charId = item.getString("charId");
-                    int isNew = item.getIntValue("isNew");
-                    int charInstId  = item.getIntValue("charInstId");
-                    if  (isNew == 1) {
-                        add.put("count", 1);
-                        add.put("charInstId", charInstId);
-                        add.put("classicCount", 0);
-                        id.put(charId, add);
-                        character.put("character", id);
-                        dexNav.put("dexNav", character);
-                        userData.getJSONObject("dexNav").getJSONObject("character").put(charId, add);
-                        result.put("dexNav", dexNav);
-                    } else if (isNew == 0) {
-                        int count = userData.getJSONObject("dexNav").getJSONObject("character").getJSONObject(charId).getIntValue("count");
-                        add.put("count", count);
-                        add.put("charInstId", charInstId);
-                        add.put("classicCount", 0);
-                        id.put(charId, add);
-                        character.put("character", id);
-                        dexNav.put("dexNav", character);
-                        userData.getJSONObject("dexNav").getJSONObject("character").getJSONObject(charId).put("count", count + 1);
-                        result.put("dexNav", dexNav);
-                    }
-                }
-            }
+        if (gachaResultList == null || gachaResultList.isEmpty()) {
+            return result;
         }
+        JSONObject userDex = userData.getJSONObject("dexNav").getJSONObject("character");
+        JSONObject delta = new JSONObject();          // 本次下发的 character
+
+        for (int i = 0; i < gachaResultList.size(); i++) {
+            if (!(gachaResultList.get(i) instanceof JSONObject item)) {
+                continue;
+            }
+            String charId = item.getString("charId");
+            if (charId == null) {
+                continue;
+            }
+            int isNew = item.getIntValue("isNew");
+            int charInstId = item.getIntValue("charInstId");
+
+            JSONObject entry = userDex.getJSONObject(charId);
+            int count;
+            int keepInstId;
+            if (isNew == 1 || entry == null) {
+                count = 1;
+                keepInstId = charInstId;
+                entry = new JSONObject(true);
+                entry.put("count", 1);
+                entry.put("charInstId", keepInstId);
+                entry.put("classicCount", 0);
+                userDex.put(charId, entry);
+            } else {
+                keepInstId = entry.getIntValue("charInstId");
+                count = entry.getIntValue("count") + 1;
+                entry.put("count", count);
+                entry.put("charInstId", keepInstId);
+            }
+
+            JSONObject out = new JSONObject(true);
+            out.put("count", count);
+            out.put("charInstId", keepInstId);
+            out.put("classicCount", entry.getIntValue("classicCount"));
+            delta.put(charId, out);
+        }
+
+        JSONObject character = new JSONObject(true);
+        character.put("character", delta);
+        result.put("dexNav", character);
         return result;
     }
 }

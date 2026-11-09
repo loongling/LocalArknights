@@ -63,6 +63,10 @@ public class mission {
         }
 
         JSONObject UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
+        // 每日/每周任务到期先重置（避免客户端停在旧任务上）
+        if (com.hypergryph.arknights.core.function.MissionHelper.resetPeriodicalMissions(UserSyncData)) {
+            userDao.setUserData(uid, UserSyncData);
+        }
 
         if (MissionHelper.entry(missionId) == null) {
             result.put("result", 1);
@@ -154,6 +158,10 @@ public class mission {
             return err;
         }
         JSONObject UserSyncData = JSONObject.parseObject(account.getUser());
+        // 每日/每周任务到期先重置（避免客户端停在旧任务上）
+        if (com.hypergryph.arknights.core.function.MissionHelper.resetPeriodicalMissions(UserSyncData)) {
+            userDao.setUserData(uid, UserSyncData);
+        }
 
         JSONArray items = new JSONArray();
         JSONArray claimed = new JSONArray();
@@ -260,6 +268,10 @@ public class mission {
 
         Long uid = ((Account) Accounts.get(0)).getUid();
         JSONObject UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
+        // 每日/每周任务到期先重置（避免客户端停在旧任务上）
+        if (com.hypergryph.arknights.core.function.MissionHelper.resetPeriodicalMissions(UserSyncData)) {
+            userDao.setUserData(uid, UserSyncData);
+        }
 
         JSONArray allItems = new JSONArray();
         JSONObject missionRoot = UserSyncData.getJSONObject("mission");
@@ -373,6 +385,10 @@ public class mission {
         }
         Long uid = ((Account) Accounts.get(0)).getUid();
         JSONObject UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
+        // 每日/每周任务到期先重置（避免客户端停在旧任务上）
+        if (com.hypergryph.arknights.core.function.MissionHelper.resetPeriodicalMissions(UserSyncData)) {
+            userDao.setUserData(uid, UserSyncData);
+        }
 
         JSONArray wanted = new JSONArray();
         if (JsonBody != null) {

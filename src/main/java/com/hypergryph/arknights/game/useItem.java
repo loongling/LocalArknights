@@ -89,11 +89,111 @@ public class useItem {
         return result;
     }
 
+    /**
+     * 官服实际调用的是复数端点（抓包 2026-11-06 12:55 客户端连打两次 404）：
+     *   POST /user/useItems {"items":[{"instId":14,"itemId":"ap_supply_lt_120","cnt":1}]}
+     *   → {"items":[{"type":"AP_GAMEPLAY","id":"AP_GAMEPLAY","count":120}],
+     *      "playerDataDelta":{"modified":{"consumable":{...},"status":{...}},"deleted":{}}}
+     * 这里按数组逐个调用 applyUseItem，再把 modified / items 合并。
+     */
+    @PostMapping(
+            value = {"/useItems"},
+            produces = {"application/json;charset=UTF-8"}
+    )
+    public JSONObject useItemsApi(@RequestHeader(value = "secret", required = false) String secret,
+                                  @RequestBody JSONObject JsonBody,
+                                  HttpServletResponse response,
+                                  HttpServletRequest request) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        LOGGER.info("[" + "/" + clientIp + "] /user/useItems body="
+                + (JsonBody == null ? "{}" : JsonBody.toJSONString()));
+
+        List<Account> Accounts = userDao.queryAccountBySecret(secret);
+        if (Accounts.size() != 1) {
+            JSONObject result = new JSONObject(true);
+            result.put("result", 2);
+            result.put("error", "无法查询到此账户");
+            return result;
+        }
+        Long uid = ((Account) Accounts.get(0)).getUid();
+        JSONObject UserSyncData = JSONObject.parseObject(((Account) Accounts.get(0)).getUser());
+
+        JSONArray list = JsonBody == null ? null : JsonBody.getJSONArray("items");
+        if (list == null || list.isEmpty()) {
+            JSONObject bad = new JSONObject(true);
+            bad.put("result", 1);
+            bad.put("error", "items 为空");
+            return bad;
+        }
+
+        JSONArray outItems = new JSONArray();
+        JSONObject mergedConsumable = new JSONObject(true);
+        JSONObject mergedStatus = new JSONObject(true);
+        for (int i = 0; i < list.size(); i++) {
+            JSONObject one = list.getJSONObject(i);
+            String itemId = one.getString("itemId");
+            String instId = one.getString("instId");
+            int cnt = one.getIntValue("cnt");
+            JSONObject applied = applyUseItem(UserSyncData, itemId, instId, cnt);
+            if (applied.getString("error") != null) {
+                JSONObject bad = new JSONObject(true);
+                bad.put("result", 1);
+                bad.put("error", applied.getString("error"));
+                return bad;
+            }
+            JSONArray got = applied.getJSONArray("items");
+            if (got != null) {
+                for (int k = 0; k < got.size(); k++) {
+                    outItems.add(got.getJSONObject(k));
+                }
+            }
+            JSONObject mod = applied.getJSONObject("modified");
+            if (mod != null) {
+                JSONObject cons = mod.getJSONObject("consumable");
+                if (cons != null) {
+                    mergedConsumable.putAll(cons);
+                }
+                JSONObject st = mod.getJSONObject("status");
+                if (st != null) {
+                    mergedStatus.putAll(st);
+                }
+            }
+        }
+        userDao.setUserData(uid, UserSyncData);
+
+        JSONObject modified = new JSONObject(true);
+        if (!mergedConsumable.isEmpty()) {
+            modified.put("consumable", mergedConsumable);
+        }
+        if (!mergedStatus.isEmpty()) {
+            modified.put("status", mergedStatus);
+        }
+        JSONObject playerDataDelta = new JSONObject(true);
+        playerDataDelta.put("modified", modified);
+        playerDataDelta.put("deleted", new JSONObject());
+
+        JSONObject result = new JSONObject(true);
+        result.put("items", outItems);
+        result.put("playerDataDelta", playerDataDelta);
+        LOGGER.info("[useItems] 使用 {} 种道具，产出 {} 项", list.size(), outItems.size());
+        return result;
+    }
+
     public static JSONObject applyUseItem(JSONObject UserSyncData, String itemId, String instId, int cnt) {
         JSONObject out = new JSONObject(true);
         if (cnt <= 0) {
             cnt = 1;
         }
+        // 券类道具不能走 /user/useItems（会被静默消耗），必须用仓库的券接口
+        JSONObject itemMeta = ArknightsApplication.itemTable == null ? null
+                : ArknightsApplication.itemTable.getJSONObject(itemId);
+        String itemType = itemMeta == null ? null : itemMeta.getString("itemType");
+        if (itemType != null && (itemType.startsWith("VOUCHER") || "OPTIONAL_VOUCHER_PICK".equals(itemType)
+                || "ITEM_PACK".equals(itemType) || "MATERIAL_ISSUE_VOUCHER".equals(itemType))) {
+            out.put("error", "该道具需要在仓库中使用: " + itemId + " (" + itemType + ")");
+            return out;
+        }
+
         JSONObject consumable = UserSyncData.getJSONObject("consumable");
         if (consumable == null) {
             consumable = new JSONObject(true);

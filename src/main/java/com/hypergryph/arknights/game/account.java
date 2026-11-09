@@ -196,9 +196,15 @@ public class account {
             }
         try {
             // 集成战略（RL v2）：补齐 rlv2 存档节点（outer 六主题 + 空 current）
-            if (com.hypergryph.arknights.core.function.Rlv2Helper.ensure(UserSyncData)) {
+            boolean rlv2Changed = com.hypergryph.arknights.core.function.Rlv2Helper.ensure(UserSyncData);
+            if (rlv2Changed) {
                 userDao.setUserData(uid, UserSyncData);
                 LOGGER.info("[syncData] 已补齐 rlv2（集成战略）节点");
+            }
+            // 局内状态自愈：卡住的 GAME_SETTLE 待办 / PENDING 空待办
+            if (com.hypergryph.arknights.game.rlv2.repairCurrent(UserSyncData)) {
+                userDao.setUserData(uid, UserSyncData);
+                LOGGER.info("[syncData] 集成战略局内状态已自愈");
             }
         } catch (Exception e) {
             LOGGER.warn("[syncData] rlv2 节点自愈失败: " + e.toString());
@@ -208,62 +214,74 @@ public class account {
             } catch (Exception e) {
                 LOGGER.warn("[syncData] 助战列自愈失败: " + e.toString());
             }
-            Long ts = ArknightsApplication.getTimestamp();
-            Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
-            boolean canCheck = canCheckIn(lastLogin, ts);
-            if (canCheck) {
-                if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getBoolean("isAvailable")) {
-                    int index = UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getInteger("nowIndex");
-                    JSONArray history = UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history");
-                    boolean indexAdd = needAddIndex(lastLogin, index, history);
-                    boolean resetIndex = needResetIndex(lastLogin);
-                    if (indexAdd) {
-                        UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").put("nowIndex", index + 1);
-                        UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").add(1);
-                    } else {
-                        if (UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history") == null || UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").isEmpty()) {
-                            UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").getJSONArray("history").add(1);
-                        }
-                    }
-                    if (resetIndex) {
-                        UserSyncData.getJSONObject("openServer").getJSONObject("chainLogin").put("nowIndex", 0);
+        Long ts = ArknightsApplication.getTimestamp();
+        Long lastLogin = UserSyncData.getJSONObject("status").getLong("lastOnlineTs");
+        if (lastLogin == null) {
+            // 老存档可能没有 lastOnlineTs，按「刚登录过」处理，别 NPE
+            lastLogin = ts;
+            UserSyncData.getJSONObject("status").put("lastOnlineTs", ts);
+        }
+        boolean canCheck = canCheckIn(lastLogin, ts);
+        if (canCheck) {
+            JSONObject openServerNode = UserSyncData.getJSONObject("openServer");
+            JSONObject chainLoginNode = openServerNode == null ? null : openServerNode.getJSONObject("chainLogin");
+            if (chainLoginNode != null && chainLoginNode.getBooleanValue("isAvailable")) {
+                int index = chainLoginNode.getInteger("nowIndex");
+                JSONArray history = chainLoginNode.getJSONArray("history");
+                boolean indexAdd = needAddIndex(lastLogin, index, history);
+                boolean resetIndex = needResetIndex(lastLogin);
+                if (indexAdd) {
+                    chainLoginNode.put("nowIndex", index + 1);
+                    chainLoginNode.getJSONArray("history").add(1);
+                } else {
+                    if (chainLoginNode.getJSONArray("history") == null || chainLoginNode.getJSONArray("history").isEmpty()) {
+                        chainLoginNode.getJSONArray("history").add(1);
                     }
                 }
-                if (UserSyncData.getJSONObject("openServer").getJSONObject("checkIn").getBoolean("isAvailable")) {
-                    JSONArray history = UserSyncData.getJSONObject("openServer").getJSONObject("checkIn").getJSONArray("history");
-                    boolean hasOne = false;
-                    if (history != null) {
-                        for (int i = 0; i < history.size(); i++) {
-                            Integer v = history.getInteger(i);
-                            if (v != null && v == 1) {
-                                hasOne = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!hasOne) {
-                        UserSyncData.getJSONObject("openServer").getJSONObject("checkIn").getJSONArray("history").add(1);
-                    }
+                if (resetIndex) {
+                    chainLoginNode.put("nowIndex", 0);
                 }
             }
-            if (canCheck) {
-                UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);
-                try {
-                    if (com.hypergryph.arknights.core.function.MissionHelper.dailyCheckInV3(UserSyncData)) {
-                        userDao.setUserData(uid, UserSyncData);
+            JSONObject openServerCheckIn = openServerNode == null ? null : openServerNode.getJSONObject("checkIn");
+            if (openServerCheckIn != null && openServerCheckIn.getBooleanValue("isAvailable")) {
+                JSONArray history = openServerCheckIn.getJSONArray("history");
+                boolean hasOne = false;
+                if (history != null) {
+                    for (int i = 0; i < history.size(); i++) {
+                        Integer v = history.getInteger(i);
+                        if (v != null && v == 1) {
+                            hasOne = true;
+                            break;
+                        }
                     }
-                } catch (Exception e) {
-                    LOGGER.warn("[syncData] V3 签到解锁失败: " + e.toString());
+                }
+                if (!hasOne) {
+                    openServerCheckIn.getJSONArray("history").add(1);
                 }
             }
-            UserSyncData.getJSONObject("status").put("lastOnlineTs", System.currentTimeMillis() / 1000L);
-            UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
+            // 活动签到：history 里没有 1（未签到）就补一个 1
+            try {
+                com.hypergryph.arknights.game.activity.refreshCheckInActivities(UserSyncData);
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] 活动签到补齐失败: " + e.toString());
+            }
+            UserSyncData.getJSONObject("checkIn").put("canCheckIn", 1);
+            try {
+                if (com.hypergryph.arknights.core.function.MissionHelper.dailyCheckInV3(UserSyncData)) {
+                    userDao.setUserData(uid, UserSyncData);
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] V3 签到解锁失败: " + e.toString());
+            }
             String id = UserSyncData.getJSONObject("checkIn").getString("checkInGroupId");
             boolean needChange = needChange(lastLogin, ts);
             if (needChange) {
                 String next_id = nextGroupId(id);
                 UserSyncData.getJSONObject("checkIn").put("checkInGroupId", next_id);
             }
+        }
+        UserSyncData.getJSONObject("status").put("lastOnlineTs", ts);
+        UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
 
             JSONArray missionBecame = com.hypergryph.arknights.core.function.MissionHelper
                     .refreshActiveMissions(UserSyncData);
@@ -305,7 +323,7 @@ public class account {
             playerDataDelta.put("modified", new JSONObject(true)); // 空对象而非null
             result.put("playerDataDelta", playerDataDelta);
             result.put("result", 0);
-            result.put("ts", ts);
+        result.put("ts", ts);
             result.put("user", UserSyncData);
             LOGGER.info("用户数据同步成功, UID: " + uid);
             return result;
@@ -408,13 +426,34 @@ public class account {
             value = {"/syncPushMessage"},
             produces = {"application/json;charset=UTF-8"}
     )
-    public JSONObject SyncPushMessage(@RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
+    public JSONObject SyncPushMessage(@RequestHeader(value = "secret", required = false) String secret,
+                                      @RequestBody JSONObject JsonBody, HttpServletResponse response, HttpServletRequest request) {
         String clientIp = ArknightsApplication.getIpAddr(request);
-        LOGGER.info("[/" + clientIp + "] /account/syncStatus");
-        LOGGER.info("syncPM:" + JsonBody);
+        LOGGER.info("[/" + clientIp + "] /account/syncPushMessage");
         JSONObject result = new JSONObject();
+        long now = ArknightsApplication.getTimestamp();
+        result.put("now", now);
+        result.put("next", now + 60);
+        JSONObject modified = new JSONObject(true);
+        // 客户端每 60s 轮询一次：把每日/每周重置放在这里，玩家不重登也能在 04:00 后拿到新任务
+        try {
+            java.util.List<Account> accounts = userDao.queryAccountBySecret(secret);
+            if (accounts.size() == 1) {
+                Account account = accounts.get(0);
+                JSONObject userData = JSONObject.parseObject(account.getUser());
+                boolean changed = com.hypergryph.arknights.core.function.MissionHelper
+                        .resetPeriodicalMissions(userData);
+                if (changed) {
+                    userDao.setUserData(account.getUid(), userData);
+                    modified.put("mission", userData.getJSONObject("mission"));
+                    LOGGER.info("[syncPushMessage] 每日/每周任务已重置并推送");
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.warn("[syncPushMessage] 任务重置失败: " + e.toString());
+        }
         JSONObject playerDataDelta = new JSONObject();
-        playerDataDelta.put("modified", new JSONObject());
+        playerDataDelta.put("modified", modified);
         playerDataDelta.put("deleted", new JSONObject());
         result.put("playerDataDelta", playerDataDelta);
         return result;

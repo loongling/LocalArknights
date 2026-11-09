@@ -576,18 +576,18 @@ public class users {
             } else if (type == 4) {
                 int solvedSHD = resolveSHD(typeI);
                 if (solvedSHD == 1) {
-                    int count = status.getInteger("LGG_SHD");
+                    int count = status.getInteger("lggShard");
                     count = count + counts;
-                    status.put("LGG_SHD", count);
+                    status.put("lggShard", count);
                     userData.put("status", status);
-                    changedStatus.put("LGG_SHD", count);
+                    changedStatus.put("lggShard", count);
                     modified.put("status", changedStatus);
                 } else if (solvedSHD == 2) {
-                    int count = status.getInteger("HGG_SHD");
+                    int count = status.getInteger("hggShard");
                     count = count + counts;
-                    status.put("HGG_SHD", count);
+                    status.put("hggShard", count);
                     userData.put("status", status);
-                    changedStatus.put("HGG_SHD", count);
+                    changedStatus.put("hggShard", count);
                     modified.put("status", changedStatus);
                 }
                 if (medalC == 0) {

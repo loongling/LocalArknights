@@ -58,6 +58,8 @@ public class ArknightsApplication {
     public static JSONObject stageTable;
     public static JSONObject itemTable;
     public static JSONObject mainStage;
+    /** 活动关卡解锁链（data/battle/stage.json 的 Activity 段 + 由 stage_table.unlockCondition 自动补全） */
+    public static JSONObject activityStage;
     public static JSONObject campaignStages;   // data/battle/campaignStages.json → CampaignStage（非永久剿灭关）
     public static JSONObject normalGachaData;
     public static JSONObject uniequipTable;
@@ -349,9 +351,66 @@ public class ArknightsApplication {
     */
 
     /**
-     * 宽松读取 JSON：官方 topic 表里有「对象缺开头花括号」的写法（fastjson 老式宽松输出），
-     * fastjson2 直接解析会抛异常，这里补上缺失的 { 后重试。
+     * 活动关卡解锁链：{stageId: {next, star, sub, hard}}
+     * 数据来源：
+     *   1) data/battle/stage.json 的 "Activity" 段（手写，优先）
+     *   2) stage_table 的 unlockCondition 反查（自动补全，绝大多数活动关靠这里）
+     *      act55side_02.unlockCondition = [{stageId: act55side_01, completeState: PASS}]
+     *      → act55side_01.next = act55side_02
      */
+    public static JSONObject buildActivityStage() {
+        JSONObject out = new JSONObject(true);
+        try {
+            JSONObject file = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/stage.json");
+            JSONObject manual = file == null ? null : file.getJSONObject("Activity");
+            if (manual != null) {
+                for (String k : manual.keySet()) {
+                    JSONObject one = manual.getJSONObject(k);
+                    out.put(k, one == null ? new JSONObject(true) : one);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.warn("[activityStage] 读 stage.json 的 Activity 段失败: {}", e.toString());
+        }
+        if (stageTable == null) {
+            return out;
+        }
+        int auto = 0;
+        for (String cur : stageTable.keySet()) {
+            JSONObject cfg = stageTable.getJSONObject(cur);
+            JSONArray cond = cfg == null ? null : cfg.getJSONArray("unlockCondition");
+            if (cond == null || cond.isEmpty()) {
+                continue;
+            }
+            // 只认「前置通关」的活动关
+            for (int i = 0; i < cond.size(); i++) {
+                JSONObject c = cond.getJSONObject(i);
+                String prev = c == null ? null : c.getString("stageId");
+                if (prev == null || "PASS".equals(c.getString("completeState")) == false) {
+                    continue;
+                }
+                if (!prev.startsWith("act") || !cur.startsWith("act")) {
+                    continue;
+                }
+                JSONObject prevNode = out.getJSONObject(prev);
+                if (prevNode == null) {
+                    prevNode = new JSONObject(true);
+                    prevNode.put("next", (Object) null);
+                    prevNode.put("star", (Object) null);
+                    prevNode.put("sub", (Object) null);
+                    prevNode.put("hard", (Object) null);
+                    out.put(prev, prevNode);
+                }
+                if (prevNode.getString("next") == null) {
+                    prevNode.put("next", cur);
+                    auto++;
+                }
+            }
+        }
+        LOGGER.info("[activityStage] 活动解锁链 {} 条（自动补全 next {} 条）", out.size(), auto);
+        return out;
+    }
+
     public static JSONObject readJsonLenient(String path) {
         try {
             return IOTools.ReadJsonFile(path);
@@ -372,14 +431,16 @@ public class ArknightsApplication {
                     fixed++;
                 }
                 sb.append(text.substring(last));
-                LOGGER.warn("[宽松解析] {} 补了 {} 个花括号（{}）", path, fixed, first.toString());
                 return JSONObject.parseObject(sb.toString(), com.alibaba.fastjson.parser.Feature.OrderedField);
             } catch (Exception second) {
-                LOGGER.error("[宽松解析] {} 彻底失败：{}", path, second.toString());
                 return new JSONObject();
             }
         }
     }
+
+    public static volatile long lastReloadMs = 0;
+
+    public static volatile long lastReloadTs = 0;
 
     public static void reloadServerConfig() {
         long startTime = System.currentTimeMillis();
@@ -394,15 +455,12 @@ public class ArknightsApplication {
         DefaultSyncData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/defaultSyncData.json");
         characterJson = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/character_table.json");
         storyTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/story_table.json");
-        // topic 表是 fastjson 老式宽松格式（部分对象缺开头花括号），走宽松读取
         roguelikeTopicTable = readJsonLenient(System.getProperty("user.dir") + "/data/excel/roguelike_topic_table.json");
         roguelikeTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/roguelike_table.json");
-        LOGGER.info("roguelike_topic_table 主题数：" + (roguelikeTopicTable.getJSONObject("details") == null ? 0
-                : roguelikeTopicTable.getJSONObject("details").size())
-                + "，roguelike_table 键数：" + (roguelikeTable == null ? 0 : roguelikeTable.size()));
         stageTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/stage_table.json").getJSONObject("stages");
         itemTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/item_table.json").getJSONObject("items");
         mainStage = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/stage.json").getJSONObject("MainStage");
+        activityStage = buildActivityStage();
         CAMPAIGN_TABLE = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/campaign_table.json");
         try {
             JSONObject campaignRaw = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/battle/campaignStages.json");
@@ -438,7 +496,9 @@ public class ArknightsApplication {
         CrisisV2Data = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/crisisv2/cc3.json");
         buildingData = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/building_data.json").getJSONObject("workshopFormulas");
         long endTime = System.currentTimeMillis();
-        LOGGER.info("载入完成，耗时：" + (endTime - startTime) + "ms");
+        lastReloadMs = endTime - startTime;
+        lastReloadTs = endTime / 1000L;
+        LOGGER.info("载入完成，耗时：{}ms（config + 全部 JSON 表 + 商店数据 + 券池）", lastReloadMs);
     }
 
     static {
@@ -453,6 +513,7 @@ public class ArknightsApplication {
         stageTable = new JSONObject();
         itemTable = new JSONObject();
         mainStage = new JSONObject();
+        activityStage = new JSONObject();
         normalGachaData = new JSONObject();
         uniequipTable = new JSONObject();
         charPatchTable = new JSONObject();

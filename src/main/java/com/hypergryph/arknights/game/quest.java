@@ -262,7 +262,21 @@ public class quest {
         }
 
         // 5. 处理练习模式
-        if (UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId).getIntValue("practiceTimes") == 1) {
+        // 活动关卡（act55side_01 等）首次打时 dungeon.stages 里还没有这条记录，先补一条空记录
+        JSONObject dungeonStages = UserSyncData.getJSONObject("dungeon").getJSONObject("stages");
+        if (dungeonStages.getJSONObject(stageId) == null) {
+            JSONObject freshStage = new JSONObject(true);
+            freshStage.put("hasBattleReplay", 0);
+            freshStage.put("noCostCnt", 0);
+            freshStage.put("practiceTimes", 0);
+            freshStage.put("completeTimes", 0);
+            freshStage.put("state", 0);
+            freshStage.put("stageId", stageId);
+            freshStage.put("startTimes", 0);
+            dungeonStages.put(stageId, freshStage);
+            ArknightsApplication.LOGGER.info("[battleFinish] 补建关卡记录 " + stageId);
+        }
+        if (dungeonStages.getJSONObject(stageId).getIntValue("practiceTimes") == 1) {
             return handlePracticeMode(UserSyncData, uid, stageId);
         }
 
@@ -349,10 +363,31 @@ public class quest {
         withOfficialBattleFinishDefaults(result);
 
         // 15. 构建玩家数据变更
+        // 14.1 活动代币（ACTIVITY_ITEM）→ modified.activity
+        JSONObject activityRewardDelta = buildActivityRewardDelta(UserSyncData, result);
         JSONObject playerDataDelta = buildPlayerDataDelta(UserSyncData, unlockStagesObject, stageId, troop);
         playerDataDelta.getJSONObject("modified").put("recruit", recruit);
         if (stageId.equals("main_00-10")) {
             playerDataDelta.getJSONObject("modified").put("checkIn", UserSyncData.getJSONObject("checkIn").getJSONObject("newbiePackage"));
+        }
+        if (activityRewardDelta != null) {
+            JSONObject modForAct = playerDataDelta.getJSONObject("modified");
+            JSONObject actMod = modForAct.getJSONObject("activity");
+            if (actMod == null) {
+                modForAct.put("activity", activityRewardDelta);
+            } else {
+                for (String t : activityRewardDelta.keySet()) {
+                    JSONObject srcGroup = activityRewardDelta.getJSONObject(t);
+                    JSONObject dstGroup = actMod.getJSONObject(t);
+                    if (dstGroup == null) {
+                        actMod.put(t, srcGroup);
+                    } else {
+                        for (String id : srcGroup.keySet()) {
+                            dstGroup.put(id, srcGroup.getJSONObject(id));
+                        }
+                    }
+                }
+            }
         }
         // 15.1 任务有变化时把 mission 一起下发（buildPlayerDataDelta 不含 mission）
         if (!touchedMissions.isEmpty()) {
@@ -500,25 +535,26 @@ public class quest {
         JSONObject playerDataDelta = new JSONObject(true);
         JSONObject modified = new JSONObject(true);
 
+        // 与官服抓包（parsed/007_01、008_00、009_00、011_00、020_00、parsed_1723/023_00 等 10 例）一致：
+        //   result=0、apFailReturn=该关 apCost、expScale=goldScale=1、四类奖励全空、
+        //   modified.status 只回 {exp, gold}（AP 不在这里，客户端按 apFailReturn 自己加），
+        //   **不下发 dungeon.stages**（失败不写 completeTimes / state）
         result.put("additionalRewards", new JSONArray());
         result.put("alert", new JSONArray());
-        result.put("firstRewards", firstReward);
+        result.put("firstRewards", new JSONArray());
         result.put("furnitureRewards", new JSONArray());
         result.put("unlockStages", new JSONArray());
         result.put("unusualRewards", new JSONArray());
         result.put("rewards", new JSONArray());
-        result.put("expScale", 0);
-        result.put("goldScale", 0);
+        result.put("expScale", 1);
+        result.put("goldScale", 1);
         result.put("apFailReturn", apFailReturn);
         withOfficialBattleFinishDefaults(result);
 
-        modified.put("status", UserSyncData.getJSONObject("status"));
-
-        JSONObject dungeon = new JSONObject(true);
-        JSONObject stages = new JSONObject(true);
-        stages.put(stageId, UserSyncData.getJSONObject("dungeon").getJSONObject("stages").getJSONObject(stageId));
-        dungeon.put("stages", stages);
-        modified.put("dungeon", dungeon);
+        JSONObject statusDelta = new JSONObject(true);
+        statusDelta.put("exp", UserSyncData.getJSONObject("status").getIntValue("exp"));
+        statusDelta.put("gold", UserSyncData.getJSONObject("status").getIntValue("gold"));
+        modified.put("status", statusDelta);
 
         playerDataDelta.put("deleted", new JSONObject(true));
         playerDataDelta.put("modified", modified);
@@ -550,9 +586,11 @@ public class quest {
             stages.put(stageId, stages_data);
         }
         if (completeState >= 2) {
-            stages_data.put("state", 3);   // 已通关
-        } else if (stages_data.getIntValue("state") == 0) {
-            stages_data.put("state", 1);   // 只是解锁
+            // 官服 state = 星级：0=已解锁未通关，2=二星过关，3=三星过关
+            int star = Math.min(completeState, 3);
+            if (star > stages_data.getIntValue("state")) {
+                stages_data.put("state", star);
+            }
         }
     }
 
@@ -629,6 +667,9 @@ public class quest {
             case "CARD_EXP":
                 UserSyncData.getJSONObject("inventory").put(reward_id,
                         UserSyncData.getJSONObject("inventory").getIntValue(reward_id) + 1);
+                break;
+            case "ACTIVITY_ITEM":
+                grantActivityItem(UserSyncData, reward_id, 1);
                 break;
             case "DIAMOND":
                 UserSyncData.getJSONObject("status").put("androidDiamond",
@@ -870,11 +911,20 @@ public class quest {
 
     private void handleStageUnlock(JSONObject UserSyncData, String stageId, int completeState,
                                    JSONArray unlockStages, JSONArray unlockStagesObject, boolean firstClear) {
-        // 前置判空：stageId 在主关卡表和关卡表里必须存在
+        // 前置判空：关卡表里必须存在（主关卡表不一定有——活动关就在 Activity 段）
         JSONObject mainStageObj = mainStage.getJSONObject(stageId);
         JSONObject stageTableObj = stageTable.getJSONObject(stageId);
-        if (mainStageObj == null || stageTableObj == null) {
+        if (stageTableObj == null) {
             ArknightsApplication.LOGGER.warn("handleStageUnlock: stageId not found -> " + stageId);
+            return;
+        }
+        if (mainStageObj == null) {
+            // 活动关：按 data/battle/stage.json 的 Activity 段 + stage_table.unlockCondition 解锁后续
+            int unlocked = unlockActivityStages(UserSyncData, stageId, completeState,
+                    unlockStages, unlockStagesObject);
+            if (unlocked > 0) {
+                ArknightsApplication.LOGGER.info("[quest] 活动关卡解锁 " + unlocked + " 张（打完 " + stageId + "）");
+            }
             return;
         }
 
@@ -1071,6 +1121,138 @@ public class quest {
         return added;
     }
 
+    /**
+     * 活动关卡解锁（打完 stageId 之后）
+     *   1) Activity 段手写的 next（data/battle/stage.json → ArknightsApplication.activityStage）
+     *   2) stage_table.unlockCondition 里「前置=stageId 且 PASS」的关卡全部满足即解锁
+     * 新解锁条目的字段与官服抓包一致：{stageId, completeTimes, startTimes, practiceTimes, state, hasBattleReplay}
+     */
+    private int unlockActivityStages(JSONObject UserSyncData, String clearedStageId, int completeState,
+            JSONArray unlockStages, JSONArray unlockStagesObject) {
+        JSONObject stages = UserSyncData.getJSONObject("dungeon").getJSONObject("stages");
+        int added = 0;
+
+        // 1) 手写链
+        JSONObject actCfg = ArknightsApplication.activityStage == null ? null
+                : ArknightsApplication.activityStage.getJSONObject(clearedStageId);
+        if (actCfg != null) {
+            for (String key : new String[]{"next", "sub"}) {
+                String target = actCfg.getString(key);
+                if (target != null && !target.equals(clearedStageId) && !stages.containsKey(target)) {
+                    stages.put(target, createActivityStageEntry(target));
+                    unlockStages.add(target);
+                    unlockStagesObject.add(stages.getJSONObject(target));
+                    added++;
+                }
+            }
+            if (completeState == 3) {
+                for (String key : new String[]{"star", "hard"}) {
+                    String target = actCfg.getString(key);
+                    if (target != null && !target.equals(clearedStageId) && !stages.containsKey(target)) {
+                        stages.put(target, createActivityStageEntry(target));
+                        unlockStages.add(target);
+                        unlockStagesObject.add(stages.getJSONObject(target));
+                        added++;
+                    }
+                }
+            }
+        }
+
+        // 2) 条件表反查：所有 unlockCondition 都满足、且前置里包含 clearedStageId
+        java.util.List<String> ids = new java.util.ArrayList<>(stageTable.keySet());
+        java.util.Collections.sort(ids);
+        for (String id : ids) {
+            if (stages.containsKey(id)) {
+                continue;
+            }
+            JSONObject cfg = stageTable.getJSONObject(id);
+            if (cfg == null) {
+                continue;
+            }
+            JSONArray conds = cfg.getJSONArray("unlockCondition");
+            if (conds == null || conds.isEmpty()) {
+                continue;
+            }
+            boolean mentionsCleared = false;
+            boolean ok = true;
+            for (int i = 0; i < conds.size(); i++) {
+                JSONObject cond = conds.getJSONObject(i);
+                if (cond == null) {
+                    continue;
+                }
+                String needId = cond.getString("stageId");
+                if (clearedStageId.equals(needId)) {
+                    mentionsCleared = true;
+                }
+                JSONObject needStage = needId == null ? null : stages.getJSONObject(needId);
+                if (needStage == null || needStage.getIntValue("state") <= 0) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (!ok || !mentionsCleared) {
+                continue;
+            }
+            stages.put(id, createActivityStageEntry(id));
+            unlockStages.add(id);
+            unlockStagesObject.add(stages.getJSONObject(id));
+            added++;
+        }
+        return added;
+    }
+
+    private static JSONObject createActivityStageEntry(String stageId) {
+        JSONObject one = new JSONObject(true);
+        one.put("stageId", stageId);
+        one.put("completeTimes", 0);
+        one.put("startTimes", 0);
+        one.put("practiceTimes", 0);
+        one.put("state", 0);
+        one.put("hasBattleReplay", 0);
+        return one;
+    }
+
+    /** 登录/同步时把该解锁的活动关一次补齐（给老存档用） */
+    public static int applyActivityUnlocks(JSONObject UserSyncData) {
+        JSONObject dungeon = UserSyncData.getJSONObject("dungeon");
+        JSONObject stages = dungeon == null ? null : dungeon.getJSONObject("stages");
+        if (stages == null || stageTable == null) {
+            return 0;
+        }
+        int added = 0;
+        java.util.List<String> ids = new java.util.ArrayList<>(stageTable.keySet());
+        java.util.Collections.sort(ids);
+        for (String id : ids) {
+            if (stages.containsKey(id)) {
+                continue;
+            }
+            JSONObject cfg = stageTable.getJSONObject(id);
+            if (cfg == null) {
+                continue;
+            }
+            JSONArray conds = cfg.getJSONArray("unlockCondition");
+            if (conds == null || conds.isEmpty()) {
+                continue;
+            }
+            boolean ok = true;
+            for (int i = 0; i < conds.size(); i++) {
+                JSONObject cond = conds.getJSONObject(i);
+                String needId = cond == null ? null : cond.getString("stageId");
+                JSONObject needStage = needId == null ? null : stages.getJSONObject(needId);
+                if (needStage == null || needStage.getIntValue("state") <= 0) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (!ok) {
+                continue;
+            }
+            stages.put(id, createActivityStageEntry(id));
+            added++;
+        }
+        return added;
+    }
+
     private void addStageUnlock(JSONObject UserSyncData, String currentStageId, String targetStageId,
                                 JSONArray unlockStages, JSONArray unlockStagesObject) {
         JSONObject stages = UserSyncData.getJSONObject("dungeon").getJSONObject("stages");
@@ -1094,6 +1276,99 @@ public class quest {
         newStage.put("state", 0);
         newStage.put("startTimes", 0);
         return newStage;
+    }
+
+    /** itemId → {活动类型, 活动id}：activity_table.basicInfo 的活动 id 前缀匹配
+     *  例：act55side_token_record → {TYPE_ACT55SIDE, act55side} */
+    private static String[] resolveActivityOfItem(String itemId) {
+        if (itemId == null) {
+            return null;
+        }
+        JSONObject table = com.hypergryph.arknights.game.activity.activityTable();
+        JSONObject basic = table == null ? null : table.getJSONObject("basicInfo");
+        if (basic == null) {
+            return null;
+        }
+        String best = null;
+        for (String k : basic.keySet()) {
+            if (itemId.equals(k) || itemId.startsWith(k + "_")) {
+                if (best == null || k.length() > best.length()) {
+                    best = k;
+                }
+            }
+        }
+        if (best == null) {
+            return null;
+        }
+        JSONObject info = basic.getJSONObject(best);
+        String type = info == null ? null : info.getString("type");
+        if (type == null) {
+            return null;
+        }
+        return new String[]{type, best};
+    }
+
+    /** 活动代币入账：user.activity.<类型>.<actId>.coin += count */
+    private static boolean grantActivityItem(JSONObject UserSyncData, String itemId, int count) {
+        String[] at = resolveActivityOfItem(itemId);
+        if (at == null) {
+            return false;
+        }
+        JSONObject activity = UserSyncData.getJSONObject("activity");
+        if (activity == null) {
+            activity = new JSONObject(true);
+            UserSyncData.put("activity", activity);
+        }
+        JSONObject group = activity.getJSONObject(at[0]);
+        if (group == null) {
+            group = new JSONObject(true);
+            activity.put(at[0], group);
+        }
+        JSONObject st = group.getJSONObject(at[1]);
+        if (st == null) {
+            st = new JSONObject(true);
+            group.put(at[1], st);
+        }
+        st.put("coin", st.getIntValue("coin") + count);
+        ArknightsApplication.LOGGER.info("[activity] 活动代币 " + itemId + " x" + count
+                + " -> " + at[0] + "/" + at[1] + " coin=" + st.getIntValue("coin"));
+        return true;
+    }
+
+    /** 从结算结果里收集 ACTIVITY_ITEM，生成 modified.activity 增量 */
+    private static JSONObject buildActivityRewardDelta(JSONObject UserSyncData, JSONObject result) {
+        JSONObject delta = new JSONObject(true);
+        for (String key : new String[]{"rewards", "firstRewards", "unusualRewards", "additionalRewards"}) {
+            JSONArray arr = result == null ? null : result.getJSONArray(key);
+            if (arr == null) {
+                continue;
+            }
+            for (int i = 0; i < arr.size(); i++) {
+                JSONObject r = arr.getJSONObject(i);
+                if (r == null || !"ACTIVITY_ITEM".equals(r.getString("type"))) {
+                    continue;
+                }
+                String[] at = resolveActivityOfItem(r.getString("id"));
+                if (at == null) {
+                    continue;
+                }
+                JSONObject activity = UserSyncData.getJSONObject("activity");
+                JSONObject groupNow = activity == null ? null : activity.getJSONObject(at[0]);
+                JSONObject st = groupNow == null ? null : groupNow.getJSONObject(at[1]);
+                if (st == null) {
+                    continue;
+                }
+                JSONObject g = delta.getJSONObject(at[0]);
+                if (g == null) {
+                    g = new JSONObject(true);
+                    delta.put(at[0], g);
+                }
+                JSONObject state = new JSONObject(true);
+                state.put("coin", st.getIntValue("coin"));
+                g.put(at[1], state);
+            }
+        }
+        return delta.isEmpty() ? null : delta;
     }
 
     private JSONObject calculateRewards(JSONObject UserSyncData, JSONObject stage_table,
@@ -1295,6 +1570,10 @@ public class quest {
                 UserSyncData.getJSONObject("status").put("gold",
                         UserSyncData.getJSONObject("status").getIntValue("gold") + reward_count);
                 break;
+            case "ACTIVITY_ITEM":
+                // 活动专属代币（如 act55side_token_record）→ 活动状态里的 coin，不进仓库
+                grantActivityItem(UserSyncData, reward_id, reward_count);
+                break;
             case "TKT_RECRUIT":
                 UserSyncData.getJSONObject("status").put("recruitLicense",
                         UserSyncData.getJSONObject("status").getIntValue("recruitLicense") + reward_count);
@@ -1473,7 +1752,13 @@ public class quest {
                                      JSONObject stage_table, int completeState) {
         int completeFavor = stage_table.getIntValue("completeFavor");
         int passFavor = stage_table.getIntValue("passFavor");
-        JSONObject charList = BattleData.getJSONObject("battleData").getJSONObject("stats").getJSONObject("charList");
+        JSONObject battleNode = BattleData.getJSONObject("battleData");
+        JSONObject statsNode = battleNode == null ? null : battleNode.getJSONObject("stats");
+        JSONObject charList = statsNode == null ? null : statsNode.getJSONObject("charList");
+        if (charList == null || charList.isEmpty()) {
+            // 活动/演习关卡或数据不全时算不了好感度，直接跳过，别 500
+            return;
+        }
 
         for (Map.Entry<String, Object> entry : charList.entrySet()) {
             String charInstId = entry.getKey();

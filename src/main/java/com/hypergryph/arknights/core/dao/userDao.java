@@ -98,31 +98,31 @@ public class userDao {
 
     public static int setAssistCharListData(Long uid, JSONObject assistCharList) {
         String sql = "UPDATE account SET assistCharList = ? WHERE uid = ?";
-        Object[] params = new Object[]{JSON.toJSONString(assistCharList, new SerializerFeature[]{SerializerFeature.WriteMapNullValue}), uid};
+        Object[] params = new Object[]{JSON.toJSONString(assistCharList, new SerializerFeature[]{SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect}), uid};
         return ArknightsApplication.jdbcTemplate.update(sql, params);
     }
 
     public static int setMailsData(Long uid, JSONArray mailsData) {
         String sql = "UPDATE account SET mails = ? WHERE uid = ?";
-        Object[] params = new Object[]{JSON.toJSONString(mailsData, new SerializerFeature[]{SerializerFeature.WriteMapNullValue}), uid};
+        Object[] params = new Object[]{JSON.toJSONString(mailsData, new SerializerFeature[]{SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect}), uid};
         return ArknightsApplication.jdbcTemplate.update(sql, params);
     }
 
     public static int setUserData(Long uid, JSONObject userData) {
         String sql = "UPDATE account SET user = ? WHERE uid = ?";
-        Object[] params = new Object[]{JSON.toJSONString(userData, new SerializerFeature[]{SerializerFeature.WriteMapNullValue}), uid};
+        Object[] params = new Object[]{JSON.toJSONString(userData, new SerializerFeature[]{SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect}), uid};
         return ArknightsApplication.jdbcTemplate.update(sql, params);
     }
 
     public static int setFriendData(Long uid, JSONObject friendData) {
         String sql = "UPDATE account SET friend = ? WHERE uid = ?";
-        Object[] params = new Object[]{JSON.toJSONString(friendData, new SerializerFeature[]{SerializerFeature.WriteMapNullValue}), uid};
+        Object[] params = new Object[]{JSON.toJSONString(friendData, new SerializerFeature[]{SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect}), uid};
         return ArknightsApplication.jdbcTemplate.update(sql, params);
     }
 
     public static int setBanStatus(int uid, int status) {
         String sql = "UPDATE account SET ban = ? WHERE uid = ?";
-        Object[] params = new Object[]{JSON.toJSONString(status, new SerializerFeature[]{SerializerFeature.WriteMapNullValue}), uid};
+        Object[] params = new Object[]{JSON.toJSONString(status, new SerializerFeature[]{SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect}), uid};
         return ArknightsApplication.jdbcTemplate.update(sql, params);
     }
 
