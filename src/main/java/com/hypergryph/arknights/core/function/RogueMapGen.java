@@ -71,31 +71,55 @@ public final class RogueMapGen {
     }
 
     /**
-     * rogue_6 的真实位值（抓包实证；从 512 起和 nodeTypeData 的键顺序**不一致**）：
-     *   16 REST, 32 INCIDENT, 512 WISH, 1024 SACRIFICE, 2048 EXPEDITION,
-     *   4096 BATTLE_SHOP, 8192 PORTAL, 2097152 SCRAP_SHOP, 4194304 LIGHT,
-     *   8388608 FINAL, 16777216 EVACUATE, 33554432 EMPLOY
+     * rogue_6 节点位值 —— 以客户端 GA（global-metadata.dat v29）中
+     * Torappu.RoguelikeEventType 枚举常量为准（metadata 自定义 varint+zigzag
+     * 默认值编码已解码，30 个单值与官服抓包表逐项吻合）：
+     *   0 NONE, 1 BATTLE_NORMAL, 2 BATTLE_ELITE, 4 BATTLE_BOSS, 8 SHOP, 16 REST,
+     *   32 INCIDENT, 64 TREASURE, 128 ENTERTAINMENT, 256 UNKNOWN, 512 WISH,
+     *   1024 SACRIFICE, 2048 EXPEDITION, 4096 BATTLE_SHOP, 8192 PORTAL,
+     *   16384 MISSION, 32768 STORY, 65536 STORY_HIDDEN, 131072 ALCHEMY,
+     *   262144 DUEL, 524288 STASHED_RECRUIT, 1048576 SPECIAL_ZONE,
+     *   2097152 SCRAP_SHOP, 4194304 DOOR, 8388608 FINAL, 16777216 EVACUATE,
+     *   33554432 EMPLOY, 67108864 LIGHT, 134217728 BATTLE_SAVAGE, 268435456 EMPTY
+     * 枚举内组合位（同样从 metadata 解出）：
+     *   BATTLES = 0x08000007 (BN|BE|BB|BATTLE_SAVAGE)
+     *   CHOICES = 0x019DEEF0
+     *   EVENTS  = 0x17FDFEF8
+     *   ALL     = 0x1FFDFEFF (全量 - ALCHEMY - UNKNOWN)
      */
     private static final java.util.Map<String, Integer> ROGUE6_BITS = new java.util.HashMap<>();
     static {
+        ROGUE6_BITS.put("NONE", 0);
         ROGUE6_BITS.put("BATTLE_NORMAL", 1);
         ROGUE6_BITS.put("BATTLE_ELITE", 2);
         ROGUE6_BITS.put("BATTLE_BOSS", 4);
-        ROGUE6_BITS.put("BATTLE", 256);
+        ROGUE6_BITS.put("SHOP", 8);
         ROGUE6_BITS.put("REST", 16);
         ROGUE6_BITS.put("INCIDENT", 32);
+        ROGUE6_BITS.put("TREASURE", 64);
+        ROGUE6_BITS.put("ENTERTAINMENT", 128);
+        ROGUE6_BITS.put("UNKNOWN", 256);
+        ROGUE6_BITS.put("BATTLE", 256); // 旧名兼容，正式枚举名是 UNKNOWN
         ROGUE6_BITS.put("WISH", 512);
         ROGUE6_BITS.put("SACRIFICE", 1024);
         ROGUE6_BITS.put("EXPEDITION", 2048);
         ROGUE6_BITS.put("BATTLE_SHOP", 4096);
         ROGUE6_BITS.put("PORTAL", 8192);
+        ROGUE6_BITS.put("MISSION", 16384);
+        ROGUE6_BITS.put("STORY", 32768);
+        ROGUE6_BITS.put("STORY_HIDDEN", 65536);
+        ROGUE6_BITS.put("ALCHEMY", 131072);
         ROGUE6_BITS.put("DUEL", 262144);
-        ROGUE6_BITS.put("TREASURE", 134217728);
+        ROGUE6_BITS.put("STASHED_RECRUIT", 524288);
+        ROGUE6_BITS.put("SPECIAL_ZONE", 1048576);
         ROGUE6_BITS.put("SCRAP_SHOP", 2097152);
-        ROGUE6_BITS.put("LIGHT", 4194304);
+        ROGUE6_BITS.put("DOOR", 4194304);
         ROGUE6_BITS.put("FINAL", 8388608);
         ROGUE6_BITS.put("EVACUATE", 16777216);
         ROGUE6_BITS.put("EMPLOY", 33554432);
+        ROGUE6_BITS.put("LIGHT", 67108864);
+        ROGUE6_BITS.put("BATTLE_SAVAGE", 134217728);
+        ROGUE6_BITS.put("EMPTY", 268435456);
     }
 
     public static int typeBit(String theme, String typeName) {
@@ -773,5 +797,545 @@ public final class RogueMapGen {
         zone.put("type", 0);
         stripGatedNodes(zone, theme, level, unlockedBuffs);
         return zone;
+    }
+
+    /**
+     * rogue_6（沉沦者的黑流树海）专用网格地图生成器（嵌在 MapGen 里的独立生成逻辑）。
+     *
+     * 依据（三源闭环，2026-11-11）：
+     *  ① 官服抓包 zone_1000~1006 构成统计（37/30/23/8/5/2/2 份快照，
+     *     扫描脚本 work/tools/_scratch/scan_r6_layouts.py）；
+     *  ② PRTS「沉沦者的黑流树海」节点出场层限制（密道成对/羽瞰点每层1个/恶敌层无其它安全出口）；
+     *  ③ GA metadata Torappu.RoguelikeEventType 位值（全部常量实证）。
+     *
+     * 官服地图形态：近满矩形随机去格（~30-40% 林间空地+缺格），四邻接双向边，
+     * 入口 = x=0 的 EMPTY 格（vis 0），出口带 zone_end=true；
+     * 未定型格 type=256（vis 1，靠近后由服务端 resolveFrontierNodes 定型）。
+     */
+    public static class R6MapGen {
+
+        // —— 位值（GA metadata 实证）——
+        public static final int BATTLE_NORMAL = 1;
+        public static final int BATTLE_ELITE = 2;
+        public static final int BATTLE_BOSS = 4;
+        public static final int SHOP = 8;
+        public static final int REST = 16;
+        public static final int INCIDENT = 32;
+        public static final int UNKNOWN = 256;             // 未定型占位
+        public static final int WISH = 512;
+        public static final int SACRIFICE = 1024;
+        public static final int EXPEDITION = 2048;
+        public static final int BATTLE_SHOP = 4096;
+        public static final int PORTAL = 8192;
+        public static final int STORY = 32768;
+        public static final int STORY_HIDDEN = 65536;      // 命运所指
+        public static final int ALCHEMY = 131072;
+        public static final int DUEL = 262144;
+        public static final int SCRAP_SHOP = 2097152;
+        public static final int DOOR = 4194304;            // 曲折密道（成对传送）
+        public static final int FINAL = 8388608;           // 险路尽头
+        public static final int EVACUATE = 16777216;       // 险路小径
+        public static final int EMPLOY = 33554432;
+        public static final int LIGHT = 67108864;          // 羽瞰点
+        public static final int BATTLE_SAVAGE = 134217728; // 险路恶敌
+        public static final int EMPTY = 268435456;         // 林间空地/空洞
+
+        /** 局外成长门控（roguelike_topic_table customizeData：未解锁不出现） */
+        private static final String GATE_PORTAL = "rogue_6_outbuff_7";     // 育儿袋 → 误入奇境
+        private static final String GATE_EXPEDITION = "rogue_6_outbuff_9"; // 眼睛 → 先行一步
+
+        private R6MapGen() {
+        }
+
+        /** 每层配方（抓包统计，★=几乎必出）：cols×rows / 节点数 / UNK 数 / 空洞数 */
+        private static final class Spec {
+            final int cols;
+            final int rows;
+            final int minNodes;
+            final int maxNodes;
+            final int minUnk;
+            final int maxUnk;
+            final int minHoles;
+            final int maxHoles;
+            /** 固定特殊节点（每层必放的类型，DOOR 出现 2 次即成对） */
+            final int[] fixed;
+            /** 出口类型（FINAL / BATTLE_BOSS / BATTLE_SAVAGE=恶敌层无其它安全出口） */
+            final int exitType;
+            /** 出口数量 */
+            final int exits;
+            /** 险路小径 EVACUATE 个数 */
+            final int evacuates;
+            /** 其余格子的加权池 */
+            final String[] pool;
+
+            Spec(int cols, int rows, int minNodes, int maxNodes, int minUnk, int maxUnk,
+                    int minHoles, int maxHoles, int[] fixed, int exitType, int exits,
+                    int evacuates, String[] pool) {
+                this.cols = cols;
+                this.rows = rows;
+                this.minNodes = minNodes;
+                this.maxNodes = maxNodes;
+                this.minUnk = minUnk;
+                this.maxUnk = maxUnk;
+                this.minHoles = minHoles;
+                this.maxHoles = maxHoles;
+                this.fixed = fixed;
+                this.exitType = exitType;
+                this.exits = exits;
+                this.evacuates = evacuates;
+                this.pool = pool;
+            }
+        }
+
+        /*
+         * 每层规格（官方快照实测）：
+         *  L1 1000: 5×3   11~13 格  FIN×2(出口)   无 LIGHT/DOOR              空洞 3~4
+         *  L2 1001: 6×5   16~20 格  FIN×2(出口)   LIGHT 1                    空洞 5~6
+         *  L3 1002: 8×6   27~31 格  BB×1(出口)    DOOR 2 + LIGHT 1 + BSHOP 1 空洞 8~11
+         *  L4 1003: 8×5   28~32 格  FIN×3(出口)   DOOR 2 + LIGHT 1 + REST 1  空洞 9~11
+         *  L5 1004: 8×5   36~40 格  SAVG×1(出口)  DOOR 2 + LIGHT 1 + EVAC 1  空洞 12~16
+         *  L6 1005: 10×5  38~40 格  SAVG×1(出口)  DOOR 2 + LIGHT 1 + PORT 1 + EMP 1 + BB 1 空洞 14~16
+         *  L7 1006: 4×4    9~11 格  FIN×1(出口)   小型结局层                 空洞 4~5
+         * 出场层限制（PRTS）：REST≠I；DUEL/PORT/DOOR≠I、II、VI；SACR/EMP≠I、VI；EXPD≠I、V、VI
+         * （L6 抓包实测含 PORT/DUEL，以抓包为准保留低权重项）
+         */
+        private static Spec spec(int level) {
+            switch (level) {
+                case 2:
+                    return new Spec(6, 5, 16, 20, 2, 6, 4, 5,
+                            new int[]{LIGHT}, FINAL, 2, 0,
+                            new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_NORMAL",
+                                "INCIDENT", "INCIDENT", "BATTLE_SHOP", "SCRAP_SHOP",
+                                "WISH", "SACRIFICE", "REST", "BATTLE_BOSS"});
+                case 3:
+                    return new Spec(8, 6, 27, 31, 5, 9, 7, 10,
+                            new int[]{DOOR, LIGHT, BATTLE_SHOP}, BATTLE_BOSS, 1, 0,
+                            new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_ELITE",
+                                "INCIDENT", "INCIDENT", "WISH", "SACRIFICE", "EXPEDITION",
+                                "PORTAL", "DUEL", "SCRAP_SHOP", "EMPLOY", "ALCHEMY", "REST"});
+                case 4:
+                    return new Spec(8, 5, 28, 32, 5, 10, 8, 10,
+                            new int[]{DOOR, LIGHT, REST}, FINAL, 3, 0,
+                            new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "INCIDENT", "INCIDENT",
+                                "WISH", "SACRIFICE", "EXPEDITION", "PORTAL",
+                                "SCRAP_SHOP", "EMPLOY", "DUEL"});
+                case 5:
+                    return new Spec(8, 5, 36, 40, 8, 16, 11, 15,
+                            new int[]{DOOR, LIGHT, EVACUATE}, BATTLE_SAVAGE, 1, 0,
+                            new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_ELITE",
+                                "BATTLE_BOSS", "INCIDENT", "INCIDENT", "WISH", "WISH",
+                                "SACRIFICE", "PORTAL", "DUEL", "EMPLOY", "SCRAP_SHOP",
+                                "BATTLE_SHOP"});
+                case 6:
+                    return new Spec(10, 5, 38, 40, 8, 13, 13, 15,
+                            new int[]{DOOR, LIGHT, PORTAL, EMPLOY, BATTLE_BOSS},
+                            BATTLE_SAVAGE, 1, 0,
+                            new String[]{"BATTLE_NORMAL", "BATTLE_ELITE", "INCIDENT",
+                                "DUEL", "WISH"});
+                case 7:
+                    return new Spec(4, 4, 9, 11, 2, 3, 3, 4,
+                            new int[0], FINAL, 1, 0,
+                            new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_NORMAL",
+                                "INCIDENT"});
+                case 1:
+                default:
+                    return new Spec(5, 3, 11, 13, 1, 3, 2, 3,
+                            new int[0], FINAL, 2, 0,
+                            new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_NORMAL",
+                                "BATTLE_ELITE", "INCIDENT", "INCIDENT",
+                                "BATTLE_SHOP", "WISH"});
+            }
+        }
+
+        /**
+         * 生成 rogue_6 第 level 层。
+         *
+         * @param seed          局种子（只影响随机序列，保证同一局可复现）
+         * @param level         层号 1..7
+         * @param unlockedBuffs 玩家局外成长已解锁 buff id；null = 全部按已解锁处理
+         */
+        public static JSONObject generateZone(String seed, int level,
+                java.util.Set<String> unlockedBuffs) {
+            return generateZone(seed, level, unlockedBuffs, java.util.Collections.emptySet());
+        }
+
+        /**
+         * 带结局持有物感知的生成（PRTS 层级判定）：
+         *   第Ⅴ层持【沙盘α+β】→ 追加 1 个「命运所指」（结局2 的「修正结果」选项）；
+         *   第Ⅵ层恒追加 1 个「命运所指」（结局3/4 的「险路恶敌」选项）。
+         *
+         * @param finalRelics 本局已获 final 系收藏品 id（rlv2.rogue6FinalRelics）
+         */
+        public static JSONObject generateZone(String seed, int level,
+                java.util.Set<String> unlockedBuffs, java.util.Set<String> finalRelics) {
+            int lv = Math.max(1, Math.min(7, level));
+            Spec sp = spec(lv);
+            boolean sandbox = finalRelics != null
+                    && finalRelics.contains("rogue_6_relic_final_1")
+                    && finalRelics.contains("rogue_6_relic_final_2");
+            if (lv == 5 && sandbox) {
+                int[] old = sp.fixed;
+                int[] grown = new int[old.length + 1];
+                System.arraycopy(old, 0, grown, 0, old.length);
+                grown[old.length] = STORY_HIDDEN;   // 第Ⅴ层「命运所指」（结局2）
+                sp = new Spec(sp.cols, sp.rows, sp.minNodes, sp.maxNodes, sp.minUnk, sp.maxUnk,
+                        sp.minHoles, sp.maxHoles, grown, sp.exitType, sp.exits, sp.evacuates,
+                        sp.pool);
+            } else if (lv == 6) {
+                int[] old = sp.fixed;
+                int[] grown = new int[old.length + 1];
+                System.arraycopy(old, 0, grown, 0, old.length);
+                grown[old.length] = STORY_HIDDEN;   // 第Ⅵ层「命运所指」（结局3/4）
+                sp = new Spec(sp.cols, sp.rows, sp.minNodes, sp.maxNodes, sp.minUnk, sp.maxUnk,
+                        sp.minHoles, sp.maxHoles, grown, sp.exitType, sp.exits, sp.evacuates,
+                        sp.pool);
+            }
+            java.util.Random rnd = new java.util.Random(
+                    (seed == null ? 0L : seed.hashCode()) * 97L + lv * 7919L);
+
+            // ── 1. 官方形态：近满矩形随机去格（保持连通） ──
+            boolean[][] cell = new boolean[sp.rows][sp.cols];
+            for (int y = 0; y < sp.rows; y++) {
+                for (int x = 0; x < sp.cols; x++) {
+                    cell[y][x] = true;
+                }
+            }
+            int entryY = sp.rows / 2;
+            int target = sp.minNodes + rnd.nextInt(sp.maxNodes - sp.minNodes + 1);
+            target = Math.min(target, sp.cols * sp.rows - sp.exits - sp.evacuates - 1);
+            int toRemove = sp.cols * sp.rows - target;
+            java.util.List<int[]> cand = new java.util.ArrayList<>();
+            for (int y = 0; y < sp.rows; y++) {
+                for (int x = 0; x < sp.cols; x++) {
+                    if (x == 0 && y == entryY) {
+                        continue;   // 入口永不删
+                    }
+                    cand.add(new int[]{x, y});
+                }
+            }
+            // 倾向先删角落/边缘（邻居少的格子），官方 blob 边缘参差
+            cand.sort(java.util.Comparator
+                    .comparingInt((int[] c) -> neighborCount(cell, c[0], c[1])));
+            java.util.Collections.shuffle(cand, rnd);
+            for (int[] c : cand) {
+                if (toRemove <= 0) {
+                    break;
+                }
+                cell[c[1]][c[0]] = false;
+                if (!connected(cell, 0, entryY)) {
+                    cell[c[1]][c[0]] = true;   // 会断图 → 恢复
+                } else {
+                    toRemove--;
+                }
+            }
+
+            java.util.List<int[]> cells = new java.util.ArrayList<>();
+            for (int y = 0; y < sp.rows; y++) {
+                for (int x = 0; x < sp.cols; x++) {
+                    if (cell[y][x]) {
+                        cells.add(new int[]{x, y});
+                    }
+                }
+            }
+
+            // ── 2. 选出口：最右列（不够再向左找）；EVACUATE 放最左列 ──
+            java.util.Set<String> used = new java.util.LinkedHashSet<>();
+            used.add(key(0, entryY));
+
+            java.util.List<int[]> exits = new java.util.ArrayList<>();
+            for (int x = sp.cols - 1; x >= 0 && exits.size() < sp.exits; x--) {
+                java.util.List<Integer> colYs = new java.util.ArrayList<>();
+                for (int y = 0; y < sp.rows; y++) {
+                    if (cell[y][x] && !used.contains(key(x, y))) {
+                        colYs.add(y);
+                    }
+                }
+                java.util.Collections.shuffle(colYs, rnd);
+                while (!colYs.isEmpty() && exits.size() < sp.exits) {
+                    int y = colYs.remove(0);
+                    exits.add(new int[]{x, y});
+                    used.add(key(x, y));
+                }
+            }
+
+            java.util.List<int[]> evacCells = new java.util.ArrayList<>();
+            for (int i = 0; i < sp.evacuates; i++) {
+                java.util.List<Integer> colYs = new java.util.ArrayList<>();
+                for (int y = 0; y < sp.rows; y++) {
+                    if (y != entryY && cell[y][0] && !used.contains(key(0, y))) {
+                        colYs.add(y);
+                    }
+                }
+                java.util.Collections.shuffle(colYs, rnd);
+                if (!colYs.isEmpty()) {
+                    int y = colYs.get(0);
+                    evacCells.add(new int[]{0, y});
+                    used.add(key(0, y));
+                }
+            }
+
+            // ── 3. 剩余自由格 ──
+            java.util.List<int[]> free = new java.util.ArrayList<>();
+            for (int[] c : cells) {
+                if (!used.contains(key(c[0], c[1]))) {
+                    free.add(c);
+                }
+            }
+            java.util.Collections.shuffle(free, rnd);
+
+            // 空洞 / UNK 配额（不够就夹到剩余格数）
+            int holes = sp.minHoles + rnd.nextInt(sp.maxHoles - sp.minHoles + 1);
+            int unk = sp.minUnk + rnd.nextInt(sp.maxUnk - sp.minUnk + 1);
+            int budget = free.size();
+            unk = Math.min(unk, Math.max(0, budget / 3));
+            holes = Math.max(0, Math.min(holes, budget - unk));
+
+            // ── 4. 组装节点 ──
+            JSONObject nodes = new JSONObject(true);
+            nodes.put(key(0, entryY), node(0, entryY, EMPTY, 0));
+            for (int[] c : exits) {
+                nodes.put(key(c[0], c[1]), node(c[0], c[1], sp.exitType, 0, true));
+            }
+            for (int[] c : evacCells) {
+                nodes.put(key(c[0], c[1]), node(c[0], c[1], EVACUATE, 0, true));
+            }
+
+            // 固定特殊节点（DOOR 成对：第一个随便放，第二个取相距最远的自由格）
+            java.util.ArrayDeque<Integer> fx = new java.util.ArrayDeque<>();
+            for (int t : sp.fixed) {
+                if (t == PORTAL && !gateOpen(unlockedBuffs, GATE_PORTAL)) {
+                    continue;
+                }
+                fx.add(t);
+            }
+            while (!fx.isEmpty() && !free.isEmpty()) {
+                int t = fx.poll();
+                int[] spot = free.remove(0);
+                nodes.put(key(spot[0], spot[1]), node(spot[0], spot[1], t, 0));
+                if (t == DOOR && !free.isEmpty()) {
+                    int[] far = free.get(0);
+                    int bestD = -1;
+                    for (int[] c : free) {
+                        int d = Math.abs(c[0] - spot[0]) + Math.abs(c[1] - spot[1]);
+                        if (d > bestD) {
+                            bestD = d;
+                            far = c;
+                        }
+                    }
+                    free.remove(far);
+                    nodes.put(key(far[0], far[1]), node(far[0], far[1], DOOR, 0));
+                }
+            }
+
+            // 空洞（vis 0）与未定型（vis 1，靠近后由 resolveFrontierNodes 定型）
+            for (int i = 0; i < holes && !free.isEmpty(); i++) {
+                int[] c = free.remove(0);
+                nodes.put(key(c[0], c[1]), node(c[0], c[1], EMPTY, 0));
+            }
+            for (int i = 0; i < unk && !free.isEmpty(); i++) {
+                int[] c = free.remove(0);
+                nodes.put(key(c[0], c[1]), node(c[0], c[1], UNKNOWN, 1));
+            }
+            // 稀有类容量（官服每层 0~1，商店类 0~2），先统计已放的固定节点
+            java.util.Map<Integer, Integer> placed = new java.util.HashMap<>();
+            for (String k : nodes.keySet()) {
+                placed.merge(nodes.getJSONObject(k).getIntValue("type"), 1, Integer::sum);
+            }
+            // 剩余按池加权填充
+            for (int[] c : free) {
+                String name = sp.pool[rnd.nextInt(sp.pool.length)];
+                if ("PORTAL".equals(name) && !gateOpen(unlockedBuffs, GATE_PORTAL)) {
+                    name = "INCIDENT";
+                }
+                if ("EXPEDITION".equals(name) && !gateOpen(unlockedBuffs, GATE_EXPEDITION)) {
+                    name = "INCIDENT";
+                }
+                int bit = bitOf(name);
+                int cap = capOf(bit);
+                for (int t = 0; t < 4 && placed.getOrDefault(bit, 0) >= cap; t++) {
+                    name = "INCIDENT";
+                    bit = INCIDENT;
+                }
+                placed.merge(bit, 1, Integer::sum);
+                nodes.put(key(c[0], c[1]), node(c[0], c[1], bit, 0));
+            }
+
+            // ── 5. 四邻接双向连边（官服 next 就是全部相邻格） ──
+            linkOrthogonal(nodes);
+
+            JSONObject zone = new JSONObject(true);
+            zone.put("id", "zone_" + lv);
+            zone.put("index", 1000 + lv - 1);
+            zone.put("nodes", nodes);
+            zone.put("variation", new JSONArray());
+            zone.put("type", 0);
+            return zone;
+        }
+
+        // ───────────────────────── helpers ─────────────────────────
+
+        private static boolean gateOpen(java.util.Set<String> unlockedBuffs, String buff) {
+            return unlockedBuffs == null || unlockedBuffs.contains(buff);
+        }
+
+        private static int bitOf(String name) {
+            if ("BATTLE_NORMAL".equals(name)) {
+                return BATTLE_NORMAL;
+            }
+            if ("BATTLE_ELITE".equals(name)) {
+                return BATTLE_ELITE;
+            }
+            if ("BATTLE_BOSS".equals(name)) {
+                return BATTLE_BOSS;
+            }
+            if ("SHOP".equals(name)) {
+                return SHOP;
+            }
+            if ("REST".equals(name)) {
+                return REST;
+            }
+            if ("WISH".equals(name)) {
+                return WISH;
+            }
+            if ("SACRIFICE".equals(name)) {
+                return SACRIFICE;
+            }
+            if ("EXPEDITION".equals(name)) {
+                return EXPEDITION;
+            }
+            if ("BATTLE_SHOP".equals(name)) {
+                return BATTLE_SHOP;
+            }
+            if ("PORTAL".equals(name)) {
+                return PORTAL;
+            }
+            if ("STORY".equals(name)) {
+                return STORY;
+            }
+            if ("STORY_HIDDEN".equals(name)) {
+                return STORY_HIDDEN;
+            }
+            if ("ALCHEMY".equals(name)) {
+                return ALCHEMY;
+            }
+            if ("DUEL".equals(name)) {
+                return DUEL;
+            }
+            if ("SCRAP_SHOP".equals(name)) {
+                return SCRAP_SHOP;
+            }
+            if ("EMPLOY".equals(name)) {
+                return EMPLOY;
+            }
+            return INCIDENT;
+        }
+
+        /** 单层稀有类上限（官服统计） */
+        private static int capOf(int bit) {
+            if (bit == REST || bit == WISH || bit == SACRIFICE || bit == EMPLOY
+                    || bit == DUEL || bit == EXPEDITION || bit == PORTAL) {
+                return 1;
+            }
+            if (bit == BATTLE_SHOP || bit == SCRAP_SHOP || bit == ALCHEMY) {
+                return 2;
+            }
+            return Integer.MAX_VALUE;
+        }
+
+        private static String key(int x, int y) {
+            return String.valueOf(x * 100 + y);
+        }
+
+        private static JSONObject node(int x, int y, int type, int visibility) {
+            return node(x, y, type, visibility, false);
+        }
+
+        private static JSONObject node(int x, int y, int type, int visibility, boolean zoneEnd) {
+            JSONObject n = new JSONObject(true);
+            n.put("index", key(x, y));
+            JSONObject pos = new JSONObject(true);
+            pos.put("x", x);
+            pos.put("y", y);
+            n.put("pos", pos);
+            n.put("next", new JSONArray());
+            n.put("type", type);
+            n.put("visibility", visibility);
+            if (zoneEnd) {
+                n.put("zone_end", true);
+            }
+            return n;
+        }
+
+        /** 四邻接双向连边 */
+        private static void linkOrthogonal(JSONObject nodes) {
+            int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            for (String k : nodes.keySet()) {
+                JSONObject n = nodes.getJSONObject(k);
+                JSONObject pos = n.getJSONObject("pos");
+                int x = pos.getIntValue("x");
+                int y = pos.getIntValue("y");
+                JSONArray next = new JSONArray();
+                for (int[] d : dirs) {
+                    String tk = key(x + d[0], y + d[1]);
+                    if (nodes.containsKey(tk)) {
+                        JSONObject p = new JSONObject(true);
+                        p.put("x", x + d[0]);
+                        p.put("y", y + d[1]);
+                        next.add(p);
+                    }
+                }
+                n.put("next", next);
+            }
+        }
+
+        private static int neighborCount(boolean[][] cell, int x, int y) {
+            int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            int c = 0;
+            for (int[] d : dirs) {
+                int nx = x + d[0];
+                int ny = y + d[1];
+                if (nx >= 0 && nx < cell[0].length && ny >= 0 && ny < cell.length && cell[ny][nx]) {
+                    c++;
+                }
+            }
+            return c;
+        }
+
+        /** 从 (sx,sy) BFS，判断现存格是否全部连通 */
+        private static boolean connected(boolean[][] cell, int sx, int sy) {
+            int rows = cell.length;
+            int cols = cell[0].length;
+            int total = 0;
+            for (int y = 0; y < rows; y++) {
+                for (int x = 0; x < cols; x++) {
+                    if (cell[y][x]) {
+                        total++;
+                    }
+                }
+            }
+            if (!cell[sy][sx]) {
+                return total == 0;
+            }
+            boolean[][] seen = new boolean[rows][cols];
+            java.util.ArrayDeque<int[]> q = new java.util.ArrayDeque<>();
+            q.add(new int[]{sx, sy});
+            seen[sy][sx] = true;
+            int got = 0;
+            int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            while (!q.isEmpty()) {
+                int[] c = q.poll();
+                got++;
+                for (int[] d : dirs) {
+                    int nx = c[0] + d[0];
+                    int ny = c[1] + d[1];
+                    if (nx >= 0 && nx < cols && ny >= 0 && ny < rows
+                            && cell[ny][nx] && !seen[ny][nx]) {
+                        seen[ny][nx] = true;
+                        q.add(new int[]{nx, ny});
+                    }
+                }
+            }
+            return got == total;
+        }
     }
 }

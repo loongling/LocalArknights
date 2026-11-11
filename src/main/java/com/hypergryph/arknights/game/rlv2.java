@@ -985,6 +985,15 @@ public class rlv2 {
         // 官方最大层数（details.<theme>.zones 里 zone_N 的个数：rogue_6=7）
         int maxFloor = com.hypergryph.arknights.core.function.RogueMapGen.officialZoneCount(
                 cur.getJSONObject("game").getString("theme"));
+        if ("rogue_6".equals(cur.getJSONObject("game").getString("theme")) && maxFloor > 0) {
+            // PRTS 层级判定：第Ⅵ层「源流交汇处」是隐藏层，需持有【怦然信标】才可进入；
+            // 没有信标 → 第Ⅴ层就是终点，不允许生成第 6/7 层
+            boolean beacon0 = rogue6FinalRelics(cur).contains("rogue_6_relic_final_3");
+            int hardCap = beacon0 ? 6 : 5;
+            if (maxFloor > hardCap) {
+                maxFloor = hardCap;
+            }
+        }
         if (maxFloor > 0 && level > maxFloor) {
             ArknightsApplication.LOGGER.info("[rlv2] 已到最后一层（{} 层），level={} 不再生成新层", maxFloor, level);
             level = maxFloor;
@@ -998,8 +1007,9 @@ public class rlv2 {
             java.util.Set<String> unlocked = unlockedDevBuffs(userData, theme);
             JSONObject genZone;
             if ("rogue_6".equals(theme)) {
-                // 自主生成（不照抄抓包模板）
-                genZone = buildRandomZone(cur, theme, level, seed, unlocked);
+                // rogue_6 专用生成器（抓包统计配方 + PRTS 规则，2026-11-11 重写）
+                genZone = com.hypergryph.arknights.core.function.RogueMapGen.R6MapGen
+                        .generateZone(seed, level, unlocked, rogue6FinalRelics(cur));
             } else {
                 genZone = com.hypergryph.arknights.core.function.RogueMapGen
                         .generateZone(seed, theme, level, unlocked);
@@ -4397,349 +4407,6 @@ public class rlv2 {
         return "ro" + theme.substring(theme.length() - 1);
     }
 
-    /**
-     * 自主生成一层网格地图（不再照抄抓包模板）。
-     * 布局：x=0 单入口 → 中间列每列 1~3 个节点 → 最右列 2 个终点(FINAL)；
-     * 列内上下相邻互相连通，跨列每个节点至少连一条到左列，保证整层可达且全正交（无斜线）。
-     * 类型按 seed 加权抽取（作战/不期而遇/安全角落/商店/得偿所愿/失与得/先行一步/误入奇境）。
-     */
-    /**
-     * 按 PRTS 规则生成一层网格地图（rogue_6）。
-     * 节点出场层限制（PRTS 原文）：
-     *   安全角落 REST        : 第 I 层不出现
-     *   狭路相逢 DUEL        : I/II/VI 不出现
-     *   失与得 SACRIFICE     : I/VI 不出现
-     *   应急助力 EMPLOY      : I/VI 不出现
-     *   误入奇境 PORTAL      : I/II/VI 不出现
-     *   先行一步 EXPEDITION  : I/V/VI 不出现
-     *   曲折密道 DOOR        : I/II/VI 不出现，**成对出现**（传送门）
-     *   羽瞰点 LIGHT         : 全程出现，每层 1 个
-     *   险路尽头 FINAL       : 出口，1~3 个
-     *   命运所指 STORY_HIDDEN: 结局分支层
-     */
-    /**
-     * rogue_6 网格地图生成（PRTS 规则 + 抓包形状）。
-     * 形状：**不规则**——每列取一段连续的 y 区间，相邻列至少重叠 1 格保证连通；
-     *       不要求矩形，也不要求全连接（可留孤立支路）。
-     * 连线：只连「同行相邻列」与「同列上下」，绝不跨行，因此不会出现斜线。
-     * 节点出场层限制见 PRTS：REST 第2层起、DUEL/PORTAL 第3层起、SACRIFICE/EMPLOY 第2层起、
-     *       EXPEDITION 第2~4层、曲折密道 4194304 成对且第3层起、羽瞰点 67108864 每层1个。
-     */
-    /**
-     * rogue_6 每层生成（抓包统计出的「固定节点配方」）
-     *
-     * 固定配方（13 个官方快照统计，★=100% 出现）：
-     *   L1: 险路尽头1~3★(取2) 作战1~4★ 空洞3~4★
-     *   L2: 险路尽头1~2★(取2) 作战1~4★ 空洞3~5★ 羽瞰点(3/4)
-     *   L3: 羽瞰点1★ 曲折密道2★ 诡意行商1★ 首领1★ 空洞9~11★ 作战2~4★
-     *   L4: 险路尽头3★ 羽瞰点1★ 曲折密道2★ 误入奇境1★ 安全角落1★ 不期而遇1~2★ 空洞11★ 作战1★
-     *   L5: 曲折密道2★ 羽瞰点1★ 空洞15★
-     *
-     * 形状：每列随机取格（列内可跳格、不规则），相邻列至少重叠 1 格保证连通；
-     *       只连同行/同列，绝不斜连。
-     */
-    private static JSONObject buildRandomZone(JSONObject cur, String theme, int level, String seed,
-            java.util.Set<String> unlockedBuffs) {
-        JSONObject details = themeDetails(theme);
-        if (details == null) {
-            return null;
-        }
-        java.util.Random rnd = new java.util.Random(
-                (seed == null ? 0L : seed.hashCode()) * 97L + level * 7919L);
-
-        int cols, rows;
-        if (level <= 1) {
-            cols = 5; rows = 3;
-        } else if (level == 2) {
-            cols = 6; rows = 4;
-        } else if (level <= 4) {
-            cols = 8; rows = 5;
-        } else {
-            cols = 9; rows = 5;
-        }
-        int entryY = rows / 2;
-
-        // ── 形状：每列随机取格，相邻列至少同行 1 格 ──
-        float density = level <= 1 ? 0.95f : (level == 2 ? 0.85f : 0.92f);
-        java.util.List<java.util.Set<Integer>> colYs = new java.util.ArrayList<>();
-        java.util.Set<Integer> firstCol = new java.util.LinkedHashSet<>();
-        firstCol.add(entryY);
-        colYs.add(firstCol);
-        for (int x = 1; x < cols - 1; x++) {
-            java.util.Set<Integer> prev = colYs.get(x - 1);
-            java.util.List<Integer> prevList = new java.util.ArrayList<>(prev);
-            int anchor = prevList.get(rnd.nextInt(prevList.size()));
-            java.util.Set<Integer> colSet = new java.util.LinkedHashSet<>();
-            colSet.add(anchor);
-            for (int y = 0; y < rows; y++) {
-                if (y != anchor && rnd.nextFloat() < density) {
-                    colSet.add(y);
-                }
-            }
-            for (int y = 0; y < rows && colSet.size() < 2; y++) {
-                colSet.add(y);
-            }
-            colYs.add(colSet);
-        }
-        // 出口列
-        {
-            java.util.List<Integer> prevList = new java.util.ArrayList<>(colYs.get(cols - 2));
-            java.util.Collections.shuffle(prevList, rnd);
-            int exitTarget;
-            if (level == 1 || level == 2) {
-                exitTarget = 2;
-            } else if (level == 4) {
-                exitTarget = 3;
-            } else {
-                exitTarget = 1 + rnd.nextInt(2);
-            }
-            exitTarget = Math.max(1, Math.min(exitTarget, Math.min(rows, prevList.size())));
-            java.util.Set<Integer> last = new java.util.LinkedHashSet<>();
-            for (int i = 0; i < exitTarget; i++) {
-                last.add(prevList.get(i));
-            }
-            colYs.add(last);
-        }
-
-        java.util.Set<String> cells = new java.util.LinkedHashSet<>();
-        for (int x = 0; x < cols; x++) {
-            for (int y : colYs.get(x)) {
-                cells.add(x + "," + y);
-            }
-        }
-        // 出口列（x == cols-1）全部是 险路尽头
-        java.util.Set<String> exitCells = new java.util.LinkedHashSet<>();
-        for (String c : cells) {
-            if (Integer.parseInt(c.split(",")[0]) == cols - 1) {
-                exitCells.add(c);
-            }
-        }
-
-        // 内部格（排除入口列、出口列、入口唯一出口）
-        java.util.List<String> inner = new java.util.ArrayList<>();
-        for (String c : cells) {
-            String[] xy = c.split(",");
-            int x = Integer.parseInt(xy[0]);
-            int y = Integer.parseInt(xy[1]);
-            if (x == 0 || x == cols - 1) {
-                continue;
-            }
-            if (x == 1 && y == entryY) {
-                continue;
-            }
-            inner.add(c);
-        }
-        java.util.Collections.shuffle(inner, rnd);
-
-        // ── 每层固定配方：先放固定节点 ──
-        java.util.List<Integer> fixed = new java.util.ArrayList<>();
-        if (level == 1) {
-            fixed.add(1);                       // 作战
-            fixed.add(32); fixed.add(4096);     // 额外随机感：不期而遇 + 诡意行商
-        } else if (level == 2) {
-            fixed.add(67108864);                // 羽瞰点
-            fixed.add(1);
-            fixed.add(32);
-        } else if (level == 3) {
-            fixed.add(67108864);                // 羽瞰点
-            fixed.add(4194304); fixed.add(4194304);  // 曲折密道 x2
-            fixed.add(4096);                    // 诡意行商
-            fixed.add(4);                       // 首领（险路恶敌由出口列承担）
-        } else if (level == 4) {
-            fixed.add(67108864);
-            fixed.add(4194304); fixed.add(4194304);
-            // 误入奇境/安全角落 各 1 个（官方 100% 出现 1 个，不再重复）
-            fixed.add(8192);
-            fixed.add(16);
-            fixed.add(32);                      // 不期而遇
-            fixed.add(1);
-        } else {
-            fixed.add(4194304); fixed.add(4194304);
-            fixed.add(67108864);
-            if (level >= 6) {
-                fixed.add(65536);               // 命运所指
-            }
-        }
-
-        // 空洞数量按层（官方实测）
-        int holeTarget;
-        switch (level) {
-            // 注意：官方统计里的「空洞」包含入口那一格（入口也是 EMPTY）
-            case 1: holeTarget = 2 + rnd.nextInt(2); break;
-            case 2: holeTarget = 2 + rnd.nextInt(3); break;
-            case 3: holeTarget = 8 + rnd.nextInt(3); break;
-            case 4: holeTarget = 10; break;
-            case 5: holeTarget = 14; break;
-            default: holeTarget = 14; break;
-        }
-
-        java.util.Map<String, Integer> assigned = new java.util.LinkedHashMap<>();
-        int ptr = 0;
-        for (int t : fixed) {
-            if (ptr >= inner.size()) {
-                break;
-            }
-            assigned.put(inner.get(ptr++), t);
-        }
-        java.util.Set<String> holes = new java.util.HashSet<>();
-        for (int i = 0; i < holeTarget && ptr < inner.size(); i++) {
-            holes.add(inner.get(ptr++));
-        }
-
-        // ── 剩余格按层加权随机 ──
-        java.util.List<String> pool = new java.util.ArrayList<>();
-        int battleWeight = level >= 4 ? 2 : 4;
-        for (int i = 0; i < battleWeight; i++) {
-            pool.add("BATTLE_NORMAL");
-        }
-        if (level >= 2) {
-            pool.add("BATTLE_ELITE");
-        }
-        for (int i = 0; i < (level >= 4 ? 3 : 2); i++) {
-            pool.add("INCIDENT");
-        }
-        pool.add("BATTLE_SHOP");
-        if (level >= 2) {
-            pool.add("SCRAP_SHOP");
-            pool.add("WISH");
-        }
-        if (level >= 2 && level <= 5) {
-            pool.add("SACRIFICE");
-            pool.add("EMPLOY");
-        }
-        if (level >= 2 && level <= 4) {
-            pool.add("EXPEDITION");
-        }
-        if (level >= 3 && level <= 5) {
-            pool.add("PORTAL");
-            pool.add("DUEL");
-        }
-        if (level >= 2) {
-            pool.add("REST");
-        }
-        java.util.Set<String> usedUnique = new java.util.HashSet<>();
-        // 把「固定配方」里已放的唯一类节点也计入，避免再随机出一个重复的
-        for (int t : fixed) {
-            if (t == 4096) {
-                usedUnique.add("BATTLE_SHOP");
-            } else if (t == 2097152) {
-                usedUnique.add("SCRAP_SHOP");
-            } else if (t == 16) {
-                usedUnique.add("REST");
-            } else if (t == 8192) {
-                usedUnique.add("PORTAL");
-            } else if (t == 262144) {
-                usedUnique.add("DUEL");
-            } else if (t == 2048) {
-                usedUnique.add("EXPEDITION");
-            } else if (t == 1024) {
-                usedUnique.add("SACRIFICE");
-            } else if (t == 33554432) {
-                usedUnique.add("EMPLOY");
-            }
-        }
-        int battleCount = 0;
-        for (int t : fixed) {
-            if (t == 1 || t == 2 || t == 4) {
-                battleCount++;
-            }
-        }
-        for (; ptr < inner.size(); ptr++) {
-            String name = pool.get(rnd.nextInt(pool.size()));
-            boolean unique = "BATTLE_SHOP".equals(name) || "SCRAP_SHOP".equals(name)
-                    || "REST".equals(name) || "PORTAL".equals(name) || "DUEL".equals(name)
-                    || "EXPEDITION".equals(name) || "SACRIFICE".equals(name) || "EMPLOY".equals(name)
-                    || "WISH".equals(name);   // 官服每层得偿所愿 0~1
-            boolean battle = "BATTLE_NORMAL".equals(name) || "BATTLE_ELITE".equals(name);
-            // 唯一类又被抽到 → 换掉；普通战斗超过 4 个 → 换事件（官方每层 1~4）
-            if ((unique && usedUnique.contains(name)) || (battle && battleCount >= 4)) {
-                name = rnd.nextBoolean() ? "INCIDENT" : "WISH";
-            } else if (unique) {
-                usedUnique.add(name);
-                if (battle) {
-                    battleCount++;
-                }
-            } else if (battle) {
-                battleCount++;
-            }
-            int bit = com.hypergryph.arknights.core.function.RogueMapGen.typeBit(theme, name);
-            assigned.put(inner.get(ptr), bit == 0 ? 32 : bit);
-        }
-
-        // ── 组装 ──
-        JSONObject nodes = new JSONObject(true);
-        for (String c : cells) {
-            String[] xy = c.split(",");
-            int x = Integer.parseInt(xy[0]);
-            int y = Integer.parseInt(xy[1]);
-            JSONObject n = new JSONObject(true);
-            JSONObject pos = new JSONObject(true);
-            pos.put("x", x);
-            pos.put("y", y);
-            n.put("pos", pos);
-            n.put("index", String.valueOf(x * 100 + y));
-            n.put("visibility", 0);
-            n.put("next", new JSONArray());
-            if (x == 0) {
-                n.put("type", 268435456);
-            } else if (exitCells.contains(c)) {
-                boolean savageExit = (level == 3 || level == 5);  // 第3/5层出口=险路恶敌
-                n.put("type", savageExit ? 134217728 : 8388608);
-            } else if (holes.contains(c)) {
-                n.put("type", 268435456);
-            } else if (assigned.containsKey(c)) {
-                n.put("type", assigned.get(c));
-            } else {
-                n.put("type", 32);
-            }
-            nodes.put(String.valueOf(x * 100 + y), n);
-        }
-
-        // ── 连线：同行相邻列 + 同列上下 ──
-        for (String c : cells) {
-            String[] xy = c.split(",");
-            int x = Integer.parseInt(xy[0]);
-            int y = Integer.parseInt(xy[1]);
-            if (cells.contains((x + 1) + "," + y)) {
-                link(nodes, x, y, x + 1, y);
-            }
-            if (cells.contains(x + "," + (y + 1))) {
-                link(nodes, x, y, x, y + 1);
-            }
-        }
-
-        JSONObject zone = new JSONObject(true);
-        zone.put("id", "zone_" + level);
-        zone.put("index", 1000 + level - 1);
-        zone.put("type", 0);
-        zone.put("variation", new JSONArray());
-        zone.put("nodes", nodes);
-        return zone;
-    }
-
-    private static void link(JSONObject nodes, int x1, int y1, int x2, int y2) {
-        addEdge(nodes, x1, y1, x2, y2);
-        addEdge(nodes, x2, y2, x1, y1);
-    }
-
-    private static void addEdge(JSONObject nodes, int x1, int y1, int x2, int y2) {
-        JSONObject a = nodes.getJSONObject(String.valueOf(x1 * 100 + y1));
-        if (a == null) {
-            return;
-        }
-        JSONArray next = a.getJSONArray("next");
-        for (int i = 0; i < next.size(); i++) {
-            JSONObject t = next.getJSONObject(i);
-            if (t.getIntValue("x") == x2 && t.getIntValue("y") == y2) {
-                return;
-            }
-        }
-        JSONObject t = new JSONObject(true);
-        t.put("x", x2);
-        t.put("y", y2);
-        next.add(t);
-    }
-
     /** 节点在当前层里的 index 键（用来做「同类型不同节点 → 不同事件」的确定性选择） */
     private static String cursorNodeIndex(JSONObject cur) {
         JSONObject player = cur.getJSONObject("player");
@@ -5482,14 +5149,24 @@ public class rlv2 {
         {
             JSONObject pos0 = cur.getJSONObject("player").getJSONObject("cursor").getJSONObject("position");
             JSONObject nd0 = nodeAtPos(cur, pos0);
-            if (nd0 != null && nd0.getIntValue("type") == 134217728) {
+            // 恶敌出口：第3层官服实证是 BATTLE_BOSS(4)，第5/6层是 BATTLE_SAVAGE(134217728)
+            int nd0Type = nd0 == null ? 0 : nd0.getIntValue("type");
+            if (nd0 != null && (nd0Type == 134217728 || nd0Type == 4) && nd0.getBooleanValue("zone_end")) {
                 int lv = currentLevel(cur);
                 String th0 = cur.getJSONObject("game").getString("theme");
                 if ("rogue_6".equals(th0) && lv >= 5) {
-                    // 第5层险路恶敌打完 = 本局结束 → 推 GAME_SETTLE（结局1/2）
                     java.util.Set<String> finals0 = rogue6FinalRelics(cur);
                     boolean beacon0 = finals0.contains("rogue_6_relic_final_3");
                     JSONObject eflags0 = endingFlags(cur);
+                    boolean prayer0 = eflags0.getBooleanValue("prayer");
+                    if (lv < 6 && (beacon0 || prayer0)) {
+                        // PRTS：持有【怦然信标】通过第Ⅴ层战斗后 → 进入第Ⅵ层「源流交汇处」
+                        ArknightsApplication.LOGGER.info("[rlv2] 第5层BOSS通关且持有信标 → 进入第Ⅵ层（源流交汇处）");
+                        enterZone(null, cur, lv + 1);
+                        userDao.setUserData(account.getUid(), userData);
+                        return delta(cur);
+                    }
+                    // 第Ⅴ层（无信标）或第Ⅵ层 BOSS 打完 = 本局结束 → 推 GAME_SETTLE
                     String planned;
                     if (beacon0) {
                         planned = eflags0.getBooleanValue("prayer") ? "ro6_ending_4" : "ro6_ending_3";
@@ -6558,6 +6235,7 @@ public class rlv2 {
      *   1/2/4 = 普通/紧急/首领作战（ro6_n_ / ro6_e_ / ro6_b_ 关卡）
      */
     private static String rogue6TypeName(int type) {
+        // GA metadata Torappu.RoguelikeEventType 权威位值（2026-11-11 解码实证）
         switch (type) {
             case 1:
                 return "BATTLE_NORMAL";
@@ -6565,14 +6243,19 @@ public class rlv2 {
                 return "BATTLE_ELITE";
             case 4:
                 return "BATTLE_BOSS";
-            case 256:
-                // 官方 zone_1 里 256 节点的 stage 有 ro6_n_* 也有 ro6_e_*：
-                // 256 是「通用作战」节点，具体是普通/紧急由 stage 前缀决定
-                return "BATTLE";
+            case 8:
+                return "SHOP";
             case 16:
                 return "REST";
             case 32:
                 return "INCIDENT";
+            case 64:
+                return "TREASURE";
+            case 128:
+                return "ENTERTAINMENT";
+            case 256:
+                // 未定型占位：具体类型由 stage 前缀/定型结果决定
+                return "UNKNOWN";
             case 512:
                 return "WISH";
             case 1024:
@@ -6583,22 +6266,36 @@ public class rlv2 {
                 return "BATTLE_SHOP";
             case 8192:
                 return "PORTAL";
+            case 16384:
+                return "MISSION";
+            case 32768:
+                return "STORY";
+            case 65536:
+                return "STORY_HIDDEN";
+            case 131072:
+                return "ALCHEMY";
             case 262144:
-                // ro6_duel_2（共斗/搏杀 = 狭路相逢）
                 return "DUEL";
+            case 524288:
+                return "STASHED_RECRUIT";
+            case 1048576:
+                return "SPECIAL_ZONE";
             case 2097152:
                 return "SCRAP_SHOP";
-            case 134217728:
-                // 带 ro6_t_* 关卡（败叶/陌生旅伴…）= 宝藏/遭遇战节点
-                return "TREASURE";
             case 4194304:
-                return "LIGHT";
+                return "DOOR";
             case 8388608:
                 return "FINAL";
             case 16777216:
                 return "EVACUATE";
             case 33554432:
                 return "EMPLOY";
+            case 67108864:
+                return "LIGHT";
+            case 134217728:
+                return "BATTLE_SAVAGE";
+            case 268435456:
+                return "EMPTY";
             default:
                 return null;
         }
