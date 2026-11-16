@@ -123,12 +123,56 @@ public final class RogueMapGen {
     }
 
     public static int typeBit(String theme, String typeName) {
+        if (typeName == null) {
+            return 0;
+        }
         if ("rogue_6".equals(theme) && ROGUE6_BITS.containsKey(typeName)) {
             return ROGUE6_BITS.get(typeName);
+        }
+        // GA metadata：Torappu.RoguelikeEventType 位值对 rogue_1~6 全主题通用
+        // （nodeTypeData 的键顺序 ≠ 位值，旧实现按 1<<idx 算是错的）
+        Integer universal = ENUM_BITS.get(typeName);
+        if (universal != null) {
+            return universal;
         }
         List<String> names = nodeTypeNames(theme);
         int idx = names.indexOf(typeName);
         return idx < 0 ? 0 : (1 << idx);
+    }
+
+    /** GA metadata Torappu.RoguelikeEventType 枚举名 → 位值（全主题通用，2026-11-11 解码实证） */
+    private static final java.util.Map<String, Integer> ENUM_BITS = new java.util.HashMap<>();
+    static {
+        ENUM_BITS.put("NONE", 0);
+        ENUM_BITS.put("BATTLE_NORMAL", 1);
+        ENUM_BITS.put("BATTLE_ELITE", 2);
+        ENUM_BITS.put("BATTLE_BOSS", 4);
+        ENUM_BITS.put("SHOP", 8);
+        ENUM_BITS.put("REST", 16);
+        ENUM_BITS.put("INCIDENT", 32);
+        ENUM_BITS.put("TREASURE", 64);
+        ENUM_BITS.put("ENTERTAINMENT", 128);
+        ENUM_BITS.put("UNKNOWN", 256);
+        ENUM_BITS.put("WISH", 512);
+        ENUM_BITS.put("SACRIFICE", 1024);
+        ENUM_BITS.put("EXPEDITION", 2048);
+        ENUM_BITS.put("BATTLE_SHOP", 4096);
+        ENUM_BITS.put("PORTAL", 8192);
+        ENUM_BITS.put("MISSION", 16384);
+        ENUM_BITS.put("STORY", 32768);
+        ENUM_BITS.put("STORY_HIDDEN", 65536);
+        ENUM_BITS.put("ALCHEMY", 131072);
+        ENUM_BITS.put("DUEL", 262144);
+        ENUM_BITS.put("STASHED_RECRUIT", 524288);
+        ENUM_BITS.put("SPECIAL_ZONE", 1048576);
+        ENUM_BITS.put("SCRAP_SHOP", 2097152);
+        ENUM_BITS.put("DOOR", 4194304);
+        ENUM_BITS.put("FINAL", 8388608);
+        ENUM_BITS.put("EVACUATE", 16777216);
+        ENUM_BITS.put("EMPLOY", 33554432);
+        ENUM_BITS.put("LIGHT", 67108864);
+        ENUM_BITS.put("BATTLE_SAVAGE", 134217728);
+        ENUM_BITS.put("EMPTY", 268435456);
     }
 
     /** 该主题的节点是否带 refresh（刷新）信息：目前只有萨米（rogue_4）观测到 */
@@ -617,8 +661,14 @@ public final class RogueMapGen {
             stripGatedNodes(official, theme, level, unlockedBuffs);
             return official;
         }
-        // ② 没抓到这一层 → 拿「最深的正常区域」做刚体镜像变体
-        //    层间交替取最深/次深，避免千层一面
+        // ② 没有抓包模板的层 → 按主题配方生成网格（2026-11-15 重写：
+        //    主题化入口/出口位值 + 官服规模表，取代旧的“镜像最深模板”+随机列）
+        JSONObject generated = generateGridZone(seed, theme, level, unlockedBuffs);
+        if (generated != null) {
+            stripGatedNodes(generated, theme, level, unlockedBuffs);
+            return generated;
+        }
+        // ③ 兼容兜底：模板镜像（只有主题配方缺失时才会走到）
         java.util.List<JSONObject> bases = normalTemplates(theme);
         if (!bases.isEmpty()) {
             int offset = level - bases.size();
@@ -628,163 +678,286 @@ public final class RogueMapGen {
             stripGatedNodes(mirrored, theme, level, unlockedBuffs);
             return mirrored;
         }
+        return null;
+    }
 
-        long state = (seed == null ? 12345L : seed.hashCode()) * 31L + level * 7919L;
-        Random rnd = new Random(state);
+    /* ───────── rogue_1~5 主题网格配方（官服抓包布局 + nodeTypeData + 层数表，2026-11-15） ───────── */
 
-        // 列数/规模按官服实测（rogue_1）：
-        //   第1层 4 列 6~7 节点（每列 1~2）
-        //   第2层 4 列 8~9 节点（每列 2~3）
-        //   第3层 6 列 12~13 节点（每列 2~3）
-        //   第4层起 6~8 列，节点随层数增长
-        int columns;
-        int minPerCol;
-        int maxPerCol;
-        if (level <= 1) {
-            columns = 4;
-            minPerCol = 1;
-            maxPerCol = 2;
-        } else if (level == 2) {
-            columns = 4;
-            minPerCol = 2;
-            maxPerCol = 3;
-        } else if (level == 3) {
-            columns = 6;
-            minPerCol = 2;
-            maxPerCol = 3;
-        } else {
-            columns = Math.min(8, 5 + (level - 4));
-            minPerCol = 2;
-            maxPerCol = 3;
+    /** 每层规模 {cols, rows, minNodes, maxNodes}；超出配表的层取最后一档 */
+    private static int[] p15Shape(String theme, int level) {
+        switch (theme == null ? "" : theme) {
+            case "rogue_1": // 傀影与猩红孤钻（6 层）
+                return p15Pick(level, new int[][]{{4, 3, 6, 7}, {4, 3, 8, 9}, {5, 3, 10, 12},
+                        {6, 3, 12, 13}, {6, 4, 14, 16}, {3, 3, 5, 6}});
+            case "rogue_2": // 水月与深蓝之树（7 层）
+                return p15Pick(level, new int[][]{{5, 3, 7, 9}, {5, 3, 9, 11}, {5, 4, 12, 15},
+                        {6, 4, 13, 15}, {6, 4, 13, 15}, {5, 4, 11, 14}, {3, 3, 5, 6}});
+            case "rogue_3": // 探索者的银凇止境·萨米（7 层）
+                return p15Pick(level, new int[][]{{5, 3, 8, 12}, {5, 3, 9, 11}, {7, 4, 19, 21},
+                        {7, 4, 22, 25}, {7, 5, 26, 29}, {8, 5, 30, 33}, {4, 3, 8, 12}});
+            case "rogue_4": // 沙洲遗楼（8 层）
+                return p15Pick(level, new int[][]{{5, 3, 8, 10}, {6, 4, 10, 15}, {8, 5, 27, 31},
+                        {8, 5, 28, 32}, {9, 5, 30, 34}, {9, 5, 32, 36}, {7, 5, 20, 26}, {4, 4, 10, 14}});
+            case "rogue_5": // 界园志异（8 层）
+                return p15Pick(level, new int[][]{{5, 3, 9, 11}, {6, 4, 13, 15}, {6, 4, 15, 17},
+                        {7, 4, 16, 19}, {6, 4, 13, 16}, {6, 4, 15, 18}, {4, 4, 10, 13}, {4, 3, 6, 8}});
+            default:
+                return null;
         }
-        int[][] shape = new int[columns][];
-        for (int c = 0; c < columns; c++) {
-            int n;
-            if (c == 0) {
-                n = 1 + rnd.nextInt(Math.max(1, maxPerCol - 1));    // 首列 1~2
-            } else if (c == columns - 1) {
-                n = 1 + rnd.nextInt(2);                             // 末列 1~2（带终点）
-            } else {
-                n = minPerCol + rnd.nextInt(maxPerCol - minPerCol + 1);
-            }
-            shape[c] = new int[n];
+    }
+
+    private static int[] p15Pick(int level, int[][] table) {
+        return table[Math.max(0, Math.min(table.length - 1, level - 1))];
+    }
+
+    /** 主题入口位值（0 = 无特殊入口格，官服 R1/R2 首格就是普通节点） */
+    private static int p15Entrance(String theme) {
+        switch (theme == null ? "" : theme) {
+            case "rogue_3":
+                return 32768;   // STORY（萨米 z2 抓包实证）
+            case "rogue_5":
+                return 524288;  // STASHED_RECRUIT（界园 z2 抓包实证）
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * 主题出口位值（官服抓包实证，各主题复用不同枚举值做出口伪节点）：
+     * 傀影=猩红宝箱三选一(64) / 水月=深蓝之树抉择(512) / 萨米=炼金(131072) /
+     * 沙洲遗楼=首领(4) / 界园=特区(1048576)
+     */
+    private static int p15Exit(String theme) {
+        switch (theme == null ? "" : theme) {
+            case "rogue_1":
+                return 64;
+            case "rogue_2":
+                return 512;
+            case "rogue_3":
+                return 131072;
+            case "rogue_4":
+                return 4;
+            case "rogue_5":
+                return 1048576;
+            default:
+                return 8388608;
+        }
+    }
+
+    private static int p15ExitCount(String theme) {
+        switch (theme == null ? "" : theme) {
+            case "rogue_1":
+            case "rogue_2":
+            case "rogue_3":
+                return 2;
+            default:
+                return 1;
+        }
+    }
+
+    /** 主题类型池（全部来自该主题 nodeTypeData；rogue_3 的 DUEL 为抓包 z3 实证补充） */
+    private static String[] p15Pool(String theme) {
+        switch (theme == null ? "" : theme) {
+            case "rogue_1":
+                return new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_NORMAL",
+                        "BATTLE_ELITE", "INCIDENT", "INCIDENT", "INCIDENT",
+                        "SHOP", "REST", "ENTERTAINMENT"};
+            case "rogue_2":
+                return new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_NORMAL",
+                        "BATTLE_ELITE", "INCIDENT", "INCIDENT", "REST", "ENTERTAINMENT",
+                        "BATTLE_SHOP", "SACRIFICE", "EXPEDITION", "MISSION"};
+            case "rogue_3":
+                return new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_NORMAL",
+                        "BATTLE_ELITE", "INCIDENT", "INCIDENT", "REST", "WISH",
+                        "SACRIFICE", "EXPEDITION", "BATTLE_SHOP", "PORTAL",
+                        "ENTERTAINMENT", "DUEL"};
+            case "rogue_4":
+                return new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_NORMAL",
+                        "BATTLE_ELITE", "BATTLE_ELITE", "INCIDENT", "INCIDENT", "REST",
+                        "WISH", "SACRIFICE", "EXPEDITION", "BATTLE_SHOP", "PORTAL",
+                        "ALCHEMY", "DUEL"};
+            case "rogue_5":
+                return new String[]{"BATTLE_NORMAL", "BATTLE_NORMAL", "BATTLE_NORMAL",
+                        "BATTLE_ELITE", "INCIDENT", "INCIDENT", "REST", "WISH",
+                        "SACRIFICE", "EXPEDITION", "BATTLE_SHOP", "BATTLE_SHOP",
+                        "DUEL", "PORTAL"};
+            default:
+                return new String[]{"BATTLE_NORMAL", "INCIDENT"};
+        }
+    }
+
+    /** 稀有类单层上限（官服统计：多数特殊节点每层 0~1，商店类 0~2） */
+    private static int p15Cap(int bit) {
+        switch (bit) {
+            case 16:            // REST
+            case 128:           // ENTERTAINMENT
+            case 512:           // WISH
+            case 1024:          // SACRIFICE
+            case 2048:          // EXPEDITION
+            case 8192:          // PORTAL
+            case 16384:         // MISSION
+            case 65536:         // STORY_HIDDEN
+            case 131072:        // ALCHEMY
+            case 262144:        // DUEL
+                return 1;
+            case 8:             // SHOP
+            case 4096:          // BATTLE_SHOP
+                return 2;
+            case 2:             // BATTLE_ELITE
+                return 2;
+            default:
+                return Integer.MAX_VALUE;
+        }
+    }
+
+    /**
+     * rogue_1~5 无模板层的主题化网格生成。
+     * 形态与官服一致：近满矩形随机去格保连通、四邻接双向边、出口带 zone_end；
+     * rogue_4（沙洲遗楼）带 UNKNOWN 迷雾与 EMPTY 空洞（抓包 z3 实证）。
+     */
+    public static JSONObject generateGridZone(String seed, String theme, int level,
+            java.util.Set<String> unlockedBuffs) {
+        int[] sp = p15Shape(theme, level);
+        if (sp == null) {
+            return null;
+        }
+        java.util.Random rnd = new java.util.Random(
+                (seed == null ? 12345L : seed.hashCode()) * 31L + level * 7919L);
+
+        // rogue_1~5 = 线状路线 DAG（官服 rogue_1 抓包存在斜边：节点 (0,0)->(1,0)/(1,1)），
+        // 不是自由网格：首列入口 1 格 → 中间列每列 1~rows 格 → 末列出口 1~2 格（zone_end）。
+        // pos 只是客户端画路线图的坐标；斜边是合法的分支路线。
+        int exits = p15ExitCount(theme);
+        int rows = Math.max(3, sp[1]);
+        int cols = sp[0];
+        int midCols = cols - 2;
+        int budget = sp[2] + rnd.nextInt(Math.max(1, sp[3] - sp[2] + 1)) - 1 - exits;
+        budget = Math.max(midCols, Math.min(midCols * rows, budget));
+
+        // 每列节点数：首列 1、末列 exits、中间列分预算（每列 1~rows）
+        int[] colN = new int[cols];
+        colN[0] = 1;
+        colN[cols - 1] = exits;
+        int left = midCols;
+        for (int c = 1; c <= midCols; c++) {
+            int avg = Math.max(1, budget / left);
+            int n = Math.min(rows, Math.max(1, avg + rnd.nextInt(3) - 1));
+            n = Math.min(n, budget - (left - 1));
+            colN[c] = Math.max(1, n);
+            budget -= colN[c];
+            left--;
+        }
+        for (int c = 1; c <= midCols && budget > 0; c++) {
+            int add = Math.min(budget, rows - colN[c]);
+            colN[c] += add;
+            budget -= add;
+        }
+        for (int c = 1; c <= midCols && budget < 0; c++) {
+            int sub = Math.min(-budget, colN[c] - 1);
+            colN[c] -= sub;
+            budget += sub;
         }
 
-        List<String> names = nodeTypeNames(theme);
-        int battleBit = typeBit(theme, "BATTLE_NORMAL");
-        int eliteBit = typeBit(theme, "BATTLE_ELITE");
-        int bossBit = typeBit(theme, "BATTLE_BOSS");
-        int shopBit = typeBit(theme, "SHOP");
-        int incidentBit = typeBit(theme, "INCIDENT");
-        int restBit = typeBit(theme, "REST");
-
+        // 铺节点：每列 y 去重随机
+        java.util.List<int[]> colNodes = new java.util.ArrayList<>(); // {x, y}
         JSONObject nodes = new JSONObject(true);
-        // 每列每个节点的坐标与索引（index = x*100 + y，和官服一致）
-        for (int c = 0; c < columns; c++) {
-            for (int y = 0; y < shape[c].length; y++) {
-                String index = String.valueOf(c * 100 + y);
-                JSONObject node = new JSONObject(true);
-                node.put("index", index);
-                JSONObject pos = new JSONObject(true);
-                pos.put("x", c);
-                pos.put("y", y);
-                node.put("pos", pos);
-                node.put("next", new JSONArray());
-                node.put("type", 0);
-                if (c == 0) {
-                    node.put("type", battleBit == 0 ? 1 : battleBit);
-                    node.put("stage", stageId(theme, level, 1 + y));
+        int entranceBit = p15Entrance(theme);
+        for (int x = 0; x < cols; x++) {
+            java.util.List<Integer> ys = new java.util.ArrayList<>();
+            for (int y = 0; y < rows; y++) {
+                ys.add(y);
+            }
+            java.util.Collections.shuffle(ys, rnd);
+            for (int i = 0; i < colN[x]; i++) {
+                colNodes.add(new int[]{x, ys.get(i)});
+            }
+        }
+        // 入口（rogue_3=STORY / rogue_5=STRC，其余首格普通作战——官服实证）
+        nodes.put(gKey(0, colNodes.get(0)[1]),
+                gNode(0, colNodes.get(0)[1], entranceBit != 0 ? entranceBit : 1, 0));
+        // 出口（主题化位值 + zone_end）
+        int exitBit = p15Exit(theme);
+        for (int[] c : colNodes) {
+            if (c[0] == cols - 1) {
+                nodes.put(gKey(c[0], c[1]), gNode(c[0], c[1], exitBit, 0, true));
+            }
+        }
+        // 中间列按主题池填充（稀有类上限 + 局外门控）
+        java.util.Map<Integer, Integer> placed = new java.util.HashMap<>();
+        java.util.Set<String> allowed = allowedGatedTypes(theme, unlockedBuffs);
+        java.util.Map<String, String> gated = gatedNodeTable().get(theme == null ? "" : theme);
+        String[] pool = p15Pool(theme);
+        boolean refresh = "rogue_4".equals(theme);
+        for (int[] c : colNodes) {
+            if (c[0] == 0 || c[0] == cols - 1) {
+                continue;
+            }
+            String name = pool[rnd.nextInt(pool.length)];
+            if (gated != null && gated.containsKey(name) && !allowed.contains(name)) {
+                name = "INCIDENT";
+            }
+            int bit = typeBit(theme, name);
+            if (placed.getOrDefault(bit, 0) >= p15Cap(bit)) {
+                bit = typeBit(theme, "INCIDENT");
+            }
+            placed.merge(bit, 1, Integer::sum);
+            JSONObject n = gNode(c[0], c[1], bit, 0);
+            if (refresh) {
+                JSONObject rf = new JSONObject(true);
+                rf.put("usedCount", 0);
+                rf.put("count", 1);
+                rf.put("cost", 1);
+                n.put("refresh", rf);
+            }
+            nodes.put(gKey(c[0], c[1]), n);
+        }
+
+        // 连边（线状 DAG）：本列每个节点连到下一列 y 最近格，30% 再连次近格（分支）；
+        // 下一列每个节点保证 ≥1 条入边（斜边合法——官服 rogue_1 抓包实证）
+        java.util.Map<Integer, java.util.List<int[]>> byCol = new java.util.HashMap<>();
+        for (int[] c : colNodes) {
+            byCol.computeIfAbsent(c[0], k -> new java.util.ArrayList<>()).add(c);
+        }
+        for (int x = 0; x < cols - 1; x++) {
+            java.util.List<int[]> cur = byCol.get(x);
+            java.util.List<int[]> nxt = byCol.getOrDefault(x + 1, new java.util.ArrayList<>());
+            java.util.Set<String> linked = new java.util.HashSet<>();
+            for (int[] a : cur) {
+                java.util.List<int[]> order = new java.util.ArrayList<>(nxt);
+                order.sort(java.util.Comparator.comparingInt(b -> Math.abs(b[1] - a[1])));
+                gLink(nodes, a, order.get(0));
+                linked.add(gKey(order.get(0)[0], order.get(0)[1]));
+                if (order.size() > 1 && rnd.nextInt(100) < 30) {
+                    gLink(nodes, a, order.get(1));
                 }
-                nodes.put(index, node);
+            }
+            for (int[] b : nxt) {
+                if (!linked.contains(gKey(b[0], b[1]))) {
+                    java.util.List<int[]> order = new java.util.ArrayList<>(cur);
+                    order.sort(java.util.Comparator.comparingInt(a -> Math.abs(a[1] - b[1])));
+                    gLink(nodes, order.get(0), b);
+                }
             }
         }
 
-        // 连边：四邻接（官服网格只能走上下左右，不斜连）
-        linkOrthogonal(nodes);
-
-        // 分配类型：中间列随机（保证至少一场战斗和一个事件/商店），末列 zone_end
-        for (int c = 1; c < columns; c++) {
-            for (int y = 0; y < shape[c].length; y++) {
-                JSONObject node = nodes.getJSONObject(String.valueOf(c * 100 + y));
-                boolean lastColumn = c == columns - 1;
-                int type;
-                if (lastColumn) {
-                    type = bossBit != 0 ? bossBit : (eliteBit != 0 ? eliteBit : 1);
-                } else {
-                    // 权重参考官服样本：战斗 ~35%、事件 ~25%、商店/安全角各 ~10%、紧急 ~10%、其它 ~10%
-                    int roll = rnd.nextInt(100);
-                    if (roll < 35) {
-                        type = battleBit;
-                        node.put("stage", stageId(theme, level, c * 10 + y));
-                    } else if (roll < 60) {
-                        type = incidentBit;
-                    } else if (roll < 70) {
-                        type = shopBit;
-                    } else if (roll < 80) {
-                        type = restBit;
-                    } else if (roll < 90) {
-                        type = eliteBit;
-                        node.put("stage", pickStage(theme, level, c * 10 + y + 5, true));
-                    } else {
-                        java.util.List<String> pickable = new java.util.ArrayList<>(names);
-                        java.util.Map<String, String> gatedHere = gatedNodeTable().get(theme == null ? "" : theme);
-                        if (gatedHere != null && !gatedHere.isEmpty()) {
-                            java.util.Set<String> allowed = allowedGatedTypes(theme, unlockedBuffs);
-                            for (String gname : gatedHere.keySet()) {
-                                if (!allowed.contains(gname)) {
-                                    pickable.remove(gname);
-                                }
-                            }
-                        }
-                        type = pickable.isEmpty() ? 1 : typeBit(theme, pickable.get(rnd.nextInt(pickable.size())));
-                    }
-                }
-                if (type == 0) {
-                    type = 1;
-                }
-                node.put("type", type);
-                if (lastColumn) {
-                    node.put("zone_end", true);
-                } else if (refreshEnabled(theme)) {
-                    // 官服（萨米）中间节点带刷新信息：{"usedCount":0,"count":1,"cost":1}
-                    JSONObject refresh = new JSONObject(true);
-                    refresh.put("usedCount", 0);
-                    refresh.put("count", 1);
-                    refresh.put("cost", 1);
-                    node.put("refresh", refresh);
-                }
-            }
-        }
-
-        // 一次性节点（官服 gameConst.onceNodeTypeList，如 rogue_2 = ["PORTAL","MISSION"]）：
-        // 每层放 1 个到中间列，替换掉一个普通事件/商店节点，保证委托/传送门能被走到。
+        // once 节点（官服 gameConst.onceNodeTypeList，如水月=PORTAL/MISSION 各 1）
         JSONObject details = themeDetails(theme);
         JSONObject gameConst = details == null ? null : details.getJSONObject("gameConst");
         JSONArray onceList = gameConst == null ? null : gameConst.getJSONArray("onceNodeTypeList");
-        if (onceList != null && !onceList.isEmpty() && columns >= 3) {
-            java.util.Set<String> used = new java.util.HashSet<>();
+        if (onceList != null && !onceList.isEmpty()) {
             for (int oi = 0; oi < onceList.size(); oi++) {
-                String onceName = onceList.getString(oi);
-                int onceBit = typeBit(theme, onceName);
-                if (onceBit == 0) {
+                int onceBit = typeBit(theme, onceList.getString(oi));
+                if (onceBit == 0 || placed.getOrDefault(onceBit, 0) > 0) {
                     continue;
                 }
-                // 每种 once 节点各占一个中间列节点（PORTAL=传送门、MISSION=地区委托）
-                for (int attempt = 0; attempt < 8; attempt++) {
-                    int col = 1 + rnd.nextInt(Math.max(1, columns - 2));
-                    int ry = rnd.nextInt(shape[col].length);
-                    String idx = String.valueOf(col * 100 + ry);
-                    if (used.contains(idx)) {
-                        continue;
+                for (String k : nodes.keySet()) {
+                    JSONObject n = nodes.getJSONObject(k);
+                    if (n.getIntValue("type") == typeBit(theme, "INCIDENT")
+                            && !n.getBooleanValue("zone_end")) {
+                        n.put("type", onceBit);
+                        placed.merge(onceBit, 1, Integer::sum);
+                        break;
                     }
-                    JSONObject onceNode = nodes.getJSONObject(idx);
-                    if (onceNode == null || onceNode.getBooleanValue("zone_end")) {
-                        continue;
-                    }
-                    onceNode.put("type", onceBit);
-                    onceNode.remove("stage");
-                    used.add(idx);
-                    break;
                 }
             }
         }
@@ -795,8 +968,99 @@ public final class RogueMapGen {
         zone.put("nodes", nodes);
         zone.put("variation", new JSONArray());
         zone.put("type", 0);
-        stripGatedNodes(zone, theme, level, unlockedBuffs);
         return zone;
+    }
+
+    private static String gKey(int x, int y) {
+        return String.valueOf(x * 100 + y);
+    }
+
+    private static JSONObject gNode(int x, int y, int type, int visibility) {
+        return gNode(x, y, type, visibility, false);
+    }
+
+    private static JSONObject gNode(int x, int y, int type, int visibility, boolean zoneEnd) {
+        JSONObject n = new JSONObject(true);
+        n.put("index", gKey(x, y));
+        JSONObject pos = new JSONObject(true);
+        pos.put("x", x);
+        pos.put("y", y);
+        n.put("pos", pos);
+        n.put("next", new JSONArray());
+        n.put("type", type);
+        n.put("visibility", visibility);
+        if (zoneEnd) {
+            n.put("zone_end", true);
+        }
+        return n;
+    }
+
+    private static int gNeighbor(boolean[][] cell, int x, int y) {
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int c = 0;
+        for (int[] d : dirs) {
+            int nx = x + d[0];
+            int ny = y + d[1];
+            if (nx >= 0 && nx < cell[0].length && ny >= 0 && ny < cell.length && cell[ny][nx]) {
+                c++;
+            }
+        }
+        return c;
+    }
+
+    private static boolean gConnected(boolean[][] cell, int sx, int sy) {
+        int rows = cell.length;
+        int cols = cell[0].length;
+        int total = 0;
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                if (cell[y][x]) {
+                    total++;
+                }
+            }
+        }
+        if (!cell[sy][sx]) {
+            return total == 0;
+        }
+        boolean[][] seen = new boolean[rows][cols];
+        java.util.ArrayDeque<int[]> q = new java.util.ArrayDeque<>();
+        q.add(new int[]{sx, sy});
+        seen[sy][sx] = true;
+        int got = 0;
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        while (!q.isEmpty()) {
+            int[] c = q.poll();
+            got++;
+            for (int[] d : dirs) {
+                int nx = c[0] + d[0];
+                int ny = c[1] + d[1];
+                if (nx >= 0 && nx < cols && ny >= 0 && ny < rows
+                        && cell[ny][nx] && !seen[ny][nx]) {
+                    seen[ny][nx] = true;
+                    q.add(new int[]{nx, ny});
+                }
+            }
+        }
+        return got == total;
+    }
+
+    /** 线状 DAG 连边：a 的 next 追加 b 的坐标（rogue_1~5 用，允许斜向分支） */
+    private static void gLink(JSONObject nodes, int[] a, int[] b) {
+        JSONObject na = nodes.getJSONObject(gKey(a[0], a[1]));
+        if (na == null) {
+            return;
+        }
+        JSONArray next = na.getJSONArray("next");
+        for (int i = 0; i < next.size(); i++) {
+            JSONObject t = next.getJSONObject(i);
+            if (t.getIntValue("x") == b[0] && t.getIntValue("y") == b[1]) {
+                return;
+            }
+        }
+        JSONObject t = new JSONObject(true);
+        t.put("x", b[0]);
+        t.put("y", b[1]);
+        next.add(t);
     }
 
     /**
@@ -1100,7 +1364,7 @@ public final class RogueMapGen {
                 nodes.put(key(c[0], c[1]), node(c[0], c[1], EVACUATE, 0, true));
             }
 
-            // 固定特殊节点（DOOR 成对：第一个随便放，第二个取相距最远的自由格）
+            // 固定特殊节点（DOOR 成对：第一个随机 + 第二个取相距最远的自由格）
             java.util.ArrayDeque<Integer> fx = new java.util.ArrayDeque<>();
             for (int t : sp.fixed) {
                 if (t == PORTAL && !gateOpen(unlockedBuffs, GATE_PORTAL)) {

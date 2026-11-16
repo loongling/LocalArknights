@@ -1555,8 +1555,14 @@ public class rlv2 {
             return 8388608;
         }
         switch (theme) {
+            case "rogue_1":
+                return 64;        // 傀影：猩红宝箱三选一（官服 z2 抓包实证）
+            case "rogue_2":
+                return 512;       // 水月：深蓝之树抉择（官服 z2 抓包实证）
+            case "rogue_3":
+                return 131072;    // 萨米：炼金（官服 z2 抓包实证）
             case "rogue_4":
-                return 131072;
+                return 4;         // 沙洲遗楼：首领（官服 z3 抓包实证）
             case "rogue_5":
                 return 1048576;
             case "rogue_6":

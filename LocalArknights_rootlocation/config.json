@@ -64,15 +64,15 @@
   },
   "version": {
     "Android": {
-      "resVersion": "26-10-29-15-36-11-33649006",
+      "resVersion": "26-11-06-12-56-09-07186384",
       "clientVersion": "2.7.91"
     },
     "ios": {
-      "resVersion": "26-10-29-15-21-46-80877659",
+      "resVersion": "26-11-06-13-05-11-41977313",
       "clientVersion": "2.7.91"
     },
     "Windows": {
-      "resVersion": "26-10-29-15-35-15-96278206",
+      "resVersion": "26-11-06-12-42-25-70182449",
       "clientVersion": "2.7.91"
     },
     "global_Android": {
@@ -92,9 +92,9 @@
     "enableRedirect": true,
     "cdnBase": "https://ak.hycdn.cn/assetbundle/official",
     "redirectUrl": {
-      "Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-10-29-15-36-11-33649006",
-      "Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-10-29-15-35-15-96278206",
-      "ios": "https://ak.hycdn.cn/assetbundle/official/IOS/assets/26-10-22-13-48-45-09041897",
+      "Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-11-06-12-56-09-07186384",
+      "Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-11-06-12-42-25-70182449",
+      "ios": "https://ak.hycdn.cn/assetbundle/official/IOS/assets/26-11-06-13-05-11-41977313",
       "global_And": "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/26-10-26-10-03-17_824ce7",
       "global_Win": "",
       "global_IOS": ""

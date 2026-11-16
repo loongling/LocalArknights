@@ -66,7 +66,8 @@ public class ArknightsApplication {
     public static JSONObject charPatchTable;   // char_patch_table.json（阿米娅三套模板）
     public static JSONObject mailTable;        // data/mail/mail_table.json（本地邮件定义）
     public static JSONObject skinGoodList;
-    public static JSONObject skinTable;
+    public static JSONObject skinTable;        // 仅 charSkins 表（历史用法）
+    public static JSONObject skinTableFull;    // 整张 skin_table.json（buildinEvolveMap/buildinPatchMap 在这里）
     public static JSONObject charwordTable;
     public static JSONObject CrisisData;
     public static JSONObject CrisisV2Data;
@@ -478,7 +479,9 @@ public class ArknightsApplication {
         com.hypergryph.arknights.core.voucher.VoucherTable.load();
         mailTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/mail/mail_table.json");
         skinGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/SkinGoodList.json");
-        skinTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/skin_table.json").getJSONObject("charSkins");
+        JSONObject skinTableAll = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/skin_table.json");
+        skinTableFull = skinTableAll;
+        skinTable = skinTableAll.getJSONObject("charSkins");
         charwordTable = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/excel/charword_table.json");
         CashGoodList = IOTools.ReadJsonArray(System.getProperty("user.dir") + "/data/shop/CashGoodList.json");
         GPGoodList = IOTools.ReadJsonFile(System.getProperty("user.dir") + "/data/shop/GPGoodList.json");

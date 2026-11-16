@@ -648,12 +648,8 @@ public class charBuild {
                         gold -= 30000;
                     }
 
-                    // 精一换皮肤：#1 → #1+（官方实测：char_002_amiya#1+）
-                    String skinBefore = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
-                    if (skinBefore == null || skinBefore.equals(charId + "#1")) {
-                        com.hypergryph.arknights.core.work.processArray
-                                .setSkin(tchar, charId + "#1+");
-                    }
+                    // 精一默认皮肤：按 skin_table.buildinEvolveMap 选（只有阿米娅有 #1+，其余仍是 #1）
+                    com.hypergryph.arknights.core.work.processArray.applyEvolveSkin(tchar, charId, 1);
 
                     // 按 skillId 去静态表查 phase；模板干员的基节点 skills 是空的，要连模板一起解锁
                     com.hypergryph.arknights.core.work.processArray
@@ -667,19 +663,20 @@ public class charBuild {
                         gold -= 180000;
                     }
 
-                    // 模板干员的基节点 skin 是 null，不能再 .equals()（会 NPE）
-                    // 精二：从 #1 或 #1+ 都换到 #2
-                    String curSkin = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
-                    if (curSkin == null || curSkin.equals(charId + "#1") || curSkin.equals(charId + "#1+")) {
-                        com.hypergryph.arknights.core.work.processArray
-                                .setSkin(tchar, charId + "#2");
-                    }
+                    // 精二默认皮肤：同样按 skin_table 选（没有 #2 的干员保持 #1，避免立绘丢失）
+                    com.hypergryph.arknights.core.work.processArray.applyEvolveSkin(tchar, charId, 2);
 
                     com.hypergryph.arknights.core.work.processArray
                             .unlockSkillsForPhase(tchar, charId, 2);
 
                     // 精二后模组槽变成可见：官方 300 个干员实测 hide = (evolvePhase>=2 ? 0 : 1)
                     com.hypergryph.arknights.core.work.processArray.setEquipHidden(tchar, false);
+                    // 客户端 haveAvailEquip 需要 currentEquip 非空；为空时选配置里的基础模组
+                    // （只影响「模组系统入口」，不动具体模组的解锁条件）
+                    if (com.hypergryph.arknights.core.work.processArray
+                            .ensureDefaultCurrentEquip(tchar, charId, 2)) {
+                        ArknightsApplication.LOGGER.info("[charBuild] {} 精二补默认基础模组 currentEquip", charId);
+                    }
                 }
 
                 boolean skinChanged = !java.util.Objects.equals(
@@ -696,13 +693,8 @@ public class charBuild {
                 status.put("gold", gold);
                 JSONObject charss = new JSONObject(true);
                 JSONObject evolveDelta;
-                if (skinChanged) {
-                    evolveDelta = tchar;
-                } else {
-                    evolveDelta = new JSONObject(true);
-                    evolveDelta.put("level", tchar.getIntValue("level"));
-                    evolveDelta.put("evolvePhase", destEvolvePhase);
-                }
+                // 始终回传完整干员数据：否则「服装没变」时漏传 skills/equips，客户端技能与装备不刷新
+                evolveDelta = tchar;
                 charss.put(String.valueOf(charInstId), evolveDelta);
                 troop.put("chars", charss);
                 modified.put("troop", troop);
@@ -772,19 +764,13 @@ public class charBuild {
             return result;
         }
         int destPhase = Math.min(maxPhase, curPhase + 1);
-        if (destPhase == 1) {
-            String skinBefore = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
-            if (skinBefore == null || skinBefore.equals(charId + "#1")) {
-                com.hypergryph.arknights.core.work.processArray.setSkin(tchar, charId + "#1+");
-            }
-            com.hypergryph.arknights.core.work.processArray.unlockSkillsForPhase(tchar, charId, 1);
-        } else if (destPhase == 2) {
-            String curSkin = com.hypergryph.arknights.core.work.processArray.getSkin(tchar);
-            if (curSkin == null || curSkin.equals(charId + "#1") || curSkin.equals(charId + "#1+")) {
-                com.hypergryph.arknights.core.work.processArray.setSkin(tchar, charId + "#2");
-            }
-            com.hypergryph.arknights.core.work.processArray.unlockSkillsForPhase(tchar, charId, 2);
+        // 按 skin_table 选有效默认皮肤（自购服装保留），再解锁技能/模组槽
+        com.hypergryph.arknights.core.work.processArray.applyEvolveSkin(tchar, charId, destPhase);
+        com.hypergryph.arknights.core.work.processArray.unlockSkillsForPhase(tchar, charId, destPhase);
+        if (destPhase >= 2) {
             com.hypergryph.arknights.core.work.processArray.setEquipHidden(tchar, false);
+            com.hypergryph.arknights.core.work.processArray
+                    .ensureDefaultCurrentEquip(tchar, charId, destPhase);
         }
         tchar.put("evolvePhase", destPhase);
         com.hypergryph.arknights.core.function.MissionHelper.refreshGuideV3(UserSyncData);

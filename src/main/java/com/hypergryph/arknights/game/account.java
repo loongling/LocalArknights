@@ -171,6 +171,24 @@ public class account {
                 LOGGER.warn("[syncData] 修补消耗品过期时间失败: " + e.toString());
             }
             try {
+                int equipFixed = com.hypergryph.arknights.core.work.processArray.repairCurrentEquip(UserSyncData);
+                if (equipFixed > 0) {
+                    userDao.setUserData(uid, UserSyncData);
+                    LOGGER.info("[syncData] 补了 " + equipFixed + " 个干员的默认基础模组（currentEquip）");
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] 修复默认基础模组失败: " + e.toString());
+            }
+            try {
+                int skinFixed = com.hypergryph.arknights.core.work.processArray.repairBuildinSkins(UserSyncData);
+                if (skinFixed > 0) {
+                    userDao.setUserData(uid, UserSyncData);
+                    LOGGER.info("[syncData] 修复了 " + skinFixed + " 个无效的默认皮肤（#1+ / 不存在的 #2）");
+                }
+            } catch (Exception e) {
+                LOGGER.warn("[syncData] 修复默认皮肤失败: " + e.toString());
+            }
+            try {
                 if (com.hypergryph.arknights.game.campaignV2.syncRotationAndWeekly(UserSyncData)) {
                     userDao.setUserData(uid, UserSyncData);
                     LOGGER.info("[syncData] 剿灭开放配置/周刷新已同步（open + campaignCurrentFee）");

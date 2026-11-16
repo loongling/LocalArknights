@@ -122,7 +122,11 @@ public class templateShop {
         String currencyId = shop.getJSONObject("price") == null ? null : shop.getJSONObject("price").getString("id");
         String currencyType = shop.getJSONObject("price") == null ? null : shop.getJSONObject("price").getString("type");
         int unitPrice = good.getIntValue("price");
-        int totalCost = unitPrice * wantCount;
+        long totalCostL = (long) unitPrice * Math.max(1, wantCount);
+        if (totalCostL < 0 || totalCostL > Integer.MAX_VALUE) {
+            return error("总价溢出: 单价 " + unitPrice + " × " + wantCount);
+        }
+        int totalCost = (int) totalCostL;
         int avail = good.getIntValue("availCount");
         int bought = purchasedCount(tshopNode, goodId);
         if (avail >= 0 && bought + wantCount > avail) {

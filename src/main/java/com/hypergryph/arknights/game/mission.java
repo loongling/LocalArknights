@@ -77,15 +77,11 @@ public class mission {
         JSONArray items = MissionHelper.grantRewards(UserSyncData, missionId);
         MissionHelper.setClaimed(UserSyncData, missionId);
 
-        // 领任务累积点数 + 发放点数里程碑奖励
+        // 领任务只累积点数；点数额度奖励由玩家在界面上逐档领取（/mission/exchangeMissionRewards），
+        // 这里不再自动发放 —— 否则一次完成任务就把整条阶梯标记成「已领取」。
         String missionType = MissionHelper.typeOf(missionId);
         MissionHelper.addPoint(UserSyncData, missionId);
-        if ("DAILY".equals(missionType) || "WEEKLY".equals(missionType)) {
-            JSONArray bonus = MissionHelper.grantPointRewards(UserSyncData, missionType);
-            for (int i = 0; i < bonus.size(); i++) {
-                items.add(bonus.getJSONObject(i));
-            }
-        }
+        ArknightsApplication.LOGGER.info("[mission] confirm {} type={} 点数已累积（不自动发阶梯）", missionId, missionType);
 
         String next = MissionHelper.nextMissionId(UserSyncData, missionId);
         if (next != null) {

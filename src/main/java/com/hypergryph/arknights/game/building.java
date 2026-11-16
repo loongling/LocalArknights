@@ -4298,6 +4298,11 @@ public class building {
         long now = ArknightsApplication.getTimestamp();
         JSONObject charsDelta = new JSONObject(true);
 
+        // 跨房间调动会同时改动「来源房间」和「目标房间」，以及（若涉及）两边的训练室节点。
+        // 增量必须把这些全部带上，否则客户端合并后会保留来源占位 → 同一干员出现在两个房间（重复 key）。
+        java.util.Set<String> touchedSlots = new java.util.LinkedHashSet<>();
+        java.util.Set<String> touchedTraining = new java.util.LinkedHashSet<>();
+
         JSONArray oldIds = slot.getJSONArray("charInstIds");
         
         if (!wanted.isEmpty()) {
@@ -4318,8 +4323,12 @@ public class building {
                         touched = true;
                     }
                 }
-                if (touched && "TRAINING".equals(other.getString("roomId"))) {
-                    clearTrainingChar(building, otherId, wanted);
+                if (touched) {
+                    touchedSlots.add(otherId);
+                    if ("TRAINING".equals(other.getString("roomId"))) {
+                        clearTrainingChar(building, otherId, wanted);
+                        touchedTraining.add(otherId);
+                    }
                 }
             }
         }
@@ -4363,6 +4372,7 @@ public class building {
             padded.add(i < wanted.size() ? wanted.get(i) : -1);
         }
         slot.put("charInstIds", padded);
+        touchedSlots.add(roomSlotId);
 
         JSONObject trainingRoomsDelta = null;
         if ("TRAINING".equals(roomId)) {
@@ -4424,19 +4434,40 @@ public class building {
             trainer.put("state", trainerId > 0 ? (trainee.getIntValue("state") == 1 ? 1 : 3) : 0);
             node.put("lastUpdateTime", now);
 
-            JSONObject roomsDelta = new JSONObject(true);
-            JSONObject trainingDelta = new JSONObject(true);
-            trainingDelta.put(roomSlotId, node.clone());
-            roomsDelta.put("TRAINING", trainingDelta);
-            trainingRoomsDelta = roomsDelta;
-            ArknightsApplication.LOGGER.info("[assignChar] ??{} 教练={} 学员={}",
+            touchedTraining.add(roomSlotId);
+            ArknightsApplication.LOGGER.info("[assignChar] 训练室 {} 教练={} 学员={}",
                     roomSlotId, trainerId, traineeId);
         }
 
         userDao.setUserData(account.getUid(), userData);
 
         JSONObject slotsDelta = new JSONObject(true);
-        slotsDelta.put(roomSlotId, slot.clone());
+        for (String id : touchedSlots) {
+            JSONObject s0 = roomSlots.getJSONObject(id);
+            if (s0 != null) {
+                slotsDelta.put(id, s0.clone());
+            }
+        }
+
+        // 训练室节点：来源（被清空）与目标（换上新人）都要下发
+        if (!touchedTraining.isEmpty()) {
+            JSONObject rooms = building.getJSONObject("rooms");
+            JSONObject bucket = rooms == null ? null : rooms.getJSONObject("TRAINING");
+            if (bucket != null) {
+                JSONObject trainingDelta = new JSONObject(true);
+                for (String id : touchedTraining) {
+                    JSONObject node0 = bucket.getJSONObject(id);
+                    if (node0 != null) {
+                        trainingDelta.put(id, node0.clone());
+                    }
+                }
+                if (!trainingDelta.isEmpty()) {
+                    JSONObject roomsDelta = new JSONObject(true);
+                    roomsDelta.put("TRAINING", trainingDelta);
+                    trainingRoomsDelta = roomsDelta;
+                }
+            }
+        }
 
         JSONObject buildingDelta = new JSONObject(true);
         buildingDelta.put("roomSlots", slotsDelta);

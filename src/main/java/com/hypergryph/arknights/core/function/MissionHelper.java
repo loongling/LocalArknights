@@ -1113,8 +1113,12 @@ public final class MissionHelper {
                 continue;
             }
             // 每一档消耗自己的 periodicalPointCost，领完就扣（够就扣，不够也照发）
+            // 每一档消耗自己的 periodicalPointCost；**点数不够不能领**（否则一次完成日常会把整条阶梯领光）
             int cost = r.getIntValue("periodicalPointCost");
-            points = Math.max(0, points - cost);
+            if (points < cost) {
+                break;   // 阶梯按 sortIndex 递增，后面更贵，直接停
+            }
+            points -= cost;
             JSONArray rs = r.getJSONArray("rewards");
             if (rs != null) {
                 for (int i = 0; i < rs.size(); i++) {
@@ -1227,7 +1231,11 @@ public final class MissionHelper {
             // 每档消耗自己的点数（够就扣，不够也照发 —— 私服不卡点数，
             // 否则客户端会一直重试同一个档位导致「获取物资」弹窗刷屏）
             int cost = r.getIntValue("periodicalPointCost");
-            points = Math.max(0, points - cost);
+            if (points < cost) {
+                ArknightsApplication.LOGGER.info("[MissionHelper] 兑换 {} 点数不足（需 {}，有 {}），跳过", id, cost, points);
+                continue;
+            }
+            points -= cost;
             JSONArray rs = r.getJSONArray("rewards");
             if (rs != null) {
                 for (int i = 0; i < rs.size(); i++) {

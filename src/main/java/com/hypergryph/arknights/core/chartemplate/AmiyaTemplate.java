@@ -147,6 +147,9 @@ public final class AmiyaTemplate {
             charData.put("currentTmpl", tmplId);
             changed = true;
         }
+        // 模板技能的 unlockCond 是 PHASE_0/PHASE_1，而模板只在精二后才能解锁：
+        // 切换 currentTmpl 之后必须按当前阶段再解锁一次，否则「第二技能」永远是 0
+        processArray.unlockSkillsForPhase(charData, BASE_CHAR_ID, charData.getIntValue("evolvePhase"));
 
         // 新模板的模组槽可见性要跟随当前精英阶段：
         // 已经精二的玩家通关 main_14-20 解锁医疗时，槽位应当是 hide=0 而不是 1
@@ -207,8 +210,8 @@ public final class AmiyaTemplate {
         }
 
         JSONObject patch = new JSONObject(true);
-        // 模板皮肤固定是 #2（近卫/医疗都是），术师才是 #1
-        patch.put("skinId", tmplId + "#2");
+        // 模板皮肤按 skin_table.buildinPatchMap 查（近卫/医疗都是 #2，术师是 #1）
+        patch.put("skinId", processArray.buildinSkinFor(tmplId, 2));
         patch.put("defaultSkillIndex", skills.isEmpty() ? -1 : 0);
         patch.put("skills", skills);
         patch.put("currentEquip", (Object) null);

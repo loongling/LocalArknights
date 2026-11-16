@@ -1186,4 +1186,372 @@ public class processArray {
         }
         return userData;
     }
+
+    // ───────────── 官方内建皮肤（skin_table）─────────────
+
+    /** 官方默认皮肤表：buildinEvolveMap[charId] = {phase -> skinId}；buildinPatchMap[charId] = {模板干员 -> skinId} */
+    public static String buildinSkinFor(String charId, int phase) {
+        if (charId == null || charId.isEmpty()) {
+            return null;
+        }
+        com.alibaba.fastjson.JSONObject table = table();
+        if (table == null) {
+            return charId + "#1";
+        }
+        // buildinPatchMap 是「母体 → {模板子干员: 皮肤}」，只对模板子干员（char_1001_amiya2 等）生效
+        com.alibaba.fastjson.JSONObject patchMap = table.getJSONObject("buildinPatchMap");
+        if (patchMap != null) {
+            for (String host : patchMap.keySet()) {
+                com.alibaba.fastjson.JSONObject m = patchMap.getJSONObject(host);
+                if (m != null && m.containsKey(charId)) {
+                    String v = m.getString(charId);
+                    if (v != null && !v.isEmpty()) {
+                        return v;
+                    }
+                }
+            }
+        }
+        // 常规干员：buildinEvolveMap 里按 phase 向下回退
+        com.alibaba.fastjson.JSONObject evolveMap = table.getJSONObject("buildinEvolveMap");
+        com.alibaba.fastjson.JSONObject em = evolveMap == null ? null : evolveMap.getJSONObject(charId);
+        if (em != null) {
+            for (int p = Math.max(0, Math.min(phase, 2)); p >= 0; p--) {
+                String v = em.getString(String.valueOf(p));
+                if (v != null && !v.isEmpty()) {
+                    return v;
+                }
+            }
+        }
+        // 兜底：charSkins 里找 #phase → #2 → #1
+        com.alibaba.fastjson.JSONObject skins = table.getJSONObject("charSkins");
+        String[] fallback = {charId + "#" + phase, charId + "#2", charId + "#1"};
+        for (String id : fallback) {
+            if (skins != null && skins.containsKey(id)) {
+                return id;
+            }
+        }
+        return charId + "#1";
+    }
+
+    /**
+     * 是否官方内建默认皮肤。
+     * 判据：等于该干员 精0/精1/精2 的默认皮之一（`#1` / `#1+` / `#2`），
+     * 而不是简单地"以 charId# 开头"——否则玩家自购的 `#3`、`#6` 会被误判成默认皮而覆盖。
+     */
+    public static boolean isBuildinSkin(String charId, String skinId) {
+        if (charId == null || skinId == null || !skinId.startsWith(charId + "#")) {
+            return false;
+        }
+        // 玩家购买的时装是 `charId@品牌#序号`（如 char_002_amiya@winter#1），一定带 @
+        return !skinId.contains("@");
+    }
+
+    /** 该 skinId 是否真实存在于 charSkins */
+    public static boolean skinExists(String skinId) {
+        com.alibaba.fastjson.JSONObject skins = charSkins();
+        if (skins == null || skinId == null) {
+            return true;
+        }
+        return skins.containsKey(skinId);
+    }
+
+    /** 整张 skin_table（兼容旧字段 skinTable 只是 charSkins 的情况） */
+    private static com.alibaba.fastjson.JSONObject table() {
+        com.alibaba.fastjson.JSONObject full = ArknightsApplication.skinTableFull;
+        if (full != null && full.containsKey("buildinEvolveMap")) {
+            return full;
+        }
+        com.alibaba.fastjson.JSONObject old = ArknightsApplication.skinTable;
+        if (old != null && old.containsKey("buildinEvolveMap")) {
+            return old;
+        }
+        return null;
+    }
+
+    private static com.alibaba.fastjson.JSONObject charSkins() {
+        com.alibaba.fastjson.JSONObject full = table();
+        if (full != null) {
+            return full.getJSONObject("charSkins");
+        }
+        return ArknightsApplication.skinTable;   // 旧字段本身就是 charSkins
+    }
+
+    /**
+     * 晋升时更新默认皮肤：只有当前穿的是「内建皮肤」才替换，玩家自购皮肤保留。
+     *
+     * @return 是否发生了更换
+     */
+    public static boolean applyEvolveSkin(com.alibaba.fastjson.JSONObject charData, String charId, int destPhase) {
+        if (charData == null) {
+            return false;
+        }
+        // 模板干员（阿米娅近卫/医疗）：生效数据在 tmpl[currentTmpl] 里，
+        // 默认皮肤要按「模板 id」查 buildinPatchMap，而不是按母体 char_002_amiya
+        String tmplId = charData.getString("currentTmpl");
+        String effectiveId = (tmplId != null && !tmplId.isEmpty()) ? tmplId : charId;
+        String cur = getSkin(charData);
+        if (cur != null && !isBuildinSkin(effectiveId, cur)) {
+            return false;   // 自购服装，保留
+        }
+        String want = buildinSkinFor(effectiveId, destPhase);
+        if (want == null || want.equals(cur)) {
+            return false;
+        }
+        setSkin(charData, want);
+        return true;
+    }
+
+    /**
+     * 登录修复：把存档里无效的内建皮肤（如绝大多数干员不存在的 `charId#1+`）纠正为有效默认皮肤。
+     *
+     * @return 修复的条数
+     */
+    public static int repairBuildinSkins(com.alibaba.fastjson.JSONObject userData) {
+        if (userData == null) {
+            return 0;
+        }
+        com.alibaba.fastjson.JSONObject troop = userData.getJSONObject("troop");
+        com.alibaba.fastjson.JSONObject chars = troop == null ? null : troop.getJSONObject("chars");
+        if (chars == null) {
+            return 0;
+        }
+        int fixed = 0;
+        for (String instId : chars.keySet()) {
+            com.alibaba.fastjson.JSONObject c = chars.getJSONObject(instId);
+            if (c == null) {
+                continue;
+            }
+            String charId = c.getString("charId");
+            int phase = c.getIntValue("evolvePhase");
+            fixed += repairOneSkin(c, charId, phase);
+            // 模板干员（阿米娅 → char_1001_amiya2 等）的每个 tmpl 补丁单独修
+            com.alibaba.fastjson.JSONObject tmpl = c.getJSONObject("tmpl");
+            if (tmpl != null) {
+                for (String tmplId : tmpl.keySet()) {
+                    com.alibaba.fastjson.JSONObject patch = tmpl.getJSONObject(tmplId);
+                    if (patch == null) {
+                        continue;
+                    }
+                    String sk = patch.getString("skinId");
+                    if (sk == null || sk.isEmpty()) {
+                        continue;
+                    }
+                    String want = buildinSkinFor(tmplId, Math.max(2, phase));
+                    if (sk.startsWith(tmplId + "#") && !skinExists(sk) && want != null) {
+                        patch.put("skinId", want);
+                        fixed++;
+                    }
+                }
+            }
+        }
+        return fixed;
+    }
+
+    private static int repairOneSkin(com.alibaba.fastjson.JSONObject c, String charId, int phase) {
+        if (charId == null) {
+            return 0;
+        }
+        String cur = c.getString("skin");
+        if (cur == null || cur.isEmpty()) {
+            return 0;
+        }
+        if (!isBuildinSkin(charId, cur) || skinExists(cur)) {
+            return 0;   // 自购皮肤 或 已经有效
+        }
+        String want = buildinSkinFor(charId, phase);
+        if (want == null || want.equals(cur)) {
+            return 0;
+        }
+        c.put("skin", want);
+        return 1;
+    }
+
+
+    // ───────────── 模组默认选择（currentEquip）─────────────
+
+    /**
+     * 该干员（或模板）配置里的「基础模组」uniEquipId。
+     * 依据 uniequip_table.equipDict 的 {@code type == "INITIAL"}；没有配置返回 null（绝不虚构）。
+     *
+     * @param tmplId 模板干员 id（阿米娅近卫/医疗），普通干员传 null
+     */
+    public static String defaultBaseUniEquip(String charId, String tmplId) {
+        com.alibaba.fastjson.JSONObject table = ArknightsApplication.uniequipTable;
+        if (table == null || charId == null) {
+            return null;
+        }
+        String fallback = null;
+        for (String id : table.keySet()) {
+            com.alibaba.fastjson.JSONObject def = table.getJSONObject(id);
+            if (def == null || !charId.equals(def.getString("charId"))) {
+                continue;
+            }
+            if (!"INITIAL".equals(def.getString("type"))) {
+                continue;   // 只认基础模组，避免误选 ADVANCED
+            }
+            String defTmpl = def.getString("tmplId");
+            if (tmplId != null && tmplId.equals(defTmpl)) {
+                return id;   // 模板干员精确匹配
+            }
+            if (defTmpl == null || defTmpl.isEmpty()) {
+                if (fallback == null) {
+                    fallback = id;
+                }
+            }
+        }
+        return fallback;
+    }
+
+    /**
+     * 精二后若 currentEquip 为空，选一个有效的基础模组。
+     * 只改「入口可见性」需要的那一个字段，不动模组的任务/等级/材料解锁条件；已有选择一律保留。
+     *
+     * @return 是否写入
+     */
+    public static boolean ensureDefaultCurrentEquip(com.alibaba.fastjson.JSONObject charData,
+                                                    String charId, int phase) {
+        if (charData == null || charId == null || phase < 2) {
+            return false;
+        }
+        com.alibaba.fastjson.JSONObject active = activeCharData(charData);
+        if (active == null) {
+            return false;
+        }
+        String cur = active.getString("currentEquip");
+        if (cur != null && !cur.isEmpty()) {
+            return false;   // 玩家已选（含实际模组），保持不动
+        }
+        String tmpl = charData.getString("currentTmpl");
+        boolean templated = tmpl != null && !tmpl.isEmpty();
+        String want = defaultBaseUniEquip(charId, templated ? tmpl : null);
+        if (want == null) {
+            return false;   // 该干员没有模组配置 → 不生成虚构模组
+        }
+        active.put("currentEquip", want);
+        return true;
+    }
+
+    /**
+     * 登录同步修复：把「已精二但 currentEquip 为空」的历史数据补上基础模组。
+     * 模板干员分别按其 tmpl 补丁处理；基节点在切换模板时本就该是 null，故跳过。
+     *
+     * @return 修复条数
+     */
+    public static int repairCurrentEquip(com.alibaba.fastjson.JSONObject userData) {
+        if (userData == null) {
+            return 0;
+        }
+        com.alibaba.fastjson.JSONObject troop = userData.getJSONObject("troop");
+        com.alibaba.fastjson.JSONObject chars = troop == null ? null : troop.getJSONObject("chars");
+        if (chars == null) {
+            return 0;
+        }
+        int fixed = 0;
+        for (String instId : chars.keySet()) {
+            com.alibaba.fastjson.JSONObject c = chars.getJSONObject(instId);
+            if (c == null) {
+                continue;
+            }
+            String charId = c.getString("charId");
+            int phase = c.getIntValue("evolvePhase");
+            if (phase < 2) {
+                continue;
+            }
+            String curTmpl = c.getString("currentTmpl");
+            boolean templated = curTmpl != null && !curTmpl.isEmpty();
+            if (!templated && ensureDefaultCurrentEquip(c, charId, phase)) {
+                fixed++;
+            }
+            com.alibaba.fastjson.JSONObject tmpl = c.getJSONObject("tmpl");
+            if (tmpl != null) {
+                for (String tmplId : tmpl.keySet()) {
+                    com.alibaba.fastjson.JSONObject patch = tmpl.getJSONObject(tmplId);
+                    if (patch == null) {
+                        continue;
+                    }
+                    String cur = patch.getString("currentEquip");
+                    if (cur != null && !cur.isEmpty()) {
+                        continue;
+                    }
+                    String want = defaultBaseUniEquip(charId, tmplId);
+                    if (want != null) {
+                        patch.put("currentEquip", want);
+                        fixed++;
+                    }
+                }
+            }
+        }
+        return fixed;
+    }
+
+
+    // ───────────── 干员数量勋章（官方购买干员实测 057_05）─────────────
+
+    /** medal_player_charnum_XX 的目标数量（来自官方存档与抓包） */
+    private static final int[][] CHAR_NUM_MEDALS = {
+        {1, 30}, {2, 60}, {3, 90}, {4, 130}, {5, 160},
+        {6, 200}, {7, 250}, {8, 300}, {9, 350}, {10, 400},
+    };
+
+    /**
+     * 获得新干员时刷新「干员数量」勋章的进度：{@code val = [[当前干员数, 目标数量]]}。
+     * 只更新尚未达成的勋章（fts == -1），已达成的保留。
+     *
+     * @return 增量 {@code {medals:{id:{...}}}}；没有变化返回 null
+     */
+    public static com.alibaba.fastjson.JSONObject updateCharNumMedals(com.alibaba.fastjson.JSONObject userData) {
+        if (userData == null) {
+            return null;
+        }
+        com.alibaba.fastjson.JSONObject medalRoot = userData.getJSONObject("medal");
+        com.alibaba.fastjson.JSONObject medals = medalRoot == null ? null : medalRoot.getJSONObject("medals");
+        com.alibaba.fastjson.JSONObject troop = userData.getJSONObject("troop");
+        com.alibaba.fastjson.JSONObject chars = troop == null ? null : troop.getJSONObject("chars");
+        if (medals == null || chars == null) {
+            return null;
+        }
+        // 干员数量 = 去重后的 charId 数（同一干员多实例不重复计）
+        java.util.Set<String> distinct = new java.util.HashSet<>();
+        for (String k : chars.keySet()) {
+            com.alibaba.fastjson.JSONObject c = chars.getJSONObject(k);
+            if (c != null && c.getString("charId") != null) {
+                distinct.add(c.getString("charId"));
+            }
+        }
+        int count = distinct.size();
+
+        com.alibaba.fastjson.JSONObject changed = new com.alibaba.fastjson.JSONObject(true);
+        for (int[] def : CHAR_NUM_MEDALS) {
+            String id = String.format("medal_player_charnum_%02d", def[0]);
+            com.alibaba.fastjson.JSONObject m = medals.getJSONObject(id);
+            if (m == null) {
+                continue;
+            }
+            if (m.getLongValue("fts") > 0) {
+                continue;   // 已达成，不再更新
+            }
+            com.alibaba.fastjson.JSONArray val = new com.alibaba.fastjson.JSONArray();
+            com.alibaba.fastjson.JSONArray pair = new com.alibaba.fastjson.JSONArray();
+            pair.add(count);
+            pair.add(def[1]);
+            val.add(pair);
+            boolean dirty = !val.equals(m.get("val"));
+            m.put("val", val);
+            m.put("fts", -1);
+            m.put("rts", -1);
+            if (count >= def[1]) {
+                m.put("fts", ArknightsApplication.getTimestamp());
+            }
+            if (dirty) {
+                changed.put(id, m.clone());
+            }
+        }
+        if (changed.isEmpty()) {
+            return null;
+        }
+        com.alibaba.fastjson.JSONObject out = new com.alibaba.fastjson.JSONObject(true);
+        out.put("medals", changed);
+        return out;
+    }
+
 }

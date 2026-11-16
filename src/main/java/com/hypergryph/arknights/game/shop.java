@@ -33,6 +33,7 @@ public class shop {
     public JSONObject getSkinGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                       @RequestBody JSONObject JsonBody) {
         JSONArray goodList = new JSONArray();
+        java.util.Map<String, JSONObject> fromFile = skinGoodListIndex();
         for (Map.Entry<String, Object> entry : ArknightsApplication.skinTable.entrySet()) {
             String skinId = entry.getKey();
             if (skinId.indexOf("@") == -1) {
@@ -46,20 +47,35 @@ public class shop {
             if (displaySkin == null) {
                 continue;
             }
-            int price = skinPriceOfSkinId(skinId);
-            if (price <= 0) {
-                price = DEFAULT_SKIN_PRICE;
-            }
+            // 配置里有这一件（官方在售）→ 完全沿用官方的 goodId / 价格 / 折扣 / 上下架时间
+            JSONObject cfg = fromFile.get(skinId);
             JSONObject good = new JSONObject(true);
             good.put("charId", skinData.getString("charId"));
             good.put("skinId", skinId);
-            good.put("goodId", "SS_" + skinId);
-            good.put("slotId", displaySkin.getIntValue("sortId"));
-            good.put("skinName", displaySkin.getString("skinName"));
-            good.put("currencyUnit", "DIAMOND");
-            good.put("originPrice", price);
-            good.put("price", price);
-            good.put("discount", 0);
+            if (cfg != null) {
+                good.put("goodId", cfg.getString("goodId"));
+                good.put("slotId", cfg.containsKey("slotId") ? cfg.getIntValue("slotId")
+                        : displaySkin.getIntValue("sortId"));
+                good.put("skinName", cfg.getString("skinName") != null
+                        ? cfg.getString("skinName") : displaySkin.getString("skinName"));
+                good.put("currencyUnit", cfg.getString("currencyUnit") != null
+                        ? cfg.getString("currencyUnit") : "DIAMOND");
+                good.put("originPrice", cfg.getIntValue("originPrice"));
+                good.put("price", cfg.getIntValue("price"));
+                good.put("discount", cfg.getIntValue("discount"));
+            } else {
+                int price = skinPriceOfSkinId(skinId);
+                if (price <= 0) {
+                    price = DEFAULT_SKIN_PRICE;
+                }
+                good.put("goodId", "SS_" + skinId);
+                good.put("slotId", displaySkin.getIntValue("sortId"));
+                good.put("skinName", displaySkin.getString("skinName"));
+                good.put("currencyUnit", "DIAMOND");
+                good.put("originPrice", price);
+                good.put("price", price);
+                good.put("discount", 0);
+            }
             good.put("desc1", (Object) null);
             good.put("desc2", (Object) null);
             good.put("startDateTime", -1);
@@ -80,6 +96,36 @@ public class shop {
     }
     
     private static final int DEFAULT_SKIN_PRICE = 15;
+
+    /** data/shop/SkinGoodList.json 的索引：skinId → 条目（缓存，文件变了要重启） */
+    private static java.util.Map<String, JSONObject> SKIN_GOOD_INDEX;
+
+    private static synchronized java.util.Map<String, JSONObject> skinGoodListIndex() {
+        if (SKIN_GOOD_INDEX != null) {
+            return SKIN_GOOD_INDEX;
+        }
+        java.util.Map<String, JSONObject> map = new java.util.HashMap<>();
+        try {
+            JSONObject cfg = ArknightsApplication.skinGoodList;
+            JSONArray arr = cfg == null ? null : cfg.getJSONArray("goodList");
+            if (arr != null) {
+                for (int i = 0; i < arr.size(); i++) {
+                    JSONObject g = arr.getJSONObject(i);
+                    if (g == null) {
+                        continue;
+                    }
+                    String sid = g.getString("skinId");
+                    if (sid != null) {
+                        map.put(sid, g);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            ArknightsApplication.LOGGER.warn("[shop] 读取 SkinGoodList.json 索引失败: {}", e.toString());
+        }
+        SKIN_GOOD_INDEX = map;
+        return map;
+    }
 
     private static String deriveSkinId(String goodId) {
         if (goodId == null) {
@@ -410,7 +456,8 @@ public class shop {
                                    HttpServletResponse response, HttpServletRequest request) {
         ArknightsApplication.LOGGER.info("[" + ArknightsApplication.getIpAddr(request) + "] /shop/buyExtraGood");
         return buyShardGood(secret, JsonBody, response,
-                ArknightsApplication.ExtraGoodList.getJSONArray("goodList"), "4006", true);
+        // 采购凭证店：购买记录/进度奖励都必须归到 shop.ES（之前默认落 "HS" → 归类错误）
+                ArknightsApplication.ExtraGoodList.getJSONArray("goodList"), "4006", true, "ES");
     }
 
     @PostMapping(
@@ -919,7 +966,11 @@ public class shop {
             return badRequest(response, "good has no item: " + goodId);
         }
 
-        int price = good.getIntValue("price") * count;
+        long priceL = (long) good.getIntValue("price") * Math.max(1, count);
+        if (priceL < 0 || priceL > Integer.MAX_VALUE) {
+            return badRequest(response, "price overflow: unit=" + good.getIntValue("price") + ", count=" + count);
+        }
+        int price = (int) priceL;
         JSONObject userData = JSONObject.parseObject(account.getUser());
 
         String[] shopPath = new String[]{shopKey};
@@ -960,12 +1011,83 @@ public class shop {
         if ("CHAR".equals(grant.getString("type"))) {
             ArknightsApplication.LOGGER.info("[shop] uid={} 购买干员 {} x{}",
                     account.getUid(), grant.getString("id"), grant.getIntValue("count"));
-            java.util.Map<String, String> before = snapshotUserNodes(userData);
             userData = handleUserDataChange(grant, userData, account.getUid(), 0, items);
-            mergeNodeDiff(modified, userData, before);
+            // 官方实测（057_05 / 057_07）：troop/building/dexNav 都只发受影响的那一个干员，
+            // 重复购买时 troop.chars 为空对象，只更新 curCharInstId。
+            int newInstId = 0;
+            boolean isNewChar = false;
+            if (!items.isEmpty()) {
+                JSONObject it0 = items.getJSONObject(0);
+                JSONObject cg0 = it0 == null ? null : it0.getJSONObject("charGet");
+                if (cg0 != null) {
+                    newInstId = cg0.getIntValue("charInstId");
+                    isNewChar = cg0.getIntValue("isNew") == 1;
+                }
+            }
+            JSONObject troopAll = userData.getJSONObject("troop");
+            JSONObject charsAll = troopAll == null ? null : troopAll.getJSONObject("chars");
+            JSONObject charNode = (charsAll == null || newInstId <= 0)
+                    ? null : charsAll.getJSONObject(String.valueOf(newInstId));
+            JSONObject troopDelta = new JSONObject(true);
+            JSONObject charsDelta = new JSONObject(true);
+            if (isNewChar && charNode != null) {
+                charsDelta.put(String.valueOf(newInstId), charNode.clone());
+            }
+            troopDelta.put("chars", charsDelta);
+            if (isNewChar && charNode != null && troopAll.getJSONObject("charGroup") != null) {
+                String cid0 = charNode.getString("charId");
+                JSONObject groupAll = troopAll.getJSONObject("charGroup");
+                if (groupAll.containsKey(cid0)) {
+                    JSONObject groupDelta = new JSONObject(true);
+                    groupDelta.put(cid0, groupAll.getJSONObject(cid0));
+                    troopDelta.put("charGroup", groupDelta);
+                }
+            }
+            if (troopAll != null) {
+                troopDelta.put("curCharInstId", troopAll.getIntValue("curCharInstId"));
+            }
+            modified.put("troop", troopDelta);
+
+            // building：只发新干员的基建角色
+            if (isNewChar && newInstId > 0) {
+                JSONObject buildingAll = userData.getJSONObject("building");
+                JSONObject bCharsAll = buildingAll == null ? null : buildingAll.getJSONObject("chars");
+                JSONObject bNode = bCharsAll == null ? null : bCharsAll.getJSONObject(String.valueOf(newInstId));
+                if (bNode != null) {
+                    JSONObject bDelta = new JSONObject(true);
+                    JSONObject bChars = new JSONObject(true);
+                    bChars.put(String.valueOf(newInstId), bNode.clone());
+                    bDelta.put("chars", bChars);
+                    modified.put("building", bDelta);
+                }
+            }
+
+            // dexNav：只发这一个干员的图鉴条目（新获得时 count=1，重复时 +1）
+            String dCharId = charNode == null ? grant.getString("id") : charNode.getString("charId");
+            JSONObject dexAll = userData.getJSONObject("dexNav");
+            JSONObject dexCharsAll = dexAll == null ? null : dexAll.getJSONObject("character");
+            JSONObject dexEntry = dexCharsAll == null ? null : dexCharsAll.getJSONObject(dCharId);
+            if (dexEntry != null) {
+                JSONObject dexDelta = new JSONObject(true);
+                JSONObject oneChar = new JSONObject(true);
+                oneChar.put(dCharId, dexEntry.clone());
+                dexDelta.put("character", oneChar);
+                modified.put("dexNav", dexDelta);
+            }
+
+            // 新干员 → 刷新「干员数量」勋章（官方 057_05 的 modified.medal）
+            if (isNewChar) {
+                JSONObject medalDelta = com.hypergryph.arknights.core.work.processArray
+                        .updateCharNumMedals(userData);
+                if (medalDelta != null) {
+                    modified.put("medal", medalDelta);
+                }
+            }
         } else {
-            modified = handleModifiedBuild(grant, modified, userData, 0);
+            // 只走 handleUserDataChange（handleModifiedBuild 也会写 userData，两个都调会发双份）
+            java.util.Map<String, String> before = snapshotUserNodes(userData);
             userData = handleUserDataChange(grant, userData, account.getUid(), 0);
+            mergeNodeDiff(modified, userData, before);
             items.add(grant);
         }
 
@@ -987,9 +1109,19 @@ public class shop {
             modified.put("status", slimStatus);
         }
         JSONObject slimInv = diffChanged(inventorySnap, userData.getJSONObject("inventory"));
+        // 官方不会把「原本没有、现在为 0」的键放进增量（例如重复干员给的 p_char_xxx: 0）
+        for (String k : new java.util.ArrayList<>(slimInv.keySet())) {
+            if (slimInv.getIntValue(k) == 0 && !inventorySnap.containsKey(k)) {
+                slimInv.remove(k);
+            }
+        }
         if (slimInv.isEmpty()) {
             modified.remove("inventory");
         } else if (modified.getJSONObject("inventory") != null) {
+            JSONObject merged = modified.getJSONObject("inventory");
+            merged.putAll(slimInv);
+            modified.put("inventory", merged);
+        } else {
             modified.put("inventory", slimInv);
         }
 
@@ -998,9 +1130,8 @@ public class shop {
         playerDataDelta.put("deleted", new JSONObject(true));
 
         JSONObject result = new JSONObject(true);
+        result.put("items", items);                 // 官方顺序：items 在前
         result.put("playerDataDelta", playerDataDelta);
-        result.put("items", items);
-        result.put("result", 0);
         ArknightsApplication.LOGGER.info("[shop] uid={} 购买 {} x{} 花费 {}{}，modified={}",
                 account.getUid(), goodId, count, price, currencyField, modified.toJSONString());
         return result;
@@ -1248,12 +1379,26 @@ public class shop {
         return copy;
     }
 
+    /**
+     * 商店列表的 avCount 处理。
+     *
+     * <p>官方实测（051_05 / 057_03 / 057_06 的 {@code /shop/getExtraGoodList}）：
+     * 列表返回的 {@code availCount} 与静态配置**完全一致，不做任何已购扣减**，
+     * 剩余量由 {@code /shop/getGoodPurchaseState} 单独维护。
+     * 因此这里不再扣减，只保留方法签名（历史调用点仍然走它）。
+     */
     private static void subtractBoughtRecursive(Object node, JSONObject userData,
+                                                java.util.function.Function<String, String[]> pathResolver) {
+        // 官方列表不做扣减（-1 = 无限库存同样原样返回），此处有意留空。
+        return;
+    }
+
+    private static void subtractBoughtRecursiveUnused(Object node, JSONObject userData,
                                                 java.util.function.Function<String, String[]> pathResolver) {
         if (node instanceof JSONArray) {
             JSONArray arr = (JSONArray) node;
             for (int i = 0; i < arr.size(); i++) {
-                subtractBoughtRecursive(arr.get(i), userData, pathResolver);
+                subtractBoughtRecursiveUnused(arr.get(i), userData, pathResolver);
             }
             return;
         }
@@ -1263,10 +1408,13 @@ public class shop {
         JSONObject obj = (JSONObject) node;
         String goodId = obj.getString("goodId");
         if (goodId != null && obj.containsKey("availCount")) {
-            String[] path = pathResolver.apply(goodId);
-            if (path != null) {
-                int left = obj.getIntValue("availCount") - boughtCount(userData, path, goodId);
-                obj.put("availCount", Math.max(0, left));
+            int avail = obj.getIntValue("availCount");
+            if (avail >= 0) {
+                String[] path = pathResolver.apply(goodId);
+                if (path != null) {
+                    long left = (long) avail - boughtCount(userData, path, goodId);
+                    obj.put("availCount", (int) Math.max(0L, left));
+                }
             }
         }
         for (String key : new java.util.ArrayList<>(obj.keySet())) {
@@ -1634,9 +1782,34 @@ public class shop {
         }
     }
 
-    private static JSONObject serveShopList(String file, String path, HttpServletRequest request) {
+    /** 商店分类 → user.shop 下的购买记录节点（与 PURCHASE_CAT_FILE 对应） */
+    private static String shopPathKeyOf(String file) {
+        if (file == null) {
+            return null;
+        }
+        switch (file) {
+            case "LowGoodList": return "LS";
+            case "HighGoodList": return "HS";
+            case "ExtraGoodList": return "ES";
+            case "CashGoodList": return "CASH";
+            case "ClassicGoodList": return "CLASSIC";
+            default: return null;
+        }
+    }
+
+    private static JSONObject serveShopList(String file, String path, String secret,
+                                            HttpServletRequest request) {
         ArknightsApplication.LOGGER.info("[" + "/" + ArknightsApplication.getIpAddr(request) + "] /shop/" + path);
         JSONObject data = loadShopFile(file);
+        // GET 列表会按已购次数扣 availCount，POST 列表也必须一致（-1 = 无限库存，保持 -1）
+        if (data != null) {
+            String catKey = shopPathKeyOf(file);
+            if ("GPGoodList".equals(file)) {
+                data = withAvailableCounts(data, loadUserData(secret), shop::gpShopPath);
+            } else if (catKey != null) {
+                data = withAvailableCounts(data, loadUserData(secret), goodId -> new String[]{catKey});
+            }
+        }
         JSONObject result = new JSONObject(true);
         if (data == null) {
             JSONObject delta = new JSONObject(true);
@@ -1661,61 +1834,61 @@ public class shop {
     @PostMapping(value = {"/getCashGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getCashGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                       @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("CashGoodList", "getCashGoodList", request);
+        return serveShopList("CashGoodList", "getCashGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getLowGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getLowGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                      @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("LowGoodList", "getLowGoodList", request);
+        return serveShopList("LowGoodList", "getLowGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getHighGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getHighGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                       @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("HighGoodList", "getHighGoodList", request);
+        return serveShopList("HighGoodList", "getHighGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getExtraGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getExtraGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                        @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("ExtraGoodList", "getExtraGoodList", request);
+        return serveShopList("ExtraGoodList", "getExtraGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getSocialGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getSocialGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                         @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("SocialGoodList", "getSocialGoodList", request);
+        return serveShopList("SocialGoodList", "getSocialGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getClassicGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getClassicGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                          @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("ClassicGoodList", "getClassicGoodList", request);
+        return serveShopList("ClassicGoodList", "getClassicGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getLMTGSGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getLMTGSGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                        @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("LMTGSGoodList", "getLMTGSGoodList", request);
+        return serveShopList("LMTGSGoodList", "getLMTGSGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getEPGSGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getEPGSGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                       @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("EPGSGoodList", "getEPGSGoodList", request);
+        return serveShopList("EPGSGoodList", "getEPGSGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getRepGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getRepGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                      @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("RepGoodList", "getRepGoodList", request);
+        return serveShopList("RepGoodList", "getRepGoodList", secret, request);
     }
 
     @PostMapping(value = {"/getGPGoodList"}, produces = {"application/json;charset=UTF-8"})
     public JSONObject getGPGoodList(@RequestHeader(value = "secret", required = false) String secret,
                                     @RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
-        return serveShopList("GPGoodList", "getGPGoodList", request);
+        return serveShopList("GPGoodList", "getGPGoodList", secret, request);
     }
 
     private static final java.util.Map<String, String> PURCHASE_CAT_FILE = new java.util.HashMap<>();

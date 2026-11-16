@@ -1,3 +1,14 @@
+# v0.6.0.0 Beta
+
+## 修复的BUG
+1. 修复了[issue#14](https://github.com/loongling/LocalArknights/issues/14)的问题
+2. 修复了[issue#15](https://github.com/loongling/LocalArknights/issues/15)的问题
+3. 修复了[issue#16](https://github.com/loongling/LocalArknights/issues/16)的问题
+4. 修复了[issue#17](https://github.com/loongling/LocalArknights/issues/17)的问题
+5. 更新了部分数据
+6. 修复rlv2的地图生成逻辑(未实测)
+7. 修复missionHelper等中的逻辑问题
+
 # v0.5.9.5 Beta
 
 ## 更新

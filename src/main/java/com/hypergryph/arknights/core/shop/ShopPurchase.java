@@ -112,14 +112,24 @@ public final class ShopPurchase {
         return 0;
     }
 
+    /**
+     * 限购检查。
+     *
+     * <p>{@code availCount < 0} 表示**无限库存**（官方配置里 -1 就是这个意思），
+     * 只有有限的 availCount 才做余量限制；同时用 long 计算，避免 bought+count 溢出。
+     */
     public static String checkAvailCount(JSONObject good, JSONObject userData, String[] path,
                                          String goodId, int count) {
         if (good == null || !good.containsKey("availCount")) {
             return null;
         }
         int avail = good.getIntValue("availCount");
-        int bought = boughtCount(userData, path, goodId);
-        if (bought + count > avail) {
+        if (avail < 0) {
+            return null;   // 无限库存
+        }
+        long bought = boughtCount(userData, path, goodId);
+        long want = Math.max(0, count);
+        if (bought + want > avail) {
             return "good sold out: " + goodId + " availCount=" + avail + ", already bought=" + bought;
         }
         return null;
