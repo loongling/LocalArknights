@@ -2,9 +2,7 @@ package com.hypergryph.arknights;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hypergryph.arknights.core.dao.userDao;
-import com.hypergryph.arknights.core.dao.mailDao;
-import com.hypergryph.arknights.core.dao.orderIdDao;
+import com.hypergryph.arknights.core.dao.*;
 import com.hypergryph.arknights.command.CommandManager;
 import com.hypergryph.arknights.command.ICommandSender;
 import com.hypergryph.arknights.core.file.IOTools;
@@ -155,6 +153,16 @@ public class ArknightsApplication {
         if(orderIdDao.tableExists("orders").isEmpty()) {
             orderIdDao.insertTable();
             LOGGER.info("订单数据库不存在，已生成");
+        }
+
+        if(userDao.tableExists("autochessRoom").isEmpty()) {
+            autochessRoomDao.insertTable();
+            LOGGER.info("卫戍协议房间数据库不存在，已生成");
+        }
+
+        if(userDao.tableExists("autochessBattle").isEmpty()) {
+            autochessBattleDao.insertTable();
+            LOGGER.info("卫戍协议战斗服务数据库不存在，已生成");
         }
 
         getTimestamp();

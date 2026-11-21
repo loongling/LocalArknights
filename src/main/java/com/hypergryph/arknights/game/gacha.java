@@ -553,6 +553,18 @@ public class gacha {
         return new JSONObject();
     }
 
+    @PostMapping(
+            value = {"choosePoolUp"}
+    )
+    public JSONObject choosePoolUp(@RequestHeader(value = "secret", required = false)String secret,@RequestBody JSONObject jsonBody, HttpServletRequest request, HttpServletResponse response) {
+        String clientIp = ArknightsApplication.getIpAddr(request);
+        ArknightsApplication.LOGGER.info("[/" + clientIp + "] /choosePoolUp");
+        // TODO: 待实现（暂返回成功，避免 500）
+        JSONObject result = new JSONObject();
+        result.put("result", 0);
+        return result;
+    }
+
     private JSONObject createErrorResponse(int code, String message) {
         JSONObject result = new JSONObject();
         result.put("result", code);

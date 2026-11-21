@@ -56283,20 +56283,2260 @@
   },
   "autochessPerm": {
     "trainingModeFin": {},
-    "band": {},
+    "band": {
+      "band_amiya": 1,
+      "band_sarkazb": 1,
+      "band_emperor": 1,
+      "band_qalaisa": 1,
+      "band_ioleta": 1,
+      "band_survive": 1,
+      "band_price": 1,
+      "band_transfer": 1,
+      "band_dance": 1,
+      "band_copy": 1,
+      "band_jenga": 1,
+      "band_evolve": 1,
+      "band_jesica": 1,
+      "band_takecare": 1,
+      "band_shield": 1,
+      "band_smith": 1
+    },
     "shop": {
       "permShop": {
         "coin": 0,
-        "info": [],
+        "info": [
+          {
+            "id": "autochess_permanent_1",
+            "count": 0
+          },
+          {
+            "id": "autochess_permanent_2",
+            "count": 0
+          },
+          {
+            "id": "autochess_permanent_3",
+            "count": 0
+          }
+        ],
         "progressInfo": {}
       },
-      "seasonShop": {}
+      "seasonShop": {
+        "shop_act3autochess": {
+          "coin": 0,
+          "info": [],
+          "progressInfo": {},
+          "coinUsed": 0,
+          "mainRewardRecv": []
+        }
+      }
     },
-    "seasons": {},
-    "skinSelect": "",
-    "skins": {},
+    "seasons": {
+      "act3autochess": {
+        "versionId": "V3_1",
+        "chessSquad": {
+          "chess_char_1_01_a": {
+            "chessId": "chess_char_1_01_a",
+            "charId": "char_4207_branch",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_branch",
+            "skin": "char_4207_branch#2"
+          },
+          "chess_char_1_02_a": {
+            "chessId": "chess_char_1_02_a",
+            "charId": "char_127_estell",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_estell",
+            "skin": "char_127_estell#2"
+          },
+          "chess_char_1_03_a": {
+            "chessId": "chess_char_1_03_a",
+            "charId": "char_143_ghost",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_ghost",
+            "skin": "char_143_ghost#2"
+          },
+          "chess_char_1_04_a": {
+            "chessId": "chess_char_1_04_a",
+            "charId": "char_496_wildmn",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_wildmn",
+            "skin": "char_496_wildmn#2"
+          },
+          "chess_char_1_05_a": {
+            "chessId": "chess_char_1_05_a",
+            "type": 0,
+            "charId": "char_185_frncat",
+            "potentialRank": 2,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_frncat",
+            "skin": "char_185_frncat#2"
+          },
+          "chess_char_1_06_a": {
+            "chessId": "chess_char_1_06_a",
+            "type": 0,
+            "charId": "char_199_yak",
+            "potentialRank": 5,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_yak",
+            "skin": "char_199_yak#2"
+          },
+          "chess_char_1_07_a": {
+            "chessId": "chess_char_1_07_a",
+            "charId": "char_367_swllow",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_swllow",
+            "skin": "char_367_swllow#2"
+          },
+          "chess_char_1_08_a": {
+            "chessId": "chess_char_1_08_a",
+            "charId": "char_469_indigo",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_indigo",
+            "skin": "char_469_indigo#2"
+          },
+          "chess_char_1_09_a": {
+            "chessId": "chess_char_1_09_a",
+            "charId": "char_328_cammou",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_cammou",
+            "skin": "char_328_cammou#2"
+          },
+          "chess_char_1_10_a": {
+            "chessId": "chess_char_1_10_a",
+            "charId": "char_4166_varkis",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_varkis",
+            "skin": "char_4166_varkis#2"
+          },
+          "chess_char_1_11_a": {
+            "chessId": "chess_char_1_11_a",
+            "charId": "char_492_quercu",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_quercu",
+            "skin": "char_492_quercu#2"
+          },
+          "chess_char_1_12_a": {
+            "chessId": "chess_char_1_12_a",
+            "type": 0,
+            "charId": "char_347_jaksel",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_jaksel",
+            "skin": "char_347_jaksel#2"
+          },
+          "chess_char_1_13_a": {
+            "chessId": "chess_char_1_13_a",
+            "type": 0,
+            "charId": "char_193_frostl",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_frostl",
+            "skin": "char_193_frostl#2"
+          },
+          "chess_char_1_14_a": {
+            "chessId": "chess_char_1_14_a",
+            "charId": "char_325_bison",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_bison",
+            "skin": "char_325_bison#2"
+          },
+          "chess_char_1_15_a": {
+            "chessId": "chess_char_1_15_a",
+            "charId": "char_4041_chnut",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_chnut",
+            "skin": "char_4041_chnut#2"
+          },
+          "chess_char_1_16_a": {
+            "chessId": "chess_char_1_16_a",
+            "charId": "char_194_leto",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_leto",
+            "skin": "char_194_leto#2"
+          },
+          "chess_char_1_17_a": {
+            "chessId": "chess_char_1_17_a",
+            "charId": "char_219_meteo",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_meteo",
+            "skin": "char_219_meteo#2"
+          },
+          "chess_char_1_18_a": {
+            "chessId": "chess_char_1_18_a",
+            "charId": "char_140_whitew",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_whitew",
+            "skin": "char_140_whitew#2"
+          },
+          "chess_char_1_19_a": {
+            "chessId": "chess_char_1_19_a",
+            "type": 0,
+            "charId": "char_183_skgoat",
+            "potentialRank": 1,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_skgoat",
+            "skin": "char_183_skgoat#2"
+          },
+          "chess_char_2_01_a": {
+            "chessId": "chess_char_2_01_a",
+            "charId": "char_499_kaitou",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_kaitou",
+            "skin": "char_499_kaitou#2"
+          },
+          "chess_char_2_02_a": {
+            "chessId": "chess_char_2_02_a",
+            "charId": "char_129_bluep",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_bluep",
+            "skin": "char_129_bluep#2"
+          },
+          "chess_char_2_03_a": {
+            "chessId": "chess_char_2_03_a",
+            "type": 0,
+            "charId": "char_381_bubble",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_bubble",
+            "skin": "char_381_bubble#2"
+          },
+          "chess_char_2_04_a": {
+            "chessId": "chess_char_2_04_a",
+            "charId": "char_4139_papyrs",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_papyrs",
+            "skin": "char_4139_papyrs#2"
+          },
+          "chess_char_2_05_a": {
+            "chessId": "chess_char_2_05_a",
+            "charId": "char_4211_snhunt",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_snhunt",
+            "skin": "char_4211_snhunt#2"
+          },
+          "chess_char_2_06_a": {
+            "chessId": "chess_char_2_06_a",
+            "type": 0,
+            "charId": "char_237_gravel",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_gravel",
+            "skin": "char_237_gravel#2"
+          },
+          "chess_char_2_07_a": {
+            "chessId": "chess_char_2_07_a",
+            "charId": "char_4031_liesel",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_liesel",
+            "skin": "char_4031_liesel#2"
+          },
+          "chess_char_2_08_a": {
+            "chessId": "chess_char_2_08_a",
+            "charId": "char_346_aosta",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_aosta",
+            "skin": "char_346_aosta#2"
+          },
+          "chess_char_2_09_a": {
+            "chessId": "chess_char_2_09_a",
+            "charId": "char_4198_christ",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_christ",
+            "skin": "char_4198_christ#2"
+          },
+          "chess_char_2_10_a": {
+            "chessId": "chess_char_2_10_a",
+            "charId": "char_4114_harold",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_harold",
+            "skin": "char_4114_harold#2"
+          },
+          "chess_char_2_11_a": {
+            "chessId": "chess_char_2_11_a",
+            "charId": "char_4165_ctrail",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": null,
+            "skin": "char_4165_ctrail#2"
+          },
+          "chess_char_2_12_a": {
+            "chessId": "chess_char_2_12_a",
+            "type": 0,
+            "charId": "char_150_snakek",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_snakek",
+            "skin": "char_150_snakek#2"
+          },
+          "chess_char_2_13_a": {
+            "chessId": "chess_char_2_13_a",
+            "type": 0,
+            "charId": "char_258_podego",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_podego",
+            "skin": "char_258_podego#2"
+          },
+          "chess_char_2_14_a": {
+            "chessId": "chess_char_2_14_a",
+            "charId": "char_1027_greyy2",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_greyy2",
+            "skin": "char_1027_greyy2#2"
+          },
+          "chess_char_2_15_a": {
+            "chessId": "chess_char_2_15_a",
+            "charId": "char_4151_tinman",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_tinman",
+            "skin": "char_4151_tinman#2"
+          },
+          "chess_char_2_16_a": {
+            "chessId": "chess_char_2_16_a",
+            "charId": "char_337_utage",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_utage",
+            "skin": "char_337_utage#2"
+          },
+          "chess_char_2_17_a": {
+            "chessId": "chess_char_2_17_a",
+            "charId": "char_4147_mitm",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_mitm",
+            "skin": "char_4147_mitm#2"
+          },
+          "chess_char_2_18_a": {
+            "chessId": "chess_char_2_18_a",
+            "charId": "char_4221_ju",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_ju",
+            "skin": "char_4221_ju#2"
+          },
+          "chess_char_2_19_a": {
+            "chessId": "chess_char_2_19_a",
+            "charId": "char_274_astesi",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_astesi",
+            "skin": "char_274_astesi#2"
+          },
+          "chess_char_2_20_a": {
+            "chessId": "chess_char_2_20_a",
+            "charId": "char_4163_rosesa",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_rosesa",
+            "skin": "char_4163_rosesa#2"
+          },
+          "chess_char_2_21_a": {
+            "chessId": "chess_char_2_21_a",
+            "charId": "char_195_glassb",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_glassb",
+            "skin": "char_195_glassb#2"
+          },
+          "chess_char_2_22_a": {
+            "chessId": "chess_char_2_22_a",
+            "charId": "char_333_sidero",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_sidero",
+            "skin": "char_333_sidero#2"
+          },
+          "chess_char_2_23_a": {
+            "chessId": "chess_char_2_23_a",
+            "charId": "char_135_halo",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_halo",
+            "skin": "char_135_halo#2"
+          },
+          "chess_char_2_24_a": {
+            "chessId": "chess_char_2_24_a",
+            "charId": "char_218_cuttle",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_cuttle",
+            "skin": "char_218_cuttle#2"
+          },
+          "chess_char_3_01_a": {
+            "chessId": "chess_char_3_01_a",
+            "charId": "char_4047_pianst",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_pianst",
+            "skin": "char_4047_pianst#2"
+          },
+          "chess_char_3_02_a": {
+            "chessId": "chess_char_3_02_a",
+            "charId": "char_612_accast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_accast",
+            "skin": "char_612_accast#1",
+            "assistInfo": null
+          },
+          "chess_char_3_03_a": {
+            "chessId": "chess_char_3_03_a",
+            "charId": "char_4224_turdus",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_turdus",
+            "skin": "char_4224_turdus#2"
+          },
+          "chess_char_3_04_a": {
+            "chessId": "chess_char_3_04_a",
+            "charId": "char_4066_highmo",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_highmo",
+            "skin": "char_4066_highmo#2"
+          },
+          "chess_char_3_05_a": {
+            "chessId": "chess_char_3_05_a",
+            "charId": "char_4232_hbound",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_hbound",
+            "skin": "char_4232_hbound#2"
+          },
+          "chess_char_3_06_a": {
+            "chessId": "chess_char_3_06_a",
+            "type": 0,
+            "charId": "char_4222_taraxa",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 1,
+            "currentEquip": null,
+            "skin": "char_4222_taraxa#2"
+          },
+          "chess_char_3_07_a": {
+            "chessId": "chess_char_3_07_a",
+            "charId": "char_422_aurora",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_aurora",
+            "skin": "char_422_aurora#2"
+          },
+          "chess_char_3_08_a": {
+            "chessId": "chess_char_3_08_a",
+            "charId": "char_4013_kjera",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_kjera",
+            "skin": "char_4013_kjera#2"
+          },
+          "chess_char_3_09_a": {
+            "chessId": "chess_char_3_09_a",
+            "charId": "char_174_slbell",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_slbell",
+            "skin": "char_174_slbell#2"
+          },
+          "chess_char_3_10_a": {
+            "chessId": "chess_char_3_10_a",
+            "charId": "char_4137_udflow",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_udflow",
+            "skin": "char_4137_udflow#2"
+          },
+          "chess_char_3_11_a": {
+            "chessId": "chess_char_3_11_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_3_12_a": {
+            "chessId": "chess_char_3_12_a",
+            "charId": "char_602_cdfend",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_602_cdfend#1",
+            "assistInfo": null
+          },
+          "chess_char_3_13_a": {
+            "chessId": "chess_char_3_13_a",
+            "charId": "char_608_acpion",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acpion",
+            "skin": "char_608_acpion#1",
+            "assistInfo": null
+          },
+          "chess_char_3_14_a": {
+            "chessId": "chess_char_3_14_a",
+            "charId": "char_427_vigil",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_vigil",
+            "skin": "char_427_vigil#2"
+          },
+          "chess_char_3_15_a": {
+            "chessId": "chess_char_3_15_a",
+            "charId": "char_4177_brigid",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_brigid",
+            "skin": "char_4177_brigid#2"
+          },
+          "chess_char_3_16_a": {
+            "chessId": "chess_char_3_16_a",
+            "type": 0,
+            "charId": "char_332_archet",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_archet",
+            "skin": "char_332_archet#2"
+          },
+          "chess_char_3_17_a": {
+            "chessId": "chess_char_3_17_a",
+            "charId": "char_4203_kichi",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_kichi",
+            "skin": "char_4203_kichi#2"
+          },
+          "chess_char_3_18_a": {
+            "chessId": "chess_char_3_18_a",
+            "charId": "char_355_ethan",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_ethan",
+            "skin": "char_355_ethan#2"
+          },
+          "chess_char_3_19_a": {
+            "chessId": "chess_char_3_19_a",
+            "type": 0,
+            "charId": "char_484_robrta",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_robrta",
+            "skin": "char_484_robrta#2"
+          },
+          "chess_char_3_20_a": {
+            "chessId": "chess_char_3_20_a",
+            "charId": "char_455_nothin",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_nothin",
+            "skin": "char_455_nothin#2"
+          },
+          "chess_char_3_21_a": {
+            "chessId": "chess_char_3_21_a",
+            "charId": "char_1036_fang2",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_fang2",
+            "skin": "char_1036_fang2#2"
+          },
+          "chess_char_3_22_a": {
+            "chessId": "chess_char_3_22_a",
+            "charId": "char_4162_cathy",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_cathy",
+            "skin": "char_4162_cathy#2"
+          },
+          "chess_char_3_23_a": {
+            "chessId": "chess_char_3_23_a",
+            "charId": "char_616_pithst",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_pithst",
+            "skin": "char_616_pithst#2"
+          },
+          "chess_char_3_24_a": {
+            "chessId": "chess_char_3_24_a",
+            "charId": "char_4016_kazema",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_kazema",
+            "skin": "char_4016_kazema#2"
+          },
+          "chess_char_3_25_a": {
+            "chessId": "chess_char_3_25_a",
+            "charId": "char_4054_malist",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_malist",
+            "skin": "char_4054_malist#2"
+          },
+          "chess_char_3_26_a": {
+            "chessId": "chess_char_3_26_a",
+            "type": 0,
+            "charId": "char_4245_alga",
+            "potentialRank": 0,
+            "cultivateEffect": "aceffect_char_1",
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_alga",
+            "skin": "char_4245_alga#2"
+          },
+          "chess_char_3_27_a": {
+            "chessId": "chess_char_3_27_a",
+            "charId": "char_488_buildr",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_buildr",
+            "skin": "char_488_buildr#2"
+          },
+          "chess_char_4_01_a": {
+            "chessId": "chess_char_4_01_a",
+            "charId": "char_612_accast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_accast",
+            "skin": "char_612_accast#1",
+            "assistInfo": null
+          },
+          "chess_char_4_02_a": {
+            "chessId": "chess_char_4_02_a",
+            "charId": "char_604_ccast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_604_ccast#1",
+            "assistInfo": null
+          },
+          "chess_char_4_03_a": {
+            "chessId": "chess_char_4_03_a",
+            "charId": "char_601_cguard",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_601_cguard#1",
+            "assistInfo": null
+          },
+          "chess_char_4_04_a": {
+            "chessId": "chess_char_4_04_a",
+            "charId": "char_4226_veen",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_veen",
+            "skin": "char_4226_veen#2"
+          },
+          "chess_char_4_05_a": {
+            "chessId": "chess_char_4_05_a",
+            "charId": "char_615_acspec",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acspec",
+            "skin": "char_615_acspec#1",
+            "assistInfo": null
+          },
+          "chess_char_4_06_a": {
+            "chessId": "chess_char_4_06_a",
+            "charId": "char_4042_lumen",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_lumen",
+            "skin": "char_4042_lumen#2"
+          },
+          "chess_char_4_07_a": {
+            "chessId": "chess_char_4_07_a",
+            "charId": "char_610_acfend",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acfend",
+            "skin": "char_610_acfend#1",
+            "assistInfo": null
+          },
+          "chess_char_4_08_a": {
+            "chessId": "chess_char_4_08_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_4_09_a": {
+            "chessId": "chess_char_4_09_a",
+            "charId": "char_614_acsupo",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acsupo",
+            "skin": "char_614_acsupo#1",
+            "assistInfo": null
+          },
+          "chess_char_4_10_a": {
+            "chessId": "chess_char_4_10_a",
+            "charId": "char_615_acspec",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acspec",
+            "skin": "char_615_acspec#1",
+            "assistInfo": null
+          },
+          "chess_char_4_11_a": {
+            "chessId": "chess_char_4_11_a",
+            "charId": "char_615_acspec",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acspec",
+            "skin": "char_615_acspec#1",
+            "assistInfo": null
+          },
+          "chess_char_4_12_a": {
+            "chessId": "chess_char_4_12_a",
+            "charId": "char_611_acnipe",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acnipe",
+            "skin": "char_611_acnipe#1",
+            "assistInfo": null
+          },
+          "chess_char_4_13_a": {
+            "chessId": "chess_char_4_13_a",
+            "charId": "char_617_sharp2",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_sharp2",
+            "skin": "char_617_sharp2#1",
+            "assistInfo": null
+          },
+          "chess_char_4_14_a": {
+            "chessId": "chess_char_4_14_a",
+            "charId": "char_610_acfend",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acfend",
+            "skin": "char_610_acfend#1",
+            "assistInfo": null
+          },
+          "chess_char_4_15_a": {
+            "chessId": "chess_char_4_15_a",
+            "charId": "char_614_acsupo",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acsupo",
+            "skin": "char_614_acsupo#1",
+            "assistInfo": null
+          },
+          "chess_char_4_16_a": {
+            "chessId": "chess_char_4_16_a",
+            "charId": "char_610_acfend",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acfend",
+            "skin": "char_610_acfend#1",
+            "assistInfo": null
+          },
+          "chess_char_4_17_a": {
+            "chessId": "chess_char_4_17_a",
+            "charId": "char_611_acnipe",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acnipe",
+            "skin": "char_611_acnipe#1",
+            "assistInfo": null
+          },
+          "chess_char_4_18_a": {
+            "chessId": "chess_char_4_18_a",
+            "charId": "char_612_accast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_accast",
+            "skin": "char_612_accast#1",
+            "assistInfo": null
+          },
+          "chess_char_4_19_a": {
+            "chessId": "chess_char_4_19_a",
+            "charId": "char_601_cguard",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_601_cguard#1",
+            "assistInfo": null
+          },
+          "chess_char_4_20_a": {
+            "chessId": "chess_char_4_20_a",
+            "charId": "char_1031_slent2",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_slent2",
+            "skin": "char_1031_slent2#2"
+          },
+          "chess_char_4_21_a": {
+            "chessId": "chess_char_4_21_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_4_22_a": {
+            "chessId": "chess_char_4_22_a",
+            "charId": "char_613_acmedc",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acmedc",
+            "skin": "char_613_acmedc#1",
+            "assistInfo": null
+          },
+          "chess_char_4_23_a": {
+            "chessId": "chess_char_4_23_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_4_24_a": {
+            "chessId": "chess_char_4_24_a",
+            "charId": "char_612_accast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_accast",
+            "skin": "char_612_accast#1",
+            "assistInfo": null
+          },
+          "chess_char_4_25_a": {
+            "chessId": "chess_char_4_25_a",
+            "charId": "char_614_acsupo",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acsupo",
+            "skin": "char_614_acsupo#1",
+            "assistInfo": null
+          },
+          "chess_char_4_26_a": {
+            "chessId": "chess_char_4_26_a",
+            "charId": "char_171_bldsk",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_bldsk",
+            "skin": "char_171_bldsk#2"
+          },
+          "chess_char_4_27_a": {
+            "chessId": "chess_char_4_27_a",
+            "charId": "char_341_sntlla",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_sntlla",
+            "skin": "char_341_sntlla#2"
+          },
+          "chess_char_5_01_a": {
+            "chessId": "chess_char_5_01_a",
+            "charId": "char_613_acmedc",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acmedc",
+            "skin": "char_613_acmedc#1",
+            "assistInfo": null
+          },
+          "chess_char_5_02_a": {
+            "chessId": "chess_char_5_02_a",
+            "charId": "char_617_sharp2",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_sharp2",
+            "skin": "char_617_sharp2#1",
+            "assistInfo": null
+          },
+          "chess_char_5_03_a": {
+            "chessId": "chess_char_5_03_a",
+            "charId": "char_601_cguard",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_601_cguard#1",
+            "assistInfo": null
+          },
+          "chess_char_5_04_a": {
+            "chessId": "chess_char_5_04_a",
+            "charId": "char_617_sharp2",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_sharp2",
+            "skin": "char_617_sharp2#1",
+            "assistInfo": null
+          },
+          "chess_char_5_05_a": {
+            "chessId": "chess_char_5_05_a",
+            "charId": "char_610_acfend",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acfend",
+            "skin": "char_610_acfend#1",
+            "assistInfo": null
+          },
+          "chess_char_5_06_a": {
+            "chessId": "chess_char_5_06_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_5_07_a": {
+            "chessId": "chess_char_5_07_a",
+            "charId": "char_612_accast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_accast",
+            "skin": "char_612_accast#1",
+            "assistInfo": null
+          },
+          "chess_char_5_08_a": {
+            "chessId": "chess_char_5_08_a",
+            "charId": "char_608_acpion",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acpion",
+            "skin": "char_608_acpion#1",
+            "assistInfo": null
+          },
+          "chess_char_5_09_a": {
+            "chessId": "chess_char_5_09_a",
+            "charId": "char_474_glady",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_glady",
+            "skin": "char_474_glady#2"
+          },
+          "chess_char_5_10_a": {
+            "chessId": "chess_char_5_10_a",
+            "charId": "char_601_cguard",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_601_cguard#1",
+            "assistInfo": null
+          },
+          "chess_char_5_11_a": {
+            "chessId": "chess_char_5_11_a",
+            "charId": "char_608_acpion",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acpion",
+            "skin": "char_608_acpion#1",
+            "assistInfo": null
+          },
+          "chess_char_5_12_a": {
+            "chessId": "chess_char_5_12_a",
+            "charId": "char_614_acsupo",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acsupo",
+            "skin": "char_614_acsupo#1",
+            "assistInfo": null
+          },
+          "chess_char_5_13_a": {
+            "chessId": "chess_char_5_13_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_5_14_a": {
+            "chessId": "chess_char_5_14_a",
+            "charId": "char_617_sharp2",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_sharp2",
+            "skin": "char_617_sharp2#1",
+            "assistInfo": null
+          },
+          "chess_char_5_15_a": {
+            "chessId": "chess_char_5_15_a",
+            "charId": "char_611_acnipe",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acnipe",
+            "skin": "char_611_acnipe#1",
+            "assistInfo": null
+          },
+          "chess_char_5_16_a": {
+            "chessId": "chess_char_5_16_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_5_17_a": {
+            "chessId": "chess_char_5_17_a",
+            "charId": "char_610_acfend",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acfend",
+            "skin": "char_610_acfend#1",
+            "assistInfo": null
+          },
+          "chess_char_5_18_a": {
+            "chessId": "chess_char_5_18_a",
+            "charId": "char_1047_halo2",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_halo2",
+            "skin": "char_1047_halo2#2"
+          },
+          "chess_char_5_19_a": {
+            "chessId": "chess_char_5_19_a",
+            "charId": "char_615_acspec",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acspec",
+            "skin": "char_615_acspec#1",
+            "assistInfo": null
+          },
+          "chess_char_5_20_a": {
+            "chessId": "chess_char_5_20_a",
+            "charId": "char_613_acmedc",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acmedc",
+            "skin": "char_613_acmedc#1",
+            "assistInfo": null
+          },
+          "chess_char_5_21_a": {
+            "chessId": "chess_char_5_21_a",
+            "charId": "char_608_acpion",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acpion",
+            "skin": "char_608_acpion#1",
+            "assistInfo": null
+          },
+          "chess_char_5_22_a": {
+            "chessId": "chess_char_5_22_a",
+            "charId": "char_618_acrbot",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_acrbot",
+            "skin": "char_618_acrbot#2"
+          },
+          "chess_char_5_23_a": {
+            "chessId": "chess_char_5_23_a",
+            "charId": "char_611_acnipe",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acnipe",
+            "skin": "char_611_acnipe#1",
+            "assistInfo": null
+          },
+          "chess_char_5_24_a": {
+            "chessId": "chess_char_5_24_a",
+            "charId": "char_600_cpione",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_600_cpione#1",
+            "assistInfo": null
+          },
+          "chess_char_5_25_a": {
+            "chessId": "chess_char_5_25_a",
+            "charId": "char_611_acnipe",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acnipe",
+            "skin": "char_611_acnipe#1",
+            "assistInfo": null
+          },
+          "chess_char_5_26_a": {
+            "chessId": "chess_char_5_26_a",
+            "type": 0,
+            "charId": "char_002_amiya",
+            "potentialRank": 2,
+            "cultivateEffect": "aceffect_char_4",
+            "skillIndex": 1,
+            "currentEquip": "uniequip_002_amiya3",
+            "skin": "char_1037_amiya3#2",
+            "tmplId": "char_1037_amiya3"
+          },
+          "chess_char_6_01_a": {
+            "chessId": "chess_char_6_01_a",
+            "charId": "char_615_acspec",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acspec",
+            "skin": "char_615_acspec#1",
+            "assistInfo": null
+          },
+          "chess_char_6_02_a": {
+            "chessId": "chess_char_6_02_a",
+            "charId": "char_604_ccast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_604_ccast#1",
+            "assistInfo": null
+          },
+          "chess_char_6_03_a": {
+            "chessId": "chess_char_6_03_a",
+            "charId": "char_614_acsupo",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acsupo",
+            "skin": "char_614_acsupo#1",
+            "assistInfo": null
+          },
+          "chess_char_6_04_a": {
+            "chessId": "chess_char_6_04_a",
+            "charId": "char_617_sharp2",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 0,
+            "currentEquip": "uniequip_002_sharp2",
+            "skin": "char_617_sharp2#1",
+            "assistInfo": null
+          },
+          "chess_char_6_05_a": {
+            "chessId": "chess_char_6_05_a",
+            "charId": "char_601_cguard",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_601_cguard#1",
+            "assistInfo": null
+          },
+          "chess_char_6_06_a": {
+            "chessId": "chess_char_6_06_a",
+            "charId": "char_612_accast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_accast",
+            "skin": "char_612_accast#1",
+            "assistInfo": null
+          },
+          "chess_char_6_07_a": {
+            "chessId": "chess_char_6_07_a",
+            "charId": "char_614_acsupo",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acsupo",
+            "skin": "char_614_acsupo#1",
+            "assistInfo": null
+          },
+          "chess_char_6_08_a": {
+            "chessId": "chess_char_6_08_a",
+            "charId": "char_612_accast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_accast",
+            "skin": "char_612_accast#1",
+            "assistInfo": null
+          },
+          "chess_char_6_09_a": {
+            "chessId": "chess_char_6_09_a",
+            "charId": "char_604_ccast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_604_ccast#1",
+            "assistInfo": null
+          },
+          "chess_char_6_10_a": {
+            "chessId": "chess_char_6_10_a",
+            "charId": "char_604_ccast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": null,
+            "skin": "char_604_ccast#1",
+            "assistInfo": null
+          },
+          "chess_char_6_11_a": {
+            "chessId": "chess_char_6_11_a",
+            "charId": "char_614_acsupo",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acsupo",
+            "skin": "char_614_acsupo#1",
+            "assistInfo": null
+          },
+          "chess_char_6_12_a": {
+            "chessId": "chess_char_6_12_a",
+            "charId": "char_4134_cetsyr",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_cetsyr",
+            "skin": "char_4134_cetsyr#2"
+          },
+          "chess_char_6_13_a": {
+            "chessId": "chess_char_6_13_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_6_14_a": {
+            "chessId": "chess_char_6_14_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_6_15_a": {
+            "chessId": "chess_char_6_15_a",
+            "charId": "char_4230_mcnist",
+            "type": 4,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_mcnist",
+            "skin": "char_4230_mcnist#2"
+          },
+          "chess_char_6_16_a": {
+            "chessId": "chess_char_6_16_a",
+            "charId": "char_609_acguad",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acguad",
+            "skin": "char_609_acguad#1",
+            "assistInfo": null
+          },
+          "chess_char_6_17_a": {
+            "chessId": "chess_char_6_17_a",
+            "charId": "char_612_accast",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_accast",
+            "skin": "char_612_accast#1",
+            "assistInfo": null
+          },
+          "chess_char_6_18_a": {
+            "chessId": "chess_char_6_18_a",
+            "charId": "char_611_acnipe",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acnipe",
+            "skin": "char_611_acnipe#1",
+            "assistInfo": null
+          },
+          "chess_char_6_19_a": {
+            "chessId": "chess_char_6_19_a",
+            "charId": "char_608_acpion",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acpion",
+            "skin": "char_608_acpion#1",
+            "assistInfo": null
+          },
+          "chess_char_6_20_a": {
+            "chessId": "chess_char_6_20_a",
+            "charId": "char_610_acfend",
+            "type": 1,
+            "potentialRank": 0,
+            "cultivateEffect": null,
+            "skillIndex": 2,
+            "currentEquip": "uniequip_002_acfend",
+            "skin": "char_610_acfend#1",
+            "assistInfo": null
+          }
+        },
+        "mode": {
+          "mode_training_2": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_multi_funny": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_multi_normal": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_multi_hard": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_multi_abyss": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_funny": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_1": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_2": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_3": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_4": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_5": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_6": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_7": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_8": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_9": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_10": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_11": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_12": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_13": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_14": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_15": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_16": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_17": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_18": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_19": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          },
+          "mode_single_20": {
+            "open": true,
+            "unlock": false,
+            "completeCnt": 0
+          }
+        },
+        "band": {
+          "band_amiya": {
+            "bandId": "band_amiya",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_sarkazb": {
+            "bandId": "band_sarkazb",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_emperor": {
+            "bandId": "band_emperor",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_qalaisa": {
+            "bandId": "band_qalaisa",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_ioleta": {
+            "bandId": "band_ioleta",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_survive": {
+            "bandId": "band_survive",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_price": {
+            "bandId": "band_price",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_transfer": {
+            "bandId": "band_transfer",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_dance": {
+            "bandId": "band_dance",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_copy": {
+            "bandId": "band_copy",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_jenga": {
+            "bandId": "band_jenga",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_evolve": {
+            "bandId": "band_evolve",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_jesica": {
+            "bandId": "band_jesica",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_takecare": {
+            "bandId": "band_takecare",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_shield": {
+            "bandId": "band_shield",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_smith": {
+            "bandId": "band_smith",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_weakness": {
+            "bandId": "band_weakness",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_lmlee": {
+            "bandId": "band_lmlee",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_fang": {
+            "bandId": "band_fang",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_amedic": {
+            "bandId": "band_amedic",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_mech": {
+            "bandId": "band_mech",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_treasure": {
+            "bandId": "band_treasure",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_upgrade": {
+            "bandId": "band_upgrade",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_breakaway": {
+            "bandId": "band_breakaway",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_damaztic": {
+            "bandId": "band_damaztic",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_fund": {
+            "bandId": "band_fund",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_gain": {
+            "bandId": "band_gain",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_prepfin": {
+            "bandId": "band_prepfin",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_mess": {
+            "bandId": "band_mess",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_protect": {
+            "bandId": "band_protect",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_random": {
+            "bandId": "band_random",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_cannot": {
+            "bandId": "band_cannot",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_ducklord": {
+            "bandId": "band_ducklord",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_rich": {
+            "bandId": "band_rich",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_substitute": {
+            "bandId": "band_substitute",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_sell": {
+            "bandId": "band_sell",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_support": {
+            "bandId": "band_support",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_high": {
+            "bandId": "band_high",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_equipment": {
+            "bandId": "band_equipment",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_pudd": {
+            "bandId": "band_pudd",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_closeout": {
+            "bandId": "band_closeout",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_pith": {
+            "bandId": "band_pith",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_limit": {
+            "bandId": "band_limit",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_bonus": {
+            "bandId": "band_bonus",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_yan2": {
+            "bandId": "band_yan2",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_yan": {
+            "bandId": "band_yan",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_sargon": {
+            "bandId": "band_sargon",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_pepe": {
+            "bandId": "band_pepe",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_victoria": {
+            "bandId": "band_victoria",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_harold": {
+            "bandId": "band_harold",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_egir": {
+            "bandId": "band_egir",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_clementia": {
+            "bandId": "band_clementia",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_kazimier": {
+            "bandId": "band_kazimier",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_mlynar": {
+            "bandId": "band_mlynar",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_kjerag2": {
+            "bandId": "band_kjerag2",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_kjerag": {
+            "bandId": "band_kjerag",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_siracusa": {
+            "bandId": "band_siracusa",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_bond": {
+            "bandId": "band_bond",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_lethania": {
+            "bandId": "band_lethania",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_ursus": {
+            "bandId": "band_ursus",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          },
+          "band_iberia": {
+            "bandId": "band_iberia",
+            "forceOpen": false,
+            "progress": {
+              "value": 0,
+              "target": 0
+            },
+            "passCnt": 0
+          }
+        },
+        "protectTs": -1,
+        "trophyNum": 0,
+        "scene": {
+          "lastMate": []
+        },
+        "farmCoin": 0,
+        "soldOut": false,
+        "missionPoint": {
+          "point": 0,
+          "recv": []
+        }
+      }
+    },
+    "skinSelect": "ac_n_initial",
+    "skins": {
+      "ac_n_initial": {
+        "unlockTs": 0,
+        "voiceLan": "NONE"
+      }
+    },
     "globalBan": false,
-    "latestVersion": ""
+    "latestVersion": "V3_1"
   },
   "event": {
     "building": 1791619200
@@ -65771,5 +68011,35 @@
       "charm_coin_4": 1
     },
     "squad": []
+  },
+  "carousel": {
+    "furnitureShop": {
+      "goods": {},
+      "groups": {}
+    }
+  },
+  "templateTrap": {
+    "domains": {
+      "template_trap_55side": {
+        "traps": {
+          "trap_arknews_1": {
+            "count": 1
+          },
+          "trap_arknews_2": {
+            "count": 1
+          },
+          "trap_arknews_3": {
+            "count": 1
+          },
+          "trap_arknews_4": {
+            "count": 1
+          },
+          "trap_arknews_5": {
+            "count": 1
+          }
+        },
+        "squad": []
+      }
+    }
   }
 }

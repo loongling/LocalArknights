@@ -300,6 +300,7 @@ public class account {
         }
         UserSyncData.getJSONObject("status").put("lastOnlineTs", ts);
         UserSyncData.getJSONObject("status").put("lastRefreshTs", ts);
+        UserSyncData.getJSONObject("pushFlags").put("status", ts);
 
             JSONArray missionBecame = com.hypergryph.arknights.core.function.MissionHelper
                     .refreshActiveMissions(UserSyncData);

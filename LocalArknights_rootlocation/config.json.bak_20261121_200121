@@ -1,0 +1,176 @@
+{
+  "server": {
+    "url": "http://127.0.0.1:10029",
+    "ip": "127.0.0.1",
+    "http": 10029,
+    "https": 36650,
+    "captcha": false,
+    "enableServer": true,
+    "closeMessage": "服务器目前暂未开放",
+    "GMKey": "JG!@~%/M!Db#!%!!b$!80R$Ak/~/#0~1075nQA863iSZ3kH1%T#7#NR472~@/!14",
+    "autochess": {
+      "room": 6001,
+      "multiServer": 6101
+    }
+  },
+  "timer": {
+    "set_server_time": "-1"
+  },
+  "pay": {
+    "cashDoubleCount": false,
+    "time": 3
+  },
+  "database": {
+    "host": "10.60.116.201",
+    "port": 3306,
+    "dbname": "arknights",
+    "user": "ark",
+    "password": "Passwd",
+    "extra": "useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
+  },
+  "yostar": {
+    "mailer": {
+      "enable": false,
+      "account": "example@qq.com",
+      "password": "",
+      "smtp": "smtp.qq.com",
+      "smtp_port": 465
+    }
+  },
+  "battle": {
+    "dropRate": 1,
+    "debug": true
+  },
+  "campaign": {
+    "permanent": [
+      "camp_01",
+      "camp_02",
+      "camp_03"
+    ],
+    "rotate": "camp_r_34",
+    "rGroup": "group_r_34",
+    "tGroup": "group_tr_75",
+    "tAllOpen": "group_tr_all_12"
+  },
+  "basement": {
+    "produceSpeed": 1000
+  },
+  "building": {
+    "tradingOrderBaseSeconds": 3600
+  },
+  "rogue": {
+    "choiceChanceSuccess": 0.5,
+    "ignoreShopBossKill": false,
+    "enableAllChar": false,
+    "freeVehicle": true,
+    "grantVehicle": {
+      "rogue_6": "rogue_6_scrap_M_08"
+    }
+  },
+  "version": {
+    "Android": {
+      "resVersion": "26-11-13-06-37-23-89286612",
+      "clientVersion": "2.7.91"
+    },
+    "ios": {
+      "resVersion": "26-11-13-06-27-20-18086890",
+      "clientVersion": "2.7.91"
+    },
+    "Windows": {
+      "resVersion": "26-11-13-06-34-18-84612175",
+      "clientVersion": "2.7.91"
+    },
+    "global_Android": {
+      "resVersion": "26-10-26-10-03-17_824ce7",
+      "clientVersion": "37.7.41"
+    },
+    "global_Windows": {
+      "resVersion": "26-10-26-09-27-51_eeb02e",
+      "clientVersion": "37.7.41"
+    },
+    "global_IOS": {
+      "resVersion": "26-10-26-11-11-29_227960",
+      "clientVersion": "37.7.41"
+    }
+  },
+  "assets": {
+    "enableRedirect": true,
+    "cdnBase": "https://ak.hycdn.cn/assetbundle/official",
+    "redirectUrl": {
+      "Android": "https://ak.hycdn.cn/assetbundle/official/Android/assets/26-11-13-06-37-23-89286612",
+      "Windows": "https://ak.hycdn.cn/assetbundle/official/Windows/assets/26-11-13-06-34-18-84612175",
+      "ios": "https://ak.hycdn.cn/assetbundle/official/IOS/assets/26-11-13-06-27-20-18086890",
+      "global_And": "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/26-10-26-10-03-17_824ce7",
+      "global_Win": "",
+      "global_IOS": ""
+    },
+    "localFiles": []
+  },
+  "remote": {
+    "fapv2": 1,
+    "HGDownload_1": 10000,
+    "HGDownload_2": 10000,
+    "bakeMuzzleEnableRate": 10000,
+    "enemyBakeMuzzleEnableRate": 10000,
+    "SixStarBakeMuzzleEnableRate": 10000,
+    "enableGameBI": true,
+    "showRecordNumber": false,
+    "enableNativeLicense": false
+  },
+  "global_remote": {
+    "fapv2": 1
+  },
+  "YoStar_common": {},
+  "clientFuncVer": "79.0.0",
+  "file_path": "https://ak.hycdn.cn/GzD1CpaWgmSq1wew/77.0/update/1/1/Windows/77.0.0_o2Ri5AN2Z7XXjdtF/files",
+  "global_net": {
+    "sign": "Rq9cFaYoHvWwdbr6ROQfLu70+F+2BF3+vEmnDLdPmacTFHXTyNC0SEeaHfl9W1/D86iJrxLRhs9puNaoK2ArOu6xNyeNf8IL45KxCjhseuGKDNwG65HdOYpGKIRvi8EitL9S3AoRtlsSeEV44D2Q7Y8c5gcfdMXkFXxBkYEa5wk=",
+    "configVer": "1",
+    "funcVer": "V074",
+    "configs": {
+      "V074": {
+        "override": true,
+        "network": {
+          "gs": "https://gs.arknights.global:8443",
+          "as": "https://as.arknights.global",
+          "u8": "https://as.arknights.global/u8",
+          "hu": "https://ark-us-static-online.yo-star.com/assetbundle/official",
+          "hv": "https://ark-us-static-online.yo-star.com/assetbundle/official/{0}/version",
+          "rc": "https://ak-conf.arknights.global/config/prod/official/remote_config",
+          "an": "https://ark-us-static-online.yo-star.com/announce/{0}/announcement.meta.json",
+          "prean": "https://ak-webview.arknights.global",
+          "sl": "https://www.arknights.global/terms_of_service",
+          "of": "https://www.arknights.global",
+          "pkgAd": "https://play.google.com/store/apps/details?id=com.YoStarEN.Arknights",
+          "pkgIOS": "https://apps.apple.com/us/app/id1464872022?mt=8",
+          "secure": false
+        }
+      }
+    }
+  },
+  "network": {
+    "configVer": "5",
+    "funcVer": "V079",
+    "configs": {
+      "V079": {
+        "override": true,
+        "network": {
+          "devsdk": false,
+          "gs": "http://127.0.0.1:10029",
+          "as": "http://127.0.0.1:10029",
+          "u8": "http://127.0.0.1:10029/u8",
+          "hu": "http://127.0.0.1:10029/assetbundle/official",
+          "hv": "http://127.0.0.1:10029/config/prod/official/{0}/version",
+          "rc": "http://127.0.0.1:10029/config/prod/official/remote_config",
+          "an": "http://127.0.0.1:10029/config/prod/announce_meta/{0}/announcement.meta.json",
+          "prean": "https://ak-webview.hypergryph.com",
+          "sl": "https://ak.hypergryph.com/protocol/service",
+          "of": "https://ak.hypergryph.com/index.html",
+          "pkgAd": "https://ak.hypergryph.com/download",
+          "pkgIOS": "https://apps.apple.com/cn/app/id1454663939",
+          "secure": false
+        }
+      }
+    }
+  }
+}
